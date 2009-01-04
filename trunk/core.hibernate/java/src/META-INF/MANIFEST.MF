@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-Name: Genesis Hibernate
+Created-By: 1.4.2_09 (Apple Computer, Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Vendor: Nopalsoft
+Bundle-SymbolicName: org.forzaframework.core.hibernate
+Bundle-Version: 1.0.0
+Export-Package: org.forzaframework.core.persistance.hibernate
+Import-Package: org.forzaframework.core.persistance,
+ org.springframework.orm,
+ org.springframework.orm.hibernate3.support,
+ org.apache.commons.logging,
+ org.springframework.context.support,
+ org.hibernate,org.hibernate.criterion,
+ org.springframework.jdbc.core,
+ org.springframework.jdbc.core.simple,
+ javax.sql,
+ org.springframework.orm.hibernate3
+Import-Bundle: org.forzaframework.core;version="[1.0.0,1.0.0]",
+ com.springsource.org.apache.commons.logging;version="[1.1.1,1.1.1]"
+Import-Library: org.springframework.spring;version="[2.5.5.A,2.5.5.A]",
+ org.hibernate.ejb;version="[3.3.2.GA, 3.3.2.GA]"
+
