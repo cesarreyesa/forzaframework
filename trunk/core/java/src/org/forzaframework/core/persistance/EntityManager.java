@@ -59,19 +59,24 @@ public interface EntityManager {
 
     <T> T get(String entityName, Object primaryKey);
 
-//    <T> T get(Class entityClass, String hql);
-//
-//    <T> T get(Class entityClass, String hql, Object param);
-//
-//    <T> T get(Class entityClass, String hql, Object[] params);
+    /**
+     * Obtiene una entidad de tipo entityClass, y de acuerdo al criteria pasado.
+     * @param entityClass
+     * @param criteria
+     * @param <T>
+     * @return
+     */
+    <T> T get(Class entityClass, Criteria criteria);
 
-//    <T> T retrieve(Class clazz, Object primaryKey, Boolean requireNewSession);
+    <T> T get(Class entityClass, Object primaryKey, Boolean requireNewSession);
 
-//    T retrieveByCode(Class clazz, final String code);
-//
-//    T retrieveByCode(String clazz, String code);
+    <T> T get(Class entityClass, String hql, Object param);
 
-//    T retriveByCode(Class clazz, String externalSystem, String code);
+    <T> T get(Class entityClass, String hql, Object[] params);
+
+    <T> T getByCode(Class entityClass, String code);
+
+    <T> T getByCode(Class clazz, String externalSystem, String code);
 
     /**
      * Generic method to save an object.
@@ -88,18 +93,6 @@ public interface EntityManager {
     void delete(Object entity);
 
     void delete(String entityName, Object primaryKey);
-
-    <T> T get(Class entityClass, Criteria criteria);
-
-    <T> T get(Class entityClass, Object primaryKey, Boolean requireNewSession);
-
-    <T> T get(Class entityClass, String hql, Object param);
-
-    <T> T get(Class entityClass, String hql, Object[] params);
-
-    <T> T getByCode(Class entityClass, String code);
-
-    <T> T getByCode(Class clazz, String externalSystem, String code);
 
     void delete(Class entityClass, Object primaryKey);
 
