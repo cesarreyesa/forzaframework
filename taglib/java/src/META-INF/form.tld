@@ -5,8 +5,8 @@
 
     <tlib-version>1.0</tlib-version>
     <jsp-version>1.2</jsp-version>
-    <short-name>genesis</short-name>
-    <uri>http://genesis.net/tags/form-tags</uri>
+    <short-name>forzaframework</short-name>
+    <uri>http://forzaframework.org/tags/form-tags</uri>
 
     <description><![CDATA[Custom tag library for this application]]></description>
 
