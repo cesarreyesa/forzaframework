@@ -1,0 +1,109 @@
+<project name="Build" basedir="." default="help">
+	
+	<property name="webapp.name" value="mercury"/>
+    
+    <property name="core.src.dir" value="core"/>
+    <property name="corehibernate.src.dir" value="core.hibernate"/>
+    <property name="coreweb.src.dir" value="core.web"/>
+    <property name="security.src.dir" value="security"/>
+    <property name="taglib.src.dir" value="taglib"/>
+    <property name="test.src" value="src/test/java"/>
+    <property name="build.dir" value="out/production"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="test.dir" value="${build.dir}/test"/>
+
+    <target name="help">
+        <echo message=""/>
+        <echo message="${webapp.name} build file"/>
+        <echo message="-----------------------------------"/>
+        <echo message=""/>
+        <echo message="Available targets are:"/>
+        <echo message=""/>
+        <echo message="compile      --> Compile all Java files"/>
+        <echo message="test         --> Runs JUnit tests"/>
+    </target>
+
+    <target name="compile" description="Compile main source tree java files">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.dir}/${core.src.dir}"/>
+        <mkdir dir="${build.dir}/${corehibernate.src.dir}"/>
+        <mkdir dir="${build.dir}/${coreweb.src.dir}"/>
+        <mkdir dir="${build.dir}/${security.src.dir}"/>
+        <mkdir dir="${build.dir}/${taglib.src.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+
+        <javac destdir="${build.dir}/${core.src.dir}" debug="true" optimize="false"
+            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            <src path="${core.src.dir}"/>
+            <classpath>
+                <fileset dir="lib" includes="*.jar"/>
+            </classpath>
+        </javac>
+        <copy todir="${build.dir}/${core.src.dir}">
+            <fileset dir="${core.src.dir}" includes="**/*.xml"/>
+        </copy>
+        <jar destfile="${dist.dir}/org.forzaframework.core.jar" basedir="${build.dir}/${core.src.dir}"/>
+
+        <javac destdir="${build.dir}/${corehibernate.src.dir}" debug="true" optimize="false"
+            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            <src path="${corehibernate.src.dir}"/>
+            <classpath>
+                <fileset dir="lib" includes="*.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+            </classpath>
+        </javac>
+        <copy todir="${build.dir}/${corehibernate.src.dir}">
+            <fileset dir="${corehibernate.src.dir}" includes="**/*.xml"/>
+            <fileset dir="${corehibernate.src.dir}" includes="**/*.properties"/>
+        </copy>
+        <jar destfile="${dist.dir}/org.forzaframework.core.hibernate.jar" basedir="${build.dir}/${corehibernate.src.dir}"/>
+
+        <javac destdir="${build.dir}/${security.src.dir}" debug="true" optimize="false"
+            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            <src path="${security.src.dir}"/>
+            <classpath>
+                <fileset dir="lib" includes="*.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
+            </classpath>
+        </javac>
+        <copy todir="${build.dir}/${security.src.dir}">
+            <fileset dir="${security.src.dir}" includes="**/*.xml"/>
+            <fileset dir="${security.src.dir}" includes="**/*.properties"/>
+        </copy>
+        <jar destfile="${dist.dir}/org.forzaframework.security.jar" basedir="${build.dir}/${security.src.dir}"/>
+
+        <javac destdir="${build.dir}/${coreweb.src.dir}" debug="true" optimize="false"
+            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            <src path="${coreweb.src.dir}"/>
+            <classpath>
+                <fileset dir="lib" includes="*.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.security.jar"/>				
+            </classpath>
+        </javac>
+        <copy todir="${build.dir}/${coreweb.src.dir}">
+            <fileset dir="${coreweb.src.dir}" includes="**/*.xml"/>
+            <fileset dir="${coreweb.src.dir}" includes="**/*.properties"/>
+        </copy>
+        <jar destfile="${dist.dir}/org.forzaframework.core.web.jar" basedir="${build.dir}/${coreweb.src.dir}"/>
+
+        <javac destdir="${build.dir}/${taglib.src.dir}" debug="true" optimize="false"
+            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            <src path="${taglib.src.dir}"/>
+            <classpath>
+                <fileset dir="lib" includes="*.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
+				<pathelement path="${dist.dir}/org.forzaframework.security.jar"/>				
+            </classpath>
+        </javac>
+        <copy todir="${build.dir}/${taglib.src.dir}">
+            <fileset dir="${taglib.src.dir}" includes="**/*.xml"/>
+            <fileset dir="${taglib.src.dir}" includes="**/*.properties"/>
+        </copy>
+        <jar destfile="${dist.dir}/org.forzaframework.taglib.jar" basedir="${build.dir}/${taglib.src.dir}"/>
+    </target>
+
+</project>
