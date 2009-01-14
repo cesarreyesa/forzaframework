@@ -99,11 +99,16 @@
 				<pathelement path="${dist.dir}/org.forzaframework.security.jar"/>				
             </classpath>
         </javac>
-        <copy todir="${build.dir}/${taglib.src.dir}">
+        <copy todir="${build.dir}/${taglib.src.dir}/META-INF" flatten="true">
             <fileset dir="${taglib.src.dir}" includes="**/*.xml"/>
             <fileset dir="${taglib.src.dir}" includes="**/*.properties"/>
+            <fileset dir="${taglib.src.dir}" includes="**/*.tld"/>
         </copy>
         <jar destfile="${dist.dir}/org.forzaframework.taglib.jar" basedir="${build.dir}/${taglib.src.dir}"/>
     </target>
 
+	<target name="dist">
+		<zip destfile="../forzaframework.zip" basedir="." excludes="lib/**"/>
+		<zip destfile="../forzaframework-with-dependencies.zip" basedir="."/>
+	</target>
 </project>
