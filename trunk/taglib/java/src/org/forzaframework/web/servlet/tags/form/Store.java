@@ -14,6 +14,7 @@ import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.util.Assert;
 import org.forzaframework.web.servlet.tags.form.Field;
 
+@SuppressWarnings({"unchecked"})
 public class Store {
 	
 	private String reader;
@@ -240,13 +241,18 @@ public class Store {
                     Collection optionCollection = (Collection) items;
                     for (Object item : optionCollection) {
                         Assert.notNull(item, "Algun objeto en la coleccion es nulo.");
-
-                        BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(item);
-
                         JSONObject jsonObject = new JSONObject();
 
-                        for(Field field : fields){
-                            jsonObject.put(field.getField(), wrapper.getPropertyValue(field.getField()));
+                        if(item instanceof Map){ // si es un map
+                            Map<String, ?> map = (Map<String, ?>) item;
+                            for (String key : map.keySet()) {
+                                jsonObject.put(key, map.get(key));
+                            }
+                        }else{
+                            BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(item);
+                            for(Field field : fields){
+                                jsonObject.put(field.getField(), wrapper.getPropertyValue(field.getField()));
+                            }
                         }
 
                         data.add(jsonObject);

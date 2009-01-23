@@ -7,7 +7,7 @@
         <attribute name="URI" value="/" />
       </containerElement>
     </containerInfo>
-    <setting name="jarUrl" value="file://$MODULE_DIR$/../out/dist/org.forzaframework.web.jar" />
+    <setting name="jarUrl" value="file://$MODULE_DIR$/../dist/org.forzaframework.web.jar" />
     <setting name="buildJar" value="true" />
     <setting name="mainClass" value="" />
   </component>
