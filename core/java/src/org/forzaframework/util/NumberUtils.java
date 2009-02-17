@@ -188,9 +188,9 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils{
 
         //Revisamos si tenemos mas de un decimal
         if (decimalToString.length() > 1) {
-            return converterNumberToWords(amount.intValue()) + " " + currencyName + " " + decimalToString +"/100 M. N.";
+            return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"/100 M. N.";
         } else {
-            return converterNumberToWords(amount.intValue()) + " " + currencyName + " " + decimalToString +"0/100 M. N.";
+            return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"0/100 M. N.";
         }
     }
 }
