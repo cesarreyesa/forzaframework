@@ -11,6 +11,7 @@
     <property name="build.dir" value="out/production"/>
     <property name="dist.dir" value="dist"/>
     <property name="test.dir" value="${build.dir}/test"/>
+    <property name="build.java.version" value="1.5"/>
 
     <target name="help">
         <echo message=""/>
@@ -33,7 +34,7 @@
         <mkdir dir="${dist.dir}"/>
 
         <javac destdir="${build.dir}/${core.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${core.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
@@ -45,7 +46,7 @@
         <jar destfile="${dist.dir}/org.forzaframework.core.jar" basedir="${build.dir}/${core.src.dir}"/>
 
         <javac destdir="${build.dir}/${corehibernate.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${corehibernate.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
@@ -59,7 +60,7 @@
         <jar destfile="${dist.dir}/org.forzaframework.core.hibernate.jar" basedir="${build.dir}/${corehibernate.src.dir}"/>
 
         <javac destdir="${build.dir}/${security.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${security.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
@@ -74,7 +75,7 @@
         <jar destfile="${dist.dir}/org.forzaframework.security.jar" basedir="${build.dir}/${security.src.dir}"/>
 
         <javac destdir="${build.dir}/${coreweb.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${coreweb.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
@@ -90,7 +91,7 @@
         <jar destfile="${dist.dir}/org.forzaframework.core.web.jar" basedir="${build.dir}/${coreweb.src.dir}"/>
 
         <javac destdir="${build.dir}/${taglib.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${taglib.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
