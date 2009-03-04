@@ -20,6 +20,7 @@ import org.forzaframework.security.User;
 import org.forzaframework.security.Role;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author cesarreyes
@@ -68,4 +69,5 @@ public interface UserManager {
 
     public void removeRole(String rolename);
 
+    void newUser(User user, Map model);
 }
