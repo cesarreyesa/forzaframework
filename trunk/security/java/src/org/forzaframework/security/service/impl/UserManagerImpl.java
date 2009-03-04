@@ -34,6 +34,8 @@ import org.forzaframework.core.persistance.Restrictions;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * @author cesarreyes
@@ -79,6 +81,10 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
     }
 
     public void newUser(User user) {
+        newUser(user, null);
+    }
+
+    public void newUser(User user, Map model) {
         String password = user.getPassword();
         user.setPassword(org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
         entityManager.save(user);
@@ -86,9 +92,10 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         if(mailMessage != null && mailEngine != null){
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Nuevo Usuario");
-            ModelMap model = new ModelMap("user", user);
-            model.addAttribute("password", password);
-            mailEngine.sendMessage(mailMessage, "newUser.vm", model, true);
+            if(model == null) model = new HashMap();
+            model.put("user", user);
+            model.put("password", password);
+            mailEngine.sendMessage(mailMessage, "newUser.vm", model, false);
         }
     }
 

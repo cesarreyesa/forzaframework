@@ -42,7 +42,7 @@ public class TextView extends ModelAndView {
     private static AbstractView createView(final String text) {
         return new AbstractView() {
             protected void renderMergedOutputModel(Map model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-                response.setContentType("text");
+                response.setContentType("text;charset=utf-8");
                 response.getWriter().write(text);
             }
         };
