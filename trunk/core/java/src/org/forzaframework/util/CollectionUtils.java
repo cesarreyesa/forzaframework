@@ -109,22 +109,32 @@ public class CollectionUtils {
      * Compara la propiedad especificada en "bean" de cada elemento de la lista con el valor "valueSearched" y devuele
      * una lista de los elmentos iguales a "valueSearched"
      * Regresa un list de objects en donde la propiedad "bean" es igual a "value"
-     * @param list Lista de objectos de donde se obtendra la lista
-     * @param bean propiedad que debe tener cada elemento (object) de la lista
-     * @param valueSearched valor a comparar
+     *
+     * @param list              Lista de objects de donde se obtendra la lista
+     * @param bean              Propiedad que debe tener cada elemento de la lista
+     * @param valueSearched     Valor a comparar
+     * 
      * @return Lista de objectos que son iguales al parametro value
-     * @throws java.lang.reflect.InvocationTargetException Exception lanzada por PropertyUtils
-     * @throws NoSuchMethodException Exception lanzada por PropertyUtils
-     * @throws IllegalAccessException Exception lanzada por PropertyUtils
+     * @throws Exception lanzada por PropertyUtils
      */
-    public static List subList(List list, String bean, Object valueSearched) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    public static List subList(List list, String bean, Object valueSearched) throws Exception {
         List subList = new ArrayList();
         for (Object object : list){
-            Object objectValue = PropertyUtils.getProperty(object, bean);
-
-            if (valueSearched.equals(objectValue)){
-                subList.add(object);
+            try {
+                //Obtenemos el valor del tributo especificado en el parametro bean
+                Object objectValue = PropertyUtils.getProperty(object, bean);
+                //Si es igual lo agregamos a la lista
+                if (objectValue.equals(valueSearched)){
+                    subList.add(object);
+                }
+            } catch (org.apache.commons.beanutils.NestedNullException e) {
+                //Si el valor del atriburo es nulo y si el valor buscado tambien es nulo agregamos el objeto a la lista
+                    if (valueSearched == null){
+                        subList.add(object);
+                    }
+                //No hacemos nada
             }
+
         }
 
         return subList;
