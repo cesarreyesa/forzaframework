@@ -384,9 +384,7 @@
         <root url="jar://$PROJECT_DIR$/lib/DynamicJasper-3.0.1.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="jar:///Developer/Components/DynamicJasper-3.0.1-sources.jar!/" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="servlet">
       <CLASSES>

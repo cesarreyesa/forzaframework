@@ -276,11 +276,15 @@ Ext.MessageBox.prompt = function(title, msg, fn, scope, multiline, value){
 Ext.FormPanel.prototype.onRender = function(ct, position){
     this.initFields();
     Ext.FormPanel.superclass.onRender.call(this, ct, position);
-    // le agrega el div para poner una descripcio
-    if(this.description && this.description.length > 0){
-	    this.body.createChild({tag:'div', cls:'form-desc', html:this.description});
-    }
     this.form.initEl(this.body);
+    // le agrega el div para poner una descripcio
+    var description = this.description;
+    var form = this.form;
+    this.on('afterLayout', function(){
+        if(description && description.length > 0 && !form.el.child('.form-desc')){
+            form.el.insertFirst({tag:'div', cls:'form-desc', html:description});
+        }
+    });
 //    this.form.initEl(this.body.createChild(o));
 }
 
@@ -301,6 +305,9 @@ Ext.override(Ext.form.Field, {
 	        this.el = ct.createChild(cfg, position);
 	    }
 	    var type = this.el.dom.type;
+        if(this.src){
+            cfg.src = this.src;
+        }
 	    if(type){
 	        if(type == 'password'){
 	            type = 'text';
@@ -400,6 +407,7 @@ Ext.apply(Ext.layout.FormLayout.prototype, {
                 position = target.dom.childNodes[position] || null;
             }
             if(position){
+//                this.fieldTpl.append(target, args);
                 this.fieldTpl.insertBefore(position, args);
             }else{
                 this.fieldTpl.append(target, args);
