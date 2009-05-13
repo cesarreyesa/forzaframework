@@ -17,6 +17,7 @@
 package org.forzaframework.core.persistance;
 
 import org.springframework.context.support.MessageSourceAccessor;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ import java.util.List;
  *         Time: 11:14:21
  */
 public interface EntityManager {
+
+    public Session getHibernateSession();
 
     /**
      * Generic method used to get a all objects of a particular type.

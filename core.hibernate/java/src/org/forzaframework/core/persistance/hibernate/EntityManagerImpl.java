@@ -25,7 +25,7 @@ import org.forzaframework.metadata.Catalog;
 import org.forzaframework.metadata.TranslatableCatalog;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -55,6 +55,10 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
 
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public Session getHibernateSession(){
+        return this.getSession();
     }
 
     public <T> List<T> getAll(Class entityClass) {
@@ -105,7 +109,7 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
 
     public <T> T get(Class entityClass, Object primaryKey, Boolean requireNewSession) {
         if(requireNewSession){
-            Session session = getHibernateTemplate().getSessionFactory().openSession();
+            Session session = this.getSession();
             T o;
             try{
                 o = (T) session.get(entityClass, (Serializable) primaryKey);
