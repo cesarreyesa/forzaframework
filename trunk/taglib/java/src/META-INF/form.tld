@@ -884,6 +884,10 @@
         <attribute>
             <name>allowBlank</name>
         </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
