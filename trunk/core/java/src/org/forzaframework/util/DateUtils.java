@@ -254,27 +254,25 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     }
 
     public static Calendar createCalendar(int year, int month) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, month);
-        return cal;
+        return createCalendar(year, month, 1, 0, 0, 0, 0);
     }
 
     public static Calendar createCalendar(int year, int month, int day) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month, day);
-        return cal;
+        return createCalendar(year, month, day, 0, 0, 0, 0);
     }
 
     public static Calendar createCalendar(int year, int month, int day, int hour, int minute) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month, day, hour, minute);
-        return cal;
+        return createCalendar(year, month, day, hour, minute, 0, 0);
     }
 
     public static Calendar createCalendar(int year, int month, int day, int hour, int minute, int second) {
+        return createCalendar(year, month, day, hour, minute, second, 0);
+    }
+
+    public static Calendar createCalendar(int year, int month, int day, int hour, int minute, int second, int milisecond) {
         Calendar cal = Calendar.getInstance();
         cal.set(year, month, day, hour, minute, second);
+        cal.set(Calendar.MILLISECOND, milisecond);
         return cal;
     }
 
