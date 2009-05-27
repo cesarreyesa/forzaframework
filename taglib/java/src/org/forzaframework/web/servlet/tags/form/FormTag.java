@@ -57,6 +57,7 @@ public class FormTag extends PanelTag implements PanelItem {
     private String waitMsgTarget;
     private String onActionComplete;
     private String onActionFailed;
+    private Boolean fileUpload;
     private Boolean initialize = true;
     private List<Field> fields = new ArrayList<Field>();
     private List<Item> buttons = new ArrayList<Item>();
@@ -107,6 +108,14 @@ public class FormTag extends PanelTag implements PanelItem {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Boolean getFileUpload() {
+        return fileUpload;
+    }
+
+    public void setFileUpload(Boolean fileUpload) {
+        this.fileUpload = fileUpload;
     }
 
     public String getLoadUrl() {
@@ -262,6 +271,7 @@ public class FormTag extends PanelTag implements PanelItem {
         addConfigElementOpt("buttonAlign", buttonAlign);
         addConfigElementOpt("labelWidth", labelWidth);
         addConfigElementOpt("waitMsgTarget", waitMsgTarget);
+        addConfigElementOpt("fileUpload", fileUpload);
         addConfigElementOpt("url", url);
         addConfigElement("errorReader", new JSONFunction("new Ext.form.XmlErrorReader()"));
 

@@ -1,7 +1,7 @@
 <project name="Build" basedir="." default="help">
-	
-	<property name="webapp.name" value="mercury"/>
-    
+
+    <property name="webapp.name" value="mercury"/>
+
     <property name="core.src.dir" value="core"/>
     <property name="corehibernate.src.dir" value="core.hibernate"/>
     <property name="coreweb.src.dir" value="core.web"/>
@@ -34,7 +34,7 @@
         <mkdir dir="${dist.dir}"/>
 
         <javac destdir="${build.dir}/${core.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
+               deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${core.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
@@ -46,26 +46,27 @@
         <jar destfile="${dist.dir}/org.forzaframework.core.jar" basedir="${build.dir}/${core.src.dir}"/>
 
         <javac destdir="${build.dir}/${corehibernate.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
+               deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${corehibernate.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+                <pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
             </classpath>
         </javac>
         <copy todir="${build.dir}/${corehibernate.src.dir}">
             <fileset dir="${corehibernate.src.dir}" includes="**/*.xml"/>
             <fileset dir="${corehibernate.src.dir}" includes="**/*.properties"/>
         </copy>
-        <jar destfile="${dist.dir}/org.forzaframework.core.hibernate.jar" basedir="${build.dir}/${corehibernate.src.dir}"/>
+        <jar destfile="${dist.dir}/org.forzaframework.core.hibernate.jar"
+             basedir="${build.dir}/${corehibernate.src.dir}"/>
 
         <javac destdir="${build.dir}/${security.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
+               deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${security.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
+                <pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+                <pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
             </classpath>
         </javac>
         <copy todir="${build.dir}/${security.src.dir}">
@@ -75,29 +76,29 @@
         <jar destfile="${dist.dir}/org.forzaframework.security.jar" basedir="${build.dir}/${security.src.dir}"/>
 
         <javac destdir="${build.dir}/${coreweb.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
+               deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${coreweb.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.security.jar"/>				
+                <pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+                <pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
+                <pathelement path="${dist.dir}/org.forzaframework.security.jar"/>
             </classpath>
         </javac>
         <copy todir="${build.dir}/${coreweb.src.dir}">
             <fileset dir="${coreweb.src.dir}" includes="**/*.xml"/>
             <fileset dir="${coreweb.src.dir}" includes="**/*.properties"/>
         </copy>
-        <jar destfile="${dist.dir}/org.forzaframework.core.web.jar" basedir="${build.dir}/${coreweb.src.dir}"/>
+        <jar destfile="${dist.dir}/org.forzaframework.web.jar" basedir="${build.dir}/${coreweb.src.dir}"/>
 
         <javac destdir="${build.dir}/${taglib.src.dir}" debug="true" optimize="false"
-            deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
+               deprecation="false" failonerror="true" source="${build.java.version}" target="${build.java.version}">
             <src path="${taglib.src.dir}"/>
             <classpath>
                 <fileset dir="lib" includes="*.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
-				<pathelement path="${dist.dir}/org.forzaframework.security.jar"/>				
+                <pathelement path="${dist.dir}/org.forzaframework.core.jar"/>
+                <pathelement path="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
+                <pathelement path="${dist.dir}/org.forzaframework.security.jar"/>
             </classpath>
         </javac>
         <copy todir="${build.dir}/${taglib.src.dir}/META-INF" flatten="true">
@@ -108,8 +109,49 @@
         <jar destfile="${dist.dir}/org.forzaframework.taglib.jar" basedir="${build.dir}/${taglib.src.dir}"/>
     </target>
 
-	<target name="dist">
-		<zip destfile="../forzaframework.zip" basedir="." excludes="lib/**"/>
-		<zip destfile="../forzaframework-with-dependencies.zip" basedir="."/>
-	</target>
+    <target name="dist">
+        <zip destfile="../forzaframework.zip" basedir="." excludes="lib/**"/>
+        <zip destfile="../forzaframework-with-dependencies.zip" basedir="."/>
+    </target>
+
+    <target name="create" depends="compile">
+        <input message="Project Short Name:" addproperty="project.name"/>
+        <input message="Project Long Name:" addproperty="project.publicName"/>
+        <input message="Root Package:" addproperty="root.package"/>
+        <input message="Root Package (Folder Format):" addproperty="root.folder"/>
+
+        <copy todir="../${project.name}">
+            <fileset dir="appgen/templates/project"/>
+        </copy>
+
+        <copy todir="../${project.name}/lib">
+            <fileset file="${dist.dir}/org.forzaframework.core.jar"/>
+            <fileset file="${dist.dir}/org.forzaframework.core.hibernate.jar"/>
+            <fileset file="${dist.dir}/org.forzaframework.security.jar"/>
+            <fileset file="${dist.dir}/org.forzaframework.taglib.jar"/>
+            <fileset file="${dist.dir}/org.forzaframework.web.jar"/>
+            <fileset file="lib/commons-beanutils.jar"/>
+            <fileset file="lib/ezmorph-0.8.1.jar"/>
+            <fileset file="lib/json-lib-2.0-jdk15.jar"/>
+        </copy>
+
+        <mkdir dir="../${project.name}/src/main/java/${root.folder}"/>
+
+        <move file="../${project.name}/src/main/java/web" tofile="../${project.name}/src/main/java/${root.folder}/web"/>
+
+        <replace dir="../${project.name}" value="${project.name}">
+            <include name="**/*"/>
+            <replacetoken>${project.name}</replacetoken>
+        </replace>
+        <replace dir="../${project.name}" value="${project.publicName}">
+            <include name="**/*"/>
+            <replacetoken>${project.publicName}</replacetoken>
+        </replace>
+        <replace dir="../${project.name}" value="${root.package}">
+            <include name="**/*"/>
+            <replacetoken>${root.package}</replacetoken>
+        </replace>
+        <move file="../${project.name}/$${project.name}.ipr" tofile="../${project.name}/${project.name}.ipr"/>
+        <move file="../${project.name}/$${project.name}.iml" tofile="../${project.name}/${project.name}.iml"/>
+    </target>
 </project>

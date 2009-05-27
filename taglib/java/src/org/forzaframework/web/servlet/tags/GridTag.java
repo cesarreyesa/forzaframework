@@ -313,14 +313,19 @@ public class GridTag extends PanelTag implements PanelItem {
         Store store = new Store("ds", loadOnStart == null ? false : loadOnStart, fields);
         store.setItemTag(itemTag);
         store.setIdField(idProperty);
-        store.setUrl(url);
+
+        if(StringUtils.isNotBlank(url))
+            store.setUrl(url);
+
         store.setReader(reader);
         store.setType(dataSourceType);
-        try {
-			store.setItems((rowItems instanceof String ? evaluate("rowItems", rowItems) : rowItems));
-		} catch (JspException e) {
-			throw new RuntimeException(e);
-		}
+        if(rowItems != null){
+            try {
+                store.setItems((rowItems instanceof String ? evaluate("rowItems", rowItems) : rowItems));
+            } catch (JspException e) {
+                throw new RuntimeException(e);
+            }
+        }
 		store.setFields(fields);
 		sb.append(store.buildStoreDeclaration());
 
@@ -389,14 +394,14 @@ public class GridTag extends PanelTag implements PanelItem {
         }else {
         	Tag parent = findParent(PanelTag.class);
         	if(parent == null){
-        		sb.append("grid.render('").append(id).append("'-grid);");                    
+        		sb.append("grid.render('").append(id).append("-grid');");
         	}
         }
 
         if(loadOnStart){
             if(enablePagination){
                 sb.append("ds.load({params:{start:0, limit:").append(pageSize.toString()).append("}});");
-            }else{
+            }else if(rowItems == null){
                 sb.append("ds.load();");
             }
         }else{
@@ -408,6 +413,13 @@ public class GridTag extends PanelTag implements PanelItem {
 
 	public int doEndTag() throws JspException {
         StringBuilder sb = new StringBuilder();
+
+        if(StringUtils.isBlank(getReplacePanel())){
+            Tag parent = findParent(PanelTag.class);
+            if(parent == null){
+                sb.append("<div id=\"").append(id).append("-grid\"></div>");                    
+            }
+        }
 
         sb.append("<script type=\"text/javascript\">\n");
         sb.append("Ext.onReady(function(){\n");
