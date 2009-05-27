@@ -1,0 +1,4 @@
+<!--${class.name}-BEAN-START-->
+    <bean id="${class.name.toLowerCase()}Dao" class="${class.parentPackageName}.dao.hibernate.${class.name}DaoHibernate"/>
+<!--${class.name}-BEAN-END-->
+<!-- Add new Daos here -->

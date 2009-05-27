@@ -1,0 +1,4 @@
+<!--${class.name}-BEAN-START-->
+    <bean id="${class.name.toLowerCase()}Manager" class="${class.parentPackageName}.service.impl.${class.name}ManagerImpl"/>
+<!--${class.name}-BEAN-END-->
+<!-- Add new Managers here -->
