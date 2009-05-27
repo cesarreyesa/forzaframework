@@ -726,6 +726,7 @@
         </attribute>
         <attribute>
             <name>titleKey</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>modal</name>

@@ -42,6 +42,9 @@
             <name>style</name>
         </attribute>
         <attribute>
+            <name>fileUpload</name>
+        </attribute>
+        <attribute>
             <name>anchor</name>
         </attribute>
         <attribute>
@@ -128,6 +131,82 @@
     <tag>
         <name>input</name>
         <tag-class>org.forzaframework.web.servlet.tags.form.InputTag</tag-class>
+
+        <attribute>
+            <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>titleKey</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>description</name>
+        	<rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>field</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>minLength</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>maxLength</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>mapping</name>
+        </attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>width</name>
+        </attribute>
+        <attribute>
+            <name>bind</name>
+        </attribute>
+        <attribute>
+            <name>hidden</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+        </attribute>
+        <attribute>
+        	<name>hideLabel</name>
+       	</attribute>
+        <attribute>
+        	<name>labelSeparator</name>
+       	</attribute>
+        <attribute>
+        	<name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>inputType</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+    </tag>
+
+    <tag>
+        <name>fileupload</name>
+        <tag-class>org.forzaframework.web.servlet.tags.form.FileUploadTag</tag-class>
 
         <attribute>
             <name>title</name>
