@@ -120,6 +120,13 @@
         <input message="Root Package:" addproperty="root.package"/>
         <input message="Root Package (Folder Format):" addproperty="root.folder"/>
 
+        <tstamp>
+            <format property="current.date" pattern="yyyy/dd/MM"/> 
+        </tstamp>
+        <tstamp>
+            <format property="current.time" pattern="HH:mm:ss"/> 
+        </tstamp>
+
         <copy todir="../${project.name}">
             <fileset dir="appgen/templates/project"/>
         </copy>
@@ -146,6 +153,18 @@
         <replace dir="../${project.name}" value="${project.publicName}">
             <include name="**/*"/>
             <replacetoken>${project.publicName}</replacetoken>
+        </replace>
+        <replace dir="../${project.name}" value="${current.date}">
+            <include name="**/*"/>
+            <replacetoken>${current.date}</replacetoken>
+        </replace>
+        <replace dir="../${project.name}" value="${current.time}">
+            <include name="**/*"/>
+            <replacetoken>${current.time}</replacetoken>
+        </replace>
+        <replace dir="../${project.name}" value="${user.name}">
+            <include name="**/*"/>
+            <replacetoken>${user.name}</replacetoken>
         </replace>
         <replace dir="../${project.name}" value="${root.package}">
             <include name="**/*"/>
