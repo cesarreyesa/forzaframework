@@ -4,9 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * User: cesarreyes
- * Date: 26-may-2009
- * Time: 23:27:27
+ * User: ${user.name}
+ * Date: ${current.date}
+ * Time: ${current.time}
  */
 
 @Controller

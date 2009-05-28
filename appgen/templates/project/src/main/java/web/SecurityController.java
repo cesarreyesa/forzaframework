@@ -33,9 +33,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * User: cesarreyes
- * Date: 26-may-2009
- * Time: 23:02:45
+ * User: ${user.name}
+ * Date: ${current.date}
+ * Time: ${current.time}
  */
 
 @Controller
