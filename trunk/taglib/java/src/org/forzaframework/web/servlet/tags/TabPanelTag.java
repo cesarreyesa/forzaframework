@@ -102,7 +102,7 @@ public class TabPanelTag extends PanelTag implements PanelItem {
                     sb.append("Ext.onReady(function(){\n");
                     sb.append("var tabPanel = new Ext.TabPanel(\n");
                     sb.append(((JSONObject) toJSON()).toString(2)).append(");");
-                    sb.append("tabPanel.render();");
+//                    sb.append("tabPanel.render();");
                     sb.append("});");
 
                     sb.append("</script>\n");
@@ -121,6 +121,9 @@ public class TabPanelTag extends PanelTag implements PanelItem {
         JSONObject json = new JSONObject();
 
         json.put("id", id);
+        if(!(parent instanceof PanelTag)){
+            json.put("renderTo", id);
+        }
 //        json.put("el", id);
         json.put("xtype", "tabpanel");
         json.put("plain", true);
