@@ -17,6 +17,7 @@
 package org.forzaframework.web.filter;
 
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.Authentication;
@@ -41,7 +42,6 @@ import java.util.Locale;
  * Filter to wrap request with a request including user preferred locale.
  */
 public class LocaleFilter extends OncePerRequestFilter {
-    private static final String PREFERRED_LOCALE = "es";
 
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                  FilterChain chain)
@@ -50,8 +50,7 @@ public class LocaleFilter extends OncePerRequestFilter {
 
         String locale = null;
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if((auth != null) && (auth.getPrincipal() instanceof User)){
             User user = (User) auth.getPrincipal();
@@ -59,7 +58,6 @@ public class LocaleFilter extends OncePerRequestFilter {
         }
 
         Locale preferredLocale = null;
-
         if (locale != null) {
             preferredLocale = new Locale(locale);
         }
@@ -68,15 +66,7 @@ public class LocaleFilter extends OncePerRequestFilter {
 
         if (session != null) {
             if (preferredLocale == null) {
-                preferredLocale = (Locale) session.getAttribute(PREFERRED_LOCALE);
-            } else {
-                session.setAttribute(PREFERRED_LOCALE, preferredLocale);
-                Config.set(session, Config.FMT_LOCALE, preferredLocale);
-            }
-
-            if (preferredLocale != null && !(request instanceof LocaleRequestWrapper)) {
-                request = new LocaleRequestWrapper(request, preferredLocale);
-                LocaleContextHolder.setLocale(preferredLocale);
+                session.setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, preferredLocale);
             }
         }
 
