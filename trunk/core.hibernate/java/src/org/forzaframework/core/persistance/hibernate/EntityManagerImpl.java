@@ -109,7 +109,7 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
 
     public <T> T get(Class entityClass, Object primaryKey, Boolean requireNewSession) {
         if(requireNewSession){
-            Session session = this.getSession();
+            Session session = getHibernateTemplate().getSessionFactory().openSession();
             T o;
             try{
                 o = (T) session.get(entityClass, (Serializable) primaryKey);

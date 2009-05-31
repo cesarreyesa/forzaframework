@@ -70,4 +70,6 @@ public interface UserManager {
     public void removeRole(String rolename);
 
     void newUser(User user, Map model);
+
+    void addRoleToUser(User user, Role role);
 }
