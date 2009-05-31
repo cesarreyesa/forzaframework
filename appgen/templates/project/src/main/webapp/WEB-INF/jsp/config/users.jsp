@@ -38,7 +38,7 @@
         }" />
         <n:button textKey="button.delete" handler="function(){
             if(grid.getSelectionModel().getSelected()){
-                doDelete(grid.getSelectionModel().getSelected().id, '${ctx}/config/userForm.html', function(){
+                doDelete(grid.getSelectionModel().getSelected().id, '${ctx}/config/user/form', function(){
                     Ext.getCmp('users-grid').store.reload();
                 });
             }

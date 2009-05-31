@@ -146,8 +146,7 @@ public class SecurityController extends BaseController {
         try {
             User user = userManager.getUser(username);
             Role role = userManager.getRole(roleName);
-            user.addRole(role);
-            userManager.saveUser(user);
+            userManager.addRoleToUser(user, role);
         } catch (Exception ex) {
             info.addError(ExceptionTranslator.translate(ex));
         }
