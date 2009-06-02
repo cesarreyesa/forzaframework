@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+        "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<book>
+
+    <bookinfo>
+        <title>Reference Documentation</title>
+        <subtitle>Forza Framework</subtitle>
+        <productname>Forza Framework</productname>
+        <releaseinfo>1.0.0 Beta 1</releaseinfo>
+        <authorgroup>
+            <author>
+                <firstname>Cesar</firstname>
+                <surname>Reyes</surname>
+            </author>
+        </authorgroup>
+        <copyright>
+            <year>2004-2009</year>
+            <holder>Nopalsoft</holder>
+        </copyright>
+        <legalnotice>
+            <para>Copies of this document may be made for your own use and for
+                distribution to others, provided that you do not charge any
+                fee for such copies and further provided that each copy
+                contains this Copyright Notice, whether distributed in print
+                or electronically.
+            </para>
+        </legalnotice>
+
+    </bookinfo>
+    <toc/>
+
+    <chapter id="intro">
+        <title>Introduction</title>
+        <para>La meta de Forza Framework es facilitar el desarrollo de aplicaciones java empresariales con una robusta capa de acceso a datos, varias mejoras al Spring MVC Framework, una taglib jsp completo que renderea javascript/ajax widgets, una estructura base para una aplicacion web, un generador de codigo incremental para el trabajo tedioso, todo esto ayudanto a reducir considerablemente el tiempo de desarrollo.</para>
+    </chapter>
+
+    <chapter id="dal">
+        <title>Capa de Acceso a Datos</title>
+        <para>Forza provee de varias herramientas para simplificar el acceso a datos</para>
+
+        <section>
+            <title>EntityManager</title>
+            <para>Encapsula el acceso a datos</para>
+        </section>
+    </chapter>
+
+    <chapter id="servicelayer">
+        <title>Capa de Servicios</title>
+        <para>Trabajando...</para>
+
+        <section>
+            <title>Transacciones</title>
+            <para></para>
+        </section>
+    </chapter>
+
+    <chapter>
+        <title>Seguridad</title>
+        <para>Implementacion de clases para hacer un poco mas facil la seguridad que provee Spring Security</para>
+    </chapter>
+
+    <chapter id="taglib">
+        <title>Taglib</title>
+        <para>Todos los componentes ext.</para>
+        <programlisting lang="xml"><![CDATA[
+<n:panel layout="border" title="Titulo principal del modulo" replacePanel="System.getCenter()">
+<n:toolbar type="top">
+<n:button text="Abrir ventana" handler="function(){ Ext.getCmp('window').show(); }"/>
+</n:toolbar>
+<n:panel region="west" title="West" width="200">
+</n:panel>
+<n:panel region="center" layout="row-fit">
+<n:grid id="users-grid" titleKey="user.list.title" url="${ctx}/config/users/xml">
+<n:toolbar type="top">
+<n:button textKey="user.new" handler="function(){
+alert('Hola mundo')
+}" />
+<n:button text="Permisos" handler="alert('Hola mundo');" />
+</n:toolbar>
+
+<n:column field="id" hidden="true"/>
+<n:column field="username" titleKey="user.username"/>
+<n:column field="firstName" titleKey="user.firstName"/>
+<n:column field="lastName" titleKey="user.lastName"/>
+<n:column field="email" titleKey="user.email"/>
+<n:column field="preferredLocale" titleKey="user.preferredLocale"/>
+</n:grid>
+<n:panel title="Aqui puede ir un otro grid">
+
+</n:panel>
+</n:panel>
+</n:panel>
+	]]></programlisting>
+        <section>
+            <title>Trabajando con ajax</title>
+            <para>Trabajando...</para>
+        </section>
+        <section>
+            <title>Trabajando con javascript</title>
+            <para>Trabajando...</para>
+        </section>
+    </chapter>
+
+    <chapter>
+        <title>Generador de Codigo</title>
+        <para>Trabajando...</para>
+    </chapter>
+
+</book>
