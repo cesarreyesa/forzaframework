@@ -8,12 +8,24 @@
         <subtitle>Forza Framework</subtitle>
         <productname>Forza Framework</productname>
         <releaseinfo>1.0.0 Beta 1</releaseinfo>
-        <authorgroup>
+<!--        <authorgroup>
             <author>
                 <firstname>Cesar</firstname>
                 <surname>Reyes</surname>
             </author>
-        </authorgroup>
+            <author>
+                <firstname>Gabriel</firstname>
+                <surname>Chulim</surname>
+            </author>
+            <author>
+                <firstname>Elvira</firstname>
+                <surname>Aranda</surname>
+            </author>
+            <author>
+                <firstname>Christian</firstname>
+                <surname>Tavera</surname>
+            </author>
+        </authorgroup>-->
         <copyright>
             <year>2004-2009</year>
             <holder>Nopalsoft</holder>
@@ -33,6 +45,12 @@
     <chapter id="intro">
         <title>Introduction</title>
         <para>La meta de Forza Framework es facilitar el desarrollo de aplicaciones java empresariales con una robusta capa de acceso a datos, varias mejoras al Spring MVC Framework, una taglib jsp completo que renderea javascript/ajax widgets, una estructura base para una aplicacion web, un generador de codigo incremental para el trabajo tedioso, todo esto ayudanto a reducir considerablemente el tiempo de desarrollo.</para>
+        <para>Como es la ideologia de Spring Framework en Forza Framework tratamos de que el usuario pueda escojer que usar del framework y solo eso use, sin necesidad de tener que usar todo el stack (dao, service, mvc, taglib, security).</para>
+    </chapter>
+
+    <chapter>
+        <title>Core</title>
+        <para>Binders, Validaciones, Persistencia, Envio de Mails, Log</para>
     </chapter>
 
     <chapter id="dal">
@@ -42,6 +60,12 @@
         <section>
             <title>EntityManager</title>
             <para>Encapsula el acceso a datos</para>
+            <para>Una de las ventajas de usar el EntityManager es que el codigo no esta atado a una implementacion de acceso a datos, permitiendo que podamos para de usar Hibernate u otro framework ORM sin necesidad de cambiar nuestro codigo. Por ahora solo existe una implementacion del EntityManager que es la implementacion para Hibernate.</para>
+        </section>
+
+        <section>
+            <title>Criteria API</title>
+            <para>La idea de esto es que podamos usar el api en cualquier lugar de nuestra aplicacion sin usar directamente el Criteria API de Hibernate</para>
         </section>
     </chapter>
 
@@ -56,13 +80,46 @@
     </chapter>
 
     <chapter>
+        <title>Web</title>
+
+        <para>Web Binders, BaseControllers, Views (text, csv, xml, jasperreports), ResponseTypes</para>
+        <para>Edicion de catalogos, persistencia automatica</para>
+    </chapter>
+
+    <chapter>
         <title>Seguridad</title>
         <para>Implementacion de clases para hacer un poco mas facil la seguridad que provee Spring Security</para>
+
+        <section>
+            <title>UserManager</title>
+            <para>Se encarga de traer a los usuarios de la base de datos</para>
+        </section>
+        <para>SmartGroups?</para>
     </chapter>
 
     <chapter id="taglib">
         <title>Taglib</title>
         <para>Todos los componentes ext.</para>
+
+        <section>
+            <title>Configuracion</title>
+            <para></para>
+        </section>
+
+        <section>
+            <title>Ejemplos</title>
+            <para></para>
+
+            <section>
+                <title><![CDATA[
+                <n:panel/> Panel Tag
+                ]]></title>
+
+                <para>El PanelTag emula la funcionalidad del Ext.Panel</para>
+            </section>
+
+            <para>DataViewTag, GridTag, PanelTag, WindowTag, LayoutTag, TabsTag, PortletTag, FormTag, ToolbarTag, ViewportTag, ButtonTag, ColumnTag, EditableGridTag, etc...</para>
+        </section>
         <programlisting lang="xml"><![CDATA[
 <n:panel layout="border" title="Titulo principal del modulo" replacePanel="System.getCenter()">
 <n:toolbar type="top">
