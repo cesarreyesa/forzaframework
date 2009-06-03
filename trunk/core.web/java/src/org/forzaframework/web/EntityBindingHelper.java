@@ -44,6 +44,8 @@ public class EntityBindingHelper {
     }
 
     public static void configureBinder(EntityManager em, SystemConfiguration configuration, DataBinder binder) {
+        if(binder.getTarget() == null) return;
+
         BeanWrapper beanWrapper = new BeanWrapperImpl(binder.getTarget().getClass());
         for(PropertyDescriptor pd : beanWrapper.getPropertyDescriptors()){
             //Primero busca si es un BaseEntity para registrar un CustomClassEditor
