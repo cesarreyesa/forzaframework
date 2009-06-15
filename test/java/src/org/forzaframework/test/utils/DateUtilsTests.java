@@ -20,6 +20,7 @@ import junit.framework.TestCase;
 
 import java.util.Date;
 import java.util.Calendar;
+import java.text.ParseException;
 
 import org.forzaframework.util.DateUtils;
 
@@ -29,6 +30,11 @@ import org.forzaframework.util.DateUtils;
  *         Time: 05:42:13 PM
  */
 public class DateUtilsTests extends TestCase {
+
+    public void testDateUtils() throws ParseException {
+        Date date = DateUtils.getDate("dd/MM/yyyy", "23/06/2009");
+        assertEquals(date, DateUtils.createCalendar(2009, Calendar.JUNE, 23).getTime());
+    }
 
     public void testCuteDate(){
         Date now = new Date();
