@@ -1,0 +1,4 @@
+<!--${class.name}-START-->
+                <value>${class.parentPackageName}.model.${class.name}</value>
+<!--${class.name}-END-->
+<!-- Add additional mappings here -->
