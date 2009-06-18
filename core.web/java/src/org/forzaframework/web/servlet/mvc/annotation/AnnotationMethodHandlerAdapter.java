@@ -91,6 +91,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see #setWebBindingInitializer
  * @see #setSessionAttributeStore
  */
+@Deprecated
 public class AnnotationMethodHandlerAdapter extends WebContentGenerator implements HandlerAdapter {
 
     /****** NOPALSOFT******/
