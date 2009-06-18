@@ -153,7 +153,7 @@ public class MenuTag extends PanelTag implements PanelItem {
         menu.elementOpt("hidden", hidden);
         menu.elementOpt("iconCls", iconCls);
         menu.elementOpt("icon", icon);
-        json.elementOpt("scale", scale);
+        menu.elementOpt("scale", scale);
 
         if(StringUtils.isNotBlank(handler)) {
             menu.put("menu", new JSONFunction("new Ext.menu.Menu(" + json.toString(2) + ")"));
