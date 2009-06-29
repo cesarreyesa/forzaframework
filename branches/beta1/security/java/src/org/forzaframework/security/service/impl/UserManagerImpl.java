@@ -76,12 +76,6 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
             if(!originalUser.getPassword().equals(user.getPassword())){
                 user.setPassword(org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
             }
-            user.getRoles().clear();
-            for (Role role : originalUser.getRoles()) {
-                Role role1 = new Role();
-                role1.setId(role.getId());
-                user.getRoles().add(role1);
-            }
             entityManager.save(user);
         }
     }

@@ -19,16 +19,18 @@ package org.forzaframework.beans.propertyeditors;
 import org.springframework.util.StringUtils;
 import org.forzaframework.core.persistance.BaseEntity;
 import org.forzaframework.core.persistance.EntityManager;
+import org.apache.commons.beanutils.PropertyUtils;
 
 import java.beans.PropertyEditorSupport;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author cesarreyes
  *         Date: 14-ago-2008
  *         Time: 16:20:02
  */
-public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSupport {
+public class CustomClassEditor extends PropertyEditorSupport {
 
     private Class requiredType;
     private Class pkType;
@@ -62,9 +64,9 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
     }
 
     public void setAsText(String text) throws IllegalArgumentException {
-        T command;
+        Object command;
         try {
-            command = (T) requiredType.newInstance();
+            command = requiredType.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
             return;
@@ -84,10 +86,14 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
             }
 
             if(entityManager == null){
-                command.setKey(id);
+                try {
+                    PropertyUtils.setSimpleProperty(command, "id", id);
+                } catch (Exception e) {
+
+                }
             }
             else{
-                command = (T) entityManager.get(requiredType, id);
+                command = entityManager.get(requiredType, id);
             }
 			setValue(command);
 		}
@@ -97,9 +103,9 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
 	}
 
 	public String getAsText() {
-        T command;
+        Object command;
         try {
-            command = (T) requiredType.newInstance();
+            command = requiredType.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
             return "";
@@ -109,11 +115,18 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
         }
 
         Object value = getValue();
-        command = (T) value;
-		if (command == null || command.getKey() == null) {
+        command = value;
+        Object key;
+        try {
+            key = PropertyUtils.getSimpleProperty(command, "id");
+        } catch (Exception e) {
+            key = null;
+
+        }
+        if (command == null || key == null) {
 			return "";
 		}
-		return command.getKey().toString();
+		return key.toString();
 	}
 
 }
