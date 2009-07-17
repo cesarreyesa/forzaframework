@@ -257,7 +257,7 @@ public class LovFieldTag extends ComboboxTag {
         
         List<Field> fields;
         if(getUpdateFields().size() > 0){
-        	fields = new ArrayList<Field>();
+        	fields = this.getFields();;
         	for(UpdateField updateField : getUpdateFields()){
         		fields.add(new Field(updateField.getId(), updateField.getField(), updateField.getMapping()));
         	}

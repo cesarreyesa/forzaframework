@@ -1,11 +1,11 @@
 /*
- * Copyright 2006-2009 the original author or authors.
+ * Copyright 2002-2009 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,161 +16,160 @@
 
 package org.forzaframework.web.servlet.mvc.annotation;
 
-import org.apache.commons.lang.StringUtils;
-import org.forzaframework.core.persistance.BaseEntity;
-import org.forzaframework.core.persistance.EntityManager;
-import org.forzaframework.metadata.SystemConfiguration;
-import org.forzaframework.metadata.SystemEntity;
-import org.forzaframework.util.ExceptionTranslator;
-import org.forzaframework.validation.Information;
-import org.forzaframework.web.servlet.view.TextView;
-import org.forzaframework.web.servlet.view.XmlView;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.lang.reflect.Method;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.SimpleTypeConverter;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ParameterNameDiscoverer;
-import org.springframework.core.style.StylerUtils;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.*;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.xml.SourceHttpMessageConverter;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.PathMatcher;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.support.BindingAwareModelMap;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.support.HandlerMethodInvoker;
+import org.springframework.web.bind.annotation.support.HandlerMethodResolver;
 import org.springframework.web.bind.support.DefaultSessionAttributeStore;
 import org.springframework.web.bind.support.SessionAttributeStore;
-import org.springframework.web.bind.support.SimpleSessionStatus;
+import org.springframework.web.bind.support.WebArgumentResolver;
 import org.springframework.web.bind.support.WebBindingInitializer;
+import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.HandlerAdapter;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver;
 import org.springframework.web.servlet.mvc.multiaction.MethodNameResolver;
+import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
+import org.springframework.web.servlet.mvc.annotation.ModelAndViewResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.support.WebContentGenerator;
 import org.springframework.web.util.UrlPathHelper;
 import org.springframework.web.util.WebUtils;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
- * Implementation of the {@link org.springframework.web.servlet.HandlerAdapter}
- * interface that maps handler methods based on HTTP paths, HTTP methods and
- * request parameters expressed through the {@link RequestMapping} annotation.
+ * Implementation of the {@link org.springframework.web.servlet.HandlerAdapter} interface that maps handler methods
+ * based on HTTP paths, HTTP methods and request parameters expressed through the {@link RequestMapping} annotation.
  *
- * <p>Supports request parameter binding through the {@link RequestParam} annotation.
- * Also supports the {@link ModelAttribute} annotation for exposing model attribute
- * values to the view, as well as {@link InitBinder} for binder initialization methods
- * and {@link SessionAttributes} for automatic session management of specific attributes.
+ * <p>Supports request parameter binding through the {@link RequestParam} annotation. Also supports the {@link
+ * ModelAttribute} annotation for exposing model attribute values to the view, as well as {@link InitBinder} for binder
+ * initialization methods and {@link SessionAttributes} for automatic session management of specific attributes.
  *
- * <p>This adapter can be customized through various bean properties.
- * A common use case is to apply shared binder initialization logic through
- * a custom {@link #setWebBindingInitializer WebBindingInitializer}.
+ * <p>This adapter can be customized through various bean properties. A common use case is to apply shared binder
+ * initialization logic through a custom {@link #setWebBindingInitializer WebBindingInitializer}.
  *
  * @author Juergen Hoeller
  * @author Arjen Poutsma
- * @since 2.5
  * @see #setPathMatcher
  * @see #setMethodNameResolver
  * @see #setWebBindingInitializer
  * @see #setSessionAttributeStore
+ * @since 2.5
  */
-@Deprecated
 public class AnnotationMethodHandlerAdapter extends WebContentGenerator implements HandlerAdapter {
 
-    /****** NOPALSOFT******/
-    private SystemConfiguration systemConfiguration;
+	/**
+	 * Log category to use when no mapped handler is found for a request.
+	 *
+	 * @see #pageNotFoundLogger
+	 */
+	public static final String PAGE_NOT_FOUND_LOG_CATEGORY = "org.springframework.web.servlet.PageNotFound";
 
-    private EntityManager entityManager;
+	/**
+	 * Additional logger to use when no mapped handler is found for a request.
+	 *
+	 * @see #PAGE_NOT_FOUND_LOG_CATEGORY
+	 */
+	protected static final Log pageNotFoundLogger = LogFactory.getLog(PAGE_NOT_FOUND_LOG_CATEGORY);
 
-    private Validator[] validators;
-
-    private String dateFormat;
-    /****** NOPALSOFT******/
-    
-    private UrlPathHelper urlPathHelper = new UrlPathHelper();
+	private UrlPathHelper urlPathHelper = new UrlPathHelper();
 
 	private PathMatcher pathMatcher = new AntPathMatcher();
 
 	private MethodNameResolver methodNameResolver = new InternalPathMethodNameResolver();
 
-	private SessionAttributeStore sessionAttributeStore = new DefaultSessionAttributeStore();
-
 	private WebBindingInitializer webBindingInitializer;
 
-	private final Map<Class<?>, HandlerMethodResolver> methodResolverCache =
-			new ConcurrentHashMap<Class<?>, HandlerMethodResolver>();
+	private SessionAttributeStore sessionAttributeStore = new DefaultSessionAttributeStore();
 
-	private final Map<Class<?>, Set<String>> sessionAttributeNames =
-			new ConcurrentHashMap<Class<?>, Set<String>>();
+	private int cacheSecondsForSessionAttributeHandlers = 0;
 
-    /****** NOPALSOFT******/
-    public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
-        this.systemConfiguration = systemConfiguration;
-    }
+	private boolean synchronizeOnSession = false;
 
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+	private ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
 
-    /**
-     * Set the primary Validator for this controller. The Validator
-     * must support the specified command class. If there are one
-     * or more existing validators set already when this method is
-     * called, only the specified validator will be kept. Use
-     * {@link #setValidators(Validator[])} to set multiple validators.
-     */
-    public final void setValidator(Validator validator) {
-        this.validators = new Validator[] {validator};
-    }
+	private WebArgumentResolver[] customArgumentResolvers;
 
-    /**
-     * Return the primary Validator for this controller.
-     */
-    public final Validator getValidator() {
-        return (this.validators != null && this.validators.length > 0 ? this.validators[0] : null);
-    }
+	private ModelAndViewResolver[] customModelAndViewResolvers;
 
-    /**
-     * Set the Validators for this controller.
-     * The Validator must support the specified command class.
-     */
-    public final void setValidators(Validator[] validators) {
-        this.validators = validators;
-    }
+	private final Map<Class<?>, ServletHandlerMethodResolver> methodResolverCache =
+			new ConcurrentHashMap<Class<?>, ServletHandlerMethodResolver>();
 
-    /**
-     * Return the Validators for this controller.
-     */
-    public final Validator[] getValidators() {
-        return this.validators;
-    }
+	private HttpMessageConverter<?>[] messageConverters =
+			new HttpMessageConverter[]{new ByteArrayHttpMessageConverter(), new StringHttpMessageConverter(),
+					new FormHttpMessageConverter(), new SourceHttpMessageConverter()};
 
-    public void setDateFormat(String dateFormat) {
-        this.dateFormat = dateFormat;
-    } /****** NOPALSOFT******/
+	public AnnotationMethodHandlerAdapter() {
+		// no restriction of HTTP methods by default
+		super(false);
+	}
 
-    /**
-	 * Set if URL lookup should always use the full path within the current servlet
-	 * context. Else, the path within the current servlet mapping is used if applicable
-	 * (that is, in the case of a ".../*" servlet mapping in web.xml).
+	/**
+	 * Set if URL lookup should always use the full path within the current servlet context. Else, the path within the
+	 * current servlet mapping is used if applicable (that is, in the case of a ".../*" servlet mapping in web.xml).
 	 * <p>Default is "false".
+	 *
 	 * @see org.springframework.web.util.UrlPathHelper#setAlwaysUseFullPath
 	 */
 	public void setAlwaysUseFullPath(boolean alwaysUseFullPath) {
@@ -178,10 +177,10 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 	}
 
 	/**
-	 * Set if context path and request URI should be URL-decoded. Both are returned
-	 * <i>undecoded</i> by the Servlet API, in contrast to the servlet path.
-	 * <p>Uses either the request encoding or the default encoding according
-	 * to the Servlet spec (ISO-8859-1).
+	 * Set if context path and request URI should be URL-decoded. Both are returned <i>undecoded</i> by the Servlet API, in
+	 * contrast to the servlet path. <p>Uses either the request encoding or the default encoding according to the Servlet
+	 * spec (ISO-8859-1).
+	 *
 	 * @see org.springframework.web.util.UrlPathHelper#setUrlDecode
 	 */
 	public void setUrlDecode(boolean urlDecode) {
@@ -189,10 +188,8 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 	}
 
 	/**
-	 * Set the UrlPathHelper to use for resolution of lookup paths.
-	 * <p>Use this to override the default UrlPathHelper with a custom subclass,
-	 * or to share common UrlPathHelper settings across multiple HandlerMappings
-	 * and HandlerAdapters.
+	 * Set the UrlPathHelper to use for resolution of lookup paths. <p>Use this to override the default UrlPathHelper with
+	 * a custom subclass, or to share common UrlPathHelper settings across multiple HandlerMappings and HandlerAdapters.
 	 */
 	public void setUrlPathHelper(UrlPathHelper urlPathHelper) {
 		Assert.notNull(urlPathHelper, "UrlPathHelper must not be null");
@@ -200,8 +197,9 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 	}
 
 	/**
-	 * Set the PathMatcher implementation to use for matching URL paths
-	 * against registered URL patterns. Default is AntPathMatcher.
+	 * Set the PathMatcher implementation to use for matching URL paths against registered URL patterns. Default is
+	 * AntPathMatcher.
+	 *
 	 * @see org.springframework.util.AntPathMatcher
 	 */
 	public void setPathMatcher(PathMatcher pathMatcher) {
@@ -210,9 +208,8 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 	}
 
 	/**
-	 * Set the MethodNameResolver to use for resolving default handler methods
-	 * (carrying an empty <code>@RequestMapping</code> annotation).
-	 * <p>Will only kick in when the handler method cannot be resolved uniquely
+	 * Set the MethodNameResolver to use for resolving default handler methods (carrying an empty
+	 * <code>@RequestMapping</code> annotation). <p>Will only kick in when the handler method cannot be resolved uniquely
 	 * through the annotation metadata already.
 	 */
 	public void setMethodNameResolver(MethodNameResolver methodNameResolver) {
@@ -220,145 +217,145 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 	}
 
 	/**
-	 * Specify a WebBindingInitializer which will apply pre-configured
-	 * configuration to every DataBinder that this controller uses.
+	 * Specify a WebBindingInitializer which will apply pre-configured configuration to every DataBinder that this
+	 * controller uses.
 	 */
 	public void setWebBindingInitializer(WebBindingInitializer webBindingInitializer) {
 		this.webBindingInitializer = webBindingInitializer;
 	}
 
 	/**
-	 * Specify the strategy to store session attributes with.
-	 * <p>Default is {@link org.springframework.web.bind.support.DefaultSessionAttributeStore},
-	 * storing session attributes in the HttpSession, using the same
-	 * attribute name as in the model.
+	 * Specify the strategy to store session attributes with. <p>Default is {@link org.springframework.web.bind.support.DefaultSessionAttributeStore},
+	 * storing session attributes in the HttpSession, using the same attribute name as in the model.
 	 */
 	public void setSessionAttributeStore(SessionAttributeStore sessionAttributeStore) {
 		Assert.notNull(sessionAttributeStore, "SessionAttributeStore must not be null");
 		this.sessionAttributeStore = sessionAttributeStore;
 	}
 
+	/**
+	 * Cache content produced by <code>@SessionAttributes</code> annotated handlers for the given number of seconds.
+	 * Default is 0, preventing caching completely. <p>In contrast to the "cacheSeconds" property which will apply to all
+	 * general handlers (but not to <code>@SessionAttributes</code> annotated handlers), this setting will apply to
+	 * <code>@SessionAttributes</code> annotated handlers only.
+	 *
+	 * @see #setCacheSeconds
+	 * @see org.springframework.web.bind.annotation.SessionAttributes
+	 */
+	public void setCacheSecondsForSessionAttributeHandlers(int cacheSecondsForSessionAttributeHandlers) {
+		this.cacheSecondsForSessionAttributeHandlers = cacheSecondsForSessionAttributeHandlers;
+	}
+
+	/**
+	 * Set if controller execution should be synchronized on the session, to serialize parallel invocations from the same
+	 * client. <p>More specifically, the execution of each handler method will get synchronized if this flag is "true". The
+	 * best available session mutex will be used for the synchronization; ideally, this will be a mutex exposed by
+	 * HttpSessionMutexListener. <p>The session mutex is guaranteed to be the same object during the entire lifetime of the
+	 * session, available under the key defined by the <code>SESSION_MUTEX_ATTRIBUTE</code> constant. It serves as a safe
+	 * reference to synchronize on for locking on the current session. <p>In many cases, the HttpSession reference itself
+	 * is a safe mutex as well, since it will always be the same object reference for the same active logical session.
+	 * However, this is not guaranteed across different servlet containers; the only 100% safe way is a session mutex.
+	 *
+	 * @see org.springframework.web.util.HttpSessionMutexListener
+	 * @see org.springframework.web.util.WebUtils#getSessionMutex(javax.servlet.http.HttpSession)
+	 */
+	public void setSynchronizeOnSession(boolean synchronizeOnSession) {
+		this.synchronizeOnSession = synchronizeOnSession;
+	}
+
+	/**
+	 * Set the ParameterNameDiscoverer to use for resolving method parameter names if needed (e.g. for default attribute
+	 * names). <p>Default is a {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer}.
+	 */
+	public void setParameterNameDiscoverer(ParameterNameDiscoverer parameterNameDiscoverer) {
+		this.parameterNameDiscoverer = parameterNameDiscoverer;
+	}
+
+	/**
+	 * Set a custom WebArgumentResolvers to use for special method parameter types. Such a custom WebArgumentResolver will kick
+	 * in first, having a chance to resolve an argument value before the standard argument handling kicks in.
+	 */
+	public void setCustomArgumentResolver(WebArgumentResolver argumentResolver) {
+		this.customArgumentResolvers = new WebArgumentResolver[]{argumentResolver};
+	}
+
+	/**
+	 * Set one or more custom WebArgumentResolvers to use for special method parameter types. Any such custom WebArgumentResolver
+	 * will kick in first, having a chance to resolve an argument value before the standard argument handling kicks in.
+	 */
+	public void setCustomArgumentResolvers(WebArgumentResolver[] argumentResolvers) {
+		this.customArgumentResolvers = argumentResolvers;
+	}
+
+	/**
+	 * Set a custom ModelAndViewResolvers to use for special method return types. Such a custom ModelAndViewResolver will kick
+	 * in first, having a chance to resolve an return value before the standard ModelAndView handling kicks in.
+	 */
+	public void setCustomModelAndViewResolver(ModelAndViewResolver customModelAndViewResolver) {
+		this.customModelAndViewResolvers = new ModelAndViewResolver[]{customModelAndViewResolver};
+	}
+
+	/**
+	 * Set one or more custom ModelAndViewResolvers to use for special method return types. Any such custom ModelAndViewResolver
+	 * will kick in first, having a chance to resolve an return value before the standard ModelAndView handling kicks in.
+	 */
+	public void setCustomModelAndViewResolvers(ModelAndViewResolver[] customModelAndViewResolvers) {
+		this.customModelAndViewResolvers = customModelAndViewResolvers;
+	}
+
+	/**
+	 * Set the message body converters to use. These converters are used to convert from and to HTTP requests and
+	 * responses.
+	 */
+	public void setMessageConverters(HttpMessageConverter<?>[] messageConverters) {
+		Assert.notEmpty(messageConverters, "'messageConverters' must not be empty");
+		this.messageConverters = messageConverters;
+	}
 
 	public boolean supports(Object handler) {
 		return getMethodResolver(handler).hasHandlerMethods();
 	}
 
-	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		ModelMap implicitModel = new ModelMap();
-		SessionAttributes sessionAttributes = handler.getClass().getAnnotation(SessionAttributes.class);
-		Set<String> sessionAttrNames = null;
+	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
 
-		if (sessionAttributes != null) {
+		if (handler.getClass().getAnnotation(SessionAttributes.class) != null) {
 			// Always prevent caching in case of session attribute management.
-			checkAndPrepare(request, response, 0, false);
+			checkAndPrepare(request, response, this.cacheSecondsForSessionAttributeHandlers, true);
 			// Prepare cached set of session attributes names.
-			sessionAttrNames = this.sessionAttributeNames.get(handler.getClass());
-			if (sessionAttrNames == null) {
-				synchronized (this.sessionAttributeNames) {
-					sessionAttrNames = this.sessionAttributeNames.get(handler.getClass());
-					if (sessionAttrNames == null) {
-						sessionAttrNames = Collections.synchronizedSet(new HashSet<String>(4));
-						this.sessionAttributeNames.put(handler.getClass(), sessionAttrNames);
-					}
-				}
-			}
 		}
 		else {
 			// Uses configured default cacheSeconds setting.
-			checkAndPrepare(request, response, false);
+			checkAndPrepare(request, response, true);
 		}
 
-		WebRequest webRequest = new ServletWebRequest(request);
-		HandlerMethodResolver methodResolver = getMethodResolver(handler);
+		// Execute invokeHandlerMethod in synchronized block if required.
+		if (this.synchronizeOnSession) {
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				Object mutex = WebUtils.getSessionMutex(session);
+				synchronized (mutex) {
+					return invokeHandlerMethod(request, response, handler);
+				}
+			}
+		}
+
+		return invokeHandlerMethod(request, response, handler);
+	}
+
+	protected ModelAndView invokeHandlerMethod(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+
+		ServletHandlerMethodResolver methodResolver = getMethodResolver(handler);
 		Method handlerMethod = methodResolver.resolveHandlerMethod(request);
-		ArgumentsResolver argResolver = new ArgumentsResolver(methodResolver.getInitBinderMethods());
-        /****** NOPALSOFT******/
-        argResolver.setValidators(this.getValidators());
-        argResolver.setDateFormat(this.dateFormat);
-        /****** NOPALSOFT******/
-        for (Method attributeMethod : methodResolver.getModelAttributeMethods()) {
-			Object[] args = argResolver.resolveArguments(
-					handler, attributeMethod, request, response, webRequest, implicitModel, sessionAttrNames);
-			ReflectionUtils.makeAccessible(attributeMethod);
-			Object attrValue = ReflectionUtils.invokeMethod(attributeMethod, handler, args);
-			String attrName = attributeMethod.getAnnotation(ModelAttribute.class).value();
-			if ("".equals(attrName)) {
-				implicitModel.addAttribute(attrValue);
-			}
-			else {
-				implicitModel.addAttribute(attrName, attrValue);
-			}
-		}
+		ServletHandlerMethodInvoker methodInvoker = new ServletHandlerMethodInvoker(methodResolver);
+		ServletWebRequest webRequest = new ServletWebRequest(request, response);
+		ExtendedModelMap implicitModel = new BindingAwareModelMap();
 
-		Object[] args = argResolver.resolveArguments(
-				handler, handlerMethod, request, response, webRequest, implicitModel, sessionAttrNames);
-		ReflectionUtils.makeAccessible(handlerMethod);
-		Object result;
-        /************** NOPALSOFT **************/
-        // Manejo automatico del response, si existe una exception, lo maneja automaticamente
-        ResponseType rtAnnotation = handlerMethod.getAnnotation(ResponseType.class);
-        try {
-            result = ReflectionUtils.invokeMethod(handlerMethod, handler, args);
-            // Si no hubo exception y trae el annotation
-            if(result == null && rtAnnotation != null){
-                if(rtAnnotation.value().equals(ResponseTypes.XML)){
-                    result = new XmlView(new Information().toXml());
-                }
-                else{
-                    result = new TextView(new Information().toJSONString());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            if(rtAnnotation != null){
-                if(rtAnnotation.value().equals(ResponseTypes.XML)){
-                    result = new XmlView(new Information(ExceptionTranslator.translate(e)).toXml());
-                }
-                else{
-                    result = new TextView(new Information(ExceptionTranslator.translate(e)).toJSONString());
-                }
-            }else{
-                result = new ModelAndView("error", "exception", e);
-//                throw e;
-            }
-        }
-        /************** NOPALSOFT **************/
-        ModelAndView mav = argResolver.getModelAndView(handlerMethod, result, implicitModel);
-
-		if (sessionAttributes != null) {
-			if (argResolver.isProcessingComplete()) {
-				if (sessionAttrNames != null) {
-					for (String attrName : sessionAttrNames) {
-						this.sessionAttributeStore.cleanupAttribute(webRequest, attrName);
-					}
-				}
-			}
-			else {
-				// Expose model attributes as session attributes, if required.
-				Map<String, Object> model = (mav != null ? mav.getModel() : implicitModel);
-				Set<Object> sessionAttributeSet = new HashSet<Object>();
-				sessionAttributeSet.addAll(Arrays.asList(sessionAttributes.value()));
-				sessionAttributeSet.addAll(Arrays.asList(sessionAttributes.types()));
-				for (Map.Entry entry : new HashSet<Map.Entry>(model.entrySet())) {
-					String attrName = (String) entry.getKey();
-					Object attrValue = entry.getValue();
-					if (sessionAttributeSet.contains(attrName) ||
-							(attrValue != null && sessionAttributeSet.contains(attrValue.getClass()))) {
-						sessionAttrNames.add(attrName);
-						this.sessionAttributeStore.storeAttribute(webRequest, attrName, attrValue);
-						String bindingResultKey = BindingResult.MODEL_KEY_PREFIX + attrName;
-						if (mav != null && !model.containsKey(bindingResultKey)) {
-							ServletRequestDataBinder binder = new ServletRequestDataBinder(attrValue, attrName);
-							if (this.webBindingInitializer != null) {
-								this.webBindingInitializer.initBinder(binder, webRequest);
-							}
-							mav.addObject(bindingResultKey, binder.getBindingResult());
-						}
-					}
-				}
-			}
-		}
-
+		Object result = methodInvoker.invokeHandlerMethod(handlerMethod, handler, webRequest, implicitModel);
+		ModelAndView mav =
+				methodInvoker.getModelAndView(handlerMethod, handler.getClass(), result, implicitModel, webRequest);
+		methodInvoker.updateModelAttributes(handler, (mav != null ? mav.getModel() : null), implicitModel, webRequest);
 		return mav;
 	}
 
@@ -366,69 +363,85 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 		return -1;
 	}
 
+	/**
+	 * Template method for creating a new ServletRequestDataBinder instance. <p>The default implementation creates a
+	 * standard ServletRequestDataBinder. This can be overridden for custom ServletRequestDataBinder subclasses.
+	 *
+	 * @param request current HTTP request
+	 * @param target the target object to bind onto (or <code>null</code> if the binder is just used to convert a plain
+	 * parameter value)
+	 * @param objectName the objectName of the target object
+	 * @return the ServletRequestDataBinder instance to use
+	 * @throws Exception in case of invalid state or arguments
+	 * @see ServletRequestDataBinder#bind(javax.servlet.ServletRequest)
+	 * @see ServletRequestDataBinder#convertIfNecessary(Object, Class, MethodParameter)
+	 */
+	protected ServletRequestDataBinder createBinder(HttpServletRequest request, Object target, String objectName)
+			throws Exception {
 
-	private HandlerMethodResolver getMethodResolver(Object handler) {
-		HandlerMethodResolver resolver = this.methodResolverCache.get(handler.getClass());
+		return new ServletRequestDataBinder(target, objectName);
+	}
+
+	/** Build a HandlerMethodResolver for the given handler type. */
+	private ServletHandlerMethodResolver getMethodResolver(Object handler) {
+		Class handlerClass = ClassUtils.getUserClass(handler);
+		ServletHandlerMethodResolver resolver = this.methodResolverCache.get(handlerClass);
 		if (resolver == null) {
-			resolver = new HandlerMethodResolver(handler.getClass());
-			this.methodResolverCache.put(handler.getClass(), resolver);
+			resolver = new ServletHandlerMethodResolver(handlerClass);
+			this.methodResolverCache.put(handlerClass, resolver);
 		}
 		return resolver;
 	}
 
+	/** Servlet-specific subclass of {@link HandlerMethodResolver}. */
+	private class ServletHandlerMethodResolver extends HandlerMethodResolver {
 
-    private class HandlerMethodResolver {
-
-		private final Set<Method> handlerMethods = new LinkedHashSet<Method>();
-
-		private final Set<Method> initBinderMethods = new LinkedHashSet<Method>();
-
-		private final Set<Method> modelAttributeMethods = new LinkedHashSet<Method>();
-
-		public HandlerMethodResolver(final Class<?> handlerType) {
-			ReflectionUtils.doWithMethods(handlerType, new ReflectionUtils.MethodCallback() {
-				public void doWith(Method method) {
-					if (method.isAnnotationPresent(RequestMapping.class)) {
-						handlerMethods.add(method);
-					}
-					else if (method.isAnnotationPresent(InitBinder.class)) {
-						initBinderMethods.add(method);
-					}
-					else if (method.isAnnotationPresent(ModelAttribute.class)) {
-						modelAttributeMethods.add(method);
-					}
-				}
-			});
+		private ServletHandlerMethodResolver(Class<?> handlerType) {
+			init(handlerType);
 		}
 
 		public Method resolveHandlerMethod(HttpServletRequest request) throws ServletException {
 			String lookupPath = urlPathHelper.getLookupPathForRequest(request);
+			Comparator<String> pathComparator = pathMatcher.getPatternComparator(lookupPath);
 			Map<RequestMappingInfo, Method> targetHandlerMethods = new LinkedHashMap<RequestMappingInfo, Method>();
-			Map<RequestMappingInfo, String> targetPathMatches = new LinkedHashMap<RequestMappingInfo, String>();
+			Set<String> allowedMethods = new LinkedHashSet<String>(7);
 			String resolvedMethodName = null;
-			for (Method handlerMethod : this.handlerMethods) {
+			for (Method handlerMethod : getHandlerMethods()) {
 				RequestMappingInfo mappingInfo = new RequestMappingInfo();
-				RequestMapping mapping = handlerMethod.getAnnotation(RequestMapping.class);
+				RequestMapping mapping = AnnotationUtils.findAnnotation(handlerMethod, RequestMapping.class);
 				mappingInfo.paths = mapping.value();
-				mappingInfo.methods = mapping.method();
-				mappingInfo.params = mapping.params();
+				if (!hasTypeLevelMapping() || !Arrays.equals(mapping.method(), getTypeLevelMapping().method())) {
+					mappingInfo.methods = mapping.method();
+				}
+				if (!hasTypeLevelMapping() || !Arrays.equals(mapping.params(), getTypeLevelMapping().params())) {
+					mappingInfo.params = mapping.params();
+				}
+				if (!hasTypeLevelMapping() || !Arrays.equals(mapping.headers(), getTypeLevelMapping().headers())) {
+					mappingInfo.headers = mapping.headers();
+				}
 				boolean match = false;
 				if (mappingInfo.paths.length > 0) {
-					for (String mappedPath : mappingInfo.paths) {
-						if (mappedPath.equals(lookupPath) || pathMatcher.match(mappedPath, lookupPath)) {
-							if (checkParameters(request, mappingInfo)) {
+					List<String> matchedPaths = new ArrayList<String>(mappingInfo.paths.length);
+					for (String methodLevelPattern : mappingInfo.paths) {
+						if (isPathMatch(methodLevelPattern, lookupPath)) {
+							if (mappingInfo.matches(request)) {
 								match = true;
-								targetPathMatches.put(mappingInfo, mappedPath);
+								matchedPaths.add(methodLevelPattern);
 							}
 							else {
+								for (RequestMethod requestMethod : mappingInfo.methods) {
+									allowedMethods.add(requestMethod.toString());
+								}
 								break;
 							}
 						}
 					}
+					Collections.sort(matchedPaths, pathComparator);
+					mappingInfo.matchedPaths = matchedPaths.toArray(new String[matchedPaths.size()]);
 				}
 				else {
 					// No paths specified: parameter match sufficient.
-					match = checkParameters(request, mappingInfo);
+					match = mappingInfo.matches(request);
 					if (match && mappingInfo.methods.length == 0 && mappingInfo.params.length == 0 &&
 							resolvedMethodName != null && !resolvedMethodName.equals(handlerMethod.getName())) {
 						match = false;
@@ -437,375 +450,279 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 				if (match) {
 					Method oldMappedMethod = targetHandlerMethods.put(mappingInfo, handlerMethod);
 					if (oldMappedMethod != null && oldMappedMethod != handlerMethod) {
-						if (methodNameResolver != null && resolvedMethodName == null && mappingInfo.isEmpty()) {
-							resolvedMethodName = methodNameResolver.getHandlerMethodName(request);
-							if (!resolvedMethodName.equals(oldMappedMethod.getName())) {
-								oldMappedMethod = null;
-							}
-							if (!resolvedMethodName.equals(handlerMethod.getName())) {
-								if (oldMappedMethod != null) {
-									targetHandlerMethods.put(mappingInfo, oldMappedMethod);
+						if (methodNameResolver != null && mappingInfo.paths.length == 0) {
+							if (!oldMappedMethod.getName().equals(handlerMethod.getName())) {
+								if (resolvedMethodName == null) {
+									resolvedMethodName = methodNameResolver.getHandlerMethodName(request);
+								}
+								if (!resolvedMethodName.equals(oldMappedMethod.getName())) {
 									oldMappedMethod = null;
 								}
-								else {
-									targetHandlerMethods.remove(mappingInfo);
+								if (!resolvedMethodName.equals(handlerMethod.getName())) {
+									if (oldMappedMethod != null) {
+										targetHandlerMethods.put(mappingInfo, oldMappedMethod);
+										oldMappedMethod = null;
+									}
+									else {
+										targetHandlerMethods.remove(mappingInfo);
+									}
 								}
 							}
 						}
 						if (oldMappedMethod != null) {
-							throw new IllegalStateException("Ambiguous handler methods mapped for HTTP path '" +
-									lookupPath + "': {" + oldMappedMethod + ", " + handlerMethod +
-									"}. If you intend to handle the same path in multiple methods, then factor " +
-									"them out into a dedicated handler class with that path mapped at the type level!");
+							throw new IllegalStateException(
+									"Ambiguous handler methods mapped for HTTP path '" + lookupPath + "': {" +
+											oldMappedMethod + ", " + handlerMethod +
+											"}. If you intend to handle the same path in multiple methods, then factor " +
+											"them out into a dedicated handler class with that path mapped at the type level!");
 						}
 					}
 				}
 			}
-			if (targetHandlerMethods.size() == 1) {
-				return targetHandlerMethods.values().iterator().next();
-			}
-			else if (!targetHandlerMethods.isEmpty()) {
-				RequestMappingInfo bestMappingMatch = null;
-				String bestPathMatch = null;
-				for (RequestMappingInfo mapping : targetHandlerMethods.keySet()) {
-					String mappedPath = targetPathMatches.get(mapping);
-					if (bestMappingMatch == null) {
-						bestMappingMatch = mapping;
-						bestPathMatch = mappedPath;
-					}
-					else {
-						if ((mappedPath != null && (bestPathMatch == null ||
-								mappedPath.equals(lookupPath) || bestPathMatch.length() < mappedPath.length())) ||
-								(bestMappingMatch.methods.length == 0 && mapping.methods.length > 0) ||
-								bestMappingMatch.params.length < mapping.params.length) {
-							bestMappingMatch = mapping;
-							bestPathMatch = mappedPath;
-						}
-					}
+			if (!targetHandlerMethods.isEmpty()) {
+				List<RequestMappingInfo> matches = new ArrayList<RequestMappingInfo>(targetHandlerMethods.keySet());
+				RequestMappingInfoComparator requestMappingInfoComparator =
+						new RequestMappingInfoComparator(pathComparator);
+				Collections.sort(matches, requestMappingInfoComparator);
+				RequestMappingInfo bestMappingMatch = matches.get(0);
+				if (bestMappingMatch.matchedPaths.length > 0) {
+					extractHandlerMethodUriTemplates(bestMappingMatch.matchedPaths[0], lookupPath, request);
 				}
 				return targetHandlerMethods.get(bestMappingMatch);
 			}
 			else {
-				throw new IllegalStateException("No matching handler method found for servlet request: path '" +
-						lookupPath + "', method '" + request.getMethod() + "', parameters " +
-						StylerUtils.style(request.getParameterMap()));
-			}
-		}
-
-		private boolean checkParameters(HttpServletRequest request, RequestMappingInfo mapping) {
-			if (mapping.methods.length > 0) {
-				boolean match = false;
-				for (RequestMethod type : mapping.methods) {
-					if (type.toString().equals(request.getMethod().toUpperCase())) {
-						match = true;
-					}
+				if (!allowedMethods.isEmpty()) {
+					throw new HttpRequestMethodNotSupportedException(request.getMethod(),
+							StringUtils.toStringArray(allowedMethods));
 				}
-				if (!match) {
-					return false;
+				else {
+					throw new NoSuchRequestHandlingMethodException(lookupPath, request.getMethod(),
+							request.getParameterMap());
 				}
 			}
-			String[] params = mapping.params;
-			if (params.length > 0) {
-				for (String param : params) {
-					int separator = param.indexOf('=');
-					if (separator == -1) {
-						if (!WebUtils.hasSubmitParameter(request, param)) {
-							return false;
-						}
+		}
+
+		private boolean isPathMatch(String methodLevelPattern, String lookupPath) {
+			if (isPathMatchInternal(methodLevelPattern, lookupPath)) {
+				return true;
+			}
+			if (hasTypeLevelMapping()) {
+				String[] typeLevelPatterns = getTypeLevelMapping().value();
+				for (String typeLevelPattern : typeLevelPatterns) {
+					if (!typeLevelPattern.startsWith("/")) {
+						typeLevelPattern = "/" + typeLevelPattern;
 					}
-					else {
-						String key = param.substring(0, separator);
-						String value = param.substring(separator + 1);
-						if (!value.equals(request.getParameter(key))) {
-							return false;
-						}
+					String combinedPattern = pathMatcher.combine(typeLevelPattern, methodLevelPattern);
+					if (isPathMatchInternal(combinedPattern, lookupPath)) {
+						return true;
 					}
 				}
+
 			}
-			return true;
+			return false;
 		}
 
-		public boolean hasHandlerMethods() {
-			return !this.handlerMethods.isEmpty();
-		}
-
-		public Set<Method> getInitBinderMethods() {
-			return this.initBinderMethods;
-		}
-
-		public Set<Method> getModelAttributeMethods() {
-			return this.modelAttributeMethods;
-		}
-	}
-
-
-	private class ArgumentsResolver {
-
-        /****** NOPALSOFT******/
-        private Validator[] validators;
-        private String dateFormat;
-
-        /**
-         * Set the primary Validator for this controller. The Validator
-         * must support the specified command class. If there are one
-         * or more existing validators set already when this method is
-         * called, only the specified validator will be kept. Use
-         * {@link #setValidators(Validator[])} to set multiple validators.
-         */
-        public final void setValidator(Validator validator) {
-            this.validators = new Validator[] {validator};
-        }
-
-        /**
-         * Return the primary Validator for this controller.
-         */
-        public final Validator getValidator() {
-            return (this.validators != null && this.validators.length > 0 ? this.validators[0] : null);
-        }
-
-        /**
-         * Set the Validators for this controller.
-         * The Validator must support the specified command class.
-         */
-        public final void setValidators(Validator[] validators) {
-            this.validators = validators;
-        }
-
-        /**
-         * Return the Validators for this controller.
-         */
-        public final Validator[] getValidators() {
-            return this.validators;
-        }
-
-        public void setDateFormat(String dateFormat) {
-            this.dateFormat = dateFormat;
-        }
-        /****** NOPALSOFT******/
-        
-        private final Set<Method> initBinderMethods;
-
-		private final SimpleSessionStatus sessionStatus = new SimpleSessionStatus();
-
-		private boolean responseArgumentUsed = false;
-
-		public ArgumentsResolver(Set<Method> initBinderMethods) {
-			this.initBinderMethods = initBinderMethods;
+		private boolean isPathMatchInternal(String pattern, String lookupPath) {
+			if (pattern.equals(lookupPath) || pathMatcher.match(pattern, lookupPath)) {
+				return true;
+			}
+			boolean hasSuffix = pattern.indexOf('.') != -1;
+			if (!hasSuffix && pathMatcher.match(pattern + ".*", lookupPath)) {
+				return true;
+			}
+			boolean endsWithSlash = pattern.endsWith("/");
+			if (!endsWithSlash && pathMatcher.match(pattern + "/", lookupPath)) {
+				return true;
+			}
+			return false;
 		}
 
 		@SuppressWarnings("unchecked")
-		public Object[] resolveArguments(
-				Object handler, Method handlerMethod, HttpServletRequest request, HttpServletResponse response,
-				WebRequest webRequest, ModelMap implicitModel, Set<String> sessionAttrNames)
-				throws ServletException, IOException {
+		private void extractHandlerMethodUriTemplates(String mappedPath,
+				String lookupPath,
+				HttpServletRequest request) {
+			Map<String, String> variables = null;
+			boolean hasSuffix = (mappedPath.indexOf('.') != -1);
+			if (!hasSuffix && pathMatcher.match(mappedPath + ".*", lookupPath)) {
+				String realPath = mappedPath + ".*";
+				if (pathMatcher.match(realPath, lookupPath)) {
+					variables = pathMatcher.extractUriTemplateVariables(realPath, lookupPath);
+				}
+			}
+			if (variables == null && !mappedPath.startsWith("/")) {
+				String realPath = "/**/" + mappedPath;
+				if (pathMatcher.match(realPath, lookupPath)) {
+					variables = pathMatcher.extractUriTemplateVariables(realPath, lookupPath);
+				}
+				else {
+					realPath = realPath + ".*";
+					if (pathMatcher.match(realPath, lookupPath)) {
+						variables = pathMatcher.extractUriTemplateVariables(realPath, lookupPath);
+					}
+				}
+			}
+			if (!CollectionUtils.isEmpty(variables)) {
+				Map<String, String> typeVariables =
+						(Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+				if (typeVariables != null) {
+					variables.putAll(typeVariables);
+				}
+				request.setAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, variables);
+			}
+		}
+	}
 
-			SessionAttributes sessionAttributes = handler.getClass().getAnnotation(SessionAttributes.class);
-			Set sessionAttributeSet = null;
-			if (sessionAttributes != null) {
-				sessionAttributeSet = new HashSet();
-				sessionAttributeSet.addAll(Arrays.asList(sessionAttributes.value()));
-				sessionAttributeSet.addAll(Arrays.asList(sessionAttributes.types()));
-			}
-			SimpleTypeConverter converter = new SimpleTypeConverter();
-			Object[] args = new Object[handlerMethod.getParameterTypes().length];
-			String[] paramNames = null;
-			boolean paramNamesResolved = false;
-			for (int i = 0; i < args.length; i++) {
-				MethodParameter param = new MethodParameter(handlerMethod, i);
-				args[i] = resolveStandardArgument(param.getParameterType(), request, response, webRequest);
-				if (args[i] == null) {
-					if (param.getParameterType().isInstance(implicitModel)) {
-						args[i] = implicitModel;
-					}
-					else if (param.getParameterType().isInstance(this.sessionStatus)) {
-						args[i] = this.sessionStatus;
-					}
-				}
-				if (args[i] == null) {
-					boolean isParam = false;
-					String paramName = "";
-					boolean paramRequired = false;
-					String attrName = ClassUtils.getShortNameAsProperty(param.getParameterType());
-					Annotation[] paramAnns = (Annotation[]) param.getParameterAnnotations();
-					for (int j = 0; j < paramAnns.length; j++) {
-						Annotation paramAnn = paramAnns[j];
-						if (RequestParam.class.isInstance(paramAnn)) {
-							RequestParam requestParam = (RequestParam) paramAnn;
-							isParam = true;
-							paramName = requestParam.value();
-							paramRequired = requestParam.required();
-							break;
-						}
-						else if (ModelAttribute.class.isInstance(paramAnn)) {
-							ModelAttribute attr = (ModelAttribute) paramAnn;
-							if (!"".equals(attr.value())) {
-								attrName = attr.value();
-							}
-						}
-					}
-					if (isParam || BeanUtils.isSimpleProperty(param.getParameterType())) {
-						// Request parameter value...
-						if ("".equals(paramName)) {
-							if (!paramNamesResolved) {
-								ParameterNameDiscoverer discoverer = new LocalVariableTableParameterNameDiscoverer();
-								paramNames = discoverer.getParameterNames(handlerMethod);
-								paramNamesResolved = true;
-							}
-							if (paramNames == null) {
-								throw new IllegalStateException("No parameter specified for @RequestParam argument " +
-										"of type [" + param.getParameterType().getName() + "], and no parameter name " +
-										"information found in class file either.");
-							}
-							paramName = paramNames[i];
-						}
-						Object paramValue = null;
-						if (request instanceof MultipartHttpServletRequest) {
-							paramValue = ((MultipartHttpServletRequest) request).getFile(paramName);
-						}
-						if (paramValue == null) {
-							paramValue = request.getParameterValues(paramName);
-						}
-						if (paramValue == null && paramRequired) {
-							throw new MissingServletRequestParameterException(paramName, param.getParameterType().getName());
-						}
-                        // NOPALSOFT
-                        SimpleDateFormat dateFormat = new SimpleDateFormat(this.dateFormat);
-                        dateFormat.setLenient(false);
-                        converter.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));
-                        // NOPALSOFT
-                        args[i] = converter.convertIfNecessary(paramValue, param.getParameterType());
-					}
-					else {
-						// Bind request parameter onto object...
-						if (sessionAttributeSet != null &&
-								(sessionAttributeSet.contains(attrName) || sessionAttributeSet.contains(param.getParameterType())) &&
-								!implicitModel.containsKey(attrName)) {
-							HttpSession session = request.getSession(false);
-							if (session == null) {
-								throw new HttpSessionRequiredException(
-										"No session found - session required for attribute '" + attrName + "'");
-							}
-							Object sessionAttr = sessionAttributeStore.retrieveAttribute(webRequest, attrName);
-							if (sessionAttr == null) {
-								throw new HttpSessionRequiredException(
-										"Session attribute '" + attrName + "' required - not found in session");
-							}
-							sessionAttrNames.add(attrName);
-							implicitModel.addAttribute(attrName, sessionAttr);
-						}
-                        Object bindObject = implicitModel.get(attrName);
-                        /********* NOPALSOFT **********/
-                        if (bindObject == null) {
-                            // TODO: Hacer que esto lo pueda crear un controller, y ponerlo en jira spring.
-                            Class commandType;
-                            if(request.getParameter("e") != null && param.getParameterType().equals(BaseEntity.class)){
-                                SystemEntity entity = systemConfiguration.getSystemEntity(request.getParameter("e"));
-                                commandType = entity.getType();
-                            }else{
-                                commandType = param.getParameterType();
-                            }
-                            if(StringUtils.isNotBlank(request.getParameter("id"))){
-                                bindObject = entityManager.get(commandType, Long.valueOf(request.getParameter("id")));
-                            }else{
-                                bindObject = BeanUtils.instantiateClass(commandType);
-                            }
-                        }
-                        /********* NOPALSOFT **********/
-                        ServletRequestDataBinder binder = new ServletRequestDataBinder(bindObject, attrName);
-						if (webBindingInitializer != null) {
-							webBindingInitializer.initBinder(binder, webRequest);
-						}
-						for (Method initBinderMethod : this.initBinderMethods) {
-							String[] targetNames = initBinderMethod.getAnnotation(InitBinder.class).value();
-							if (targetNames.length == 0 || Arrays.asList(targetNames).contains(attrName)) {
-								Class[] initBinderParams = initBinderMethod.getParameterTypes();
-								Object[] initBinderArgs = new Object[initBinderParams.length];
-								for (int j = 0; j < initBinderArgs.length; j++) {
-									initBinderArgs[j] = resolveStandardArgument(initBinderParams[j], request, response, webRequest);
-									if (initBinderArgs[j] == null) {
-										if (initBinderParams[j].isInstance(binder)) {
-											initBinderArgs[j] = binder;
-										}
-									}
-								}
-								ReflectionUtils.makeAccessible(initBinderMethod);
-								Object attrValue = ReflectionUtils.invokeMethod(initBinderMethod, handler, initBinderArgs);
-								if (attrValue != null) {
-									throw new IllegalStateException(
-											"InitBinder methods must not have a return value: " + initBinderMethod);
-								}
-							}
-						}
-						binder.bind(request);
-                        if (this.validators != null) {
-                            for (Validator validator : this.validators) {
-                                ValidationUtils.invokeValidator(validator, bindObject, binder.getBindingResult());
-                            }
-                        }
-						args[i] = bindObject;
-						implicitModel.putAll(binder.getBindingResult().getModel());
-						if (args.length > i + 1 && Errors.class.isAssignableFrom(handlerMethod.getParameterTypes()[i + 1])) {
-							args[i + 1] = binder.getBindingResult();
-							i++;
-						}
-						else {
-							binder.closeNoCatch();
-						}
-					}
-				}
-			}
-			return args;
+	/** Servlet-specific subclass of {@link HandlerMethodInvoker}. */
+	private class ServletHandlerMethodInvoker extends HandlerMethodInvoker {
+
+		private boolean responseArgumentUsed = false;
+
+		private ServletHandlerMethodInvoker(HandlerMethodResolver resolver) {
+			super(resolver, webBindingInitializer, sessionAttributeStore, parameterNameDiscoverer,
+					customArgumentResolvers, messageConverters);
 		}
 
-		private Object resolveStandardArgument(
-				Class<?> parameterType, HttpServletRequest request, HttpServletResponse response, WebRequest webRequest)
-				throws IOException {
+		@Override
+		protected void raiseMissingParameterException(String paramName, Class paramType) throws Exception {
+			throw new MissingServletRequestParameterException(paramName, paramType.getName());
+		}
 
-			if (parameterType.isInstance(request)) {
+		@Override
+		protected void raiseSessionRequiredException(String message) throws Exception {
+			throw new HttpSessionRequiredException(message);
+		}
+
+		@Override
+		protected WebDataBinder createBinder(NativeWebRequest webRequest, Object target, String objectName)
+				throws Exception {
+
+			return AnnotationMethodHandlerAdapter.this
+					.createBinder((HttpServletRequest) webRequest.getNativeRequest(), target, objectName);
+		}
+
+		@Override
+		protected void doBind(NativeWebRequest webRequest, WebDataBinder binder, boolean failOnErrors)
+				throws Exception {
+
+			ServletRequestDataBinder servletBinder = (ServletRequestDataBinder) binder;
+			servletBinder.bind((ServletRequest) webRequest.getNativeRequest());
+			if (failOnErrors) {
+				servletBinder.closeNoCatch();
+			}
+		}
+
+		@Override
+		protected HttpInputMessage createHttpInputMessage(NativeWebRequest webRequest) throws Exception {
+			HttpServletRequest servletRequest = (HttpServletRequest) webRequest.getNativeRequest();
+			return new ServletServerHttpRequest(servletRequest);
+		}
+
+		@Override
+		protected Object resolveCookieValue(String cookieName, Class paramType, NativeWebRequest webRequest)
+				throws Exception {
+
+			HttpServletRequest servletRequest = (HttpServletRequest) webRequest.getNativeRequest();
+			Cookie cookieValue = WebUtils.getCookie(servletRequest, cookieName);
+			if (Cookie.class.isAssignableFrom(paramType)) {
+				return cookieValue;
+			}
+			else {
+				return cookieValue.getValue();
+			}
+		}
+
+		@Override
+		@SuppressWarnings({"unchecked"})
+		protected String resolvePathVariable(String pathVarName, Class paramType, NativeWebRequest webRequest)
+				throws Exception {
+
+			HttpServletRequest servletRequest = (HttpServletRequest) webRequest.getNativeRequest();
+			Map<String, String> uriTemplateVariables =
+					(Map<String, String>) servletRequest.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+			if (uriTemplateVariables == null || !uriTemplateVariables.containsKey(pathVarName)) {
+				throw new IllegalStateException(
+						"Could not find @PathVariable [" + pathVarName + "] in @RequestMapping");
+			}
+			return uriTemplateVariables.get(pathVarName);
+		}
+
+		@Override
+		protected Object resolveStandardArgument(Class parameterType, NativeWebRequest webRequest) throws Exception {
+
+			HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+			HttpServletResponse response = (HttpServletResponse) webRequest.getNativeResponse();
+
+			if (ServletRequest.class.isAssignableFrom(parameterType)) {
 				return request;
 			}
-			else if (parameterType.isInstance(response)) {
+			else if (ServletResponse.class.isAssignableFrom(parameterType)) {
 				this.responseArgumentUsed = true;
 				return response;
 			}
 			else if (HttpSession.class.isAssignableFrom(parameterType)) {
 				return request.getSession();
 			}
-			else if (WebRequest.class.isAssignableFrom(parameterType)) {
-				return webRequest;
+			else if (Principal.class.isAssignableFrom(parameterType)) {
+				return request.getUserPrincipal();
 			}
 			else if (Locale.class.equals(parameterType)) {
 				return RequestContextUtils.getLocale(request);
 			}
-			else if (InputStream.class.equals(parameterType)) {
+			else if (InputStream.class.isAssignableFrom(parameterType)) {
 				return request.getInputStream();
 			}
-			else if (Reader.class.equals(parameterType)) {
+			else if (Reader.class.isAssignableFrom(parameterType)) {
 				return request.getReader();
 			}
-			else if (OutputStream.class.equals(parameterType)) {
+			else if (OutputStream.class.isAssignableFrom(parameterType)) {
 				this.responseArgumentUsed = true;
 				return response.getOutputStream();
 			}
-			else if (Writer.class.equals(parameterType)) {
+			else if (Writer.class.isAssignableFrom(parameterType)) {
 				this.responseArgumentUsed = true;
 				return response.getWriter();
 			}
-			else {
-				return null;
-			}
-		}
-
-		public boolean isProcessingComplete() {
-			return this.sessionStatus.isComplete();
+			return super.resolveStandardArgument(parameterType, webRequest);
 		}
 
 		@SuppressWarnings("unchecked")
-		public ModelAndView getModelAndView(Method handlerMethod, Object returnValue, ModelMap implicitModel) {
+		public ModelAndView getModelAndView(Method handlerMethod,
+				Class handlerType,
+				Object returnValue,
+				ExtendedModelMap implicitModel,
+				ServletWebRequest webRequest) {
+
+			// Invoke custom resolvers if present...
+			if (customModelAndViewResolvers != null) {
+				for (ModelAndViewResolver mavResolver : customModelAndViewResolvers) {
+					ModelAndView mav = mavResolver
+							.resolveModelAndView(handlerMethod, handlerType, returnValue, implicitModel, webRequest);
+					if (mav != ModelAndViewResolver.UNRESOLVED) {
+						return mav;
+					}
+				}
+			}
+			if (handlerMethod.isAnnotationPresent(ResponseStatus.class)) {
+				ResponseStatus responseStatus = handlerMethod.getAnnotation(ResponseStatus.class);
+				HttpServletResponse response = webRequest.getResponse();
+				response.setStatus(responseStatus.value().value());
+				responseArgumentUsed = true;
+			}
+
 			if (returnValue instanceof ModelAndView) {
 				ModelAndView mav = (ModelAndView) returnValue;
 				mav.getModelMap().mergeAttributes(implicitModel);
 				return mav;
+			}
+			else if (returnValue instanceof Model) {
+				return new ModelAndView().addAllObjects(implicitModel).addAllObjects(((Model) returnValue).asMap());
+			}
+			else if (returnValue instanceof View) {
+				return new ModelAndView((View) returnValue).addAllObjects(implicitModel);
+			}
+			else if (handlerMethod.isAnnotationPresent(ModelAttribute.class)) {
+				addReturnValueAsModelAttribute(handlerMethod, handlerType, returnValue, implicitModel);
+				return new ModelAndView().addAllObjects(implicitModel);
 			}
 			else if (returnValue instanceof Map) {
 				return new ModelAndView().addAllObjects(implicitModel).addAllObjects((Map) returnValue);
@@ -815,24 +732,18 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 			}
 			else if (returnValue == null) {
 				// Either returned null or was 'void' return.
-				if (!this.responseArgumentUsed) {
-					// Assuming view name translation...
-					return new ModelAndView().addAllObjects(implicitModel);
+				if (this.responseArgumentUsed || webRequest.isNotModified()) {
+					return null;
 				}
 				else {
-					return null;
+					// Assuming view name translation...
+					return new ModelAndView().addAllObjects(implicitModel);
 				}
 			}
 			else if (!BeanUtils.isSimpleProperty(returnValue.getClass())) {
 				// Assume a single model attribute...
-				String attrName = handlerMethod.getAnnotation(ModelAttribute.class).value();
-				ModelAndView mav = new ModelAndView().addAllObjects(implicitModel);
-				if ("".equals(attrName)) {
-					return mav.addObject(returnValue);
-				}
-				else {
-					return mav.addObject(attrName, returnValue);
-				}
+				addReturnValueAsModelAttribute(handlerMethod, handlerType, returnValue, implicitModel);
+				return new ModelAndView().addAllObjects(implicitModel);
 			}
 			else {
 				throw new IllegalArgumentException("Invalid handler method return value: " + returnValue);
@@ -840,28 +751,90 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 		}
 	}
 
+	static class RequestMappingInfo {
 
-	private static class RequestMappingInfo {
+		String[] paths = new String[0];
 
-		public String[] paths = new String[0];
+		String[] matchedPaths = new String[0];
 
-		public RequestMethod[] methods = new RequestMethod[0];
+		RequestMethod[] methods = new RequestMethod[0];
 
-		public String[] params = new String[0];
+		String[] params = new String[0];
 
-		public boolean isEmpty() {
-			return (paths.length == 0 && methods.length == 0 && params.length == 0);
+		String[] headers = new String[0];
+
+		String bestMatchedPath() {
+			return matchedPaths.length > 0 ? matchedPaths[0] : null;
 		}
 
+		public boolean matches(HttpServletRequest request) {
+			return ServletAnnotationMappingUtils.checkRequestMethod(this.methods, request) &&
+					ServletAnnotationMappingUtils.checkParameters(this.params, request) &&
+					ServletAnnotationMappingUtils.checkHeaders(this.headers, request);
+		}
+
+		@Override
 		public boolean equals(Object obj) {
 			RequestMappingInfo other = (RequestMappingInfo) obj;
-			return (this.paths.equals(other.paths) && this.methods.equals(other.methods) &&
-					this.params.equals(other.params));
+			return (Arrays.equals(this.paths, other.paths) && Arrays.equals(this.methods, other.methods) &&
+					Arrays.equals(this.params, other.params) && Arrays.equals(this.headers, other.headers));
 		}
 
+		@Override
 		public int hashCode() {
-			return (Arrays.hashCode(this.paths) * 29 + Arrays.hashCode(this.methods) * 31 +
-					Arrays.hashCode(this.params));
+			return (Arrays.hashCode(this.paths) * 23 + Arrays.hashCode(this.methods) * 29 +
+					Arrays.hashCode(this.params) * 31 + Arrays.hashCode(this.headers));
+		}
+	}
+
+
+	/**
+	 * Comparator capable of sorting {@link RequestMappingInfo}s (RHIs) so that sorting a list with this comparator will
+	 * result in: <ul> <li>RHIs with {@linkplain RequestMappingInfo#matchedPaths better matched paths} take prescedence
+	 * over those with a weaker match (as expressed by the {@linkplain PathMatcher#getPatternComparator(String) path
+	 * pattern comparator}.) Typically, this means that patterns without wild chards and uri templates will be ordered
+	 * before those without.</li> <li>RHIs with one single {@linkplain RequestMappingInfo#methods request method} will be
+	 * ordered before those without a method, or with more than one method.</li> <li>RHIs with more {@linkplain
+	 * RequestMappingInfo#params request parameters} will be ordered before those with less parameters</li> </ol>
+	 */
+	static class RequestMappingInfoComparator implements Comparator<RequestMappingInfo> {
+
+		private final Comparator<String> pathComparator;
+
+		RequestMappingInfoComparator(Comparator<String> pathComparator) {
+			this.pathComparator = pathComparator;
+		}
+
+		public int compare(RequestMappingInfo info1, RequestMappingInfo info2) {
+			int pathComparison = pathComparator.compare(info1.bestMatchedPath(), info2.bestMatchedPath());
+			if (pathComparison != 0) {
+				return pathComparison;
+			}
+			int info1MethodCount = info1.methods.length;
+			int info2MethodCount = info2.methods.length;
+			if (info1MethodCount == 0 && info2MethodCount > 0) {
+				return 1;
+			}
+			else if (info2MethodCount == 0 && info1MethodCount > 0) {
+				return -1;
+			}
+			else if (info1MethodCount == 1 & info2MethodCount > 1) {
+				return -1;
+			}
+			else if (info2MethodCount == 1 & info1MethodCount > 1) {
+				return 1;
+			}
+			int info1ParamCount = info1.params.length;
+			int info2ParamCount = info2.params.length;
+			if (info1ParamCount != info2ParamCount) {
+				return info2ParamCount - info1ParamCount;
+			}
+			int info1HeaderCount = info1.headers.length;
+			int info2HeaderCount = info2.headers.length;
+			if (info1HeaderCount != info2HeaderCount) {
+				return info2HeaderCount - info1HeaderCount;
+			}
+			return 0;
 		}
 	}
 
