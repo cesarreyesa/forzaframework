@@ -97,6 +97,10 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.support.WebContentGenerator;
 import org.springframework.web.util.UrlPathHelper;
 import org.springframework.web.util.WebUtils;
+import org.forzaframework.web.servlet.view.XmlView;
+import org.forzaframework.web.servlet.view.TextView;
+import org.forzaframework.validation.Information;
+import org.forzaframework.util.ExceptionTranslator;
 
 /**
  * Implementation of the {@link org.springframework.web.servlet.HandlerAdapter} interface that maps handler methods
@@ -352,8 +356,26 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
 		ExtendedModelMap implicitModel = new BindingAwareModelMap();
 
-		Object result = methodInvoker.invokeHandlerMethod(handlerMethod, handler, webRequest, implicitModel);
-		ModelAndView mav =
+        /// FORZA ///
+		Object result;
+        ResponseType rtAnnotation = handlerMethod.getAnnotation(ResponseType.class);
+        try {
+            result = methodInvoker.invokeHandlerMethod(handlerMethod, handler, webRequest, implicitModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if(rtAnnotation != null){
+                if(rtAnnotation.value().equals(ResponseTypes.XML)){
+                    result = new XmlView(new Information(ExceptionTranslator.translate(e)).toXml());
+                }
+                else{
+                    result = new TextView(new Information(ExceptionTranslator.translate(e)).toJSONString());
+                }
+            }else{
+                result = new ModelAndView("error", "exception", e);
+            }
+        }
+        /// FORZA ///
+        ModelAndView mav =
 				methodInvoker.getModelAndView(handlerMethod, handler.getClass(), result, implicitModel, webRequest);
 		methodInvoker.updateModelAttributes(handler, (mav != null ? mav.getModel() : null), implicitModel, webRequest);
 		return mav;

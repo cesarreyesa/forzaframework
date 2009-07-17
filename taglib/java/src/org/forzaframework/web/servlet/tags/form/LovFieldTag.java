@@ -234,9 +234,23 @@ public class LovFieldTag extends ComboboxTag {
             json.put("listeners", listeners);
         }else{
             if(StringUtils.isNotBlank(getHandler())){
-                JSONObject listeners = new JSONObject();
-                listeners.put("select", new JSONFunction(getHandler()));
-                json.put("listeners", listeners);
+//                JSONObject listeners = new JSONObject();
+//                listeners.put("select", new JSONFunction(getHandler()));
+                //Eliminamos el "function{}"
+                String handler = getHandler().substring(getHandler().indexOf("{") + 1,  getHandler().lastIndexOf("}"));
+                StringBuilder onclick = new StringBuilder("function(e){")
+                        //Colocamos las instrucciones adicionales
+                        .append(handler)
+                        .append("if (!this.isStoreLoaded) {")
+                        .append("this.view.store.load();")
+                        .append("this.isStoreLoaded = true;")
+                        .append("} else if (this.alwaysLoadStore === true) {")
+                        .append("this.view.store.reload();}")
+                        .append("this.createWindow();")
+                        .append("this.window.setPagePosition(e.xy[0] + 16, e.xy[1] + 16);")
+                        .append("this.window.show();")
+                        .append("}");
+                json.put("onTriggerClick", new JSONFunction(onclick.toString()));
             }
         }
 
