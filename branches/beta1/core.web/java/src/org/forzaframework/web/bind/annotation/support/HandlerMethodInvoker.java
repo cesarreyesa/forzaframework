@@ -36,6 +36,8 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.util.ReflectionUtils;
@@ -107,6 +109,12 @@ public class HandlerMethodInvoker {
 
     public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
         this.systemConfiguration = systemConfiguration;
+    }
+    
+    protected Validator[] validators;
+
+    public void setValidators(Validator[] validators) {
+        this.validators = validators;
     }
     /// FORZA ///
 
@@ -680,6 +688,11 @@ public class HandlerMethodInvoker {
 	protected void doBind(NativeWebRequest webRequest, WebDataBinder binder, boolean failOnErrors) throws Exception {
 		WebRequestDataBinder requestBinder = (WebRequestDataBinder) binder;
 		requestBinder.bind(webRequest);
+        if (this.validators != null) {
+            for (Validator validator : this.validators) {
+                ValidationUtils.invokeValidator(validator, binder.getTarget(), binder.getBindingResult());
+            }
+        }
 		if (failOnErrors) {
 			requestBinder.closeNoCatch();
 		}

@@ -65,6 +65,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.PathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.support.BindingAwareModelMap;
+import org.springframework.validation.Validator;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -100,9 +102,9 @@ import org.springframework.web.util.WebUtils;
 import org.forzaframework.web.servlet.view.XmlView;
 import org.forzaframework.web.servlet.view.TextView;
 import org.forzaframework.validation.Information;
-import org.forzaframework.util.ExceptionTranslator;
 import org.forzaframework.core.persistance.EntityManager;
 import org.forzaframework.metadata.SystemConfiguration;
+import org.forzaframework.util.ExceptionTranslator;
 
 /**
  * Implementation of the {@link org.springframework.web.servlet.HandlerAdapter} interface that maps handler methods
@@ -177,7 +179,13 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
     public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
         this.systemConfiguration = systemConfiguration;
     }
-    /// FORZA ///
+
+    private Validator[] validators;
+
+    public void setValidators(Validator[] validators) {
+        this.validators = validators;
+    }
+/// FORZA ///
 
 
 	public AnnotationMethodHandlerAdapter() {
@@ -371,6 +379,7 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 		ServletHandlerMethodInvoker methodInvoker = new ServletHandlerMethodInvoker(methodResolver);
         methodInvoker.setEntityManager(entityManager);
         methodInvoker.setSystemConfiguration(systemConfiguration);
+        methodInvoker.setValidators(validators);
 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
 		ExtendedModelMap implicitModel = new BindingAwareModelMap();
 
@@ -646,6 +655,11 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 
 			ServletRequestDataBinder servletBinder = (ServletRequestDataBinder) binder;
 			servletBinder.bind((ServletRequest) webRequest.getNativeRequest());
+            if (this.validators != null) {
+                for (Validator validator : this.validators) {
+                    ValidationUtils.invokeValidator(validator, binder.getTarget(), binder.getBindingResult());
+                }
+            }            
 			if (failOnErrors) {
 				servletBinder.closeNoCatch();
 			}
