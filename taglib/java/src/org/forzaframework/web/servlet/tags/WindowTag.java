@@ -130,7 +130,7 @@ public class WindowTag extends PanelTag implements Observable {
                 
                 if(buttons.size() > 0){
                     config.put("defaultButton", 0);                
-                    config.put("keys", new JSONFunction("{key:13,fn:function(){ win.buttons[0].handler.call(); },scope:win}"));                	
+                    config.put("keys", new JSONFunction("{key:Ext.EventObject.ENTER,fn:function(key, e){ if(e.getTarget().type == 'textarea') return; win.buttons[0].handler.call(); },scope:win}"));                	
                 }
                 
                 config.elementOpt("tbar", topToolbar);
