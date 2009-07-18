@@ -77,7 +77,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.support.HandlerMethodInvoker;
+import org.forzaframework.web.bind.annotation.support.HandlerMethodInvoker;
 import org.springframework.web.bind.annotation.support.HandlerMethodResolver;
 import org.springframework.web.bind.support.DefaultSessionAttributeStore;
 import org.springframework.web.bind.support.SessionAttributeStore;
@@ -101,6 +101,8 @@ import org.forzaframework.web.servlet.view.XmlView;
 import org.forzaframework.web.servlet.view.TextView;
 import org.forzaframework.validation.Information;
 import org.forzaframework.util.ExceptionTranslator;
+import org.forzaframework.core.persistance.EntityManager;
+import org.forzaframework.metadata.SystemConfiguration;
 
 /**
  * Implementation of the {@link org.springframework.web.servlet.HandlerAdapter} interface that maps handler methods
@@ -163,6 +165,20 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 	private HttpMessageConverter<?>[] messageConverters =
 			new HttpMessageConverter[]{new ByteArrayHttpMessageConverter(), new StringHttpMessageConverter(),
 					new FormHttpMessageConverter(), new SourceHttpMessageConverter()};
+
+    /// FORZA ///
+    private EntityManager entityManager;
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+    private SystemConfiguration systemConfiguration;
+
+    public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
+        this.systemConfiguration = systemConfiguration;
+    }
+    /// FORZA ///
+
 
 	public AnnotationMethodHandlerAdapter() {
 		// no restriction of HTTP methods by default
@@ -353,6 +369,8 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 		ServletHandlerMethodResolver methodResolver = getMethodResolver(handler);
 		Method handlerMethod = methodResolver.resolveHandlerMethod(request);
 		ServletHandlerMethodInvoker methodInvoker = new ServletHandlerMethodInvoker(methodResolver);
+        methodInvoker.setEntityManager(entityManager);
+        methodInvoker.setSystemConfiguration(systemConfiguration);
 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
 		ExtendedModelMap implicitModel = new BindingAwareModelMap();
 
