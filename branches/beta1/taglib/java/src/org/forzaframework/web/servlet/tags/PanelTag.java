@@ -347,7 +347,11 @@ public abstract class PanelTag extends BaseBodyTag {
 
         if(getHeight() != null){
             if(getHeight().contains("%")){
-                config.put("height", getHeight());
+                // compatibilidad con el custom layout ux.row
+                if(parent != null && parent instanceof PanelTag && ((PanelTag) parent).getLayout().equals("ux.row"))
+                    config.put("rowHeight", Integer.parseInt(getHeight().substring(1)) / 100);
+                else
+                    config.put("height", getHeight());
             }else{
                 config.elementOpt("height", Integer.valueOf(getHeight()));
             }
