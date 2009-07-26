@@ -1,6 +1,6 @@
 <project name="Build" basedir="." default="help">
 
-    <property name="webapp.name" value="mercury"/>
+    <property name="name" value="forzaframework"/>
 
     <property name="core.src.dir" value="core"/>
     <property name="corehibernate.src.dir" value="core.hibernate"/>
@@ -15,7 +15,7 @@
 
     <target name="help">
         <echo message=""/>
-        <echo message="${webapp.name} build file"/>
+        <echo message="${name} build file"/>
         <echo message="-----------------------------------"/>
         <echo message=""/>
         <echo message="Available targets are:"/>
@@ -115,10 +115,10 @@
     </target>
 
     <target name="create" depends="compile">
-        <input message="Project Short Name:" addproperty="project.name"/>
-        <input message="Project Long Name:" addproperty="project.publicName"/>
-        <input message="Root Package:" addproperty="root.package"/>
-        <input message="Root Package (Folder Format):" addproperty="root.folder"/>
+        <input message="Project Short Name (testproject):" addproperty="project.name"/>
+        <input message="Project Long Name (Test Project):" addproperty="project.publicName"/>
+        <input message="Root Package (com.test.project):" addproperty="root.package"/>
+        <input message="Root Package (com/test/project):" addproperty="root.folder"/>
 
         <tstamp>
             <format property="current.date" pattern="yyyy/dd/MM"/> 

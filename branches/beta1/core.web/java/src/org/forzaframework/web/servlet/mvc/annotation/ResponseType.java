@@ -19,6 +19,10 @@ package org.forzaframework.web.servlet.mvc.annotation;
 import java.lang.annotation.*;
 
 /**
+ * Es usado por {@link org.forzaframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter} y por {@link @link org.forzaframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter}
+ *
+ * @see org.forzaframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter
+ *
  * User: cesarreyes
  * Date: 05-dic-2007
  * Time: 9:54:53
