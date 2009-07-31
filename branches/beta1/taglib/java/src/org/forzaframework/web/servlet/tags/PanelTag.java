@@ -40,6 +40,7 @@ import java.util.List;
 public abstract class PanelTag extends BaseBodyTag {
 
 	private String xtype = "panel";
+    private String renderTo;
 	private String contentEl;
 	private String columnWidth;
     private String bodyBorder;
@@ -73,7 +74,15 @@ public abstract class PanelTag extends BaseBodyTag {
 		this.xtype = xtype;
 	}
 
-	public String getContentEl() {
+    public String getRenderTo() {
+        return renderTo;
+    }
+
+    public void setRenderTo(String renderTo) {
+        this.renderTo = renderTo;
+    }
+
+    public String getContentEl() {
 		return contentEl;
 	}
 
@@ -400,7 +409,11 @@ public abstract class PanelTag extends BaseBodyTag {
 	public String prepareOnReadyFunction(){
 		StringBuilder sb = new StringBuilder();
         sb.append("var panel = new Ext.Panel(").append(this.toJSON().toString()).append(");");
-        sb.append(getReplacePanel()).append(".replacePanel(panel);\n");
+        if(StringUtils.isNotBlank(getReplacePanel())){
+            sb.append(getReplacePanel()).append(".replacePanel(panel);\n");
+        }else if(StringUtils.isNotBlank(renderTo)){
+            sb.append("panel.render('").append(renderTo).append("');\n");
+        }
         return sb.toString();
 	}
 	
@@ -408,14 +421,15 @@ public abstract class PanelTag extends BaseBodyTag {
         try {
             if(this.bodyContent != null){
                 StringBuilder sb = new StringBuilder();
-                
-                if(StringUtils.isNotBlank(getReplacePanel())){
+
+                if(StringUtils.isNotBlank(replacePanel) || StringUtils.isNotBlank(renderTo)){
                     sb.append("<script type=\"text/javascript\">\n");
                     sb.append("Ext.onReady(function(){\n");
                     sb.append(prepareOnReadyFunction());
                     sb.append("});");
                     sb.append("</script>\n");
                 }
+
                 Tag panel = findParent(PanelTag.class);
                 if(panel != null){
                     ((PanelTag) panel).addItem(new Item(this.toJSON()));

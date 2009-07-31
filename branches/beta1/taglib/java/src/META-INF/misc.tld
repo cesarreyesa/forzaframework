@@ -824,6 +824,12 @@
             <name>region</name>
         </attribute>
         <attribute>
+            <name>layout</name>
+        </attribute>
+        <attribute>
+            <name>columnWidth</name>
+        </attribute>
+        <attribute>
             <name>margins</name>
         </attribute>
     	<attribute>
@@ -840,6 +846,10 @@
         </attribute>
         <attribute>
         	<name>anchor</name>
+        </attribute>
+        <attribute>
+        	<name>renderTo</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>contentEl</name>
