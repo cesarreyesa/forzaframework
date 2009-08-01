@@ -214,9 +214,7 @@ public class ButtonTag extends BaseTag implements PanelItem {
 
         if(StringUtils.isNotBlank(handler)) {
             if(enableToggle != null && enableToggle){
-                JSONObject listeners = new JSONObject();
-                listeners.put("toggle", new JSONFunction(parseHandler(handler)));
-                json.put("listeners", listeners);
+                json.put("toggleHandler", new JSONFunction(parseHandler(handler)));
             }else{
                 String eventName = "handler";
                 if(checked != null){
