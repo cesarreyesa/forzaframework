@@ -66,6 +66,7 @@ public class GridTag extends PanelTag implements PanelItem {
     private Boolean singleSelect = true;
     private List<Field> fields = new ArrayList<Field>();
     private Boolean enableFilter = false;
+    private String groupField;
 
     public Boolean getDisplayPagingInfo() {
 		return displayPagingInfo;
@@ -294,7 +295,15 @@ public class GridTag extends PanelTag implements PanelItem {
 		this.enableColumnsLock = enableColumnsLock;
 	}
 
-	public void addField(Field field){
+    public String getGroupField() {
+        return groupField;
+    }
+
+    public void setGroupField(String groupField) {
+        this.groupField = groupField;
+    }
+
+    public void addField(Field field){
         fields.add(field);
     }
 
@@ -313,6 +322,7 @@ public class GridTag extends PanelTag implements PanelItem {
         Store store = new Store("ds", loadOnStart == null ? false : loadOnStart, fields);
         store.setItemTag(itemTag);
         store.setIdField(idProperty);
+        store.setGroupField(groupField);
 
         if(StringUtils.isNotBlank(url))
             store.setUrl(url);
@@ -460,6 +470,10 @@ public class GridTag extends PanelTag implements PanelItem {
             viewConfig.put("getRowClass", new JSONFunction("function(record, rowIndex, p, store){ p.body = '<p>' + record.data." + bodyField + " + '</p>'; return 'x-grid3-row-expanded';}"));
         }
         addConfigElement("viewConfig", viewConfig);
+
+        if(StringUtils.isNotBlank(groupField)){
+            addConfigElement("view", new JSONFunction("new Ext.grid.GroupingView({forceFit:true, groupTextTpl: '{text} ({[values.rs.length]})'})"));
+        }
 
         addConfigElementOpt("enableDragDrop", enableDragDrop);
         addConfigElementOpt("ddGroup", ddGroup);

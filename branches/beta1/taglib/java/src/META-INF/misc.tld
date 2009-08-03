@@ -300,6 +300,10 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+        	<name>groupField</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
         	<name>reader</name>
         </attribute>
         <attribute>
