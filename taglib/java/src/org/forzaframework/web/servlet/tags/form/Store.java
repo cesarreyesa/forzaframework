@@ -44,6 +44,7 @@ public class Store {
 	private String url;
 	private Object items;
 	private List<Option> options;
+    private String groupField;
 
     public String getType() {
         return type;
@@ -141,8 +142,16 @@ public class Store {
 	public void setOptions(List<Option> options) {
 		this.options = options;
 	}
-	
-	public Store(String name, Boolean loadOnStart, List<Field> fields){
+
+    public String getGroupField() {
+        return groupField;
+    }
+
+    public void setGroupField(String groupField) {
+        this.groupField = groupField;
+    }
+
+    public Store(String name, Boolean loadOnStart, List<Field> fields){
 		this.name = name;
 		this.loadOnStart = loadOnStart;
 		this.fields = fields;
@@ -159,7 +168,12 @@ public class Store {
     public String buildStoreDeclaration(){
         StringBuilder sb = new StringBuilder();
         if(type.equals("remote")){
-            sb.append("var ").append(name).append(" = new Ext.data.Store({");
+            if(StringUtils.isNotBlank(groupField)){
+                sb.append("var ").append(name).append(" = new Ext.data.GroupingStore({");
+                sb.append("groupField: '").append(groupField).append("',");
+            }else{
+                sb.append("var ").append(name).append(" = new Ext.data.Store({");
+            }
             sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(StringUtils.isBlank(url) ? "" : url).append("\"})),");
             sb.append("remoteSort: true,");
             
