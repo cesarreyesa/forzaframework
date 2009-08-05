@@ -1,8 +1,10 @@
 Ext.Updater.defaults.loadScripts = true;
 
-//Ext.Ajax.on('beforerequest', function(conn, options){
-//    options.url = options.url + '?d=nd';
-//});
+Ext.Window.prototype.closeAction = 'hide';
+
+Ext.Ajax.on('beforerequest', function(conn, options){
+    options.url += options.url.indexOf('?') < 0 ? '?d=nd' : '&d=nd';
+});
 
 Ext.Ajax.on("requestexception", function(conn, response, options){
 //    var dialog = new Ext.Window({title: 'Error', autoCreate:true, modal:false, width:600, height:390, shadow:true, minWidth:200, minHeight:200, proxyDrag: true });
@@ -63,6 +65,16 @@ Ext.data.Store.prototype.reload = function(options){
         this.proxy = new Ext.data.HttpProxy({ url: options.url});
     }
     this.load(Ext.applyIf(options||{}, this.lastOptions));
+}
+
+Ext.data.GroupingStore.prototype.applySort = function(){
+    Ext.data.GroupingStore.superclass.applySort.call(this);
+    if(!this.groupOnSort && !this.remoteGroup){
+        var gs = this.getGroupState();
+        if(gs && this.sortInfo && (gs != this.sortInfo.field || this.groupDir != this.sortInfo.direction)){
+            this.sortData(this.groupField, this.groupDir);
+        }
+    }
 }
 
 /*
@@ -259,6 +271,11 @@ Ext.grid.GridPanel.prototype.saveFieldData = function(options){
         var hidden = Ext.DomHelper.append(options.form, {tag:'input', type:'hidden', name:options.inputName}, true);
         hidden.dom.value = value;
     });
+}
+
+Ext.form.Action.Submit.prototype.getEntityId = function(){
+    var root = this.response.responseXML.documentElement || this.response.responseXML;
+    return Ext.DomQuery.selectValue('@entityId', root, true);
 }
 
 //// UX ////
