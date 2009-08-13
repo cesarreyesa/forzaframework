@@ -29,6 +29,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamSource;
+import org.springframework.core.io.FileSystemResource;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
@@ -36,6 +37,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Map;
 import java.util.Properties;
+import java.util.List;
 import java.security.Security;
 
 /**
@@ -67,6 +69,10 @@ public class MailEngine {
 
     public void setVelocityEngine(VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
+    }
+
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
     }
 
     /**
@@ -150,6 +156,10 @@ public class MailEngine {
     }
 
     public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML) {
+        sendMessage(msg, templateName, model, sendAsHTML, null);
+    }
+
+    public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, final List<FileSystemResource> resources) {
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws MessagingException {
@@ -157,6 +167,13 @@ public class MailEngine {
                 message.setFrom(msg.getFrom());
                 message.setTo(msg.getTo());
                 message.setSubject(msg.getSubject());
+
+                if (resources != null) {
+                    for (FileSystemResource resource : resources) {
+                        message.addAttachment(resource.getFilename(), resource);
+                    }
+                }
+
                 String result = null;
 
                 try {
@@ -167,7 +184,7 @@ public class MailEngine {
                 if(sendAsHTML){
                     message.setText("<html><body>" + result + "</body></html>", true);
                 }else{
-                    message.setText(result, false);                    
+                    message.setText(result, false);
                 }
             }
         };
