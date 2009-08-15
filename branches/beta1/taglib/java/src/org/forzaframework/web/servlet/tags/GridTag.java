@@ -67,6 +67,15 @@ public class GridTag extends PanelTag implements PanelItem {
     private List<Field> fields = new ArrayList<Field>();
     private Boolean enableFilter = false;
     private String groupField;
+    private String selectionModel = "row";
+
+    public String getSelectionModel() {
+        return selectionModel;
+    }
+
+    public void setSelectionModel(String selectionModel) {
+        this.selectionModel = selectionModel;
+    }
 
     public Boolean getDisplayPagingInfo() {
 		return displayPagingInfo;
@@ -317,8 +326,12 @@ public class GridTag extends PanelTag implements PanelItem {
 		StringBuilder sb = new StringBuilder();
 		
         sb.append("var cm, sm;\n");
-        sb.append("sm = new Ext.grid.RowSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
-        
+        if(selectionModel.equals("row")){
+            sb.append("sm = new Ext.grid.RowSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
+        }else if(selectionModel.equals("checkbox")){
+            sb.append("sm = new Ext.grid.CheckboxSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
+        }
+
         Store store = new Store("ds", loadOnStart == null ? false : loadOnStart, fields);
         store.setItemTag(itemTag);
         store.setIdField(idProperty);
@@ -354,6 +367,9 @@ public class GridTag extends PanelTag implements PanelItem {
         }
 
         JSONArray columnsModel = new JSONArray();
+        if(selectionModel.equals("checkbox")){
+            columnsModel.add(new JSONFunction("sm"));
+        }
         for(Field field : fields){
             JSONObject json = new JSONObject();
             json.elementOpt("header", field.getTitle());

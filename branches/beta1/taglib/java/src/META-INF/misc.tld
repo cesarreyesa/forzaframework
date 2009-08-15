@@ -300,6 +300,10 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+        	<name>selectionModel</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
         	<name>groupField</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -776,6 +780,14 @@
         </attribute>
         <attribute>
             <name>region</name>
+        </attribute>
+    </tag>
+    <tag>
+        <name>groupTab</name>
+        <tag-class>org.forzaframework.web.servlet.tags.GroupTabTag</tag-class>
+
+        <attribute>
+            <name>id</name>
         </attribute>
     </tag>
     <tag>
