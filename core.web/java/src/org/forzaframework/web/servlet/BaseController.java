@@ -81,9 +81,9 @@ public class BaseController extends WebApplicationObjectSupport {
         return getMessageSourceAccessor().getMessage(key, arguments, defaultMessage);
     }
 
-    public User getUser() throws Exception{
+    public User getUser() throws RuntimeException{
         if(SecurityContextHolder.getContext().getAuthentication() == null){
-            throw new Exception("Security Exception");
+            throw new RuntimeException("Security Exception");
         }
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
