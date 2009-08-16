@@ -51,6 +51,7 @@ public class TextAreaTag extends FieldTag {
         json.elementOpt("height", getHeight());
         json.elementOpt("autoHeight", getAutoHeight());
         json.elementOpt("anchor", anchor);
+        json.elementOpt("hideLabel", hideLabel);
         json.elementOpt("grow", grow);
         json.put("validateOnBlur", false);
         json.elementOpt("disabled", disabled);
