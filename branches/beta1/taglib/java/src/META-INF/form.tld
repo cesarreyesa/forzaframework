@@ -634,6 +634,9 @@
             <name>mapping</name>
         </attribute>
         <attribute>
+            <name>hideLabel</name>
+        </attribute>
+        <attribute>
             <name>width</name>
         </attribute>
         <attribute>
