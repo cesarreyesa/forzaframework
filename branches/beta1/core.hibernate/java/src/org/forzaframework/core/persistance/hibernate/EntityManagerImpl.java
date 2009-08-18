@@ -70,7 +70,8 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
         for(T t : list){
         	Catalog catalog = (Catalog) t;
         	String className = ClassUtils.getShortClassName(entityClass);
-        	catalog.setTranslatedName(messageSource.getMessage(WordUtils.uncapitalize(className) + "." + catalog.getCode()));
+            String name = messageSource.getMessage(WordUtils.uncapitalize(className) + "." + catalog.getCode());
+            catalog.setTranslatedName(name);
         }
 		return list;
     }
@@ -119,8 +120,10 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
                 }
                 return o;
             }catch(Exception ex){
-                session.close();
                 throw new ObjectRetrievalFailureException(entityClass, primaryKey, "Error con la session", ex);
+            }
+            finally {
+                session.close();                
             }
         }else{
             T entity = (T) getHibernateTemplate().get(entityClass, (Serializable) primaryKey);
