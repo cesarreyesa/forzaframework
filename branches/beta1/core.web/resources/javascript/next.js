@@ -278,6 +278,54 @@ Ext.form.Action.Submit.prototype.getEntityId = function(){
     return Ext.DomQuery.selectValue('@entityId', root, true);
 }
 
+Ext.form.ComboBox.prototype.onRender = function(ct, position){
+    Ext.form.ComboBox.superclass.onRender.call(this, ct, position);
+    if(this.hiddenName){
+        this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, id: (this.hiddenId||this.hiddenName)},
+                'before', true);
+        this.hiddenField.value =
+            this.hiddenValue !== undefined ? this.hiddenValue :
+            this.value !== undefined ? this.value : '';
+
+                    this.el.dom.removeAttribute('name');
+    }
+    if(Ext.isGecko){
+        this.el.dom.setAttribute('autocomplete', 'off');
+    }
+
+    if(!this.lazyInit){
+        this.initList();
+        this.initValue();
+    }else{
+        this.on('focus', this.initList, this, {single: true});
+    }
+
+    if(!this.editable){
+        this.editable = true;
+        this.setEditable(false);
+    }
+}
+
+Ext.form.ComboBox.prototype.setValue = function(v){
+    var text = v;
+    if(this.valueField){
+        var r = this.findRecord(this.valueField, v);
+        if(r){
+            text = r.data[this.displayField];
+        }else if(this.text !== undefined){
+            text = this.text;
+        }else if(this.valueNotFoundText !== undefined){
+            text = this.valueNotFoundText;
+        }
+    }
+    this.lastSelectionText = text;
+    if(this.hiddenField){
+        this.hiddenField.value = v;
+    }
+    Ext.form.ComboBox.superclass.setValue.call(this, text);
+    this.value = v;
+}
+
 //// UX ////
 
 
