@@ -278,6 +278,19 @@ Ext.form.Action.Submit.prototype.getEntityId = function(){
     return Ext.DomQuery.selectValue('@entityId', root, true);
 }
 
+// es un hack para poder saber a que row se hace un drop
+Ext.override(Ext.grid.GridView, {
+
+    onRowOver : function(e, t){
+        var row;
+        if((row = this.findRowIndex(t)) !== false){
+            this.grid.droprow=this.grid.getStore().getAt(row);
+            this.addRowClass(row, 'x-grid3-row-over');
+        }
+    }
+
+});
+
 Ext.form.ComboBox.prototype.onRender = function(ct, position){
     Ext.form.ComboBox.superclass.onRender.call(this, ct, position);
     if(this.hiddenName){
@@ -304,7 +317,7 @@ Ext.form.ComboBox.prototype.onRender = function(ct, position){
         this.editable = true;
         this.setEditable(false);
     }
-}
+};
 
 Ext.form.ComboBox.prototype.setValue = function(v){
     var text = v;
@@ -324,7 +337,8 @@ Ext.form.ComboBox.prototype.setValue = function(v){
     }
     Ext.form.ComboBox.superclass.setValue.call(this, text);
     this.value = v;
-}
+};
+
 
 //// UX ////
 

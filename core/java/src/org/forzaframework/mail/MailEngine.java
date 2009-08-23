@@ -30,6 +30,11 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.BeansException;
+import org.forzaframework.orm.hibernate3.support.OpenSessionInThreadTask;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
@@ -45,15 +50,15 @@ import java.security.Security;
  *         Date: 14-ago-2008
  *         Time: 15:03:01
  */
-public class MailEngine {
+public class MailEngine implements ApplicationContextAware {
     
     protected static final Log log = LogFactory.getLog(MailEngine.class);
     private MailSender mailSender;
     private VelocityEngine velocityEngine;
     private Boolean debug = false;
-
-    public MailEngine() {
-    }
+    private Boolean asynchronous = false;
+    private TaskExecutor taskExecutor;
+    private ApplicationContext ctx;
 
     public Boolean getDebug() {
         return debug;
@@ -73,6 +78,26 @@ public class MailEngine {
 
     public VelocityEngine getVelocityEngine() {
         return velocityEngine;
+    }
+
+    public Boolean isAsynchronous() {
+        return asynchronous;
+    }
+
+    public void setAsynchronous(Boolean asynchronous) {
+        this.asynchronous = asynchronous;
+    }
+
+    public TaskExecutor getTaskExecutor() {
+        return taskExecutor;
+    }
+
+    public void setTaskExecutor(TaskExecutor taskExecutor) {
+        this.taskExecutor = taskExecutor;
+    }
+
+    public void setApplicationContext(ApplicationContext ctx) throws BeansException {
+        this.ctx = ctx;
     }
 
     /**
@@ -211,10 +236,30 @@ public class MailEngine {
 
                 ((JavaMailSenderImpl) mailSender).setSession(session);
             }
-            ((JavaMailSenderImpl) mailSender).send(preparator);
+            if(asynchronous){
+                taskExecutor.execute(new MailSenderTask(mailSender, preparator, ctx));
+            }else{
+                ((JavaMailSenderImpl) mailSender).send(preparator);
+            }
         }
         catch (MailException ex) {
             log.info(ex.getMessage());
+        }
+    }
+
+    public class MailSenderTask extends OpenSessionInThreadTask {
+
+        private MimeMessagePreparator preparator;
+        private MailSender mailSender;
+
+        public MailSenderTask(MailSender mailSender, MimeMessagePreparator preparator, ApplicationContext ctx) {
+            super(ctx);
+            this.mailSender = mailSender;
+            this.preparator = preparator;
+        }
+
+        public void runInternal(){
+            ((JavaMailSenderImpl) mailSender).send(preparator);
         }
     }
 }
