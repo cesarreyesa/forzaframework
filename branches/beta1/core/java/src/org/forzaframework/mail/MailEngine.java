@@ -213,37 +213,32 @@ public class MailEngine implements ApplicationContextAware {
                 }
             }
         };
-        try {
-            Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-            if(((JavaMailSenderImpl) mailSender).getHost().contains("gmail")){
-                Properties props = new Properties();
-                props.put("mail.smtp.host", ((JavaMailSenderImpl) mailSender).getHost());
-                props.put("mail.smtp.auth", "true");
-                props.put("mail.debug", getDebug().toString());
-                props.put("mail.smtp.port", ((JavaMailSenderImpl) mailSender).getPort());
-                props.put("mail.smtp.socketFactory.port", ((JavaMailSenderImpl) mailSender).getPort());
-                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-                props.put("mail.smtp.socketFactory.fallback", "false");
+        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+        if(((JavaMailSenderImpl) mailSender).getHost().contains("gmail")){
+            Properties props = new Properties();
+            props.put("mail.smtp.host", ((JavaMailSenderImpl) mailSender).getHost());
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.debug", getDebug().toString());
+            props.put("mail.smtp.port", ((JavaMailSenderImpl) mailSender).getPort());
+            props.put("mail.smtp.socketFactory.port", ((JavaMailSenderImpl) mailSender).getPort());
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.socketFactory.fallback", "false");
 
-                Session session = Session.getDefaultInstance(props,
-                        new javax.mail.Authenticator() {
-                            protected PasswordAuthentication getPasswordAuthentication() {
-                                return new PasswordAuthentication(((JavaMailSenderImpl) mailSender).getUsername(), ((JavaMailSenderImpl) mailSender).getPassword());
-                            }
-                        });
+            Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(((JavaMailSenderImpl) mailSender).getUsername(), ((JavaMailSenderImpl) mailSender).getPassword());
+                        }
+                    });
 
-                session.setDebug(getDebug());
+            session.setDebug(getDebug());
 
-                ((JavaMailSenderImpl) mailSender).setSession(session);
-            }
-            if(asynchronous){
-                taskExecutor.execute(new MailSenderTask(mailSender, preparator, ctx));
-            }else{
-                ((JavaMailSenderImpl) mailSender).send(preparator);
-            }
+            ((JavaMailSenderImpl) mailSender).setSession(session);
         }
-        catch (MailException ex) {
-            log.info(ex.getMessage());
+        if(asynchronous){
+            taskExecutor.execute(new MailSenderTask(mailSender, preparator, ctx));
+        }else{
+            ((JavaMailSenderImpl) mailSender).send(preparator);
         }
     }
 
