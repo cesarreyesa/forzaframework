@@ -68,6 +68,15 @@ public class GridTag extends PanelTag implements PanelItem {
     private Boolean enableFilter = false;
     private String groupField;
     private String selectionModel = "row";
+    private String onLoad;
+
+    public String getOnLoad() {
+        return onLoad;
+    }
+
+    public void setOnLoad(String onLoad) {
+        this.onLoad = onLoad;
+    }
 
     public String getSelectionModel() {
         return selectionModel;
@@ -422,6 +431,10 @@ public class GridTag extends PanelTag implements PanelItem {
         	if(parent == null){
         		sb.append("grid.render('").append(id).append("-grid');");
         	}
+        }
+
+        if(StringUtils.isNotBlank(onLoad)){
+            sb.append("ds.on('load', ").append(onLoad).append(");");
         }
 
         if(loadOnStart){

@@ -126,14 +126,16 @@
             </classpath>
         </taskdef>
 
-        <concat destfile="${dist.dir}/js/next.js" >
+        <concat destfile="${dist.dir}/js/next-debug.js" >
             <filelist files="${coreweb.src.dir}/resources/javascript/next.js" />
             <filelist files="${coreweb.src.dir}/resources/javascript/ux.js" />
         </concat>
 
-        <yui-compressor warn="false" charset="UTF-8" munge="true" fromdir="${dist.dir}/js" todir="${dist.dir}/js">
-           <include name="next.js"/>
+        <yui-compressor warn="false" charset="UTF-8" munge="true" jssuffix="-min.js" fromdir="${dist.dir}/js" todir="${dist.dir}/js">
+           <include name="next-debug.js"/>
         </yui-compressor>
+
+        <rename src="${dist.dir}/js/next-debug-min.js" dest="${dist.dir}/js/next.js"/>
     </target>
 
     <target name="create" depends="compile">

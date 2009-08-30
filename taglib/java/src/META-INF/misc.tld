@@ -345,6 +345,10 @@
             <name>pageSize</name>
         </attribute>
         <attribute>
+            <name>onLoad</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>onSelectionChange</name>
             <rtexprvalue>true</rtexprvalue>
             <description>Fires when the selection changes. selectionchange : ( SelectionModel this )</description>
