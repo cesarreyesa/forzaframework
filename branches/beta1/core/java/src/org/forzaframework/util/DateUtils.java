@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import java.util.*;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.DateFormatSymbols;
 
 /**
  * @author cesarreyes
@@ -358,23 +359,10 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     }
 
     public static String getMonth(Integer month){
-        String m = null;
+        Locale locale = LocaleContextHolder.getLocale();
+        DateFormatSymbols dfs = new DateFormatSymbols(locale);
 
-        switch (month){
-            case Calendar.JANUARY : m = "JANUARY"; break;
-            case Calendar.FEBRUARY : m = "FEBRUARY"; break;
-            case Calendar.MARCH : m = "MARCH"; break;
-            case Calendar.APRIL : m = "APRIL"; break;
-            case Calendar.MAY : m = "MAY"; break;
-            case Calendar.JUNE : m = "JUNE"; break;
-            case Calendar.JULY : m = "JULY"; break;
-            case Calendar.AUGUST : m = "AUGUST"; break;
-            case Calendar.SEPTEMBER : m = "SEPTEMBER"; break;
-            case Calendar.OCTOBER : m = "OCTOBER"; break;
-            case Calendar.NOVEMBER : m = "NOVEMBER"; break;
-            case Calendar.DECEMBER : m = "DECEMBER"; break;
-        }
-        return m;
+        return dfs.getMonths()[month];
     }
 
     /**
