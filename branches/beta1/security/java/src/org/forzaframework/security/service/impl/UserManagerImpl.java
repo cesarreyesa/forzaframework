@@ -64,6 +64,10 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         return entityManager.get(User.class, new Criteria().add(Restrictions.eq("username", username)));
     }
 
+    public User getUser(Long id) {
+        return entityManager.get(User.class, id);
+    }
+
     public List getUsers(User user) {
         return entityManager.getAll(User.class);
     }
@@ -106,6 +110,10 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
 
     public void removeUser(String username) {
         entityManager.delete(getUser(username));
+    }
+
+    public void removeUser(Long id) {
+        entityManager.delete(getUser(id));
     }
 
     public List getRoles() {

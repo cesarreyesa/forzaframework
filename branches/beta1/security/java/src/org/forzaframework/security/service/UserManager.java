@@ -61,6 +61,8 @@ public interface UserManager {
      */
     public void removeUser(String username);
 
+    public void removeUser(Long id);
+
     public List getRoles();
 
     public Role getRole(String rolename);
