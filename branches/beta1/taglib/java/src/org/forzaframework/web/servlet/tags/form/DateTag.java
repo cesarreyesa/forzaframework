@@ -33,7 +33,8 @@ public class DateTag extends FieldTag {
 
     public Object toJSON() {
         JSONObject json = new JSONObject();
-        
+
+        json.elementOpt("id", id);
         json.put("fieldLabel", title != null ? title : getText(titleKey));
         json.put("name", getField());
         json.elementOpt("description", getDescription());
