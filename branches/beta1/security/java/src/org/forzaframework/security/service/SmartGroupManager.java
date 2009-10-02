@@ -16,9 +16,9 @@
 
 package org.forzaframework.security.service;
 
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
 import org.forzaframework.security.SmartGroup;
 import org.forzaframework.security.User;
+import org.springframework.security.acls.model.ObjectIdentity;
 
 import java.util.List;
 

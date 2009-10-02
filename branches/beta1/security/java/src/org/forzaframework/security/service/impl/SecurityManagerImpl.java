@@ -16,8 +16,6 @@
 
 package org.forzaframework.security.service.impl;
 
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
 import org.forzaframework.security.Permission;
 import org.forzaframework.security.ActionDefinition;
 import org.forzaframework.security.service.SecurityManager;
@@ -25,6 +23,8 @@ import org.forzaframework.core.persistance.EntityManager;
 import org.forzaframework.core.persistance.Criteria;
 import org.forzaframework.core.persistance.Restrictions;
 import org.forzaframework.core.persistance.Dao;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 import java.util.ArrayList;

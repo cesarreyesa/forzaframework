@@ -19,9 +19,9 @@ package org.forzaframework.security;
 import org.dom4j.Element;
 import org.dom4j.DocumentHelper;
 import org.forzaframework.core.persistance.BaseEntity;
-import org.springframework.security.GrantedAuthority;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -139,7 +139,7 @@ public class Role extends BaseEntity implements GrantedAuthority {
         return el;
     }
 
-	public int compareTo(Object o) {
+	public int compareTo(GrantedAuthority o) {
 		return 0;
 	}
 

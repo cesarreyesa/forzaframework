@@ -22,11 +22,11 @@ package org.forzaframework.web.servlet;
  *         Time: 12:17:04
  */
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.support.WebApplicationObjectSupport;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
