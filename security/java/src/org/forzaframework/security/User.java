@@ -17,8 +17,9 @@
 package org.forzaframework.security;
 
 import org.forzaframework.core.persistance.BaseEntity;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.GrantedAuthority;
+import org.forzaframework.util.CollectionUtils;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.NotNull;
@@ -57,7 +58,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     protected String email;                        // required; unique
     protected String website;
     protected String passwordHint;
-    protected Set<Role> roles = new HashSet<Role>();
+    protected List<Role> roles = new ArrayList<Role>();
     protected boolean enabled;
     protected boolean accountExpired;
     protected boolean accountLocked;
@@ -171,7 +172,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
@@ -180,8 +181,12 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     }
 
     @Transient
-    public GrantedAuthority[] getAuthorities() {
-        return roles.toArray(new GrantedAuthority[0]);
+    public List<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        for (Role role : roles) {
+            list.add(role);
+        }
+        return list;
     }
 
     @Column(name = "account_enabled")
@@ -194,9 +199,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         return accountExpired;
     }
 
-    /**
-     * @see org.springframework.security.userdetails.UserDetails#isAccountNonExpired()
-     */
     @Transient
     public boolean isAccountNonExpired() {
         return !isAccountExpired();
@@ -207,9 +209,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         return accountLocked;
     }
 
-    /**
-     * @see org.springframework.security.userdetails.UserDetails#isAccountNonLocked()
-     */
     @Transient
     public boolean isAccountNonLocked() {
         return !isAccountLocked();
@@ -220,9 +219,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         return credentialsExpired;
     }
 
-    /**
-     * @see org.springframework.security.userdetails.UserDetails#isCredentialsNonExpired()
-     */
     @Transient
     public boolean isCredentialsNonExpired() {
         return !credentialsExpired;
@@ -268,7 +264,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         this.preferredLocale = preferredLocale;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -320,15 +316,15 @@ public class User extends BaseEntity implements Serializable, UserDetails {
                 .append("credentialsExpired",this.credentialsExpired)
                 .append("accountLocked",this.accountLocked);
 
-        GrantedAuthority[] auths = this.getAuthorities();
+        List<GrantedAuthority> auths = this.getAuthorities();
         if (auths != null) {
             sb.append("Granted Authorities: ");
 
-            for (int i = 0; i < auths.length; i++) {
+            for (int i = 0; i < auths.size(); i++) {
                 if (i > 0) {
                     sb.append(", ");
                 }
-                sb.append(auths[i].toString());
+                sb.append(auths.get(i).toString());
             }
         } else {
             sb.append("No Granted Authorities");

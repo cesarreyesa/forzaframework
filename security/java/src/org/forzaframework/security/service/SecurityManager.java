@@ -16,9 +16,9 @@
 
 package org.forzaframework.security.service;
 
-import org.springframework.security.Authentication;
 import org.forzaframework.security.Permission;
 import org.forzaframework.security.ActionDefinition;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 

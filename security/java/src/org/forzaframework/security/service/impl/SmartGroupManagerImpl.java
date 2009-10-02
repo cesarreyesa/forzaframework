@@ -16,12 +16,12 @@
 
 package org.forzaframework.security.service.impl;
 
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
 import org.forzaframework.security.service.SmartGroupManager;
 import org.forzaframework.security.SmartGroup;
 import org.forzaframework.security.User;
 import org.forzaframework.core.persistance.EntityManager;
 import org.apache.commons.lang.ClassUtils;
+import org.springframework.security.acls.model.ObjectIdentity;
 
 import java.util.List;
 
@@ -146,7 +146,7 @@ public class SmartGroupManagerImpl implements SmartGroupManager {
     }
 
     public Boolean isInSmartGroup(ObjectIdentity objectIdentity, SmartGroup smartGroup) {
-        String hql = "from " + ClassUtils.getShortClassName(objectIdentity.getJavaType()) + " as entity";
+        String hql = "from " + ClassUtils.getShortClassName(objectIdentity.getType()) + " as entity";
 //        if(smartGroup.getFilters().size() > 0){
 //            hql += " where ";
 //            Boolean first1 = true;

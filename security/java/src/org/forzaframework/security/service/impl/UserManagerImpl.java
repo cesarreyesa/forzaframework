@@ -19,10 +19,10 @@ package org.forzaframework.security.service.impl;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.ModelMap;
-import org.springframework.security.userdetails.UserDetailsService;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.forzaframework.security.User;
 import org.forzaframework.security.Role;
@@ -61,7 +61,12 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
     }
 
     public User getUser(String username) {
-        return entityManager.get(User.class, new Criteria().add(Restrictions.eq("username", username)));
+        User user = entityManager.get(User.class, new Criteria().add(Restrictions.eq("username", username)));
+        // esto es para evitar lazyInitEx
+        for (Role role : user.getRoles()) {
+            role.toString();
+        }
+        return user;
     }
 
     public User getUser(Long id) {

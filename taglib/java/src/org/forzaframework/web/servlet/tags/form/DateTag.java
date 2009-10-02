@@ -17,6 +17,8 @@
 package org.forzaframework.web.servlet.tags.form;
 
 import net.sf.json.JSONObject;
+import org.forzaframework.web.servlet.tags.JSONFunction;
+import org.forzaframework.web.servlet.tags.Listener;
 import org.forzaframework.web.servlet.tags.form.FieldTag;
 
 /**
@@ -48,6 +50,14 @@ public class DateTag extends FieldTag {
             json.put("format", s);
         }
         json.put("xtype", getType());
+
+        if(this.listeners.size() > 0){
+            JSONObject listeners = new JSONObject();
+            for (Listener listener : this.listeners) {
+                listeners.put(listener.getEventName(), new JSONFunction(listener.getHandler()));
+            }
+            json.put("listeners", listeners);
+        }
 
         return json;
     }
