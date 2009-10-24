@@ -170,8 +170,118 @@ Ext.form.BasicForm.prototype.markInvalid = function(errors){
         }
     }
     return this;
-}
+};
 
+// se sobre escribe para soportar el que no muestre el campo de inicio.
+Ext.apply(Ext.layout.FormLayout.prototype, {
+    setContainer : function(ct){
+        Ext.layout.FormLayout.superclass.setContainer.call(this, ct);
+        this.container = ct;
+        if(ct.labelAlign){
+            ct.addClass('x-form-label-'+ct.labelAlign);
+        }
+
+        if(ct.hideLabels){
+            this.labelStyle = "display:none";
+            this.elementStyle = "padding-left:0;";
+            this.labelAdjust = 0;
+        }else{
+            this.labelSeparator = ct.labelSeparator || this.labelSeparator;
+            ct.labelWidth = ct.labelWidth || 100;
+            if(typeof ct.labelWidth == 'number'){
+                var pad = (typeof ct.labelPad == 'number' ? ct.labelPad : 5);
+                this.labelAdjust = ct.labelWidth+pad;
+                this.labelStyle = "width:"+ct.labelWidth+"px;";
+                this.elementStyle = "padding-left:"+(ct.labelWidth+pad)+'px';
+            }
+            if(ct.labelAlign == 'top'){
+                this.labelStyle = "width:auto;";
+                this.labelAdjust = 0;
+                this.elementStyle = "padding-left:0;";
+            }
+        }
+    },
+    renderItem : function(c, position, target){
+        if(c && !c.rendered && (c.isFormField || c.fieldLabel) && c.inputType != 'hidden'){
+            var args = this.getTemplateArgs(c);
+            if(typeof position == 'number'){
+                position = target.dom.childNodes[position] || null;
+            }
+            if(position){
+                this.fieldTpl.insertBefore(position, args);
+            }else{
+                this.fieldTpl.append(target, args);
+            }
+            c.render('x-form-el-'+c.id);
+            if(c.renderHidden){
+            	c.hideContainer();
+            }
+        }else {
+            Ext.layout.FormLayout.superclass.renderItem.apply(this, arguments);
+        }
+    }
+});
+
+// funciones para esconder todo el field con todo y etiquetas
+Ext.override(Ext.form.Field, {
+
+	// le agrega el div para poner una descripcio
+	onRender : function(ct, position){
+        if(!this.el){
+            var cfg = this.getAutoCreate();
+
+            if(!cfg.name){
+                cfg.name = this.name || this.id;
+            }
+            if(this.inputType){
+                cfg.type = this.inputType;
+            }
+            this.autoEl = cfg;
+        }
+        Ext.form.Field.superclass.onRender.call(this, ct, position);
+
+        var type = this.el.dom.type;
+        if(type){
+            if(type == 'password'){
+                type = 'text';
+            }
+            this.el.addClass('x-form-'+type);
+        }
+        if(this.readOnly){
+            this.el.dom.readOnly = true;
+        }
+        if(this.tabIndex !== undefined){
+            this.el.dom.setAttribute('tabIndex', this.tabIndex);
+        }
+
+        this.el.addClass([this.fieldClass, this.cls]);
+	    // le agrega el div para poner una descripcion
+	    if(this.description && this.description.length > 0){
+		    ct.createChild({tag:'div', cls:'item-desc', html:this.description});
+	    }
+    },
+
+    showContainer: function() {
+        this.enable();
+        this.show();
+        this.getEl().up('.x-form-item').setDisplayed(true); // show entire container and children (including label if applicable)
+    },
+
+    hideContainer: function() {
+        this.disable(); // for validation
+        this.hide();
+        this.getEl().up('.x-form-item').setDisplayed(false); // hide container and children (including label if applicable)
+    },
+
+    setContainerVisible: function(visible) {
+        if (visible) {
+            this.showContainer();
+        } else {
+            this.hideContainer();
+        }
+        return this;
+    }
+});
 
 // Agregar un elemento buscando la definicion de record y creando valores por default.
 Ext.data.Record.AUTO_ID = -1000;

@@ -91,11 +91,18 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public <T> List<T> find(String queryString, Object value){
+        if(value instanceof List){
+            return getHibernateTemplate().find(queryString, value);
+        }
         return getHibernateTemplate().find(queryString, value);
     }
 
     public <T> List<T> find(String queryString, Object[] values){
         return getHibernateTemplate().find(queryString, values);
+    }
+
+    public <T> List<T> find(String queryString, List values){
+        return getHibernateTemplate().find(queryString, values.toArray());
     }
 
     public <T> T get(Class entityClass, Object primaryKey) {
@@ -260,7 +267,7 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public Integer executeInteger(String hql){
-    	return (Integer) getHibernateTemplate().iterate(hql).next();
+    	return ((Long) getHibernateTemplate().iterate(hql).next()).intValue();
     }
 
     public Integer executeInteger(String hql, Object value){

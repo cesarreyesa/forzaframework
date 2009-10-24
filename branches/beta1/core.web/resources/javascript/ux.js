@@ -1,4 +1,3 @@
-
 Ext.namespace('Ext.ux.form');
 
 Ext.ux.form.LovField = Ext.extend(Ext.form.TriggerField, {
@@ -720,11 +719,17 @@ Ext.override(Ext.form.Field, {
     }
 });
 
+/*!
+ * Ext JS Library 3.0.0
+ * Copyright(c) 2006-2009 Ext JS, LLC
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
 Ext.ux.Portal = Ext.extend(Ext.Panel, {
-    layout: 'column',
-    autoScroll:true,
-    cls:'x-portal',
-    defaultType: 'portalcolumn',
+    layout : 'column',
+    autoScroll : true,
+    cls : 'x-portal',
+    defaultType : 'portalcolumn',
 
     initComponent : function(){
         Ext.ux.Portal.superclass.initComponent.call(this);
@@ -740,8 +745,16 @@ Ext.ux.Portal = Ext.extend(Ext.Panel, {
     initEvents : function(){
         Ext.ux.Portal.superclass.initEvents.call(this);
         this.dd = new Ext.ux.Portal.DropZone(this, this.dropConfig);
+    },
+
+    beforeDestroy : function() {
+        if(this.dd){
+            this.dd.unreg();
+        }
+        Ext.ux.Portal.superclass.beforeDestroy.call(this);
     }
 });
+
 Ext.reg('portal', Ext.ux.Portal);
 
 
@@ -808,19 +821,22 @@ Ext.extend(Ext.ux.Portal.DropZone, Ext.dd.DropTarget, {
         // find insert position
         var p, match = false, pos = 0,
             c = portal.items.itemAt(col),
-            items = c.items.items;
+            items = c.items.items, overSelf = false;
 
         for(var len = items.length; pos < len; pos++){
             p = items[pos];
             var h = p.el.getHeight();
-            if(h !== 0 && (p.el.getY()+(h/2)) > xy[1]){
+            if(h === 0){
+                overSelf = true;
+            }
+            else if((p.el.getY()+(h/2)) > xy[1]){
                 match = true;
                 break;
             }
         }
 
-        var overEvent = this.createEvent(dd, e, data, col, c,
-                match && p ? pos : c.items.getCount());
+        pos = (match && p ? pos : c.items.getCount()) + (overSelf ? -1 : 0);
+        var overEvent = this.createEvent(dd, e, data, col, c, pos);
 
         if(portal.fireEvent('validatedrop', overEvent) !== false &&
            portal.fireEvent('beforedragover', overEvent) !== false){
@@ -834,12 +850,12 @@ Ext.extend(Ext.ux.Portal.DropZone, Ext.dd.DropTarget, {
                 px.moveProxy(c.el.dom, null);
             }
 
-            this.lastPos = {c: c, col: col, p: match && p ? pos : false};
+            this.lastPos = {c: c, col: col, p: overSelf || (match && p) ? pos : false};
             this.scrollPos = portal.body.getScroll();
 
             portal.fireEvent('dragover', overEvent);
 
-            return overEvent.status;;
+            return overEvent.status;
         }else{
             return overEvent.status;
         }
@@ -858,14 +874,18 @@ Ext.extend(Ext.ux.Portal.DropZone, Ext.dd.DropTarget, {
         var c = this.lastPos.c, col = this.lastPos.col, pos = this.lastPos.p;
 
         var dropEvent = this.createEvent(dd, e, data, col, c,
-                pos !== false ? pos : c.items.getCount());
+            pos !== false ? pos : c.items.getCount());
 
         if(this.portal.fireEvent('validatedrop', dropEvent) !== false &&
            this.portal.fireEvent('beforedrop', dropEvent) !== false){
 
             dd.proxy.getProxy().remove();
             dd.panel.el.dom.parentNode.removeChild(dd.panel.el.dom);
+
             if(pos !== false){
+                if(c == dd.panel.ownerCt && (c.items.items.indexOf(dd.panel) <= pos)){
+                    pos++;
+                }
                 c.insert(pos, dd.panel);
             }else{
                 c.add(dd.panel);
@@ -896,39 +916,42 @@ Ext.extend(Ext.ux.Portal.DropZone, Ext.dd.DropTarget, {
              box.columnX.push({x: c.el.getX(), w: c.el.getWidth()});
         });
         return box;
+    },
+
+    // unregister the dropzone from ScrollManager
+    unreg: function() {
+        //Ext.dd.ScrollManager.unregister(this.portal.body);
+        Ext.ux.Portal.DropZone.superclass.unreg.call(this);
     }
 });
 
-/*
- * Ext JS Library 2.1
- * Copyright(c) 2006-2008, Ext JS, LLC.
+/*!
+ * Ext JS Library 3.0.0
+ * Copyright(c) 2006-2009 Ext JS, LLC
  * licensing@extjs.com
- *
- * http://extjs.com/license
+ * http://www.extjs.com/license
  */
-
 Ext.ux.PortalColumn = Ext.extend(Ext.Container, {
-    layout: 'anchor',
-    autoEl: 'div',
-    defaultType: 'portlet',
-    cls:'x-portal-column'
+    layout : 'anchor',
+    //autoEl : 'div',//already defined by Ext.Component
+    defaultType : 'portlet',
+    cls : 'x-portal-column'
 });
+
 Ext.reg('portalcolumn', Ext.ux.PortalColumn);
 
-/*
- * Ext JS Library 2.1
- * Copyright(c) 2006-2008, Ext JS, LLC.
+/*!
+ * Ext JS Library 3.0.0
+ * Copyright(c) 2006-2009 Ext JS, LLC
  * licensing@extjs.com
- *
- * http://extjs.com/license
+ * http://www.extjs.com/license
  */
-
 Ext.ux.Portlet = Ext.extend(Ext.Panel, {
-    anchor: '100%',
-    frame:true,
-    collapsible:true,
-    draggable:true,
-    cls:'x-portlet'
+    anchor : '100%',
+    frame : true,
+    collapsible : true,
+    draggable : true,
+    cls : 'x-portlet'
 });
-Ext.reg('portlet', Ext.ux.Portlet);
 
+Ext.reg('portlet', Ext.ux.Portlet);

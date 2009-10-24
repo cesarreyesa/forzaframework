@@ -117,35 +117,35 @@ public class LovFieldTag extends ComboboxTag {
     }
 
     public int doStartTag() throws JspException {
-    	initRequestContext();
+        initRequestContext();
         setOptions(new ArrayList<Option>());
         setFields(new ArrayList<Field>());
         setUpdateFields(new ArrayList<UpdateField>());
-        
+
         int val = IterationTag.EVAL_BODY_AGAIN;
-        if(StringUtils.isBlank(getValue()) && bind){
+        if (StringUtils.isBlank(getValue()) && bind) {
             this.setValue("");
             this.setPath(getField());
-            if(StringUtils.isNotBlank(getCommandName())){
+            if (StringUtils.isNotBlank(getCommandName())) {
                 this.setPath(getCommandName() + "." + getField());
-                if(getBoundValue() != null) {
+                if (getBoundValue() != null) {
                     Object boundValue = getBoundValue();
-                    if(boundValue instanceof Collection){
+                    if (boundValue instanceof Collection) {
                         String value = "";
                         String text = "";
-                        for(Object item : (Collection) boundValue){
+                        for (Object item : (Collection) boundValue) {
                             BaseEntity entityItem = (BaseEntity) item;
                             value += entityItem.getKey().toString() + ",";
                             text += entityItem.toString() + ",";
                         }
-                        if(((Collection) boundValue).size() > 0) {
+                        if (((Collection) boundValue).size() > 0) {
                             value = value.substring(0, value.length() - 1);
-                            text = text.substring(0, text.length() - 1);                                    
+                            text = text.substring(0, text.length() - 1);
                         }
 
                         this.setValue(value);
                         this.setText(text);
-                    }else{
+                    } else {
                         this.setValue(boundValue.toString());
                     }
                 }
@@ -154,7 +154,7 @@ public class LovFieldTag extends ComboboxTag {
         return val;
     }
 
-    private String getVarName(){
+    private String getVarName() {
         return field.replace(".", "_") + "_ds";
     }
 
@@ -168,10 +168,10 @@ public class LovFieldTag extends ComboboxTag {
         json.elementOpt("value", getValue());
         json.elementOpt("text", getText());
 
-        if(getOptions().size() == 0 && getItems() == null){
+        if (getOptions().size() == 0 && getItems() == null) {
             json.put("displayField", getDisplayField());
             json.put("valueField", getValueField());
-        }else{
+        } else {
             json.put("displayField", "text");
             json.put("valueField", "value");
 
@@ -201,17 +201,17 @@ public class LovFieldTag extends ComboboxTag {
 //        json.put("valueNotFoundText", "Not found");
         json.elementOpt("renderHidden", hidden);
 
-        if(viewType.equals("grid")){
+        if (viewType.equals("grid")) {
             JSONObject gridConfig = new JSONObject();
             gridConfig.put("store", new JSONFunction(getVarName()));
             JSONArray columnsModel = new JSONArray();
-            for(Field field : getFields()){
+            for (Field field : getFields()) {
                 JSONObject fieldJson = new JSONObject();
                 fieldJson.elementOpt("header", field.getTitle());
                 fieldJson.put("dataIndex", field.getField());
                 fieldJson.elementOpt("hidden", field.getHidden());
                 fieldJson.elementOpt("width", field.getWidth());
-                if(field.getRendererFunction() != null){
+                if (field.getRendererFunction() != null) {
                     fieldJson.put("renderer", new JSONFunction(field.getRendererFunction()));
                 }
                 columnsModel.add(fieldJson);
@@ -220,7 +220,7 @@ public class LovFieldTag extends ComboboxTag {
             json.put("view", new JSONFunction("new Ext.grid.GridPanel(" + gridConfig.toString() + ")"));
         }
 
-        if(getUpdateFields().size() > 0){
+        if (getUpdateFields().size() > 0) {
             String formId = ((FormTag) findParent(FormTag.class)).getId();
             StringBuilder onSelectFunction = new StringBuilder();
             onSelectFunction.append("function(cmb, record, index){");
@@ -232,25 +232,24 @@ public class LovFieldTag extends ComboboxTag {
             JSONObject listeners = new JSONObject();
             listeners.put("select", new JSONFunction(onSelectFunction.toString()));
             json.put("listeners", listeners);
-        }else{
-            if(StringUtils.isNotBlank(getHandler())){
-//                JSONObject listeners = new JSONObject();
-//                listeners.put("select", new JSONFunction(getHandler()));
-                //Eliminamos el "function{}"
-                String handler = getHandler().substring(getHandler().indexOf("{") + 1,  getHandler().lastIndexOf("}"));
-                StringBuilder onclick = new StringBuilder("function(e){")
-                        //Colocamos las instrucciones adicionales
-                        .append(handler)
-                        .append("if (!this.isStoreLoaded) {")
-                        .append("this.view.store.load();")
-                        .append("this.isStoreLoaded = true;")
-                        .append("} else if (this.alwaysLoadStore === true) {")
-                        .append("this.view.store.reload();}")
-                        .append("this.createWindow();")
-                        .append("this.window.setPagePosition(e.xy[0] + 16, e.xy[1] + 16);")
-                        .append("this.window.show();")
-                        .append("}");
-                json.put("onTriggerClick", new JSONFunction(onclick.toString()));
+        } else {
+            if (StringUtils.isNotBlank(getHandler())) {
+                JSONObject listeners = new JSONObject();
+                listeners.put("change", new JSONFunction(getHandler()));
+                json.put("onSelectFunction", new JSONFunction(getHandler()));
+                
+//                StringBuilder onclick = new StringBuilder("function(e){")
+//                        //Colocamos las instrucciones adicionales
+//                        .append("if (!this.isStoreLoaded) {")
+//                        .append("this.view.store.load();")
+//                        .append("this.isStoreLoaded = true;")
+//                        .append("} else if (this.alwaysLoadStore === true) {")
+//                        .append("this.view.store.reload();}")
+//                        .append("this.createWindow();")
+//                        .append("this.window.setPagePosition(e.xy[0] + 16, e.xy[1] + 16);")
+//                        .append("this.window.show();")
+//                        .append("}");
+//                json.put("onTriggerClick", new JSONFunction(onclick.toString()));
             }
         }
 
@@ -268,17 +267,17 @@ public class LovFieldTag extends ComboboxTag {
 
         FormTag form = (FormTag) findParent(FormTag.class);
         form.addField(field);
-        
+
         List<Field> fields;
-        if(getUpdateFields().size() > 0){
-        	fields = this.getFields();;
-        	for(UpdateField updateField : getUpdateFields()){
-        		fields.add(new Field(updateField.getId(), updateField.getField(), updateField.getMapping()));
-        	}
-        }else{
-        	fields = this.getFields();
+        if (getUpdateFields().size() > 0) {
+            fields = this.getFields();
+            for (UpdateField updateField : getUpdateFields()) {
+                fields.add(new Field(updateField.getId(), updateField.getField(), updateField.getMapping()));
+            }
+        } else {
+            fields = this.getFields();
         }
-        Store store = new Store(getVarName(), getLoadOnStart() == null ? false : getLoadOnStart(), getValueField(), getDisplayField(), fields);        
+        Store store = new Store(getVarName(), getLoadOnStart() == null ? false : getLoadOnStart(), getValueField(), getDisplayField(), fields);
         store.setUrl(getUrl());
         store.setItems((getItems() instanceof String ? evaluate("items", getItems()) : getItems()));
         store.setOptions(getOptions());

@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project relativePaths="false" version="4">
+<project version="4">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
   </component>
-  <component name="BuildJarProjectSettings">
-    <option name="BUILD_JARS_ON_MAKE" value="true" />
-  </component>
-  <component name="CodeStyleSettingsManager">
-    <option name="PER_PROJECT_SETTINGS" />
-    <option name="USE_PER_PROJECT_SETTINGS" value="false" />
+  <component name="ArtifactManager">
+    <artifact name="core:jar">
+      <output-path>$PROJECT_DIR$/dist</output-path>
+      <root id="root">
+        <element id="archive" name="org.forzaframework.core.jar">
+          <element id="module-output" name="core" />
+        </element>
+      </root>
+    </artifact>
+    <artifact name="core.hibernate:jar">
+      <output-path>$PROJECT_DIR$/dist</output-path>
+      <root id="root">
+        <element id="archive" name="org.forzaframework.core.hibernate.jar">
+          <element id="module-output" name="core.hibernate" />
+        </element>
+      </root>
+    </artifact>
+    <artifact name="core.web:jar">
+      <output-path>$PROJECT_DIR$/dist</output-path>
+      <root id="root">
+        <element id="archive" name="org.forzaframework.web.jar">
+          <element id="module-output" name="core.web" />
+        </element>
+      </root>
+    </artifact>
+    <artifact name="security:jar">
+      <output-path>$PROJECT_DIR$/dist</output-path>
+      <root id="root">
+        <element id="archive" name="org.forzaframework.security.jar">
+          <element id="module-output" name="security" />
+        </element>
+      </root>
+    </artifact>
+    <artifact name="taglib:jar">
+      <output-path>$PROJECT_DIR$/dist</output-path>
+      <root id="root">
+        <element id="archive" name="org.forzaframework.taglib.jar">
+          <element id="module-output" name="taglib" />
+        </element>
+      </root>
+    </artifact>
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
@@ -30,11 +65,13 @@
       <entry name="?*.ftl" />
       <entry name="?*.MF" />
     </wildcardResourcePatterns>
+    <annotationProcessing enabled="false" useClasspath="true" />
   </component>
   <component name="CopyrightManager" default="Apache Licence">
     <copyright>
       <option name="notice" value="Copyright 2006-2009 the original author or authors.&#10;&#10;Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#10;you may not use this file except in compliance with the License.&#10;You may obtain a copy of the License at&#10;&#10;      http://www.apache.org/licenses/LICENSE-2.0&#10;&#10;Unless required by applicable law or agreed to in writing, software&#10;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#10;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#10;See the License for the specific language governing permissions and&#10;limitations under the License." />
       <option name="keyword" value="Copyright" />
+      <option name="allowReplaceKeyword" value="" />
       <option name="myName" value="Apache Licence" />
       <option name="myLocal" value="true" />
     </copyright>
@@ -101,15 +138,6 @@
   </component>
   <component name="IdProvider" IDEtalkID="298FA82FFBD581D2A3E20B32E02BD5E1" />
   <component name="InspectionProjectProfileManager">
-    <option name="PROJECT_PROFILE" value="Project Default" />
-    <option name="USE_PROJECT_PROFILE" value="true" />
-    <version value="1.0" />
-    <profiles>
-      <profile version="1.0" is_locked="false">
-        <option name="myName" value="Project Default" />
-        <option name="myLocal" value="false" />
-      </profile>
-    </profiles>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="TYPO" />
       <item index="1" class="java.lang.String" itemvalue="INFO" />
@@ -280,6 +308,7 @@
         <w>lookup</w>
       </words>
     </dictionary>
+    <dictionary name="cesarreyesa" />
   </component>
   <component name="ProjectKey">
     <option name="state" value="https://forzaframework.googlecode.com/svn/branches/beta1/forzaframework.ipr" />
@@ -318,21 +347,6 @@
         <entry key="$PROJECT_DIR$">
           <value>
             <SvnBranchConfiguration>
-              <option name="branchMap">
-                <map>
-                  <entry key="https://forzaframework.googlecode.com/svn/branches">
-                    <value>
-                      <list>
-                        <SvnBranchItem>
-                          <option name="creationDateMillis" value="1254240887360" />
-                          <option name="revision" value="64" />
-                          <option name="url" value="https://forzaframework.googlecode.com/svn/branches/beta1" />
-                        </SvnBranchItem>
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
               <option name="branchUrls">
                 <list>
                   <option value="https://forzaframework.googlecode.com/svn/branches" />
