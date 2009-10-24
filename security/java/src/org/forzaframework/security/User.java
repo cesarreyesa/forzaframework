@@ -293,18 +293,24 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         this.lastPasswordAssistanceToken = lastPasswordAssistanceToken;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        final User user = (User) o;
+        User user = (User) o;
 
-        return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
 
+        return true;
     }
 
+    @Override
     public int hashCode() {
-        return (username != null ? username.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        return result;
     }
 
     public String toString() {

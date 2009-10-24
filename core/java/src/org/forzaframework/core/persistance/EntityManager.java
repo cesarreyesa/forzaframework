@@ -114,4 +114,6 @@ public interface EntityManager {
     Integer executeInteger(String hql, Object[] values);
 
     Double executeDouble(String hql, Object[] values);
+
+    <T> List<T> find(String queryString, List values);
 }

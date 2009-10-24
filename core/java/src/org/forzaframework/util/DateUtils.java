@@ -421,23 +421,23 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         if (difference > 0) {
             double days = difference / 86400000; // numero de milisegundos en un dia = 86400000
             if (days > 365) {
-                return String.format("Hace %1$s años", Math.round(days / 365));
+                return String.format("hace %1$s años", Math.round(days / 365));
             }
             if (days > 30) {
-                return String.format("Hace %1$s meses", Math.round(days / 30.42));
+                return String.format("hace %1$s meses", Math.round(days / 30.42));
             }
             if (days > 1) {
-                return String.format("Hace %1$s dias", Math.round(days));
+                return String.format("hace %1$s dias", Math.round(days));
             }
             double horas = Math.round(difference / 60/ 60 / 1000);
             if (horas > 1) {
-                return String.format("Hace %1$s horas", Math.round(horas));
+                return String.format("hace %1$s horas", Math.round(horas));
             }
             double minutes = Math.round(difference / 60 / 1000);
             if (minutes > 10) {
-                return String.format("Hace %1$s minutos", Math.round(minutes));
+                return String.format("hace %1$s minutos", Math.round(minutes));
             }
-            return String.format("Hace unos pocos minutos");
+            return String.format("hace unos pocos minutos");
         } else {
             // futuro
             return date.toString();
