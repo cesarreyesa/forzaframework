@@ -243,6 +243,7 @@ public class ComboboxTag extends FieldTag {
         json.put("emptyText", "");
         json.put("selectOnFocus", true);
         json.put("lazyInit", false);
+        json.put("hidden", hidden == null ? false : hidden);
         json.elementOpt("pageSize", pageSize);
         json.elementOpt("hideLabel", getHideLabel());
 //        json.put("lazyInit", loadOnStart == null ? false : loadOnStart);
