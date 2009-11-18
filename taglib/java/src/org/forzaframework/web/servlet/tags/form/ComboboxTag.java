@@ -243,7 +243,6 @@ public class ComboboxTag extends FieldTag {
         json.put("emptyText", "");
         json.put("selectOnFocus", true);
         json.put("lazyInit", false);
-        json.put("hidden", hidden == null ? false : hidden);
         json.elementOpt("pageSize", pageSize);
         json.elementOpt("hideLabel", getHideLabel());
 //        json.put("lazyInit", loadOnStart == null ? false : loadOnStart);
@@ -251,7 +250,7 @@ public class ComboboxTag extends FieldTag {
         // TODO: averiguar para que sirve esto, si se pone entonces no funciona correctamente el trigger
 //        json.put("lastQuery", "");
 //        json.put("valueNotFoundText", "Not found");
-        json.elementOpt("renderHidden", hidden);
+        json.elementOpt("renderHidden", hidden == null ? false : hidden);
         json.elementOpt("allowBlank", allowBlank);
 
         if(updateFields.size() > 0){
