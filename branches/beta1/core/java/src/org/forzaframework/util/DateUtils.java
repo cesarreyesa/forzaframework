@@ -365,6 +365,10 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return dfs.getMonths()[month];
     }
 
+    public static Integer getMonth(Date date){
+        return createCalendar(date).get(Calendar.MONTH);
+    }
+
     /**
      * Regresa verdadero si la primer fecha esta entre las otras 2, ignorando los anios, es decir, 25 de febrero, esta entre 1 enero y 29 de febrero
      * @param dateToCompare
