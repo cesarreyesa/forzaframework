@@ -45,6 +45,7 @@ public class DateTag extends FieldTag {
         json.put("validateOnBlur", false);
         json.elementOpt("allowBlank", allowBlank);
         json.elementOpt("disabled", disabled);
+        json.elementOpt("renderHidden", hidden == null ? false : hidden);
         String s = getText("date.format.js");
         if(!s.equals("??date.format.js??")){
             json.put("format", s);
