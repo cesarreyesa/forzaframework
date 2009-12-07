@@ -30,10 +30,7 @@ import org.dom4j.DocumentHelper;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * @author cesarreyes
@@ -181,7 +178,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     }
 
     @Transient
-    public List<GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
         for (Role role : roles) {
             list.add(role);
@@ -322,19 +319,19 @@ public class User extends BaseEntity implements Serializable, UserDetails {
                 .append("credentialsExpired",this.credentialsExpired)
                 .append("accountLocked",this.accountLocked);
 
-        List<GrantedAuthority> auths = this.getAuthorities();
-        if (auths != null) {
-            sb.append("Granted Authorities: ");
-
-            for (int i = 0; i < auths.size(); i++) {
-                if (i > 0) {
-                    sb.append(", ");
-                }
-                sb.append(auths.get(i).toString());
-            }
-        } else {
-            sb.append("No Granted Authorities");
-        }
+//        Collection<GrantedAuthority> auths = this.getAuthorities();
+//        if (auths != null) {
+//            sb.append("Granted Authorities: ");
+//
+//            for (int i = 0; i < auths.size(); i++) {
+//                if (i > 0) {
+//                    sb.append(", ");
+//                }
+//                sb.append(auths.get(i).toString());
+//            }
+//        } else {
+//            sb.append("No Granted Authorities");
+//        }
         return sb.toString();
     }
 
