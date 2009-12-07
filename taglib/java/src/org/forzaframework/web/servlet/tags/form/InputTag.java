@@ -94,6 +94,7 @@ public class InputTag extends FieldTag {
         json.elementOpt("allowBlank", allowBlank);
         json.elementOpt("renderHidden", hidden);
         json.elementOpt("hideLabel", getHideLabel());
+        json.elementOpt("renderHidden", hidden == null ? false : hidden);
         json.elementOpt("minLength", minLength);
         json.elementOpt("maxLength", maxLength);
         json.elementOpt("labelSeparator", getLabelSeparator());

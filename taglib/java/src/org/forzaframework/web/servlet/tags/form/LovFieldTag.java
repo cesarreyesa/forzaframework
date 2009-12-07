@@ -235,9 +235,10 @@ public class LovFieldTag extends ComboboxTag {
         } else {
             if (StringUtils.isNotBlank(getHandler())) {
                 JSONObject listeners = new JSONObject();
-                listeners.put("change", new JSONFunction(getHandler()));
-                json.put("onSelectFunction", new JSONFunction(getHandler()));
-                
+                listeners.put("select", new JSONFunction(getHandler()));
+                json.put("listeners", listeners);
+//                json.put("onSelectFunction", new JSONFunction(getHandler()));
+//                
 //                StringBuilder onclick = new StringBuilder("function(e){")
 //                        //Colocamos las instrucciones adicionales
 //                        .append("if (!this.isStoreLoaded) {")
