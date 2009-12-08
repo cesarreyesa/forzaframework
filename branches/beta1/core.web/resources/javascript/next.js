@@ -403,14 +403,10 @@ Ext.override(Ext.grid.GridView, {
 
 Ext.form.ComboBox.prototype.onRender = function(ct, position){
     Ext.form.ComboBox.superclass.onRender.call(this, ct, position);
-    if(this.hiddenName){
-        this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, id: (this.hiddenId||this.hiddenName)},
-                'before', true);
-        this.hiddenField.value =
-            this.hiddenValue !== undefined ? this.hiddenValue :
-            this.value !== undefined ? this.value : '';
-
-                    this.el.dom.removeAttribute('name');
+    if(this.hiddenName && this.xtype != 'superboxselect'){
+        this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, id: (this.hiddenId||this.hiddenName)}, 'before', true);
+        this.hiddenField.value = this.hiddenValue !== undefined ? this.hiddenValue : this.value !== undefined ? this.value : '';
+        this.el.dom.removeAttribute('name');
     }
     if(Ext.isGecko){
         this.el.dom.setAttribute('autocomplete', 'off');
