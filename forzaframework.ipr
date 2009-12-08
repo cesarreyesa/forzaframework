@@ -334,6 +334,16 @@
                       </list>
                     </value>
                   </entry>
+                  <entry key="https://forzaframework.googlecode.com/svn/tags">
+                    <value>
+                      <list />
+                    </value>
+                  </entry>
+                  <entry key="https://forzaframework.googlecode.com/svn/wiki">
+                    <value>
+                      <list />
+                    </value>
+                  </entry>
                 </map>
               </option>
               <option name="branchUrls">

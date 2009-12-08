@@ -37,6 +37,7 @@ import java.util.Map;
 public class ComboboxTag extends FieldTag {
 
     private String text;
+    private String emptyText = "";
     private String template;
     private String url;
     private String valueField = "id";
@@ -89,6 +90,14 @@ public class ComboboxTag extends FieldTag {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getEmptyText() {
+        return emptyText;
+    }
+
+    public void setEmptyText(String emptyText) {
+        this.emptyText = emptyText;
     }
 
     public String getTemplate() {
@@ -240,7 +249,7 @@ public class ComboboxTag extends FieldTag {
         json.put("hiddenName", field);
         json.put("typeAhead", true);
         json.put("triggerAction", "all");
-        json.put("emptyText", "");
+        json.put("emptyText", emptyText);
         json.put("selectOnFocus", true);
         json.put("lazyInit", false);
         json.elementOpt("pageSize", pageSize);
