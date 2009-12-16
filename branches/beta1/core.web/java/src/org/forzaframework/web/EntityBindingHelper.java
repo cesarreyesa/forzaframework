@@ -52,9 +52,11 @@ public class EntityBindingHelper {
         } catch (Exception e) {
             return; // si por alguna razon no se puede crear el beanwrapper no hacemos nada.
         }
+
         for(PropertyDescriptor pd : beanWrapper.getPropertyDescriptors()){
-            //Primero busca si es un BaseEntity para registrar un CustomClassEditor
-            if(ClassUtils.isAssignable(pd.getPropertyType(), BaseEntity.class)){
+            SystemEntity systemEntity = configuration.getSystemEntity(pd.getPropertyType());
+            //Primero busca sisi  es un BaseEntity o si existe en la configuracion para registrar un CustomClassEditor 
+            if(ClassUtils.isAssignable(pd.getPropertyType(), BaseEntity.class) || systemEntity != null){
                 binder.registerCustomEditor(pd.getPropertyType(), pd.getName(), new CustomClassEditor(pd.getPropertyType(), em));
 
             }else if(ClassUtils.isAssignable(pd.getPropertyType(), List.class)){
@@ -73,7 +75,7 @@ public class EntityBindingHelper {
                 // Si la propiedad es un Componente entonces busca los attributos de este, para declarar los customClassEditor, TODO: aqui deberia haber recursividad.
                 BeanWrapper innerWrapper = new BeanWrapperImpl(pd.getPropertyType());
                 for(PropertyDescriptor innerPd : innerWrapper.getPropertyDescriptors()){
-                    if(ClassUtils.isAssignable(innerPd.getPropertyType(), BaseEntity.class)){
+                    if(ClassUtils.isAssignable(innerPd.getPropertyType(), BaseEntity.class) || systemEntity != null){
                         binder.registerCustomEditor(innerPd.getPropertyType(), pd.getName() + "." + innerPd.getName(), new CustomClassEditor(innerPd.getPropertyType(), em));
                     }
                 }
