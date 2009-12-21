@@ -413,6 +413,7 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 		ExtendedModelMap implicitModel = new BindingAwareModelMap();
 
 		/// FORZA ///
+        methodInvoker.setEntityManager(entityManager);
 		Object result;
         ResponseType rtAnnotation = handlerMethod.getAnnotation(ResponseType.class);
         try {
