@@ -144,4 +144,11 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
             throw new UsernameNotFoundException("user '" + username + "' not found...");
         }
     }
+
+    public List<User> getUsersByRole(String roleName) {
+      String hql = "select user from User as user join user.roles as role where role.name = ?";
+
+      return entityManager.find(hql, roleName);
+    }
+
 }

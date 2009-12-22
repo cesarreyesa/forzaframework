@@ -74,4 +74,6 @@ public interface UserManager {
     void newUser(User user, Map model);
 
     void addRoleToUser(User user, Role role);
+
+    public List<User> getUsersByRole(String roleName);
 }
