@@ -277,6 +277,9 @@ public class Store {
                             for (String key : map.keySet()) {
                                 jsonObject.put(key, map.get(key));
                             }
+                        }else if(item instanceof Integer){
+                            jsonObject.put("id", item);
+                            jsonObject.put("name", item);
                         }else{
                             BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(item);
                             for(Field field : fields){
