@@ -1047,6 +1047,14 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>plugins</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>format</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>mapping</name>
         </attribute>
         <attribute>
