@@ -17,6 +17,7 @@
 package org.forzaframework.web.servlet.tags.form;
 
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.forzaframework.web.servlet.tags.JSONFunction;
 import org.forzaframework.web.servlet.tags.Listener;
 import org.forzaframework.web.servlet.tags.form.FieldTag;
@@ -28,6 +29,25 @@ import org.forzaframework.web.servlet.tags.form.FieldTag;
  * Description:
  */
 public class DateTag extends FieldTag {
+
+    private String plugins;
+    private String format;
+
+    public String getPlugins() {
+        return plugins;
+    }
+
+    public void setPlugins(String plugins) {
+        this.plugins = plugins;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
 
     public String getType() {
         return "datefield";
@@ -45,9 +65,12 @@ public class DateTag extends FieldTag {
         json.put("validateOnBlur", false);
         json.elementOpt("allowBlank", allowBlank);
         json.elementOpt("disabled", disabled);
+        json.elementOpt("plugins", plugins);
         json.elementOpt("renderHidden", hidden == null ? false : hidden);
         String s = getText("date.format.js");
-        if(!s.equals("??date.format.js??")){
+        if(StringUtils.isNotBlank(format)){
+            json.put("format", format);
+        }else if(!s.equals("??date.format.js??")){
             json.put("format", s);
         }
         json.put("xtype", getType());
