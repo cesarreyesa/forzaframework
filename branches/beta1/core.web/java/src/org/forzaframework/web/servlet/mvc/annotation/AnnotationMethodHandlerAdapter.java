@@ -414,6 +414,7 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator implemen
 
 		/// FORZA ///
         methodInvoker.setEntityManager(entityManager);
+        methodInvoker.setSystemConfiguration(systemConfiguration);
 		Object result;
         ResponseType rtAnnotation = handlerMethod.getAnnotation(ResponseType.class);
         try {
