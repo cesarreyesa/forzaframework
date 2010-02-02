@@ -100,6 +100,7 @@ public class BoxSelectTag extends ComboboxTag {
         json.put("fieldLabel", title != null ? title : getText(titleKey));
         json.elementOpt("value", getValue());
         json.elementOpt("text", getText());
+        json.elementOpt("forceFormValue", false);
 
         if (getOptions().size() != 0 || getItems() != null) {
             json.put("mode", "local");
