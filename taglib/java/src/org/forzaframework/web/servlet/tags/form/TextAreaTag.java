@@ -46,6 +46,7 @@ public class TextAreaTag extends FieldTag {
         json.put("fieldLabel", title != null ? title : getText(titleKey));
         json.put("name", getField());
         json.elementOpt("description", getDescription());
+        json.elementOpt("allowBlank", getAllowBlank());
         json.elementOpt("value", getValue());
         json.elementOpt("width", getWidth());
         json.elementOpt("height", getHeight());
