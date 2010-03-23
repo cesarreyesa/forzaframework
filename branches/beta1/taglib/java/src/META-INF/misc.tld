@@ -287,6 +287,7 @@
         <attribute>
             <name>id</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>title</name>
@@ -769,6 +770,7 @@
 
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
 
         <attribute>
@@ -804,9 +806,11 @@
 
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>titleKey</name>
@@ -867,6 +871,7 @@
 
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
         	<name>anchor</name>
@@ -923,6 +928,7 @@
         </attribute>
         <attribute>
             <name>titleKey</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>titlebar</name>
