@@ -751,6 +751,10 @@
         	<name>disabled</name>
             <rtexprvalue>true</rtexprvalue>
        	</attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
