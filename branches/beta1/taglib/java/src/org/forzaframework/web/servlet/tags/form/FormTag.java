@@ -193,7 +193,7 @@ public class FormTag extends PanelTag implements PanelItem {
 
         for(Store store : storeDeclarations){
             sb.append(store.buildStoreDeclaration()).append("\n");
-            if(store.getLoadOnStart()) {
+            if(store.getLoadOnStart() && "remote".equals(store.getType())) {
                 sb.append(store.getName()).append(".load();").append("\n");
             }
         }
