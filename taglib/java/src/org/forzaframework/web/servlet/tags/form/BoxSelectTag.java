@@ -107,7 +107,6 @@ public class BoxSelectTag extends ComboboxTag {
         }
         json.put("displayField", getDisplayField());
         json.elementOpt("displayFieldTpl", getDisplayFieldTpl());
-        json.put("valueField", getValueField());
 
         json.put("store", new JSONFunction(getVarName()));
 
@@ -116,6 +115,7 @@ public class BoxSelectTag extends ComboboxTag {
         json.put("selectOnFocus", true);
         json.put("forceSelection", true);
         json.put("resizable", true);
+        json.put("anchor", getAnchor() != null ? getAnchor() : "90%");
         json.elementOpt("pageSize", getPageSize());
         json.elementOpt("width", getWidth());
         json.elementOpt("renderHidden", hidden);
