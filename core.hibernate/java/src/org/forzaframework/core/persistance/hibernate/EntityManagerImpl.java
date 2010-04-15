@@ -228,6 +228,16 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
         return (T) list.get(0);
     }
 
+    public <T> T load(Class entityClass, Object primaryKey) {
+        T entity = (T) getHibernateTemplate().load(entityClass, (Serializable) primaryKey);
+
+        if (entity == null) {
+            throw new ObjectRetrievalFailureException(entityClass, primaryKey);
+        }
+
+        return entity;
+    }
+
     public void save(Object entity) {
         getHibernateTemplate().saveOrUpdate(entity);
     }

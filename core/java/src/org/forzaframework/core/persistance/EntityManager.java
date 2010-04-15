@@ -116,4 +116,6 @@ public interface EntityManager {
     Double executeDouble(String hql, Object[] values);
 
     <T> List<T> find(String queryString, List values);
+
+    <T> T load(Class entityClass, Object primaryKey);
 }
