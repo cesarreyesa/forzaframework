@@ -107,6 +107,7 @@ public class BoxSelectTag extends ComboboxTag {
         }
         json.put("displayField", getDisplayField());
         json.elementOpt("displayFieldTpl", getDisplayFieldTpl());
+        json.put("valueField", getValueField());
 
         json.put("store", new JSONFunction(getVarName()));
 
