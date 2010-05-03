@@ -369,21 +369,28 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return createCalendar(date).get(Calendar.MONTH);
     }
 
+    public static Integer getYear(Date date){
+        return createCalendar(date).get(Calendar.YEAR);
+    }
+
     /**
-     * Regresa verdadero si la primer fecha esta entre las otras 2, ignorando los anios, es decir, 25 de febrero, esta entre 1 enero y 29 de febrero
+     * Regresa verdadero si la primer fecha (con anio anterior al rango) esta entre las otras 2, ignorando los anios, es decir, 25 de febrero, esta entre 1 enero y 29 de febrero
      * @param dateToCompare
      * @param firstDate
      * @param lastDate
      * @return
      */
     public static Boolean isBetweenDatesIgnoreYear(Date dateToCompare, Date firstDate, Date lastDate){
-        Calendar date = DateUtils.createCalendar(dateToCompare);
-        if(date.get(Calendar.YEAR) < DateUtils.createCalendar(firstDate).get(Calendar.YEAR)){
-            Integer day = date.get(Calendar.DAY_OF_YEAR);
-            Integer firstDay = DateUtils.createCalendar(firstDate).get(Calendar.DAY_OF_YEAR);
-            Integer lastDay = DateUtils.createCalendar(lastDate).get(Calendar.DAY_OF_YEAR);
-            if(day >= firstDay && day <= lastDay){
-                return true;
+        Integer firstYear = createCalendar(firstDate).get(Calendar.YEAR);
+        if (getYear(dateToCompare) < firstYear) {
+            //Al validar que sea el anio menor que el de la fecha inicial, se toma el anio de la fecha inicial para crear la nueva fecha
+            Date dateToCompareNew = createCalendar(firstYear, getMonth(dateToCompare), getDayOfMonth(dateToCompare)).getTime();
+            //Mayor Igual que la fecha inicial
+            if (dateToCompareNew.compareTo(firstDate) >= 0) {
+                //Menor Igual que la fecha final
+                if (dateToCompareNew.compareTo(lastDate) <= 0) {
+                    return true;
+                }
             }
         }
         return false;
