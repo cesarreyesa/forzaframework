@@ -130,8 +130,12 @@ public class NumberFieldTag extends FieldTag {
 
     public int doStartTag() throws JspException {
         int val = super.doStartTag();
-        Object value = getActualValue();
-        this.setValue(value.toString());
+        if (StringUtils.isNotBlank(getCommandName())) {
+            if (getActualValue() != null) {
+                Object value = getActualValue();
+                this.setValue(value.toString());
+            }
+        }
 
         return val;
     }
