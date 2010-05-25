@@ -42,6 +42,7 @@ public class NumberFieldTag extends FieldTag {
     private Double minValue;
     private Integer maxLength;
     private Integer minLength;
+    private Boolean enableKeyEvents;
 
     public Boolean getAllowDecimals() {
         return allowDecimals;
@@ -115,6 +116,14 @@ public class NumberFieldTag extends FieldTag {
         this.minLength = minLength;
     }
 
+    public Boolean getEnableKeyEvents() {
+        return enableKeyEvents;
+    }
+
+    public void setEnableKeyEvents(Boolean enableKeyEvents) {
+        this.enableKeyEvents = enableKeyEvents;
+    }
+
     public String getType() {
         return "numberfield";
     }
@@ -156,6 +165,7 @@ public class NumberFieldTag extends FieldTag {
         json.elementOpt("decimalSeparator", decimalSeparator);
         json.put("xtype", getType());
 
+        json.put("enableKeyEvents", enableKeyEvents);
 
         if (this.listeners.size() > 0) {
             JSONObject listeners = new JSONObject();

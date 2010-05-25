@@ -1328,6 +1328,10 @@
         	<name>minLength</name>
             <rtexprvalue>true</rtexprvalue>
        	</attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
 </taglib>
