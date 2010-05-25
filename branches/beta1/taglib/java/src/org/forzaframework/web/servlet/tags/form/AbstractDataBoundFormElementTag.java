@@ -119,6 +119,18 @@ public abstract class AbstractDataBoundFormElementTag extends BaseBodyTag implem
         }
 	}
 
+    /**
+     * Get the actual value.
+     * @see #getActualValue()
+     */
+    protected final Object getActualValue() throws JspException {
+        try {
+            return getBindStatus().getActualValue();
+        } catch (JspException e) {
+            return null;
+        }
+    }
+
 	/**
 	 * Get the {@link PropertyEditor}, if any, in use for value bound to this tag.
 	 */
