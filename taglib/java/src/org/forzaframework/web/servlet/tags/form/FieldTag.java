@@ -192,8 +192,8 @@ public abstract class FieldTag extends AbstractDataBoundFormElementTag implement
             this.setPath(getField());
             if(StringUtils.isNotBlank(getCommandName())){
                 this.setPath(getCommandName() + "." + getField());
-                if(getBoundValue() != null) {
-                    Object value = getBoundValue();
+                if(getActualValue() != null) {
+                    Object value = getActualValue();
                     if(value instanceof BaseEntity && ((BaseEntity)value).getKey() != null){
                         this.setValue(((BaseEntity)value).getKey().toString());
                     }else{

@@ -24,6 +24,7 @@ import org.forzaframework.web.servlet.tags.JSONFunction;
 import org.forzaframework.web.servlet.tags.Listener;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.IterationTag;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -126,18 +127,6 @@ public class NumberFieldTag extends FieldTag {
 
     public String getType() {
         return "numberfield";
-    }
-
-    public int doStartTag() throws JspException {
-        int val = super.doStartTag();
-        if (StringUtils.isNotBlank(getCommandName())) {
-            if (getActualValue() != null) {
-                Object value = getActualValue();
-                this.setValue(value.toString());
-            }
-        }
-
-        return val;
     }
 
     public Object toJSON() {

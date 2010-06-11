@@ -126,7 +126,7 @@ public abstract class AbstractDataBoundFormElementTag extends BaseBodyTag implem
     protected final Object getActualValue() throws JspException {
         try {
             return getBindStatus().getActualValue();
-        } catch (JspException e) {
+        } catch (NotReadablePropertyException ignored) {
             return null;
         }
     }
