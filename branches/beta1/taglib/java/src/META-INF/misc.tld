@@ -474,6 +474,10 @@
             <name>rendererFunction</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>editableGrid</name>
@@ -606,6 +610,10 @@
         <attribute>
             <name>width</name>
         </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>comboboxColumn</name>
@@ -645,6 +653,10 @@
             <rtexprvalue>true</rtexprvalue>
             <description>If it needs mapping</description>
         </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>dateColumn</name>
@@ -669,6 +681,10 @@
         </attribute>
         <attribute>
             <name>width</name>
+        </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
     <tag>
@@ -700,6 +716,10 @@
         </attribute>
         <attribute>
             <name>allowDecimals</name>
+        </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
     <tag>
