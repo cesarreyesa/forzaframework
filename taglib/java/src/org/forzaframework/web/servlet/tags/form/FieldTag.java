@@ -192,15 +192,20 @@ public abstract class FieldTag extends AbstractDataBoundFormElementTag implement
             this.setPath(getField());
             if(StringUtils.isNotBlank(getCommandName())){
                 this.setPath(getCommandName() + "." + getField());
-                if(getActualValue() != null) {
-                    Object value = getActualValue();
+                if(getBoundValue() != null) {
+                    Object value = getBoundValue();
                     if(value instanceof BaseEntity && ((BaseEntity)value).getKey() != null){
                         this.setValue(((BaseEntity)value).getKey().toString());
                     }else{
                         if(getType().equals("datefield") && (value instanceof Timestamp || value instanceof Date)){
                             Date time = (Date) value;
                             this.setValue(DateUtils.getString(time));
-                        }else{
+                        } else if (getType().equals("textfield") || getType().equals("numberfield")) {
+                            if (getActualValue() != null){
+                                value = getActualValue();
+                            }
+                            this.setValue(value.toString());
+                        } else {
                             this.setValue(value.toString());
                         }
                     }
