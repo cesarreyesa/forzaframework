@@ -40,6 +40,7 @@ public class ColumnTag extends BaseTag {
     protected Integer width;
     protected Boolean disabled;
     protected String rendererFunction;
+    protected Boolean sortable;
 
     public String getTitle() {
         return title;
@@ -113,6 +114,14 @@ public class ColumnTag extends BaseTag {
         this.rendererFunction = rendererFunction;
     }
 
+    public Boolean getSortable() {
+        return sortable;
+    }
+
+    public void setSortable(Boolean sortable) {
+        this.sortable = sortable;
+    }
+
     public int doEndTag() throws JspException {
 
     	Field field = new Field();
@@ -123,6 +132,7 @@ public class ColumnTag extends BaseTag {
         field.setWidth(width);
         field.setLocked(locked);
         field.setRendererFunction(rendererFunction);
+        field.setSortable(sortable);
 
         Tag parent = findParent(GridTag.class);
         if(parent != null){

@@ -37,6 +37,7 @@ public class Field{
     protected String displayField;
     protected String rendererFunction;
     protected Boolean locked;
+    protected Boolean sortable;
 
     public Field(){
     }
@@ -149,5 +150,13 @@ public class Field{
 
     public void setRendererFunction(String rendererFunction) {
         this.rendererFunction = rendererFunction;
+    }
+
+    public Boolean getSortable() {
+        return sortable;
+    }
+
+    public void setSortable(Boolean sortable) {
+        this.sortable = sortable;
     }
 }
