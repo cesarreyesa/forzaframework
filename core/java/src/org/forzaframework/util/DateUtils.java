@@ -360,6 +360,11 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 
     public static String getMonth(Integer month){
         Locale locale = LocaleContextHolder.getLocale();
+
+        return getMonth(month, locale);
+    }
+
+    public static String getMonth(Integer month, Locale locale){
         DateFormatSymbols dfs = new DateFormatSymbols(locale);
 
         return dfs.getMonths()[month];
