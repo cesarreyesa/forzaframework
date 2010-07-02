@@ -58,101 +58,105 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils{
      * @return          Cantidad en palabras
      */
     static public String converterNumberToWords(Integer amount){
-        switch(amount){
-            case 0: return "CERO";
-            case 1: return "UN"; //UNO
-            case 2: return "DOS";
-            case 3: return "TRES";
-            case 4: return "CUATRO";
-            case 5: return "CINCO";
-            case 6: return "SEIS";
-            case 7: return "SIETE";
-            case 8: return "OCHO";
-            case 9: return "NUEVE";
-            case 10: return "DIEZ";
-            case 11: return "ONCE";
-            case 12: return "DOCE";
-            case 13: return "TRECE";
-            case 14: return "CATORCE";
-            case 15: return "QUINCE";
-            case 20: return "VEINTE";
-            case 30: return "TREINTA";
-            case 40: return "CUARENTA";
-            case 50: return "CINCUENTA";
-            case 60: return "SESENTA";
-            case 70: return "SETENTA";
-            case 80: return "OCHENTA";
-            case 90: return "NOVENTA";
-            case 100: return "CIEN";
+        if (amount >= 0) {
+            switch(amount){
+                case 0: return "CERO";
+                case 1: return "UN"; //UNO
+                case 2: return "DOS";
+                case 3: return "TRES";
+                case 4: return "CUATRO";
+                case 5: return "CINCO";
+                case 6: return "SEIS";
+                case 7: return "SIETE";
+                case 8: return "OCHO";
+                case 9: return "NUEVE";
+                case 10: return "DIEZ";
+                case 11: return "ONCE";
+                case 12: return "DOCE";
+                case 13: return "TRECE";
+                case 14: return "CATORCE";
+                case 15: return "QUINCE";
+                case 20: return "VEINTE";
+                case 30: return "TREINTA";
+                case 40: return "CUARENTA";
+                case 50: return "CINCUENTA";
+                case 60: return "SESENTA";
+                case 70: return "SETENTA";
+                case 80: return "OCHENTA";
+                case 90: return "NOVENTA";
+                case 100: return "CIEN";
 
-            case 200: return "DOSCIENTOS";
-            case 300: return "TRESCIENTOS";
-            case 400: return "CUATROCIENTOS";
-            case 500: return "QUINIENTOS";
-            case 600: return "SEISCIENTOS";
-            case 700: return "SETECIENTOS";
-            case 800: return "OCHOCIENTOS";
-            case 900: return "NOVECIENTOS";
+                case 200: return "DOSCIENTOS";
+                case 300: return "TRESCIENTOS";
+                case 400: return "CUATROCIENTOS";
+                case 500: return "QUINIENTOS";
+                case 600: return "SEISCIENTOS";
+                case 700: return "SETECIENTOS";
+                case 800: return "OCHOCIENTOS";
+                case 900: return "NOVECIENTOS";
 
-            case 1000: return "UN MIL";
-        }
-        if(amount<20){
-            //System.out.println(">15");
-            return "DIECI"+ converterNumberToWords(amount-10);
-        }
-        if(amount<30){
-            //System.out.println(">20");
-            return "VEINTI" + converterNumberToWords(amount-20);
-        }
-        if(amount<100){
-            //System.out.println("<100");
-            return converterNumberToWords( (int)(amount/10)*10 ) + " Y " + converterNumberToWords(amount%10);
-        }
-        if(amount<200){
-            //System.out.println("<200");
-            return "CIENTO " + converterNumberToWords( amount - 100 );
-        }
-        if(amount<1000){
-            //System.out.println("<1000");
-            return converterNumberToWords( (int)(amount/100)*100 ) + " " + converterNumberToWords(amount%100);
-        }
-        if(amount<2000){
-            //System.out.println("<2000");
-            return "UN MIL " + converterNumberToWords( amount % 1000 );
-        }
-        if(amount<1000000){
-            String var="";
-            var = converterNumberToWords((int)(amount/1000)) + " MIL" ;
-            if(amount % 1000!=0){
-                var += " " + converterNumberToWords(amount % 1000);
+                case 1000: return "UN MIL";
             }
-            return var;
-        }
-
-        //Revisamos si la cantidad es en millones
-        if (amount >= 1000000 && amount <= Integer.MAX_VALUE){
-            String millionWord;
-
-            //Dividimos la cantidad entre 1000000 para verificar si debemos escribir la palabra millon o millones
-            int millionValue = amount / 1000000;
-            if(millionValue > 1){
-                millionWord = " MILLONES ";
-            }else{
-                millionWord = " MILLON ";
+            if(amount<20){
+                //System.out.println(">15");
+                return "DIECI"+ converterNumberToWords(amount-10);
+            }
+            if(amount<30){
+                //System.out.println(">20");
+                return "VEINTI" + converterNumberToWords(amount-20);
+            }
+            if(amount<100){
+                //System.out.println("<100");
+                return converterNumberToWords( (int)(amount/10)*10 ) + " Y " + converterNumberToWords(amount%10);
+            }
+            if(amount<200){
+                //System.out.println("<200");
+                return "CIENTO " + converterNumberToWords( amount - 100 );
+            }
+            if(amount<1000){
+                //System.out.println("<1000");
+                return converterNumberToWords( (int)(amount/100)*100 ) + " " + converterNumberToWords(amount%100);
+            }
+            if(amount<2000){
+                //System.out.println("<2000");
+                return "UN MIL " + converterNumberToWords( amount % 1000 );
+            }
+            if(amount<1000000){
+                String var="";
+                var = converterNumberToWords((int)(amount/1000)) + " MIL" ;
+                if(amount % 1000!=0){
+                    var += " " + converterNumberToWords(amount % 1000);
+                }
+                return var;
             }
 
-            int residue = amount % 1000000;
-            //Si la cantidad es un multiplo de 1000000 entonces no usamos converterNumberToWords(residue) y asi eliminamos la
-            //palabra "CERO" que se coloca al final
-            if (residue == 0) {
-                return converterNumberToWords(millionValue) + millionWord;
-            }else{
-                return converterNumberToWords(millionValue) + millionWord + converterNumberToWords( amount % 1000000 );
+            //Revisamos si la cantidad es en millones
+            if (amount >= 1000000 && amount <= Integer.MAX_VALUE){
+                String millionWord;
+
+                //Dividimos la cantidad entre 1000000 para verificar si debemos escribir la palabra millon o millones
+                int millionValue = amount / 1000000;
+                if(millionValue > 1){
+                    millionWord = " MILLONES ";
+                }else{
+                    millionWord = " MILLON ";
+                }
+
+                int residue = amount % 1000000;
+                //Si la cantidad es un multiplo de 1000000 entonces no usamos converterNumberToWords(residue) y asi eliminamos la
+                //palabra "CERO" que se coloca al final
+                if (residue == 0) {
+                    return converterNumberToWords(millionValue) + millionWord;
+                }else{
+                    return converterNumberToWords(millionValue) + millionWord + converterNumberToWords( amount % 1000000 );
+                }
+
             }
 
+            return "";
+        } else {
+            return "[NO ES POSIBLE CONVERTIR UNA CANTIDAD MENOR QUE 0 A LETRAS]";
         }
-
-        return "";
     }
 
     /**
