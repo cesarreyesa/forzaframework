@@ -911,6 +911,7 @@
         </attribute>
         <attribute>
             <name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>anchor</name>
