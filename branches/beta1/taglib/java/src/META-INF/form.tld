@@ -933,6 +933,10 @@
         <tag-class>org.forzaframework.web.servlet.tags.form.RadioGroupTag</tag-class>
 
         <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>value</name>
         </attribute>
         <attribute>
@@ -975,6 +979,11 @@
             <name>columns</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
     </tag>
 
     <tag>
