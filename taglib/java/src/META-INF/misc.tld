@@ -372,6 +372,7 @@
         </attribute>
         <attribute>
             <name>height</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>enableDragDrop</name>
@@ -390,6 +391,7 @@
         </attribute>
         <attribute>
             <name>replacePanel</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>loadOnStart</name>
