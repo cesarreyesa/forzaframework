@@ -370,7 +370,7 @@ public class GridTag extends PanelTag implements PanelItem {
         }
 
         if(enableColumnsLock){
-            sb.append("cm = new Ext.grid.LockingColumnModel(");
+            sb.append("cm = new Ext.ux.grid.LockingColumnModel(");
         }else{
             sb.append("cm = new Ext.grid.ColumnModel(");
         }
@@ -407,7 +407,7 @@ public class GridTag extends PanelTag implements PanelItem {
         }
 
         if(enableColumnsLock){
-            sb.append("var grid = new Ext.grid.LockingGridPanel(").append(getConfig().toString(2)).append(");");        	
+            sb.append("var grid = new Ext.ux.grid.LockingGridPanel(").append(getConfig().toString(2)).append(");");
         }else{
             sb.append("var grid = new Ext.grid.GridPanel(").append(getConfig().toString(2)).append(");");
         }
