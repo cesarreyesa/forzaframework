@@ -94,6 +94,7 @@ public class FieldsetTag extends PanelTag {
         if(getTitle() != null || getTitleKey() != null){
             json.put("title", getTitle() != null ? getTitle() : getText(getTitleKey()));
         }
+        json.elementOpt("id", id);
         json.elementOpt("border", getBorder());
         json.elementOpt("anchor", getAnchor());
         json.elementOpt("hideLabels", hideLabels);
