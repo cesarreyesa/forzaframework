@@ -390,12 +390,18 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         if (getYear(dateToCompare) < firstYear) {
             //Al validar que sea el anio menor que el de la fecha inicial, se toma el anio de la fecha inicial para crear la nueva fecha
             Date dateToCompareNew = createCalendar(firstYear, getMonth(dateToCompare), getDayOfMonth(dateToCompare)).getTime();
-            //Mayor Igual que la fecha inicial
-            if (dateToCompareNew.compareTo(firstDate) >= 0) {
-                //Menor Igual que la fecha final
-                if (dateToCompareNew.compareTo(lastDate) <= 0) {
-                    return true;
-                }
+            //Se verifica que la nueva fecha se ecuentre entre el rango
+            isBetweenDates(dateToCompareNew, firstDate, lastDate);
+        }
+        return false;
+    }
+
+    public static Boolean isBetweenDates(Date dateToCompare, Date firstDate, Date lastDate){
+        //Mayor Igual que la fecha inicial
+        if (dateToCompare.compareTo(firstDate) >= 0) {
+            //Menor Igual que la fecha final
+            if (dateToCompare.compareTo(lastDate) <= 0) {
+                return true;
             }
         }
         return false;
