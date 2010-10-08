@@ -1,11 +1,11 @@
 /*
- * Copyright 2006-2009 the original author or authors.
+ * Copyright 2002-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,13 +29,13 @@ import org.springframework.web.util.WebUtils;
  * Helper class for annotation-based request mapping.
  *
  * @author Juergen Hoeller
+ * @author Arjen Poutsma
  * @since 2.5.2
  */
 abstract class ServletAnnotationMappingUtils {
 
 	/**
 	 * Check whether the given request matches the specified request methods.
-	 *
 	 * @param methods the HTTP request methods to check against
 	 * @param request the current HTTP request to check
 	 */
@@ -53,8 +53,8 @@ abstract class ServletAnnotationMappingUtils {
 
 	/**
 	 * Check whether the given request matches the specified parameter conditions.
-	 *
-	 * @param params the parameter conditions, following {@link org.springframework.web.bind.annotation.RequestMapping#params()}
+	 * @param params  the parameter conditions, following
+	 *                {@link org.springframework.web.bind.annotation.RequestMapping#params() RequestMapping.#params()}
 	 * @param request the current HTTP request to check
 	 */
 	public static boolean checkParameters(String[] params, HttpServletRequest request) {
@@ -72,10 +72,11 @@ abstract class ServletAnnotationMappingUtils {
 					}
 				}
 				else {
-					String key = param.substring(0, separator);
+					boolean negated = separator > 0 && param.charAt(separator - 1) == '!';
+					String key = !negated ? param.substring(0, separator) : param.substring(0, separator - 1);
 					String value = param.substring(separator + 1);
 					if (!value.equals(request.getParameter(key))) {
-						return false;
+						return negated;
 					}
 				}
 			}
@@ -85,8 +86,8 @@ abstract class ServletAnnotationMappingUtils {
 
 	/**
 	 * Check whether the given request matches the specified header conditions.
-	 *
-	 * @param headers the header conditions, following {@link org.springframework.web.bind.annotation.RequestMapping#headers()}
+	 * @param headers the header conditions, following
+	 *                {@link org.springframework.web.bind.annotation.RequestMapping#headers() RequestMapping.headers()}
 	 * @param request the current HTTP request to check
 	 */
 	public static boolean checkHeaders(String[] headers, HttpServletRequest request) {
@@ -95,25 +96,27 @@ abstract class ServletAnnotationMappingUtils {
 				int separator = header.indexOf('=');
 				if (separator == -1) {
 					if (header.startsWith("!")) {
-						if (hasHeader(request, header.substring(1))) {
+						if (request.getHeader(header.substring(1)) != null) {
 							return false;
 						}
 					}
-					else if (!hasHeader(request, header)) {
+					else if (request.getHeader(header) == null) {
 						return false;
 					}
 				}
 				else {
-					String key = header.substring(0, separator);
+					boolean negated = separator > 0 && header.charAt(separator - 1) == '!';
+					String key = !negated ? header.substring(0, separator) : header.substring(0, separator - 1);
 					String value = header.substring(separator + 1);
 					if (isMediaTypeHeader(key)) {
 						List<MediaType> requestMediaTypes = MediaType.parseMediaTypes(request.getHeader(key));
 						List<MediaType> valueMediaTypes = MediaType.parseMediaTypes(value);
 						boolean found = false;
 						for (Iterator<MediaType> valIter = valueMediaTypes.iterator(); valIter.hasNext() && !found;) {
-							MediaType valueMediaType =  valIter.next();
-							for (Iterator<MediaType> reqIter = requestMediaTypes.iterator(); reqIter.hasNext() && !found;) {
-								MediaType requestMediaType =  reqIter.next();
+							MediaType valueMediaType = valIter.next();
+							for (Iterator<MediaType> reqIter = requestMediaTypes.iterator();
+									reqIter.hasNext() && !found;) {
+								MediaType requestMediaType = reqIter.next();
 								if (valueMediaType.includes(requestMediaType)) {
 									found = true;
 								}
@@ -121,20 +124,16 @@ abstract class ServletAnnotationMappingUtils {
 
 						}
 						if (!found) {
-							return false;
+							return negated;
 						}
 					}
 					else if (!value.equals(request.getHeader(key))) {
-						return false;
+						return negated;
 					}
 				}
 			}
 		}
 		return true;
-	}
-
-	private static boolean hasHeader(HttpServletRequest request, String headerName) {
-		return request.getHeader(headerName) != null;
 	}
 
 	private static boolean isMediaTypeHeader(String headerName) {
