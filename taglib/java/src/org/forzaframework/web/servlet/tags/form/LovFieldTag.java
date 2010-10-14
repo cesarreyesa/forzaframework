@@ -211,6 +211,7 @@ public class LovFieldTag extends ComboboxTag {
                 fieldJson.put("dataIndex", field.getField());
                 fieldJson.elementOpt("hidden", field.getHidden());
                 fieldJson.elementOpt("width", field.getWidth());
+                fieldJson.elementOpt("sortable", field.getSortable() != null ? field.getSortable() : false);
                 if (field.getRendererFunction() != null) {
                     fieldJson.put("renderer", new JSONFunction(field.getRendererFunction()));
                 }

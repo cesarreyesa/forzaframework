@@ -1197,6 +1197,7 @@
         </attribute>
         <attribute>
             <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>titleKey</name>
