@@ -391,7 +391,7 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
             //Al validar que sea el anio menor que el de la fecha inicial, se toma el anio de la fecha inicial para crear la nueva fecha
             Date dateToCompareNew = createCalendar(firstYear, getMonth(dateToCompare), getDayOfMonth(dateToCompare)).getTime();
             //Se verifica que la nueva fecha se ecuentre entre el rango
-            isBetweenDates(dateToCompareNew, firstDate, lastDate);
+            return isBetweenDates(dateToCompareNew, firstDate, lastDate);
         }
         return false;
     }
