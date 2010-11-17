@@ -35,6 +35,7 @@ public class FieldsetTag extends PanelTag {
 
     private Boolean hideLabels;
     private Boolean checkboxToggle;
+    private Boolean hidden;
     private String labelAlign;
     private String description;
 
@@ -57,6 +58,14 @@ public class FieldsetTag extends PanelTag {
 
     public void setHideLabels(Boolean hideLabels) {
         this.hideLabels = hideLabels;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
     public String getLabelAlign() {
@@ -103,6 +112,7 @@ public class FieldsetTag extends PanelTag {
         json.elementOpt("collapsed", getCollapsed());
         json.elementOpt("layout", getLayout());
         json.elementOpt("description", description);
+        json.elementOpt("hidden", hidden);
 
         if(getHeight() != null){
             if(getHeight().contains("%")){

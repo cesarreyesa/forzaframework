@@ -1236,6 +1236,9 @@
             <name>description</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>hidden</name>
+        </attribute>
     </tag>
 
     <tag>
