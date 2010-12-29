@@ -24,6 +24,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.forzaframework.core.persistance.BaseEntity;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -95,17 +96,22 @@ public class XmlUtils {
 
         for (Object bean : list) {
             Element item = root.addElement("item");
-            for (String element : elements) {
-                Object value = PropertyUtils.getProperty(bean, element);
-                if(value != null && value instanceof Date){
-                    item.addElement(element).addText(DateUtils.getString((Date) value));
-                }else{
-                    item.addElement(element).addText(value == null ? "" : value.toString());
-                }
-            }
+            buildElement(item, bean, elements);
         }
         root.addElement("totalCount").addText(String.valueOf(size));
+
         return doc;
+    }
+
+    public static void buildElement(Element item, Object bean, String[] elements) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        for (String element : elements) {
+            Object value = PropertyUtils.getProperty(bean, element);
+            if(value != null && value instanceof Date){
+                item.addElement(element).addText(DateUtils.getString((Date) value));
+            }else{
+                item.addElement(element).addText(value == null ? "" : value.toString());
+            }
+        }
     }
 
 //    public static Document buildDocument(List<? extends BaseEntity> list, Integer totalCount) {
