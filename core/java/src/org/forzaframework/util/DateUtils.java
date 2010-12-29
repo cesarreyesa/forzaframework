@@ -374,6 +374,10 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return createCalendar(date).get(Calendar.MONTH);
     }
 
+    public static String getMonthName(Date date, Locale locale){
+        return getMonth(getMonth(date), locale);
+    }
+
     public static Integer getYear(Date date){
         return createCalendar(date).get(Calendar.YEAR);
     }
@@ -443,7 +447,7 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         if (difference > 0) {
             double days = difference / 86400000; // numero de milisegundos en un dia = 86400000
             if (days > 365) {
-                return String.format("hace %1$s años", Math.round(days / 365));
+                return String.format("hace %1$s aï¿½os", Math.round(days / 365));
             }
             if (days > 30) {
                 return String.format("hace %1$s meses", Math.round(days / 30.42));
