@@ -178,6 +178,7 @@
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>hidden</name>
@@ -416,6 +417,7 @@
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>template</name>
@@ -921,6 +923,7 @@
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>checked</name>
@@ -1082,6 +1085,7 @@
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>anchor</name>
@@ -1286,6 +1290,7 @@
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>hidden</name>
