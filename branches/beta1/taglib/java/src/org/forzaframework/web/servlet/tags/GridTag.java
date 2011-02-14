@@ -519,6 +519,9 @@ public class GridTag extends PanelTag implements PanelItem {
                 toolbarItems.add("-");
                 toolbarItems.add("Search");
                 JSONObject filter = new JSONObject();
+                if (StringUtils.isNotBlank(id)){
+                    filter.put("id", id + "-search");
+                }
                 filter.put("store", new JSONFunction("ds"));
                 filter.put("width", 250);
                 toolbarItems.add(new JSONFunction("new Ext.ux.SearchField(" + filter + ")"));
