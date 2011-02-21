@@ -46,6 +46,7 @@ public class ComboboxTag extends FieldTag {
     private Boolean loadOnStart;
     private Boolean selectFirstRecord;
     private Integer pageSize;
+    private String store;
     private List<Field> fields = new ArrayList<Field>();
     private List<UpdateField> updateFields = new ArrayList<UpdateField>();
     private List<Option> options = new ArrayList<Option>();
@@ -164,6 +165,14 @@ public class ComboboxTag extends FieldTag {
         this.loadOnStart = loadOnStart;
     }
 
+    public String getStore() {
+        return store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
     public void addField(String id, String field, String mapping) {
         this.updateFields.add(new UpdateField(id, field, mapping));
     }
@@ -244,7 +253,7 @@ public class ComboboxTag extends FieldTag {
             json.put("mode", "local");
         }
 
-        json.put("store", new JSONFunction(getVarName()));
+        json.put("store", store == null ? new JSONFunction(getVarName()) : new JSONFunction(store));
 
         json.put("hiddenName", field);
         json.put("typeAhead", true);
@@ -310,12 +319,14 @@ public class ComboboxTag extends FieldTag {
         fields.add(new Field(valueField, valueField, null));
         fields.add(new Field(displayField, displayField, null));
 
-        Store store = new Store(getVarName(), loadOnStart == null ? false : loadOnStart, valueField, displayField, fields);
-        store.setUrl(url);
-        store.setItems((items instanceof String ? evaluate("items", items) : items));
-        store.setOptions(options);
-        store.setType(dataSourceType);
-        form.addStoreDeclaration(store);
+        if (store == null) {
+            Store store = new Store(getVarName(), loadOnStart == null ? false : loadOnStart, valueField, displayField, fields);
+            store.setUrl(url);
+            store.setItems((items instanceof String ? evaluate("items", items) : items));
+            store.setOptions(options);
+            store.setType(dataSourceType);
+            form.addStoreDeclaration(store);
+        }
 
         PanelTag parent = (PanelTag) findParent(PanelTag.class);
         parent.addItem(new Item(this.toJSON()));
