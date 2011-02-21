@@ -487,6 +487,12 @@
         	<name>allowBlank</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>store</name>
+        </attribute>
+        <attribute>
+            <name>emptyText</name>
+        </attribute>
     </tag>
 
     <tag>
