@@ -203,7 +203,7 @@ public class LovFieldTag extends ComboboxTag {
 
         if (viewType.equals("grid")) {
             JSONObject gridConfig = new JSONObject();
-            gridConfig.put("store", new JSONFunction(getVarName()));
+            gridConfig.put("store", getStore() == null ? new JSONFunction(getVarName()) : new JSONFunction(getStore()));
             JSONArray columnsModel = new JSONArray();
             for (Field field : getFields()) {
                 JSONObject fieldJson = new JSONObject();
@@ -279,11 +279,13 @@ public class LovFieldTag extends ComboboxTag {
         } else {
             fields = this.getFields();
         }
-        Store store = new Store(getVarName(), getLoadOnStart() == null ? false : getLoadOnStart(), getValueField(), getDisplayField(), fields);
-        store.setUrl(getUrl());
-        store.setItems((getItems() instanceof String ? evaluate("items", getItems()) : getItems()));
-        store.setOptions(getOptions());
-        form.addStoreDeclaration(store);
+        if (getStore() == null) {
+            Store store = new Store(getVarName(), getLoadOnStart() == null ? false : getLoadOnStart(), getValueField(), getDisplayField(), fields);
+            store.setUrl(getUrl());
+            store.setItems((getItems() instanceof String ? evaluate("items", getItems()) : getItems()));
+            store.setOptions(getOptions());
+            form.addStoreDeclaration(store);
+        }
 
         PanelTag parent = (PanelTag) findParent(PanelTag.class);
         parent.addItem(new Item(this.toJSON()));
