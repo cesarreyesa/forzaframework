@@ -39,7 +39,11 @@ public class CsvView extends ModelAndView {
     }
 
     public CsvView(String[] lines) {
-        super(createView(lines));
+        super(createView(lines, null));
+    }
+
+    public CsvView(String[] lines, String fileName) {
+        super(createView(lines, fileName));
     }
 
     private static AbstractView createView(final String text) {
@@ -51,10 +55,13 @@ public class CsvView extends ModelAndView {
         };
     }
 
-    private static AbstractView createView(final String[] lines) {
+    private static AbstractView createView(final String[] lines, final String fileName) {
         return new AbstractView() {
             protected void renderMergedOutputModel(Map model, HttpServletRequest request, HttpServletResponse response) throws Exception {
                 response.setContentType("text/csv");
+                if (fileName != null) {
+                    response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName.trim() + ".csv\"");
+                }
                 for(String line : lines){
                     response.getWriter().write(line + "\n");
                 }
