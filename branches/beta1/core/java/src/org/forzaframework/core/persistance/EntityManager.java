@@ -16,6 +16,7 @@
 
 package org.forzaframework.core.persistance;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.hibernate.Session;
 
@@ -29,6 +30,7 @@ import java.util.List;
 public interface EntityManager {
 
     public Session getHibernateSession();
+    public SessionFactory getSessionFactory();
 
     /**
      * Generic method used to get a all objects of a particular type.
