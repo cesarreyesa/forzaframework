@@ -27,4 +27,6 @@ public interface FileDefinitionManager {
 
     List<FileDefinition> getFileDefinitionsByEntityCode(String code);
 
+    List<FileDefinition> getFileDefinitionsByEntityCodes(List<String> codes);
+
 }

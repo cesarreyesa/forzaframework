@@ -395,6 +395,7 @@
         </attribute>
         <attribute>
             <name>loadOnStart</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>onDrop</name>
@@ -941,6 +942,7 @@
         </attribute>
         <attribute>
             <name>style</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>region</name>
@@ -961,6 +963,7 @@
         </attribute>
         <attribute>
             <name>height</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>columnWidth</name>
