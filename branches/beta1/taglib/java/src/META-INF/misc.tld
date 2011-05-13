@@ -817,11 +817,34 @@
         </attribute>
     </tag>
     <tag>
-        <name>groupTab</name>
-        <tag-class>org.forzaframework.web.servlet.tags.GroupTabTag</tag-class>
-
+        <name>groupTabPanel</name>
+        <tag-class>org.forzaframework.web.servlet.tags.GroupTabPanelTag</tag-class>
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>height</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tabWidth</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>defaultAutoHeight</name>
+        </attribute>
+        <attribute>
+            <name>defaultAutoScroll</name>
+        </attribute>
+        <attribute>
+            <name>defaultStyle</name>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+        </attribute>
+        <attribute>
+            <name>region</name>
         </attribute>
     </tag>
     <tag>
@@ -864,7 +887,46 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    <tag>
+        <name>groupTab</name>
+        <tag-class>org.forzaframework.web.servlet.tags.GroupTabTag</tag-class>
 
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>titleKey</name>
+        </attribute>
+        <attribute>
+            <name>expanded</name>
+        </attribute>
+        <attribute>
+            <name>url</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+        </attribute>
+        <attribute>
+            <name>autoHeight</name>
+        </attribute>
+        <attribute>
+            <name>autoScroll</name>
+        </attribute>
+        <attribute>
+            <name>onActivate</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onDeactivate</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <tag>
     	<name>portal</name>
     	<tag-class>org.forzaframework.web.servlet.tags.PortalTag</tag-class>
