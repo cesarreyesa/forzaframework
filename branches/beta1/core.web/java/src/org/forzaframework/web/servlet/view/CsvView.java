@@ -63,7 +63,7 @@ public class CsvView extends ModelAndView {
                     response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName.trim() + ".csv\"");
                 }
                 for(String line : lines){
-                    response.getWriter().write(line + "\n");
+                    response.getOutputStream().write((line + "\n").getBytes());
                 }
             }
         };
