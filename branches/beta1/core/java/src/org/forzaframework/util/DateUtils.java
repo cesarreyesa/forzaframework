@@ -319,7 +319,9 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return isSame;
     }
 
+    @Deprecated
     public static Integer compareDate(Date dateOne, Date dateTwo) {
+        //TODO: Corregir los usos de este metodo
         Integer result;
         if (DateUtils.isSameDay(dateOne, dateTwo))
             result = 0;
