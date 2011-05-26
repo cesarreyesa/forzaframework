@@ -493,6 +493,9 @@
         <attribute>
             <name>emptyText</name>
         </attribute>
+        <attribute>
+            <name>noSelection</name>
+        </attribute>
     </tag>
 
     <tag>
