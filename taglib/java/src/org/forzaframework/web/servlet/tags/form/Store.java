@@ -45,6 +45,7 @@ public class Store {
 	private Object items;
 	private List<Option> options;
     private String groupField;
+    private String noSelection;
 
     public String getType() {
         return type;
@@ -149,6 +150,14 @@ public class Store {
 
     public void setGroupField(String groupField) {
         this.groupField = groupField;
+    }
+
+    public String getNoSelection() {
+        return noSelection;
+    }
+
+    public void setNoSelection(String noSelection) {
+        this.noSelection = noSelection;
     }
 
     public Store(String name, Boolean loadOnStart, List<Field> fields){
@@ -268,6 +277,12 @@ public class Store {
                 else if (items instanceof Collection) {
                     JSONArray data = new JSONArray();
                     Collection optionCollection = (Collection) items;
+                    if (noSelection != null) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("id", "");
+                        jsonObject.put("name", noSelection);
+                        data.add(jsonObject);
+                    }
                     for (Object item : optionCollection) {
                         Assert.notNull(item, "Algun objeto en la coleccion es nulo.");
                         JSONObject jsonObject = new JSONObject();

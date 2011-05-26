@@ -47,6 +47,7 @@ public class ComboboxTag extends FieldTag {
     private Boolean selectFirstRecord;
     private Integer pageSize;
     private String store;
+    private String noSelection;
     private List<Field> fields = new ArrayList<Field>();
     private List<UpdateField> updateFields = new ArrayList<UpdateField>();
     private List<Option> options = new ArrayList<Option>();
@@ -173,6 +174,14 @@ public class ComboboxTag extends FieldTag {
         this.store = store;
     }
 
+    public String getNoSelection() {
+        return noSelection;
+    }
+
+    public void setNoSelection(String noSelection) {
+        this.noSelection = noSelection;
+    }
+
     public void addField(String id, String field, String mapping) {
         this.updateFields.add(new UpdateField(id, field, mapping));
     }
@@ -234,6 +243,7 @@ public class ComboboxTag extends FieldTag {
         }
         json.elementOpt("value", this.getValue());
         json.elementOpt("text", text);
+        json.elementOpt("disabled", getDisabled());
         json.elementOpt("description", getDescription());
         json.elementOpt("selectFirstRecord", selectFirstRecord);
         if(StringUtils.isNotBlank(this.template)){
@@ -325,6 +335,7 @@ public class ComboboxTag extends FieldTag {
             store.setItems((items instanceof String ? evaluate("items", items) : items));
             store.setOptions(options);
             store.setType(dataSourceType);
+            store.setNoSelection(noSelection);
             form.addStoreDeclaration(store);
         }
 
