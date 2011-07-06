@@ -83,6 +83,21 @@ public class CollectionUtils {
         return paginatedList;
     }
 
+    public static <T> List<T> sort(List<T> list, Map model){
+        PageInfo pageInfo = new PageInfo();
+        try {
+            org.apache.commons.beanutils.BeanUtils.populate(pageInfo, model);
+
+            if (StringUtils.isNotBlank(pageInfo.getSort())) {
+                Collections.sort(list, new BeanComparator(pageInfo.getSort(), pageInfo.getDir()));
+            }
+        } catch (Exception e) {
+            logger.warn("Error populating object page info: " + e.getMessage());
+        }
+
+        return list;
+    }
+
     public static String join(List items){
         return join(items, ",");
     }

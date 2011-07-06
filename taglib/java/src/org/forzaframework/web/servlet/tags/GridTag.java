@@ -508,15 +508,20 @@ public class GridTag extends PanelTag implements PanelItem {
         addConfigElementOpt("enableDragDrop", enableDragDrop);
         addConfigElementOpt("ddGroup", ddGroup);
 
-        if(enablePagination){
+        if(enablePagination || enableFilter){
+
             JSONObject toolbar = new JSONObject();
-            toolbar.put("store", new JSONFunction("ds"));
-            toolbar.put("pageSize", pageSize);
-            toolbar.put("displayInfo", displayPagingInfo);
+            if (enablePagination) {
+                toolbar.put("store", new JSONFunction("ds"));
+                toolbar.put("pageSize", pageSize);
+                toolbar.put("displayInfo", displayPagingInfo);
+            }
 
             if(enableFilter){
                 JSONArray toolbarItems = new JSONArray();
-                toolbarItems.add("-");
+                if (enablePagination) {
+                    toolbarItems.add("-");
+                }
                 toolbarItems.add("Search");
                 JSONObject filter = new JSONObject();
                 if (StringUtils.isNotBlank(id)){
@@ -524,10 +529,13 @@ public class GridTag extends PanelTag implements PanelItem {
                 }
                 filter.put("store", new JSONFunction("ds"));
                 filter.put("width", 250);
+                if (enablePagination) {
+                    filter.put("pageSize", pageSize);
+                }
                 toolbarItems.add(new JSONFunction("new Ext.ux.SearchField(" + filter + ")"));
                 toolbar.put("items", toolbarItems);
             }
-            addConfigElement("bbar", new JSONFunction("new Ext.PagingToolbar(" + toolbar.toString() + ")"));
+            addConfigElement("bbar", new JSONFunction("new Ext." + (enablePagination ? "Paging" : "") + "Toolbar(" + toolbar.toString() + ")"));
         }
     }
 
