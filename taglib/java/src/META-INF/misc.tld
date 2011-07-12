@@ -1043,6 +1043,9 @@
         <attribute>
             <name>split</name>
         </attribute>
+        <attribute>
+            <name>cls</name>
+        </attribute>
     </tag>
 
     <tag>

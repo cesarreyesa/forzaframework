@@ -63,6 +63,7 @@ public abstract class PanelTag extends BaseBodyTag {
     private Boolean border;
     private Boolean split;
     private String replacePanel;
+    private String cls;
     private List<PanelItem> items = new ArrayList<PanelItem>();
     private List<PanelItem> tools = new ArrayList<PanelItem>();
 
@@ -281,7 +282,15 @@ public abstract class PanelTag extends BaseBodyTag {
     public void addTool(PanelItem item){
     	this.tools.add(item);
     }
-    
+
+    public String getCls() {
+        return cls;
+    }
+
+    public void setCls(String cls) {
+        this.cls = cls;
+    }
+
     private Object topToolbar;
     public void setTopToolbar(Item item) {
     	if(item != null){
@@ -352,6 +361,10 @@ public abstract class PanelTag extends BaseBodyTag {
         
         if(StringUtils.isNotBlank(columnWidth)){
         	config.put("columnWidth", Double.valueOf(columnWidth));
+        }
+
+        if(StringUtils.isNotBlank(cls)){
+        	config.put("cls", cls);
         }
 
         if(getHeight() != null){
