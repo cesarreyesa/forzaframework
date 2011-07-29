@@ -280,7 +280,7 @@ public class Store {
                     if (noSelection != null) {
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("id", "");
-                        jsonObject.put("name", noSelection);
+                        jsonObject.put(StringUtils.isNotBlank(displayField) ? displayField : "name", noSelection);
                         data.add(jsonObject);
                     }
                     for (Object item : optionCollection) {
