@@ -230,6 +230,23 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return days;
     }
 
+    public static int getMinutesDifference(Date startDate, Date endDate) {
+        Calendar arrival = Calendar.getInstance();
+        Calendar departure = Calendar.getInstance();
+
+        arrival.setTime(startDate);
+        Long millisecondsArrivalDate = startDate.getTime() + arrival.get(Calendar.ZONE_OFFSET) + arrival.get(Calendar.DST_OFFSET);
+        int minutesArrival = (int) (millisecondsArrivalDate / 60000);
+
+        departure.setTime(endDate);
+        Long millisecondsDepartureDate = endDate.getTime() + departure.get(Calendar.ZONE_OFFSET) + departure.get(Calendar.DST_OFFSET);
+        int minutesDeparture = (int) (millisecondsDepartureDate / 60000);
+
+        int minutes = minutesDeparture - minutesArrival;
+
+        return minutes;
+    }
+
     public static Map<String, Integer> calculateDays(int days) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         int months = 0;

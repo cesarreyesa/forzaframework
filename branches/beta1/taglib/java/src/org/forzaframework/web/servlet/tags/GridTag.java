@@ -501,8 +501,8 @@ public class GridTag extends PanelTag implements PanelItem {
         }
         addConfigElement("viewConfig", viewConfig);
 
-        if(StringUtils.isNotBlank(groupField)){
-            addConfigElement("view", new JSONFunction("new Ext.grid.GroupingView({forceFit:true, groupTextTpl: '{text} ({[values.rs.length]})'})"));
+        if (StringUtils.isNotBlank(groupField)) {
+            addConfigElement("view", new JSONFunction("new Ext.grid.GroupingView({forceFit:" + (forceFit != null ? forceFit : "true") + ", groupTextTpl: '{text} ({[values.rs.length]})'})"));
         }
 
         addConfigElementOpt("enableDragDrop", enableDragDrop);
