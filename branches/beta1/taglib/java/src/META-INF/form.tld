@@ -185,9 +185,6 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>disabled</name>
-        </attribute>
-        <attribute>
             <name>anchor</name>
         </attribute>
         <attribute>
@@ -1284,14 +1281,6 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>minLength</name>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>maxLength</name>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
             <name>allowBlank</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -1308,9 +1297,6 @@
         <attribute>
             <name>hidden</name>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>disabled</name>
         </attribute>
         <attribute>
             <name>anchor</name>
@@ -1356,7 +1342,8 @@
         <attribute>
         	<name>maxLength</name>
             <rtexprvalue>true</rtexprvalue>
-       	</attribute><attribute>
+       	</attribute>
+        <attribute>
         	<name>minLength</name>
             <rtexprvalue>true</rtexprvalue>
        	</attribute>
