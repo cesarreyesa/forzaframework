@@ -493,6 +493,9 @@
         <attribute>
             <name>noSelection</name>
         </attribute>
+        <attribute>
+            <name>reader</name>
+        </attribute>
     </tag>
 
     <tag>
@@ -587,6 +590,9 @@
         <attribute>
         	<name>allowBlank</name>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>reader</name>
         </attribute>
     </tag>
 

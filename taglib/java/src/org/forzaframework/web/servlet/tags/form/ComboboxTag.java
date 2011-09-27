@@ -48,6 +48,7 @@ public class ComboboxTag extends FieldTag {
     private Integer pageSize;
     private String store;
     private String noSelection;
+    private String reader;
     private List<Field> fields = new ArrayList<Field>();
     private List<UpdateField> updateFields = new ArrayList<UpdateField>();
     private List<Option> options = new ArrayList<Option>();
@@ -180,6 +181,22 @@ public class ComboboxTag extends FieldTag {
 
     public void setNoSelection(String noSelection) {
         this.noSelection = noSelection;
+    }
+
+    public String getReader() {
+        return reader;
+    }
+
+    public void setReader(String reader) {
+        this.reader = reader;
+    }
+
+    public String getDataSourceType() {
+        return dataSourceType;
+    }
+
+    public void setDataSourceType(String dataSourceType) {
+        this.dataSourceType = dataSourceType;
     }
 
     public void addField(String id, String field, String mapping) {
@@ -336,6 +353,10 @@ public class ComboboxTag extends FieldTag {
             store.setOptions(options);
             store.setType(dataSourceType);
             store.setNoSelection(noSelection);
+            store.setReader(reader);
+            if ("json".equals(reader)) {
+                store.setItemTag("items");
+            }
             form.addStoreDeclaration(store);
         }
 
