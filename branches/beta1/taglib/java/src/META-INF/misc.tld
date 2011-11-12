@@ -492,9 +492,11 @@
         </attribute>
         <attribute>
             <name>enableDragDrop</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>enableDrop</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>autoSizeColumns</name>
