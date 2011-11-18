@@ -50,9 +50,12 @@ public class EntityListController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     @SuppressWarnings(value = "unchecked")
-    public String processSubmit(@RequestParam("e") String entityName, ModelMap model) throws Exception {
+    public String processSubmit(@RequestParam("e") String entityName, @RequestParam(value = "disableExternalSystems", required = false) Boolean disableExternalSystems,
+                                ModelMap model) throws Exception {
         model.addAttribute("entity", systemConfiguration.getSystemEntity(entityName));
+        if (disableExternalSystems == null) disableExternalSystems = false;
 
+        systemConfiguration.setEnableExternalSystems(!disableExternalSystems);
         if(systemConfiguration.getEnableExternalSystems()){
             model.addAttribute("externalSystems", systemConfiguration.getExternalSystems());
         }
