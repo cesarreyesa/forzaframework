@@ -127,6 +127,9 @@
         <attribute>
             <name>collapsed</name>
         </attribute>
+        <attribute>
+            <name>hidden</name>
+        </attribute>
     </tag>
 
     <tag>

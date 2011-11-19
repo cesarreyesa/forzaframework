@@ -59,6 +59,7 @@ public class FormTag extends PanelTag implements PanelItem {
     private String onActionFailed;
     private Boolean fileUpload;
     private Boolean initialize = true;
+    private Boolean hidden;
     private List<Field> fields = new ArrayList<Field>();
     private List<Item> buttons = new ArrayList<Item>();
 
@@ -156,6 +157,14 @@ public class FormTag extends PanelTag implements PanelItem {
 
     public void setInitialize(Boolean initialize) {
         this.initialize = initialize;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
     public void addField(Field field){
@@ -272,6 +281,9 @@ public class FormTag extends PanelTag implements PanelItem {
         addConfigElementOpt("labelWidth", labelWidth);
         addConfigElementOpt("waitMsgTarget", waitMsgTarget);
         addConfigElementOpt("fileUpload", fileUpload);
+        if (hidden  != null) {
+            addConfigElementOpt("hidden", hidden);
+        }
         addConfigElementOpt("url", url);
         addConfigElement("errorReader", new JSONFunction("new Ext.form.XmlErrorReader()"));
 
