@@ -69,6 +69,7 @@ public class GridTag extends PanelTag implements PanelItem {
     private String groupField;
     private String selectionModel = "row";
     private String onLoad;
+    private Boolean remoteSort = true;
 
     public String getOnLoad() {
         return onLoad;
@@ -325,6 +326,14 @@ public class GridTag extends PanelTag implements PanelItem {
         fields.add(field);
     }
 
+    public Boolean getRemoteSort() {
+        return remoteSort;
+    }
+
+    public void setRemoteSort(Boolean remoteSort) {
+        this.remoteSort = remoteSort;
+    }
+
     public void doInitBody() throws JspException {
     	super.doInitBody();
         fields = new ArrayList<Field>();
@@ -345,6 +354,7 @@ public class GridTag extends PanelTag implements PanelItem {
         store.setItemTag(itemTag);
         store.setIdField(idProperty);
         store.setGroupField(groupField);
+        store.setRemoteSort(remoteSort);
 
         if(StringUtils.isNotBlank(url))
             store.setUrl(url);

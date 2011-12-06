@@ -46,6 +46,7 @@ public class Store {
 	private List<Option> options;
     private String groupField;
     private String noSelection;
+    private Boolean remoteSort = true;
 
     public String getType() {
         return type;
@@ -165,8 +166,16 @@ public class Store {
 		this.loadOnStart = loadOnStart;
 		this.fields = fields;
 	}
-	
-	public Store(String name, Boolean loadOnStart, String valueField, String displayField, List<Field> fields){
+
+    public Boolean getRemoteSort() {
+        return remoteSort;
+    }
+
+    public void setRemoteSort(Boolean remoteSort) {
+        this.remoteSort = remoteSort;
+    }
+
+    public Store(String name, Boolean loadOnStart, String valueField, String displayField, List<Field> fields){
 		this.name = name;
 		this.loadOnStart = loadOnStart;
 		this.valueField = valueField;
@@ -184,7 +193,7 @@ public class Store {
                 sb.append("var ").append(name).append(" = new Ext.data.Store({");
             }
             sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(StringUtils.isBlank(url) ? "" : url).append("\"})),");
-            sb.append("remoteSort: true,");
+            sb.append("remoteSort: " + remoteSort + ",");
             
             if(reader == null || reader.equals("xml")){
                 sb.append("reader: new Ext.data.XmlReader({");

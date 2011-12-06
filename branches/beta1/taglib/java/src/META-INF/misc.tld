@@ -559,6 +559,9 @@
             <name>defaultSortDir</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>remoteSort</name>
+        </attribute>
     </tag>
     <tag>
         <name>column</name>
