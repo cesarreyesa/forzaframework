@@ -697,6 +697,10 @@
             <name>loadMask</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>pruneModifiedRecords</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>rows</name>
