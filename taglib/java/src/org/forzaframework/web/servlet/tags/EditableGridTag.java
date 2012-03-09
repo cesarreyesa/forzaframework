@@ -245,6 +245,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                     json.elementOpt("width", field.getWidth());
                     json.put("dataIndex", field.getField());
                     json.put("editor", field.getEditorJson());
+                    json.elementOpt("hidden", field.getHidden());
                     if(field.getXtype() != null && field.getXtype().equals("combo")){
                         String id = field.getId();
                         if(StringUtils.isBlank(field.getId())){
