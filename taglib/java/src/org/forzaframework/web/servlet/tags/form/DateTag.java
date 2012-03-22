@@ -32,6 +32,7 @@ public class DateTag extends FieldTag {
 
     private String plugins;
     private String format;
+    private Boolean enableKeyEvents;
 
     public String getPlugins() {
         return plugins;
@@ -47,6 +48,14 @@ public class DateTag extends FieldTag {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public Boolean getEnableKeyEvents() {
+        return enableKeyEvents;
+    }
+
+    public void setEnableKeyEvents(Boolean enableKeyEvents) {
+        this.enableKeyEvents = enableKeyEvents;
     }
 
     public String getType() {
@@ -74,6 +83,8 @@ public class DateTag extends FieldTag {
             json.put("format", s);
         }
         json.put("xtype", getType());
+
+        json.put("enableKeyEvents", enableKeyEvents == null ? false : enableKeyEvents);
 
         if(this.listeners.size() > 0){
             JSONObject listeners = new JSONObject();
