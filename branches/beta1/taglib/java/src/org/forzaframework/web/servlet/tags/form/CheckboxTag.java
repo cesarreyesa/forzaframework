@@ -69,6 +69,7 @@ public class CheckboxTag extends FieldTag {
         json.elementOpt("width", getWidth());
         json.elementOpt("autoHeight", getAutoHeight());
         json.elementOpt("anchor", anchor);
+        json.elementOpt("hideLabel", getHideLabel());
         json.put("validateOnBlur", false);
         json.put("xtype", getType());
 
