@@ -188,7 +188,7 @@ public class MailEngine implements ApplicationContextAware {
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws MessagingException {
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "ISO-8859-1");
                 message.setFrom(msg.getFrom());
                 message.setTo(msg.getTo());
                 message.setSubject(msg.getSubject());
