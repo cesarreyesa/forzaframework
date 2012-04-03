@@ -589,6 +589,7 @@
         </attribute>
         <attribute>
             <name>hidden</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>locked</name>
