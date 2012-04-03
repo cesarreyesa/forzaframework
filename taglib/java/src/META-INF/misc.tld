@@ -1158,6 +1158,7 @@
         </attribute>
         <attribute>
             <name>replacePanel</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>collapsible</name>
