@@ -1204,6 +1204,7 @@
         </attribute>
         <attribute>
             <name>columnWidth</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>style</name>
