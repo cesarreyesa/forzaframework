@@ -273,6 +273,19 @@
         </attribute>
     </tag>
     <tag>
+        <name>toolbarSeachField</name>
+        <tag-class>org.forzaframework.web.servlet.tags.ToolbarSearchTag</tag-class>
+        <attribute>
+            <name>id</name>
+        </attribute>
+        <attribute>
+            <name>width</name>
+        </attribute>
+        <attribute>
+            <name>handler</name>
+        </attribute>
+    </tag>
+    <tag>
         <name>toolbarInput</name>
         <tag-class>org.forzaframework.web.servlet.tags.ToolbarInputTag</tag-class>
 
