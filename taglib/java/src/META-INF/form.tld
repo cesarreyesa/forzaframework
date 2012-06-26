@@ -938,6 +938,7 @@
         </attribute>
         <attribute>
             <name>onCheck</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>bind</name>
