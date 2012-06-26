@@ -83,6 +83,12 @@ public class XmlUtils {
         return doc;
     }
 
+    public static Document buildDocument(List list, List<String> elements) throws Exception{
+        Document doc = DocumentHelper.createDocument();
+        buildDocument(doc, list, list.size(), elements.toArray(new String[elements.size()]));
+        return doc;
+    }
+
     /**
      * Arma un Xml con la informacion de la lista
      *
