@@ -102,10 +102,7 @@ public class BoxSelectTag extends ComboboxTag {
         json.elementOpt("text", getText());
         json.elementOpt("disabled", getDisabled());
         json.elementOpt("forceFormValue", false);
-
-        if (getOptions().size() != 0 || getItems() != null) {
-            json.put("mode", "local");
-        }
+        json.put("mode", "local");
         json.put("displayField", getDisplayField());
         json.elementOpt("displayFieldTpl", getDisplayFieldTpl());
         json.put("valueField", getValueField());
@@ -121,10 +118,11 @@ public class BoxSelectTag extends ComboboxTag {
         json.elementOpt("pageSize", getPageSize());
         json.elementOpt("width", getWidth());
         json.elementOpt("renderHidden", hidden);
+        json.elementOpt("allowBlank", allowBlank);
 
         if (StringUtils.isNotBlank(getHandler())) {
             JSONObject listeners = new JSONObject();
-            listeners.put("select", new JSONFunction(getHandler()));
+            listeners.put("additem", new JSONFunction(getHandler()));
             json.put("listeners", listeners);
         }
 
