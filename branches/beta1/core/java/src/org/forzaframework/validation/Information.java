@@ -24,6 +24,7 @@ import org.dom4j.Element;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: cesarreyes
@@ -36,6 +37,7 @@ public class Information {
     private Boolean success = true;
     private String entityId;
     private Object entity;
+    private java.util.Map<String, String> simpleFields = new java.util.HashMap<String, String> ();
     private List<String> messages = new ArrayList<String>();
     private List<Field> fields = new ArrayList<Field>();
     private List<Error> errors = new ArrayList<Error>();
@@ -93,6 +95,10 @@ public class Information {
         this.fields.add(field);
     }
 
+    public void addSimpleField(String field, String value){
+        this.simpleFields.put(field, value);
+    }
+
     public List<Error> getErrors() {
         return errors;
     }
@@ -147,6 +153,12 @@ public class Information {
             json.put("records", records);
         }
 
+        if(!this.simpleFields.isEmpty()) {
+            for (Map.Entry<String, String> simpleField : simpleFields.entrySet()) {
+                json.put(simpleField.getKey(), simpleField.getValue());
+            }
+        }
+
         return json;
     }
 
@@ -160,6 +172,12 @@ public class Information {
         Element info = doc.addElement("information");
         info.addAttribute("success", this.getSuccess().toString());
         info.addAttribute("entityId", entityId);
+        if(!this.simpleFields.isEmpty()) {
+            for (Map.Entry<String, String> simpleField : simpleFields.entrySet()) {
+                info.addAttribute(simpleField.getKey(), simpleField.getValue());
+            }
+        }
+
         if(this.messages.size() > 0){
             Element messages = info.addElement("messages");
             for(String message : this.messages){
