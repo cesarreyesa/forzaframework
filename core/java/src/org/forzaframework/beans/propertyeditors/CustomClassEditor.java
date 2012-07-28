@@ -16,7 +16,8 @@
 
 package org.forzaframework.beans.propertyeditors;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.forzaframework.core.persistance.BaseEntity;
 import org.forzaframework.core.persistance.EntityManager;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -75,14 +76,16 @@ public class CustomClassEditor extends PropertyEditorSupport {
             return ;
         }
 
-        if (StringUtils.hasText(text)) {
-            Serializable id;
+        if (StringUtils.isNotBlank(text)) {
+            Serializable id = null;
 
-            if(pkType == null || !pkType.equals(String.class)){
-                id = Long.valueOf(text);
-            }
-            else {
-                id = text;
+            if (NumberUtils.isNumber(text)) {
+                if(pkType == null || !pkType.equals(String.class)){
+                    id = Long.valueOf(text);
+                }
+                else {
+                    id = text;
+                }
             }
 
             if(entityManager == null){
@@ -93,7 +96,11 @@ public class CustomClassEditor extends PropertyEditorSupport {
                 }
             }
             else{
-                command = entityManager.get(requiredType, id);
+                if (id != null) {
+                    command = entityManager.get(requiredType, id);
+                } else {
+                    command = entityManager.getByCode(requiredType, text);
+                }
             }
 			setValue(command);
 		}
