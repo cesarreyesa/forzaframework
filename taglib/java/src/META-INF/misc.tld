@@ -277,12 +277,14 @@
         <tag-class>org.forzaframework.web.servlet.tags.ToolbarSearchTag</tag-class>
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>width</name>
         </attribute>
         <attribute>
             <name>handler</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
     <tag>
