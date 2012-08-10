@@ -41,6 +41,7 @@ public class ColumnTag extends BaseTag {
     protected Boolean disabled;
     protected String rendererFunction;
     protected Boolean sortable;
+    protected String align;
 
     public String getTitle() {
         return title;
@@ -122,6 +123,14 @@ public class ColumnTag extends BaseTag {
         this.sortable = sortable;
     }
 
+    public String getAlign() {
+        return align;
+    }
+
+    public void setAlign(String align) {
+        this.align = align;
+    }
+
     public int doEndTag() throws JspException {
 
     	Field field = new Field();
@@ -133,6 +142,7 @@ public class ColumnTag extends BaseTag {
         field.setLocked(locked);
         field.setRendererFunction(rendererFunction);
         field.setSortable(sortable);
+        field.setAlign(align);
 
         Tag parent = findParent(GridTag.class);
         if(parent != null){
