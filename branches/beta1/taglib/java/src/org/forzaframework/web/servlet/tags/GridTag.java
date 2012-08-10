@@ -396,6 +396,9 @@ public class GridTag extends PanelTag implements PanelItem {
             json.elementOpt("hidden", field.getHidden());
             json.elementOpt("width", field.getWidth());
             json.elementOpt("sortable", field.getSortable() != null ? field.getSortable() : false);
+            if (field.getAlign() != null) {
+                json.elementOpt("align", field.getAlign());
+            }
             if(enableColumnsLock){
                 json.elementOpt("locked", field.getLocked());
             }
