@@ -622,6 +622,9 @@
             <name>align</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>alwaysHidden</name>
+        </attribute>
     </tag>
     <tag>
         <name>editableGrid</name>
