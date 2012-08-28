@@ -31,6 +31,7 @@ public class Field{
     protected String title;
     protected String mapping;
     protected Boolean hidden;
+    protected Boolean alwaysHidden;
     protected Integer width;
     protected Object editorJson;
     protected String xtype;
@@ -167,5 +168,13 @@ public class Field{
 
     public void setAlign(String align) {
         this.align = align;
+    }
+
+    public Boolean getAlwaysHidden() {
+        return alwaysHidden;
+    }
+
+    public void setAlwaysHidden(Boolean alwaysHidden) {
+        this.alwaysHidden = alwaysHidden;
     }
 }

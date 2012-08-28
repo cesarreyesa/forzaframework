@@ -390,22 +390,24 @@ public class GridTag extends PanelTag implements PanelItem {
             columnsModel.add(new JSONFunction("sm"));
         }
         for(Field field : fields){
-            JSONObject json = new JSONObject();
-            json.elementOpt("header", field.getTitle());
-            json.put("dataIndex", field.getField());
-            json.elementOpt("hidden", field.getHidden());
-            json.elementOpt("width", field.getWidth());
-            json.elementOpt("sortable", field.getSortable() != null ? field.getSortable() : false);
-            if (field.getAlign() != null) {
-                json.elementOpt("align", field.getAlign());
+            if (field.getAlwaysHidden() == null || (field.getAlwaysHidden() != null && !field.getAlwaysHidden())) {
+                JSONObject json = new JSONObject();
+                json.elementOpt("header", field.getTitle());
+                json.put("dataIndex", field.getField());
+                json.elementOpt("hidden", field.getHidden());
+                json.elementOpt("width", field.getWidth());
+                json.elementOpt("sortable", field.getSortable() != null ? field.getSortable() : false);
+                if (field.getAlign() != null) {
+                    json.elementOpt("align", field.getAlign());
+                }
+                if(enableColumnsLock){
+                    json.elementOpt("locked", field.getLocked());
+                }
+                if(field.getRendererFunction() != null){
+                    json.put("renderer", new JSONFunction(field.getRendererFunction()));
+                }
+                columnsModel.add(json);
             }
-            if(enableColumnsLock){
-                json.elementOpt("locked", field.getLocked());
-            }
-            if(field.getRendererFunction() != null){
-                json.put("renderer", new JSONFunction(field.getRendererFunction()));
-            }
-            columnsModel.add(json);
         }
         sb.append(columnsModel.toString());
         sb.append(");\n");
@@ -510,7 +512,7 @@ public class GridTag extends PanelTag implements PanelItem {
         
         if(StringUtils.isNotBlank(bodyField)){
             viewConfig.put("enableRowBody", true);
-            viewConfig.put("getRowClass", new JSONFunction("function(record, rowIndex, p, store){ p.body = '<p>' + record.data." + bodyField + " + '</p>'; return 'x-grid3-row-expanded';}"));
+            viewConfig.put("getRowClass", new JSONFunction("function(record, rowIndex, p, store){ p.body = '<p style=\"color:#777777;\">' + record.data." + bodyField + " + '</p>'; return 'x-grid3-row-expanded';}"));
         }
         addConfigElement("viewConfig", viewConfig);
 
