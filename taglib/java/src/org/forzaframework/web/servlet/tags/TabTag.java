@@ -81,7 +81,7 @@ public class TabTag extends PanelTag implements PanelItem {
         try{
             if(this.bodyContent != null){
                 TabPanelTag parent;
-                if (this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") && this.parent.getParent() instanceof TabPanelTag) {
+                if ((this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") || this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag"))  && this.parent.getParent() instanceof TabPanelTag) {
                     parent = ((TabPanelTag) this.parent.getParent());
                 } else {
                     parent = ((TabPanelTag) this.parent);
@@ -104,7 +104,7 @@ public class TabTag extends PanelTag implements PanelItem {
     public int doEndTag() throws JspException {
         try {
             if(this.bodyContent != null){
-                Assert.isTrue(parent instanceof TabPanelTag || (this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") && this.parent.getParent() instanceof TabPanelTag), "TabTag must be inside a TabPanelTag");
+                Assert.isTrue(parent instanceof TabPanelTag || ((this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") || this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag")) && this.parent.getParent() instanceof TabPanelTag), "TabTag must be inside a TabPanelTag");
                 
                 JspWriter writer = bodyContent.getEnclosingWriter();
                 bodyContent.writeOut(writer);
@@ -112,7 +112,7 @@ public class TabTag extends PanelTag implements PanelItem {
                 pageContext.getOut().write("</div>");
                 
                 TabPanelTag parent;
-                if (this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") && this.parent.getParent() instanceof TabPanelTag) {
+                if ((this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") || this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag")) && this.parent.getParent() instanceof TabPanelTag) {
                     parent = ((TabPanelTag) this.parent.getParent());
                 } else {
                     parent = ((TabPanelTag) this.parent);
