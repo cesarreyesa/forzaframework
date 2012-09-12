@@ -189,6 +189,9 @@ public class Store {
             if(StringUtils.isNotBlank(groupField)){
                 sb.append("var ").append(name).append(" = new Ext.data.GroupingStore({");
                 sb.append("groupField: '").append(groupField).append("',");
+                if("json".equals(reader)) {
+                    sb.append("groupOnSort: ").append(true).append(",");
+                }
             }else{
                 sb.append("var ").append(name).append(" = new Ext.data.Store({");
             }

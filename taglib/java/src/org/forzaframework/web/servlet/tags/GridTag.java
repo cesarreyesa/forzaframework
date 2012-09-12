@@ -512,7 +512,7 @@ public class GridTag extends PanelTag implements PanelItem {
         
         if(StringUtils.isNotBlank(bodyField)){
             viewConfig.put("enableRowBody", true);
-            viewConfig.put("getRowClass", new JSONFunction("function(record, rowIndex, p, store){ p.body = '<p style=\"color:#777777;\">' + record.data." + bodyField + " + '</p>'; return 'x-grid3-row-expanded';}"));
+            viewConfig.put("getRowClass", new JSONFunction("function(record, rowIndex, p, store){ p.body = '<p style=\"color:#777777;\">' + record.data." + bodyField + " + '&nbsp</p>'; return 'x-grid3-row-expanded';}"));
         }
         addConfigElement("viewConfig", viewConfig);
 
