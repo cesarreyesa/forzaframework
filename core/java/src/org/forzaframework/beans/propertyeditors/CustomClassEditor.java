@@ -21,6 +21,8 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.forzaframework.core.persistance.BaseEntity;
 import org.forzaframework.core.persistance.EntityManager;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.forzaframework.core.persistance.Restrictions;
+import org.hibernate.Criteria;
 
 import java.beans.PropertyEditorSupport;
 import java.io.Serializable;
@@ -34,8 +36,9 @@ import java.lang.reflect.InvocationTargetException;
 public class CustomClassEditor extends PropertyEditorSupport {
 
     private Class requiredType;
-    private Class pkType;
+    private Class pkType = Long.class;
     private EntityManager entityManager;
+    private String property = "id";
 
     /**
 	 * Create a default ClassEditor, using the thread context ClassLoader.
@@ -52,6 +55,13 @@ public class CustomClassEditor extends PropertyEditorSupport {
     public CustomClassEditor(Class requiredType, EntityManager entityManager) {
         this.requiredType = requiredType;
         this.entityManager = entityManager;
+    }
+
+    public CustomClassEditor(String property, Class pkType, Class requiredType, EntityManager entityManager) {
+        this.requiredType = requiredType;
+        this.pkType = pkType;
+        this.entityManager = entityManager;
+        this.property = property;
     }
 
     public CustomClassEditor(Class requiredType, Class pkType, EntityManager entityManager) {
@@ -77,30 +87,25 @@ public class CustomClassEditor extends PropertyEditorSupport {
         }
 
         if (StringUtils.isNotBlank(text)) {
-            Serializable id = null;
+            Object propertyValue = null;
 
-            if (NumberUtils.isNumber(text)) {
-                if(pkType == null || !pkType.equals(String.class)){
-                    id = Long.valueOf(text);
-                }
-                else {
-                    id = text;
-                }
+            if(pkType.equals(Long.class)) {
+                propertyValue = Long.valueOf(text);
+            } else {
+                propertyValue = text;
             }
 
             if(entityManager == null){
                 try {
-                    PropertyUtils.setSimpleProperty(command, "id", id);
+                    PropertyUtils.setSimpleProperty(command, property, propertyValue);
                 } catch (Exception e) {
 
                 }
             }
-            else{
-                if (id != null) {
-                    command = entityManager.get(requiredType, id);
-                } else {
-                    command = entityManager.getByCode(requiredType, text);
-                }
+            else {
+                Criteria crit = entityManager.getHibernateSession().createCriteria(requiredType);
+                crit.add(org.hibernate.criterion.Restrictions.eq(property, propertyValue));
+                command = crit.uniqueResult();
             }
 			setValue(command);
 		}
@@ -125,7 +130,7 @@ public class CustomClassEditor extends PropertyEditorSupport {
         command = value;
         Object key;
         try {
-            key = PropertyUtils.getSimpleProperty(command, "id");
+            key = PropertyUtils.getSimpleProperty(command, property);
         } catch (Exception e) {
             key = null;
 
