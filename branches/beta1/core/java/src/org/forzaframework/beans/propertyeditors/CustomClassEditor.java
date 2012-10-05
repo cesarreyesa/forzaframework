@@ -106,16 +106,7 @@ public class CustomClassEditor extends PropertyEditorSupport {
                 }
             }
             else {
-                Session session = entityManager.getHibernateSession().getSessionFactory().openSession();
-                try {
-                    Criteria crit = session.createCriteria(requiredType);
-                    crit.add(org.hibernate.criterion.Restrictions.eq(property, propertyValue));
-                    command = crit.uniqueResult();
-                } catch (HibernateException ex) {
-                    throw new ObjectRetrievalFailureException(requiredType, propertyValue, "Error con la session", ex);
-                } finally {
-                    session.close();
-                }
+                command = entityManager.getByProperty(requiredType, property, propertyValue);
             }
 			setValue(command);
 		}

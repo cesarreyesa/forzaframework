@@ -83,6 +83,8 @@ public interface EntityManager {
 
     <T> T getByCode(Class clazz, String externalSystem, String code);
 
+    <T> T getByProperty(Class entityClass, String propertyName, Object propertyValue);
+
     /**
      * Generic method to save an object.
      * @param entity
