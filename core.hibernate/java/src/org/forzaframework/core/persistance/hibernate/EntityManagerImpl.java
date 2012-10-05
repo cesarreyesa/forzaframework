@@ -228,6 +228,23 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
         return (T) list.get(0);
     }
 
+    public <T> T getByProperty(Class entityClass, String propertyName, Object propertyValue) {
+        DetachedCriteria crit = DetachedCriteria.forClass(entityClass);
+
+        crit.add(Restrictions.eq(propertyName, propertyValue));
+
+        List list = getHibernateTemplate().findByCriteria(crit);
+        if(list.size() != 1){
+            if(list.size() > 1){
+                logger.warn("Object [" + entityClass.getName() + "] with " + propertyName + " [" + propertyValue + "] found more than once.");
+            }else{
+                logger.warn("Object [" + entityClass.getName() + "] with " + propertyName + " [" + propertyValue + "] not found.");
+            }
+            throw new ObjectRetrievalFailureException(entityClass, propertyValue);
+        }
+        return (T) list.get(0);
+    }
+
     public <T> T load(Class entityClass, Object primaryKey) {
         T entity = (T) getHibernateTemplate().load(entityClass, (Serializable) primaryKey);
 
