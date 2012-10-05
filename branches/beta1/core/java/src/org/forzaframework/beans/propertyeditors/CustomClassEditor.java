@@ -23,6 +23,9 @@ import org.forzaframework.core.persistance.EntityManager;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.forzaframework.core.persistance.Restrictions;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.beans.PropertyEditorSupport;
 import java.io.Serializable;
@@ -103,9 +106,16 @@ public class CustomClassEditor extends PropertyEditorSupport {
                 }
             }
             else {
-                Criteria crit = entityManager.getHibernateSession().createCriteria(requiredType);
-                crit.add(org.hibernate.criterion.Restrictions.eq(property, propertyValue));
-                command = crit.uniqueResult();
+                Session session = entityManager.getHibernateSession().getSessionFactory().openSession();
+                try {
+                    Criteria crit = session.createCriteria(requiredType);
+                    crit.add(org.hibernate.criterion.Restrictions.eq(property, propertyValue));
+                    command = crit.uniqueResult();
+                } catch (HibernateException ex) {
+                    throw new ObjectRetrievalFailureException(requiredType, propertyValue, "Error con la session", ex);
+                } finally {
+                    session.close();
+                }
             }
 			setValue(command);
 		}
