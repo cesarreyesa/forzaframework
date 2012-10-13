@@ -114,7 +114,7 @@ public class WindowTag extends PanelTag implements Observable {
                 JSONObject config = new JSONObject();
 
                 config.put("id", id);
-                config.put("el", id);
+                config.put("el", new JSONFunction("Ext.get('"+ id +"')"));
                 config.put("layout", getLayout());
                 config.put("title", getTitle() != null ? getTitle() : getText(getTitleKey()));
                 config.elementOpt("modal", modal);
