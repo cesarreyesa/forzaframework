@@ -965,6 +965,9 @@
         <attribute>
             <name>region</name>
         </attribute>
+        <attribute>
+            <name>enableTabScroll</name>
+        </attribute>
     </tag>
     <tag>
         <name>groupTabPanel</name>
