@@ -19,6 +19,8 @@ package org.forzaframework.util;
 import org.apache.commons.lang.*;
 import org.apache.commons.lang.StringUtils;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -28,12 +30,12 @@ import java.util.Locale;
  * Date: Nov 4, 2008
  * Time: 11:05:23 AM
  */
-public class NumberUtils extends org.apache.commons.lang.math.NumberUtils{
+public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
 
     /**
      * Aplica los criterios habituales de redondeo a partir del numero de decimales especificado
      * @param value Valor a redondear
-     * @param decimals Decimales a partir del cual se aplicará el redondeo
+     * @param decimals Decimales a partir del cual se aplicarï¿½ el redondeo
      * @return Valor redondeado
      */
     public static Double roundUp(Double value, Integer decimals){
@@ -50,6 +52,56 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils{
     public static Double roundUp(Double value){
         return roundUp(value, 2);
     }
+
+    /**
+     * Al trunca un valor al numero de decimales que se especifique.
+     *
+     * @param value     Valor a truncar
+     * @param decimalPlace  Decimales a partir de los cuales se quiere truncar
+     * @return          Valor truncado
+     */
+    public static Double truncate(Double value, Integer decimalPlace){
+        String decimals = ".";
+        for (int i = 0; i < decimalPlace; i++) {
+            decimals += "0";
+
+        }
+        String pattern = "0" + (decimals.length() > 0 ? decimals : "");
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        decimalFormat.setMaximumFractionDigits(decimalPlace);
+
+        if ( value > 0 ){
+            decimalFormat.setRoundingMode(RoundingMode.FLOOR);
+
+        } else {
+            decimalFormat.setRoundingMode(RoundingMode.CEILING);
+        }
+
+        return org.apache.commons.lang.math.NumberUtils.toDouble(decimalFormat.format(value));
+
+        /*
+        //TODO: revisar porque esta funcion cambia las cantidades decimales
+        Double decimalsNumber = Math.pow(10, decimalPlace);
+        if ( value > 0 ){
+            return Math.floor(value * decimalsNumber)/decimalsNumber;
+        }else{
+            //Truncado para numeros negativos
+            return Math.ceil(value * decimalsNumber)/decimalsNumber;
+        }
+        */
+    }
+
+    /**
+     * Trunca un valor a dos decimales.
+     * Ej: truncate(0.124) y truncate(0.129, 2) regresan 0.12
+     *
+     * @param value     Valor a trucar
+     * @return          Valor truncado
+     */
+    public static Double truncate(Double value){
+        return truncate(value, 2);
+    }
+
 
     /**
      * Convierte la cantidad pasada como parametro a palabras. Ej: 1559 se convierte a MIL QUINUENTOS CINCUENTA Y NUEVE
@@ -162,7 +214,7 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils{
     /**
      * Convierte una cantidad dada a palabras.
      * Ej: La cantidad 1525.8569 se convierte a UN MIL QUINIENTOS VEINTICINCO PESOS 86/100 M. N., la palabra "PESOS" se
-     * puede cambiarse a travŽs de el parametro currencyName.  
+     * puede cambiarse a travï¿½s de el parametro currencyName.  
      *
      * @param amount        Cantidad a convertir en palabras
      * @param currencyName  Nombre de la moneda
