@@ -244,6 +244,7 @@ public class XlsUtils {
         for(Integer i=0 ; i < numberOfColumns ; i++) {
             //Obtenemos el maximo numero de caracteres de la columna
             Integer columnWidth = columnWidthMap.get(i) + 1;
+            columnWidth = columnWidth > 100 ? 100 : columnWidth;
             //multiplicamos por 256 porque es lo que representa un caranter en excel
             sheet.setColumnWidth(i, columnWidth * 256);
             //TODO: Esta es otra forma dar el ancho de la columna correctamente, probar si es mas optimo
