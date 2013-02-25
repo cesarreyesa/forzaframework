@@ -56,8 +56,8 @@ public class EntityListController extends BaseController {
         model.addAttribute("entity", systemConfiguration.getSystemEntity(entityName));
         if (disableExternalSystems == null) disableExternalSystems = false;
 
-        systemConfiguration.setEnableExternalSystems(!disableExternalSystems);
-        if(systemConfiguration.getEnableExternalSystems()){
+        disableExternalSystems = disableExternalSystems != null ? disableExternalSystems : systemConfiguration.getEnableExternalSystems();
+        if(!disableExternalSystems){
             model.addAttribute("externalSystems", systemConfiguration.getExternalSystems());
         }
 
