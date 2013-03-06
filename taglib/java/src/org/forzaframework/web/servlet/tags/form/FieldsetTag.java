@@ -92,7 +92,16 @@ public class FieldsetTag extends PanelTag {
     }
 
     public int doEndTag() throws JspException {
-        ((PanelTag) getParent()).addItem(new Item(this.toJSON()));
+        PanelTag parent;
+        if (((this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag") || this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag"))
+                && (this.parent.getParent().getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag") || this.parent.getParent().getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag")))
+                && this.parent.getParent().getParent() instanceof PanelTag) {
+            parent = ((PanelTag) this.parent.getParent().getParent());
+        } else {
+            parent = ((PanelTag) this.parent);
+        }
+
+        parent.addItem(new Item(this.toJSON()));
         return EVAL_PAGE;
     }
 
