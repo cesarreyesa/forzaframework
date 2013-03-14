@@ -41,6 +41,7 @@ public class TabPanelTag extends PanelTag implements PanelItem {
     private Boolean defaultAutoHeight;
     private Boolean defaultAutoScroll;
     private String defaultStyle;
+    private Boolean enableTabScroll;
 
     public Boolean getDefaultAutoHeight() {
         return defaultAutoHeight;
@@ -64,6 +65,14 @@ public class TabPanelTag extends PanelTag implements PanelItem {
 
     public void setDefaultStyle(String defaultStyle) {
         this.defaultStyle = defaultStyle;
+    }
+
+    public Boolean getEnableTabScroll() {
+        return enableTabScroll != null  ? enableTabScroll : false;
+    }
+
+    public void setEnableTabScroll(Boolean enableTabScroll) {
+        this.enableTabScroll = enableTabScroll;
     }
 
     public void setTopToolbar(Item item) {
@@ -132,6 +141,7 @@ public class TabPanelTag extends PanelTag implements PanelItem {
         json.put("deferredRender", false);
         json.elementOpt("height", getHeight());
         json.elementOpt("region", getRegion());
+        json.elementOpt("enableTabScroll", getEnableTabScroll());
 
         String anchor = getAnchor();
         if(StringUtils.isBlank(anchor) && parent instanceof FormTag){

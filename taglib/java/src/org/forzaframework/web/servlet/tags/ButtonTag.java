@@ -50,6 +50,7 @@ public class ButtonTag extends BaseTag implements PanelItem {
     private String icon;
     private Boolean hidden;
     private String handler;
+    private String href;
     private List<Item> items = new ArrayList<Item>();
 
     public String getScale() {
@@ -164,6 +165,14 @@ public class ButtonTag extends BaseTag implements PanelItem {
         this.handler = handler;
     }
 
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
     public int doEndTag() throws JspException {
 //        Assert.isTrue(parent instanceof WindowTag, "ButtonTag must be inside a WindowTag");
         Tag menu = findParent(MenuTag.class);
@@ -214,9 +223,7 @@ public class ButtonTag extends BaseTag implements PanelItem {
 
         if(StringUtils.isNotBlank(handler)) {
             if(enableToggle != null && enableToggle){
-                JSONObject listeners = new JSONObject();
-                listeners.put("toggle", new JSONFunction(parseHandler(handler)));
-                json.put("listeners", listeners);
+                json.put("toggleHandler", new JSONFunction(parseHandler(handler)));
             }else{
                 String eventName = "handler";
                 if(checked != null){
@@ -225,7 +232,7 @@ public class ButtonTag extends BaseTag implements PanelItem {
                 json.put(eventName, new JSONFunction(parseHandler(handler)));
             }
         }
-
+        json.elementOpt("href", href);
         return json;
     }
     
@@ -233,7 +240,7 @@ public class ButtonTag extends BaseTag implements PanelItem {
     	if(handler.startsWith("function(")){
     		return handler;
     	}else{
-    		return "function(){" + handler + "}";
+    		return "function(b, e){" + handler + "}";
     	}
     }
 }

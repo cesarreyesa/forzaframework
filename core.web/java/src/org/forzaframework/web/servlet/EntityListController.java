@@ -16,6 +16,7 @@
 
 package org.forzaframework.web.servlet;
 
+import org.forzaframework.layout.FileDefinitionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,16 +34,16 @@ import org.forzaframework.metadata.SystemConfiguration;
 public class EntityListController extends BaseController {
 
     private SystemConfiguration systemConfiguration;
-//    private FileDefinitionManager fileDefinitionManager;
+    private FileDefinitionManager fileDefinitionManager;
     private String view = "/entityList";
 
     public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
         this.systemConfiguration = systemConfiguration;
     }
 
-//    public void setFileDefinitionManager(FileDefinitionManager fileDefinitionManager) {
-//        this.fileDefinitionManager = fileDefinitionManager;
-//    }
+    public void setFileDefinitionManager(FileDefinitionManager fileDefinitionManager) {
+        this.fileDefinitionManager = fileDefinitionManager;
+    }
 
     public void setView(String view) {
         this.view = view;
@@ -50,15 +51,19 @@ public class EntityListController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     @SuppressWarnings(value = "unchecked")
-    public String processSubmit(@RequestParam("e") String entityName, ModelMap model) throws Exception {
+    public String processSubmit(@RequestParam("e") String entityName, @RequestParam(value = "disableExternalSystems", required = false) Boolean disableExternalSystems,
+                                ModelMap model) throws Exception {
         model.addAttribute("entity", systemConfiguration.getSystemEntity(entityName));
+        if (disableExternalSystems == null) disableExternalSystems = false;
 
-        if(systemConfiguration.getEnableExternalSystems()){
+        disableExternalSystems = disableExternalSystems != null ? disableExternalSystems : systemConfiguration.getEnableExternalSystems();
+        if(!disableExternalSystems){
             model.addAttribute("externalSystems", systemConfiguration.getExternalSystems());
         }
-//        if(fileDefinitionManager!= null){
-//            model.put("fileDefinitions", fileDefinitionManager.getFileDefinitionsByEntityCode(entityName));
-//        }
+
+        if(fileDefinitionManager!= null){
+            model.put("fileDefinitions", fileDefinitionManager.getFileDefinitionsByEntityCode(entityName));
+        }
         model.addAttribute("enableExternalSystems", systemConfiguration.getEnableExternalSystems());
 
         return view;

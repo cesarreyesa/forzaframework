@@ -57,6 +57,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
     private String onSelectionChange;
     private Boolean autoSizeColumns = false;
     private Boolean loadOnStart = true;
+    private Boolean pruneModifiedRecords = false;
 
     public Boolean getLoadOnStart() {
         return loadOnStart;
@@ -170,6 +171,14 @@ public class EditableGridTag extends PanelTag implements PanelItem {
         this.autoSizeColumns = autoSizeColumns;
     }
 
+    public Boolean getPruneModifiedRecords() {
+        return pruneModifiedRecords;
+    }
+
+    public void setPruneModifiedRecords(Boolean pruneModifiedRecords) {
+        this.pruneModifiedRecords = pruneModifiedRecords;
+    }
+
     private List<Field> fields;
 
     public void addField(Field field){
@@ -236,6 +245,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                     json.elementOpt("width", field.getWidth());
                     json.put("dataIndex", field.getField());
                     json.put("editor", field.getEditorJson());
+                    json.elementOpt("hidden", field.getHidden());
                     if(field.getXtype() != null && field.getXtype().equals("combo")){
                         String id = field.getId();
                         if(StringUtils.isBlank(field.getId())){
@@ -305,12 +315,12 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                 sb.append("ds = new Ext.data.Store({");
                 if(StringUtils.isEmpty(url)){
                     sb.append("proxy: new Ext.data.MemoryProxy(data),");
-                    sb.append("reader: new Ext.data.ArrayReader({ id: ").append(this.fields.size()).append("}, RecordType)");
+                    sb.append("reader: new Ext.data.ArrayReader({ id: ").append(this.fields.size()).append("}, RecordType),");
                 }else{
                     sb.append("proxy: new Ext.data.HttpProxy({ url: '").append(url).append("'}),");
-                    sb.append("reader: new Ext.data.XmlReader({ record:'").append(itemTag).append("',totalRecords:'totalCount',id:'id'}, RecordType)");
+                    sb.append("reader: new Ext.data.XmlReader({ record:'").append(itemTag).append("',totalRecords:'totalCount',id:'id'}, RecordType),");
                 }
-                sb.append("});");
+                sb.append("pruneModifiedRecords:").append(pruneModifiedRecords.toString()).append("});");
 
                 if(StringUtils.isNotBlank(onSelectionChange)){
                     sb.append("sm.on('selectionchange', ").append(onSelectionChange).append(");");
@@ -359,7 +369,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                 gridPanel.elementOpt("border", getBorder());
                 gridPanel.elementOpt("autoSizeColumns", autoSizeColumns);
                 gridPanel.elementOpt("tbar", topToolbar);
-                
+
                 if(getTitle() != null || getTitleKey() != null) {
                     gridPanel.elementOpt("title", getTitle() != null ? getTitle() : getText(getTitleKey()));
                 }

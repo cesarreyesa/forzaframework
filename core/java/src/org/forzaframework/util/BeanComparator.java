@@ -21,6 +21,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import java.util.Comparator;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 /**
  * @author cesarreyes
@@ -154,9 +155,9 @@ public class BeanComparator implements Comparator {
         // Get the value of the properties
         Object p1 = null;
         Object p2 = null;
-        PropertyDescriptor pd = null;
+        Class clazz = null;
         try {
-            pd = PropertyUtils.getPropertyDescriptor(o1, property);
+            clazz = PropertyUtils.getPropertyType(o1, property);
             p1 = PropertyUtils.getProperty(o1, property);
             p2 = PropertyUtils.getProperty(o2, property);
         } catch (IllegalAccessException e) {
@@ -166,7 +167,7 @@ public class BeanComparator implements Comparator {
         if (comparator == null) {
             int i = 0;
             // try to find p1 or p2 that implements Comparator
-            if(pd.getPropertyType().getClass().equals(String.class)){
+            if(clazz.equals(String.class)){
                 if(direction.toUpperCase().equals("ASC"))
                     i = p1.toString().toUpperCase().compareTo(p2.toString().toUpperCase());
                 else if(direction.toUpperCase().equals("DESC"))

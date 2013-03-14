@@ -80,7 +80,13 @@ public class TabTag extends PanelTag implements PanelItem {
     public void doInitBody() throws JspException {
         try{
             if(this.bodyContent != null){
-                TabPanelTag parent = ((TabPanelTag) this.parent);
+                TabPanelTag parent;
+                if ((this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") || this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag"))  && this.parent.getParent() instanceof TabPanelTag) {
+                    parent = ((TabPanelTag) this.parent.getParent());
+                } else {
+                    parent = ((TabPanelTag) this.parent);
+                }
+
                 items = new ArrayList<Item>();
                 topToolbar = null;
                 
@@ -98,14 +104,19 @@ public class TabTag extends PanelTag implements PanelItem {
     public int doEndTag() throws JspException {
         try {
             if(this.bodyContent != null){
-                Assert.isTrue(parent instanceof TabPanelTag, "TabTag must be inside a TabPanelTag");
+                Assert.isTrue(parent instanceof TabPanelTag || ((this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") || this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag")) && this.parent.getParent() instanceof TabPanelTag), "TabTag must be inside a TabPanelTag");
                 
                 JspWriter writer = bodyContent.getEnclosingWriter();
                 bodyContent.writeOut(writer);
 
                 pageContext.getOut().write("</div>");
                 
-                TabPanelTag parent = ((TabPanelTag) this.parent);
+                TabPanelTag parent;
+                if ((this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.ForEachTag") || this.parent.getClass().getName().equals("org.apache.taglibs.standard.tag.rt.core.IfTag")) && this.parent.getParent() instanceof TabPanelTag) {
+                    parent = ((TabPanelTag) this.parent.getParent());
+                } else {
+                    parent = ((TabPanelTag) this.parent);
+                }
 
                 parent.addItem(new Item(this.toJSON()));
 

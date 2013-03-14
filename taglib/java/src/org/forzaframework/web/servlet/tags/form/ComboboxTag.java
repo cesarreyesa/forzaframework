@@ -37,6 +37,7 @@ import java.util.Map;
 public class ComboboxTag extends FieldTag {
 
     private String text;
+    private String emptyText = "";
     private String template;
     private String url;
     private String valueField = "id";
@@ -45,6 +46,9 @@ public class ComboboxTag extends FieldTag {
     private Boolean loadOnStart;
     private Boolean selectFirstRecord;
     private Integer pageSize;
+    private String store;
+    private String noSelection;
+    private String reader;
     private List<Field> fields = new ArrayList<Field>();
     private List<UpdateField> updateFields = new ArrayList<UpdateField>();
     private List<Option> options = new ArrayList<Option>();
@@ -89,6 +93,14 @@ public class ComboboxTag extends FieldTag {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getEmptyText() {
+        return emptyText;
+    }
+
+    public void setEmptyText(String emptyText) {
+        this.emptyText = emptyText;
     }
 
     public String getTemplate() {
@@ -155,6 +167,38 @@ public class ComboboxTag extends FieldTag {
         this.loadOnStart = loadOnStart;
     }
 
+    public String getStore() {
+        return store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public String getNoSelection() {
+        return noSelection;
+    }
+
+    public void setNoSelection(String noSelection) {
+        this.noSelection = noSelection;
+    }
+
+    public String getReader() {
+        return reader;
+    }
+
+    public void setReader(String reader) {
+        this.reader = reader;
+    }
+
+    public String getDataSourceType() {
+        return dataSourceType;
+    }
+
+    public void setDataSourceType(String dataSourceType) {
+        this.dataSourceType = dataSourceType;
+    }
+
     public void addField(String id, String field, String mapping) {
         this.updateFields.add(new UpdateField(id, field, mapping));
     }
@@ -216,6 +260,7 @@ public class ComboboxTag extends FieldTag {
         }
         json.elementOpt("value", this.getValue());
         json.elementOpt("text", text);
+        json.elementOpt("disabled", getDisabled());
         json.elementOpt("description", getDescription());
         json.elementOpt("selectFirstRecord", selectFirstRecord);
         if(StringUtils.isNotBlank(this.template)){
@@ -235,12 +280,12 @@ public class ComboboxTag extends FieldTag {
             json.put("mode", "local");
         }
 
-        json.put("store", new JSONFunction(getVarName()));
+        json.put("store", store == null ? new JSONFunction(getVarName()) : new JSONFunction(store));
 
         json.put("hiddenName", field);
         json.put("typeAhead", true);
         json.put("triggerAction", "all");
-        json.put("emptyText", "");
+        json.put("emptyText", emptyText);
         json.put("selectOnFocus", true);
         json.put("lazyInit", false);
         json.elementOpt("pageSize", pageSize);
@@ -250,7 +295,7 @@ public class ComboboxTag extends FieldTag {
         // TODO: averiguar para que sirve esto, si se pone entonces no funciona correctamente el trigger
 //        json.put("lastQuery", "");
 //        json.put("valueNotFoundText", "Not found");
-        json.elementOpt("renderHidden", hidden);
+        json.elementOpt("renderHidden", hidden == null ? false : hidden);
         json.elementOpt("allowBlank", allowBlank);
 
         if(updateFields.size() > 0){
@@ -301,12 +346,19 @@ public class ComboboxTag extends FieldTag {
         fields.add(new Field(valueField, valueField, null));
         fields.add(new Field(displayField, displayField, null));
 
-        Store store = new Store(getVarName(), loadOnStart == null ? false : loadOnStart, valueField, displayField, fields);
-        store.setUrl(url);
-        store.setItems((items instanceof String ? evaluate("items", items) : items));
-        store.setOptions(options);
-        store.setType(dataSourceType);
-        form.addStoreDeclaration(store);
+        if (store == null) {
+            Store store = new Store(getVarName(), loadOnStart == null ? false : loadOnStart, valueField, displayField, fields);
+            store.setUrl(url);
+            store.setItems((items instanceof String ? evaluate("items", items) : items));
+            store.setOptions(options);
+            store.setType(dataSourceType);
+            store.setNoSelection(noSelection);
+            store.setReader(reader);
+            if ("json".equals(reader)) {
+                store.setItemTag("items");
+            }
+            form.addStoreDeclaration(store);
+        }
 
         PanelTag parent = (PanelTag) findParent(PanelTag.class);
         parent.addItem(new Item(this.toJSON()));

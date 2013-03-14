@@ -22,11 +22,11 @@ package org.forzaframework.web.servlet;
  *         Time: 12:17:04
  */
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.support.WebApplicationObjectSupport;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -81,9 +81,9 @@ public class BaseController extends WebApplicationObjectSupport {
         return getMessageSourceAccessor().getMessage(key, arguments, defaultMessage);
     }
 
-    public User getUser() throws Exception{
+    public User getUser() throws RuntimeException{
         if(SecurityContextHolder.getContext().getAuthentication() == null){
-            throw new Exception("Security Exception");
+            throw new RuntimeException("Security Exception");
         }
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
@@ -175,7 +175,6 @@ public class BaseController extends WebApplicationObjectSupport {
     public String saveFile(HttpServletRequest request, String uploadDir, String fileName, Boolean keepOriginalExtension) throws IOException {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile("file");
-
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);
 
@@ -189,14 +188,15 @@ public class BaseController extends WebApplicationObjectSupport {
         if(keepOriginalExtension){
             fileName += file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
         }
-        OutputStream bos = new FileOutputStream(uploadDir + fileName);
-        int bytesRead;
-        byte[] buffer = new byte[8192];
-        while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
-            bos.write(buffer, 0, bytesRead);
-        }
-        bos.close();
-        stream.close();
+        file.transferTo(new File(uploadDir + fileName));
+//        OutputStream bos = new FileOutputStream(uploadDir + fileName);
+//        int bytesRead;
+//        byte[] buffer = new byte[8192];
+//        while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
+//            bos.write(buffer, 0, bytesRead);
+//        }
+//        bos.close();
+//        stream.close();
         return fileName;
     }
 

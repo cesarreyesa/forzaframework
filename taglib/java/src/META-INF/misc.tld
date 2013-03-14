@@ -164,6 +164,10 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>href</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>disabled</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -269,6 +273,137 @@
         </attribute>
     </tag>
     <tag>
+        <name>toolbarSeachField</name>
+        <tag-class>org.forzaframework.web.servlet.tags.ToolbarSearchTag</tag-class>
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>width</name>
+        </attribute>
+        <attribute>
+            <name>handler</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>toolbarInput</name>
+        <tag-class>org.forzaframework.web.servlet.tags.ToolbarInputTag</tag-class>
+
+        <attribute>
+            <name>id</name>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>minLength</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>maxLength</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>width</name>
+        </attribute>
+        <attribute>
+            <name>hidden</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+        </attribute>
+        <attribute>
+        	<name>labelSeparator</name>
+       	</attribute>
+        <attribute>
+        	<name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+    </tag>
+    <tag>
+        <name>toolbarNumberField</name>
+        <tag-class>org.forzaframework.web.servlet.tags.ToolbarNumberFieldTag</tag-class>
+
+        <attribute>
+            <name>id</name>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>width</name>
+        </attribute>
+        <attribute>
+            <name>hidden</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>allowDecimals</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>allowNegative</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>baseChars</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>decimalPrecision</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>decimalSeparator</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>maxValue</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>minValue</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>maxLength</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>minLength</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
         <name>separator</name>
         <tag-class>org.forzaframework.web.servlet.tags.SeparatorTag</tag-class>
 
@@ -283,6 +418,7 @@
         <attribute>
             <name>id</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>title</name>
@@ -297,6 +433,14 @@
         </attribute>
         <attribute>
         	<name>rowItems</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>selectionModel</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>groupField</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
@@ -337,6 +481,10 @@
             <name>pageSize</name>
         </attribute>
         <attribute>
+            <name>onLoad</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>onSelectionChange</name>
             <rtexprvalue>true</rtexprvalue>
             <description>Fires when the selection changes. selectionchange : ( SelectionModel this )</description>
@@ -355,12 +503,15 @@
         </attribute>
         <attribute>
             <name>height</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>enableDragDrop</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>enableDrop</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>autoSizeColumns</name>
@@ -373,9 +524,11 @@
         </attribute>
         <attribute>
             <name>replacePanel</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>loadOnStart</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>onDrop</name>
@@ -421,6 +574,9 @@
             <name>defaultSortDir</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>remoteSort</name>
+        </attribute>
     </tag>
     <tag>
         <name>column</name>
@@ -448,6 +604,7 @@
         </attribute>
         <attribute>
             <name>hidden</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>locked</name>
@@ -456,6 +613,17 @@
         <attribute>
             <name>rendererFunction</name>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>align</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>alwaysHidden</name>
         </attribute>
     </tag>
     <tag>
@@ -534,6 +702,7 @@
         </attribute>
         <attribute>
             <name>replacePanel</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>region</name>
@@ -549,6 +718,10 @@
         </attribute>
         <attribute>
             <name>loadMask</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pruneModifiedRecords</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
@@ -587,6 +760,11 @@
         </attribute>
         <attribute>
             <name>width</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
     <tag>
@@ -627,6 +805,10 @@
             <rtexprvalue>true</rtexprvalue>
             <description>If it needs mapping</description>
         </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>dateColumn</name>
@@ -651,6 +833,10 @@
         </attribute>
         <attribute>
             <name>width</name>
+        </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
     <tag>
@@ -683,6 +869,10 @@
         <attribute>
             <name>allowDecimals</name>
         </attribute>
+        <attribute>
+            <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>updateField</name>
@@ -710,6 +900,7 @@
         <attribute>
             <name>width</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>height</name>
@@ -753,10 +944,45 @@
 
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
 
         <attribute>
             <name>height</name>
+        </attribute>
+        <attribute>
+            <name>defaultAutoHeight</name>
+        </attribute>
+        <attribute>
+            <name>defaultAutoScroll</name>
+        </attribute>
+        <attribute>
+            <name>defaultStyle</name>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+        </attribute>
+        <attribute>
+            <name>region</name>
+        </attribute>
+        <attribute>
+            <name>enableTabScroll</name>
+        </attribute>
+    </tag>
+    <tag>
+        <name>groupTabPanel</name>
+        <tag-class>org.forzaframework.web.servlet.tags.GroupTabPanelTag</tag-class>
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>height</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tabWidth</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>defaultAutoHeight</name>
@@ -780,9 +1006,11 @@
 
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>titleKey</name>
@@ -812,7 +1040,46 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    <tag>
+        <name>groupTab</name>
+        <tag-class>org.forzaframework.web.servlet.tags.GroupTabTag</tag-class>
 
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>titleKey</name>
+        </attribute>
+        <attribute>
+            <name>expanded</name>
+        </attribute>
+        <attribute>
+            <name>url</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+        </attribute>
+        <attribute>
+            <name>autoHeight</name>
+        </attribute>
+        <attribute>
+            <name>autoScroll</name>
+        </attribute>
+        <attribute>
+            <name>onActivate</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onDeactivate</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <tag>
     	<name>portal</name>
     	<tag-class>org.forzaframework.web.servlet.tags.PortalTag</tag-class>
@@ -822,6 +1089,12 @@
         </attribute>
         <attribute>
             <name>region</name>
+        </attribute>
+        <attribute>
+            <name>layout</name>
+        </attribute>
+        <attribute>
+            <name>columnWidth</name>
         </attribute>
         <attribute>
             <name>margins</name>
@@ -837,9 +1110,14 @@
 
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
         	<name>anchor</name>
+        </attribute>
+        <attribute>
+        	<name>renderTo</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>contentEl</name>
@@ -879,6 +1157,7 @@
         </attribute>
         <attribute>
             <name>style</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>region</name>
@@ -889,6 +1168,7 @@
         </attribute>
         <attribute>
             <name>titleKey</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>titlebar</name>
@@ -898,21 +1178,27 @@
         </attribute>
         <attribute>
             <name>height</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>columnWidth</name>
         </attribute>
         <attribute>
             <name>replacePanel</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>collapsible</name>
         </attribute>
         <attribute>
             <name>collapsed</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>split</name>
+        </attribute>
+        <attribute>
+            <name>cls</name>
         </attribute>
     </tag>
 

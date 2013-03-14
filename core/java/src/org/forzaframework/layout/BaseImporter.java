@@ -16,12 +16,12 @@
 
 package org.forzaframework.layout;
 
-import org.springframework.web.context.support.WebApplicationObjectSupport;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.validation.DataBinder;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.PropertyValue;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.util.Assert;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ClassUtils;
@@ -43,12 +43,17 @@ import java.beans.PropertyDescriptor;
  *         Date: 10-sep-2008
  *         Time: 9:31:41
  */
-public abstract class BaseImporter extends WebApplicationObjectSupport implements Importer {
+public abstract class BaseImporter implements Importer {
 
     protected EntityManager entityManager;
+    protected MessageSourceAccessor messageSourceAccessor;
 
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
+    }
+
+    public void setMessageSourceAccessor(MessageSourceAccessor messageSourceAccessor) {
+        this.messageSourceAccessor = messageSourceAccessor;
     }
 
     protected DataBinder createBinder(Object command) {
@@ -80,7 +85,7 @@ public abstract class BaseImporter extends WebApplicationObjectSupport implement
     }
 
     protected String getText(String msgKey) {
-        return getMessageSourceAccessor().getMessage(msgKey);
+        return messageSourceAccessor.getMessage(msgKey);
     }
 
     public PropertyValue extractPropertyValue(DataBinder binder, Object command, ColumnDefinition columnDefinition, String value) throws Exception{

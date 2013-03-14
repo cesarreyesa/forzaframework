@@ -1,48 +1,31 @@
 Manifest-Version: 1.0
-Bundle-Name: Genesis Web
-Created-By: 1.4.2_09 (Apple Computer, Inc.)
-Bundle-ManifestVersion: 2
-Bundle-Vendor: Nopalsoft
-Bundle-SymbolicName: org.forzaframework.web
-Bundle-Version: 1.0.0
-Export-Package: org.forzaframework.web,
- org.forzaframework.web.filter,
- org.forzaframework.web.mvc,
- org.forzaframework.web.servlet,
- org.forzaframework.web.servlet.view,
- org.forzaframework.web.servlet.mvc.annotation,
- org.forzaframework.web.listener
-Import-Package: org.springframework.web.servlet.view,
- org.forzaframework.core.persistance,
- org.forzaframework.metadata,
- org.forzaframework.validation,
- org.forzaframework.security,
- org.apache.commons.logging,
- javax.servlet.http,
- org.springframework.validation,
- org.springframework.context.support,
- org.springframework.web,
- org.springframework.web.servlet,
- org.springframework.web.servlet.support,
- org.springframework.web.servlet.mvc.multiaction,
- org.springframework.web.bind,
- org.springframework.web.bind.support,
- org.springframework.web.bind.annotation,
- org.springframework.web.context,
- org.springframework.web.context.request,
- org.springframework.web.context.support,
- org.springframework.web.filter,
- org.springframework.util,
- org.springframework.web.util,
- org.springframework.beans,
- org.springframework.ui,
- org.springframework.core,
- javax.servlet
 Import-Bundle: com.springsource.javax.servlet;version="[2.5.0,2.5.0]",
- org.forzaframework.core;version="[1.0.0,1.0.0]",
- org.forzaframework.security;version="[1.0.0,1.0.0]",
- com.springsource.org.apache.commons.logging;version="[1.1.1,1.1.1]"
-Import-Library: org.springframework.spring;version="[2.5.5.A,2.5.5.A]",
- org.hibernate.ejb;version="[3.3.2.GA, 3.3.2.GA]"
-
+ org.forzaframework.core;version="[1.0.0,1.0.0]",org.forzaframework.se
+ curity;version="[1.0.0,1.0.0]",com.springsource.org.apache.commons.lo
+ gging;version="[1.1.1,1.1.1]"
+Export-Package: org.forzaframework.web,org.forzaframework.web.filter,o
+ rg.forzaframework.web.mvc,org.forzaframework.web.servlet,org.forzafra
+ mework.web.servlet.view,org.forzaframework.web.servlet.mvc.annotation
+ ,org.forzaframework.web.listener
+Bundle-Vendor: Nopalsoft
+Bundle-Version: 1.0.0
+Import-Library: org.springframework.spring;version="[2.5.5.A,2.5.5.A]"
+ ,org.hibernate.ejb;version="[3.3.2.GA, 3.3.2.GA]"
+Bundle-Name: Genesis Web
+Bundle-ManifestVersion: 2
+Created-By: 1.4.2_09 (Apple Computer, Inc.)
+Import-Package: org.springframework.web.servlet.view,org.forzaframewor
+ k.core.persistance,org.forzaframework.metadata,org.forzaframework.val
+ idation,org.forzaframework.security,org.apache.commons.logging,javax.
+ servlet.http,org.springframework.validation,org.springframework.conte
+ xt.support,org.springframework.web,org.springframework.web.servlet,or
+ g.springframework.web.servlet.support,org.springframework.web.servlet
+ .mvc.multiaction,org.springframework.web.bind,org.springframework.web
+ .bind.support,org.springframework.web.bind.annotation,org.springframe
+ work.web.context,org.springframework.web.context.request,org.springfr
+ amework.web.context.support,org.springframework.web.filter,org.spring
+ framework.util,org.springframework.web.util,org.springframework.beans
+ ,org.springframework.ui,org.springframework.core,javax.servlet
+Bundle-SymbolicName: org.forzaframework.web
+Main-Class: 
 

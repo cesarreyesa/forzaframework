@@ -70,7 +70,8 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
         for(T t : list){
         	Catalog catalog = (Catalog) t;
         	String className = ClassUtils.getShortClassName(entityClass);
-        	catalog.setTranslatedName(messageSource.getMessage(WordUtils.uncapitalize(className) + "." + catalog.getCode()));
+            String name = messageSource.getMessage(WordUtils.uncapitalize(className) + "." + catalog.getCode());
+            catalog.setTranslatedName(name);
         }
 		return list;
     }
@@ -90,11 +91,18 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public <T> List<T> find(String queryString, Object value){
+        if(value instanceof List){
+            return getHibernateTemplate().find(queryString, value);
+        }
         return getHibernateTemplate().find(queryString, value);
     }
 
     public <T> List<T> find(String queryString, Object[] values){
         return getHibernateTemplate().find(queryString, values);
+    }
+
+    public <T> List<T> find(String queryString, List values){
+        return getHibernateTemplate().find(queryString, values.toArray());
     }
 
     public <T> T get(Class entityClass, Object primaryKey) {
@@ -119,8 +127,10 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
                 }
                 return o;
             }catch(Exception ex){
-                session.close();
                 throw new ObjectRetrievalFailureException(entityClass, primaryKey, "Error con la session", ex);
+            }
+            finally {
+                session.close();                
             }
         }else{
             T entity = (T) getHibernateTemplate().get(entityClass, (Serializable) primaryKey);
@@ -218,6 +228,33 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
         return (T) list.get(0);
     }
 
+    public <T> T getByProperty(Class entityClass, String propertyName, Object propertyValue) {
+        DetachedCriteria crit = DetachedCriteria.forClass(entityClass);
+
+        crit.add(Restrictions.eq(propertyName, propertyValue));
+
+        List list = getHibernateTemplate().findByCriteria(crit);
+        if(list.size() != 1){
+            if(list.size() > 1){
+                logger.warn("Object [" + entityClass.getName() + "] with " + propertyName + " [" + propertyValue + "] found more than once.");
+            }else{
+                logger.warn("Object [" + entityClass.getName() + "] with " + propertyName + " [" + propertyValue + "] not found.");
+            }
+            throw new ObjectRetrievalFailureException(entityClass, propertyValue);
+        }
+        return (T) list.get(0);
+    }
+
+    public <T> T load(Class entityClass, Object primaryKey) {
+        T entity = (T) getHibernateTemplate().load(entityClass, (Serializable) primaryKey);
+
+        if (entity == null) {
+            throw new ObjectRetrievalFailureException(entityClass, primaryKey);
+        }
+
+        return entity;
+    }
+
     public void save(Object entity) {
         getHibernateTemplate().saveOrUpdate(entity);
     }
@@ -257,7 +294,7 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public Integer executeInteger(String hql){
-    	return (Integer) getHibernateTemplate().iterate(hql).next();
+    	return ((Long) getHibernateTemplate().iterate(hql).next()).intValue();
     }
 
     public Integer executeInteger(String hql, Object value){

@@ -28,7 +28,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.util.Assert;
-import org.forzaframework.web.servlet.tags.form.Field;
 
 @SuppressWarnings({"unchecked"})
 public class Store {
@@ -45,6 +44,9 @@ public class Store {
 	private String url;
 	private Object items;
 	private List<Option> options;
+    private String groupField;
+    private String noSelection;
+    private Boolean remoteSort = true;
 
     public String getType() {
         return type;
@@ -142,14 +144,38 @@ public class Store {
 	public void setOptions(List<Option> options) {
 		this.options = options;
 	}
-	
-	public Store(String name, Boolean loadOnStart, List<Field> fields){
+
+    public String getGroupField() {
+        return groupField;
+    }
+
+    public void setGroupField(String groupField) {
+        this.groupField = groupField;
+    }
+
+    public String getNoSelection() {
+        return noSelection;
+    }
+
+    public void setNoSelection(String noSelection) {
+        this.noSelection = noSelection;
+    }
+
+    public Store(String name, Boolean loadOnStart, List<Field> fields){
 		this.name = name;
 		this.loadOnStart = loadOnStart;
 		this.fields = fields;
 	}
-	
-	public Store(String name, Boolean loadOnStart, String valueField, String displayField, List<Field> fields){
+
+    public Boolean getRemoteSort() {
+        return remoteSort;
+    }
+
+    public void setRemoteSort(Boolean remoteSort) {
+        this.remoteSort = remoteSort;
+    }
+
+    public Store(String name, Boolean loadOnStart, String valueField, String displayField, List<Field> fields){
 		this.name = name;
 		this.loadOnStart = loadOnStart;
 		this.valueField = valueField;
@@ -160,9 +186,17 @@ public class Store {
     public String buildStoreDeclaration(){
         StringBuilder sb = new StringBuilder();
         if(type.equals("remote")){
-            sb.append("var ").append(name).append(" = new Ext.data.Store({");
+            if(StringUtils.isNotBlank(groupField)){
+                sb.append("var ").append(name).append(" = new Ext.data.GroupingStore({");
+                sb.append("groupField: '").append(groupField).append("',");
+                if("json".equals(reader)) {
+                    sb.append("groupOnSort: ").append(true).append(",");
+                }
+            }else{
+                sb.append("var ").append(name).append(" = new Ext.data.Store({");
+            }
             sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(StringUtils.isBlank(url) ? "" : url).append("\"})),");
-            sb.append("remoteSort: true,");
+            sb.append("remoteSort: " + remoteSort + ",");
             
             if(reader == null || reader.equals("xml")){
                 sb.append("reader: new Ext.data.XmlReader({");
@@ -255,6 +289,12 @@ public class Store {
                 else if (items instanceof Collection) {
                     JSONArray data = new JSONArray();
                     Collection optionCollection = (Collection) items;
+                    if (noSelection != null) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("id", "");
+                        jsonObject.put(StringUtils.isNotBlank(displayField) ? displayField : "name", noSelection);
+                        data.add(jsonObject);
+                    }
                     for (Object item : optionCollection) {
                         Assert.notNull(item, "Algun objeto en la coleccion es nulo.");
                         JSONObject jsonObject = new JSONObject();
@@ -264,6 +304,9 @@ public class Store {
                             for (String key : map.keySet()) {
                                 jsonObject.put(key, map.get(key));
                             }
+                        }else if(item instanceof Integer){
+                            jsonObject.put("id", item);
+                            jsonObject.put("name", item);
                         }else{
                             BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(item);
                             for(Field field : fields){

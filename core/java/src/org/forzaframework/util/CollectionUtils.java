@@ -16,6 +16,8 @@
 
 package org.forzaframework.util;
 
+import org.apache.commons.beanutils.BeanPropertyValueEqualsPredicate;
+import org.apache.commons.collections.PredicateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -81,6 +83,21 @@ public class CollectionUtils {
         return paginatedList;
     }
 
+    public static <T> List<T> sort(List<T> list, Map model){
+        PageInfo pageInfo = new PageInfo();
+        try {
+            org.apache.commons.beanutils.BeanUtils.populate(pageInfo, model);
+
+            if (StringUtils.isNotBlank(pageInfo.getSort())) {
+                Collections.sort(list, new BeanComparator(pageInfo.getSort(), pageInfo.getDir()));
+            }
+        } catch (Exception e) {
+            logger.warn("Error populating object page info: " + e.getMessage());
+        }
+
+        return list;
+    }
+
     public static String join(List items){
         return join(items, ",");
     }
@@ -111,18 +128,18 @@ public class CollectionUtils {
      * Regresa un list de objects en donde la propiedad "bean" es igual a "value"
      *
      * @param list              Lista de objects de donde se obtendra la lista
-     * @param bean              Propiedad que debe tener cada elemento de la lista
+     * @param propertyName      Propiedad que debe tener cada elemento de la lista
      * @param valueSearched     Valor a comparar
      * 
      * @return Lista de objectos que son iguales al parametro value
      * @throws Exception lanzada por PropertyUtils
      */
-    public static List subList(List list, String bean, Object valueSearched) throws Exception {
+    public static List subList(List list, String propertyName, Object valueSearched) throws Exception {
         List subList = new ArrayList();
         for (Object object : list){
             try {
                 //Obtenemos el valor del tributo especificado en el parametro bean
-                Object objectValue = PropertyUtils.getProperty(object, bean);
+                Object objectValue = PropertyUtils.getProperty(object, propertyName);
                 //Si es igual lo agregamos a la lista
                 if (objectValue.equals(valueSearched)){
                     subList.add(object);
@@ -139,4 +156,12 @@ public class CollectionUtils {
 
         return subList;
     }
+
+    public static List subList(List list, BeanPropertyValueEqualsPredicate[] predicates) {
+        List subList = new ArrayList(list);
+        org.apache.commons.collections.CollectionUtils.filter(subList, PredicateUtils.allPredicate(predicates));
+
+        return subList;
+    }
+
 }

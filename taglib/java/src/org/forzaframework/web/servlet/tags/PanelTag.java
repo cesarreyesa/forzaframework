@@ -40,6 +40,7 @@ import java.util.List;
 public abstract class PanelTag extends BaseBodyTag {
 
 	private String xtype = "panel";
+    private String renderTo;
 	private String contentEl;
 	private String columnWidth;
     private String bodyBorder;
@@ -62,6 +63,7 @@ public abstract class PanelTag extends BaseBodyTag {
     private Boolean border;
     private Boolean split;
     private String replacePanel;
+    private String cls;
     private List<PanelItem> items = new ArrayList<PanelItem>();
     private List<PanelItem> tools = new ArrayList<PanelItem>();
 
@@ -73,7 +75,15 @@ public abstract class PanelTag extends BaseBodyTag {
 		this.xtype = xtype;
 	}
 
-	public String getContentEl() {
+    public String getRenderTo() {
+        return renderTo;
+    }
+
+    public void setRenderTo(String renderTo) {
+        this.renderTo = renderTo;
+    }
+
+    public String getContentEl() {
 		return contentEl;
 	}
 
@@ -272,7 +282,15 @@ public abstract class PanelTag extends BaseBodyTag {
     public void addTool(PanelItem item){
     	this.tools.add(item);
     }
-    
+
+    public String getCls() {
+        return cls;
+    }
+
+    public void setCls(String cls) {
+        this.cls = cls;
+    }
+
     private Object topToolbar;
     public void setTopToolbar(Item item) {
     	if(item != null){
@@ -345,9 +363,17 @@ public abstract class PanelTag extends BaseBodyTag {
         	config.put("columnWidth", Double.valueOf(columnWidth));
         }
 
+        if(StringUtils.isNotBlank(cls)){
+        	config.put("cls", cls);
+        }
+
         if(getHeight() != null){
             if(getHeight().contains("%")){
-                config.put("height", getHeight());
+                // compatibilidad con el custom layout ux.row
+                if(parent != null && parent instanceof PanelTag && ((PanelTag) parent).getLayout().equals("ux.row"))
+                    config.put("rowHeight", Integer.parseInt(getHeight().substring(1)) / 100);
+                else
+                    config.put("height", getHeight());
             }else{
                 config.elementOpt("height", Integer.valueOf(getHeight()));
             }
@@ -396,7 +422,11 @@ public abstract class PanelTag extends BaseBodyTag {
 	public String prepareOnReadyFunction(){
 		StringBuilder sb = new StringBuilder();
         sb.append("var panel = new Ext.Panel(").append(this.toJSON().toString()).append(");");
-        sb.append(getReplacePanel()).append(".replacePanel(panel);\n");
+        if(StringUtils.isNotBlank(getReplacePanel())){
+            sb.append(getReplacePanel()).append(".replacePanel(panel);\n");
+        }else if(StringUtils.isNotBlank(renderTo)){
+            sb.append("panel.render('").append(renderTo).append("');\n");
+        }
         return sb.toString();
 	}
 	
@@ -404,14 +434,15 @@ public abstract class PanelTag extends BaseBodyTag {
         try {
             if(this.bodyContent != null){
                 StringBuilder sb = new StringBuilder();
-                
-                if(StringUtils.isNotBlank(getReplacePanel())){
+
+                if(StringUtils.isNotBlank(replacePanel) || StringUtils.isNotBlank(renderTo)){
                     sb.append("<script type=\"text/javascript\">\n");
                     sb.append("Ext.onReady(function(){\n");
                     sb.append(prepareOnReadyFunction());
                     sb.append("});");
                     sb.append("</script>\n");
                 }
+
                 Tag panel = findParent(PanelTag.class);
                 if(panel != null){
                     ((PanelTag) panel).addItem(new Item(this.toJSON()));

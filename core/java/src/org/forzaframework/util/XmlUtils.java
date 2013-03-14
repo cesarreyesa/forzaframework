@@ -24,6 +24,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.forzaframework.core.persistance.BaseEntity;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -82,8 +83,31 @@ public class XmlUtils {
         return doc;
     }
 
+    public static Document buildDocument(List list, List<String> elements) throws Exception{
+        Document doc = DocumentHelper.createDocument();
+        buildDocument(doc, list, list.size(), elements.toArray(new String[elements.size()]));
+        return doc;
+    }
+
+    /**
+     * Arma un Xml con la informacion de la lista
+     *
+     * @param list          Lista de objetos
+     * @param elements    Map en donde Key = Nombre que tendra el elemento y Value = propiedad de la clase de donde se obtendra el valor para ese elemento
+     * @return              Document
+     * @throws Exception
+     */
+    public static Document buildDocument(List list, Map<String, String> elements) throws Exception{
+        Document doc = DocumentHelper.createDocument();
+        doc.setXMLEncoding("ISO-8859-1");
+        buildDocument(doc, list, list.size(), elements);
+
+        return doc;
+    }
+
     public static Document buildDocument(List list, Integer size, String[] elements) throws Exception{
         Document doc = DocumentHelper.createDocument();
+        doc.setXMLEncoding("ISO-8859-1");
         buildDocument(doc, list, size, elements);
         return doc;
     }
@@ -95,17 +119,51 @@ public class XmlUtils {
 
         for (Object bean : list) {
             Element item = root.addElement("item");
-            for (String element : elements) {
-                Object value = PropertyUtils.getProperty(bean, element);
-                if(value != null && value instanceof Date){
-                    item.addElement(element).addText(DateUtils.getString((Date) value));
-                }else{
-                    item.addElement(element).addText(value == null ? "" : value.toString());
-                }
-            }
+            buildElement(item, bean, elements);
         }
         root.addElement("totalCount").addText(String.valueOf(size));
+
         return doc;
+    }
+
+    public static Document buildDocument(Document doc, List list, Integer size, Map<String, String> elements) throws Exception {
+        Element root = doc.addElement("items");
+        root.addAttribute("success", "true");
+        doc.setRootElement(root);
+
+        for (Object bean : list) {
+            Element item = root.addElement("item");
+            buildElement(item, bean, elements);
+        }
+        root.addElement("totalCount").addText(String.valueOf(size));
+
+        return doc;
+    }
+
+    public static void buildElement(Element item, Object bean, String[] elements) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        for (String element : elements) {
+            buildNode(item, bean, element, element);
+        }
+    }
+
+    private static void buildNode(Element item, Object bean, String nodeName, String property) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        Object value;
+        try {
+            value = PropertyUtils.getProperty(bean, property);
+        } catch (org.apache.commons.beanutils.NestedNullException e) {
+            value = "";
+        }
+        if(value != null && value instanceof Date){
+            item.addElement(nodeName).addText(DateUtils.getString((Date) value));
+        }else{
+            item.addElement(nodeName).addText(value == null ? "" : value.toString());
+        }
+    }
+
+    public static void buildElement(Element item, Object bean, Map<String, String> elementMap) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        for (Map.Entry<String, String> e : elementMap.entrySet()) {
+            buildNode(item, bean, e.getKey(), e.getValue());
+        }
     }
 
 //    public static Document buildDocument(List<? extends BaseEntity> list, Integer totalCount) {

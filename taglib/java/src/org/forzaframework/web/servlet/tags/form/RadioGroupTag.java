@@ -87,12 +87,14 @@ public class RadioGroupTag extends FieldTag {
         }
 
         json.put("name", this.getField());
+        json.elementOpt("id", id);
         json.elementOpt("inputValue", this.getValue());
         json.elementOpt("disabled", this.getDisabled());
         json.elementOpt("width", getWidth());
         json.elementOpt("columns", columns);
         json.elementOpt("vertical", vertical);
         json.elementOpt("horizontal", horizontal);
+        json.elementOpt("allowBlank", allowBlank);
         json.put("xtype", getType());
 
         JSONArray radios = new JSONArray();

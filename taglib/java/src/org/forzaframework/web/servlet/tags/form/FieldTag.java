@@ -200,7 +200,12 @@ public abstract class FieldTag extends AbstractDataBoundFormElementTag implement
                         if(getType().equals("datefield") && (value instanceof Timestamp || value instanceof Date)){
                             Date time = (Date) value;
                             this.setValue(DateUtils.getString(time));
-                        }else{
+                        } else if (getType().equals("textfield") || getType().equals("numberfield")) {
+                            if (getActualValue() != null){
+                                value = getActualValue();
+                            }
+                            this.setValue(value.toString());
+                        } else {
                             this.setValue(value.toString());
                         }
                     }

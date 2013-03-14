@@ -61,6 +61,8 @@ public interface UserManager {
      */
     public void removeUser(String username);
 
+    public void removeUser(Long id);
+
     public List getRoles();
 
     public Role getRole(String rolename);
@@ -72,4 +74,6 @@ public interface UserManager {
     void newUser(User user, Map model);
 
     void addRoleToUser(User user, Role role);
+
+    public List<User> getUsersByRole(String roleName);
 }

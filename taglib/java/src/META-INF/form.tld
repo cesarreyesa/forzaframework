@@ -127,6 +127,9 @@
         <attribute>
             <name>collapsed</name>
         </attribute>
+        <attribute>
+            <name>hidden</name>
+        </attribute>
     </tag>
 
     <tag>
@@ -178,13 +181,11 @@
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>hidden</name>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>disabled</name>
         </attribute>
         <attribute>
             <name>anchor</name>
@@ -416,6 +417,112 @@
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>template</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>description</name>
+        	<rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>field</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>text</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>mapping</name>
+        </attribute>
+        <attribute>
+            <name>width</name>
+        </attribute>
+        <attribute>
+            <name>selectFirstRecord</name>
+        </attribute>
+        <attribute>
+            <name>hidden</name>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>url</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+        </attribute>
+        <attribute>
+            <name>displayField</name>
+        </attribute>
+        <attribute>
+            <name>valueField</name>
+        </attribute>
+        <attribute>
+            <name>handler</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>loadOnStart</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pageSize</name>
+        </attribute>
+        <attribute>
+            <name>items</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>store</name>
+        </attribute>
+        <attribute>
+            <name>emptyText</name>
+        </attribute>
+        <attribute>
+            <name>noSelection</name>
+        </attribute>
+        <attribute>
+            <name>reader</name>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>boxselect</name>
+        <tag-class>org.forzaframework.web.servlet.tags.form.BoxSelectTag</tag-class>
+
+        <attribute>
+            <name>id</name>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>titleKey</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>emptyText</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>bind</name>
         </attribute>
         <attribute>
             <name>template</name>
@@ -464,6 +571,9 @@
             <name>displayField</name>
         </attribute>
         <attribute>
+            <name>displayFieldTpl</name>
+        </attribute>
+        <attribute>
             <name>valueField</name>
         </attribute>
         <attribute>
@@ -485,6 +595,9 @@
         	<name>allowBlank</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+        	<name>reader</name>
+        </attribute>
     </tag>
 
     <tag>
@@ -493,6 +606,7 @@
 
         <attribute>
             <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>viewType</name>
@@ -588,6 +702,9 @@
             <name>items</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>store</name>
+        </attribute>
     </tag>
 
     <tag>
@@ -634,6 +751,9 @@
             <name>mapping</name>
         </attribute>
         <attribute>
+            <name>hideLabel</name>
+        </attribute>
+        <attribute>
             <name>width</name>
         </attribute>
         <attribute>
@@ -652,6 +772,10 @@
         	<name>disabled</name>
             <rtexprvalue>true</rtexprvalue>
        	</attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -808,18 +932,25 @@
         </attribute>
         <attribute>
             <name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>anchor</name>
         </attribute>
         <attribute>
             <name>onCheck</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>checked</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>hideLabel</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
@@ -828,6 +959,10 @@
         <name>radioGroup</name>
         <tag-class>org.forzaframework.web.servlet.tags.form.RadioGroupTag</tag-class>
 
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
         <attribute>
             <name>value</name>
         </attribute>
@@ -855,6 +990,7 @@
         </attribute>
         <attribute>
             <name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>anchor</name>
@@ -871,6 +1007,11 @@
             <name>columns</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
     </tag>
 
     <tag>
@@ -883,6 +1024,7 @@
         </attribute>
         <attribute>
             <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>title</name>
@@ -927,6 +1069,10 @@
         <tag-class>org.forzaframework.web.servlet.tags.form.DateTag</tag-class>
 
         <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>title</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -944,6 +1090,14 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>plugins</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>format</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>mapping</name>
         </attribute>
         <attribute>
@@ -954,9 +1108,11 @@
         </attribute>
         <attribute>
             <name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>anchor</name>
@@ -966,6 +1122,10 @@
         </attribute>
         <attribute>
             <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
@@ -1048,6 +1208,7 @@
         </attribute>
         <attribute>
             <name>columnWidth</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>style</name>
@@ -1072,6 +1233,7 @@
         </attribute>
         <attribute>
             <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>titleKey</name>
@@ -1108,6 +1270,111 @@
         </attribute>
         <attribute>
             <name>description</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>hidden</name>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>numberField</name>
+        <tag-class>org.forzaframework.web.servlet.tags.form.NumberFieldTag</tag-class>
+
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>titleKey</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+        	<name>description</name>
+        	<rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>field</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>allowBlank</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>mapping</name>
+        </attribute>
+        <attribute>
+            <name>width</name>
+        </attribute>
+        <attribute>
+            <name>bind</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>hidden</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+        </attribute>
+        <attribute>
+        	<name>hideLabel</name>
+       	</attribute>
+        <attribute>
+        	<name>labelSeparator</name>
+       	</attribute>
+        <attribute>
+        	<name>disabled</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>allowDecimals</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>allowNegative</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>baseChars</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>decimalPrecision</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>decimalSeparator</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>maxValue</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>minValue</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>maxLength</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+        	<name>minLength</name>
+            <rtexprvalue>true</rtexprvalue>
+       	</attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
