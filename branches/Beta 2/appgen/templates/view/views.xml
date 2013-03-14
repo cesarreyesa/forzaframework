@@ -1,0 +1,4 @@
+<!--${class.name}-BEAN-START-->
+    <bean id="${class.name.toPluralFirstToLower()}Xml" class="${class.parentPackageName}.webapp.action.export.${class.name.toPlural()}XmlView"/>
+<!--${class.name}-BEAN-END-->
+<!-- Add new Views here -->
