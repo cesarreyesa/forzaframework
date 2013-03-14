@@ -82,6 +82,46 @@
     <chapter>
         <title>Web</title>
 
+        <section>
+            <title>AnnotationMethodHandlerAdapter</title>
+            <para>Forza provee una implementacion alternativa a la default de spring, esta contiene funcionalidad para hacer un poco mas simples las cosas.</para>
+
+            <programlisting lang="xml"><![CDATA[<bean class="org.forzaframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <property name="cacheSeconds" value="0"/>
+    <property name="entityManager" ref="entityManager"/>
+    <property name="systemConfiguration" ref="systemConfiguration"/>
+    <!--<property name="dateFormat" value="dd/MM/yyyy"/>-->
+    <property name="validators">
+        <list>
+            <ref bean="beanValidator"/>
+        </list>
+    </property>
+    <property name="customModelAndViewResolver">
+        <bean class="org.forzaframework.web.servlet.mvc.annotation.MessageResponseResolver"/>
+    </property>
+    <property name="webBindingInitializer">
+        <bean class="org.forzaframework.web.BaseBindingInitializer" />
+    </property>
+</bean>]]>
+            </programlisting>
+
+            <section>
+                <title>MessageResponseResolver</title>
+                <para>
+                    En caso de que nuestro handler este anotado con @ResponseType si existe una exception esta se capturara y se mostrara en el formato definido.
+                    <interfacename>@ResponseType</interfacename> recibe como argumento opcional el tipo de response que se quiere, de inicio son dos JSON y XML.
+                </para>
+            </section>
+            <section>
+                <title>EntityManager</title>
+                <para>La interaccion que tiene <classname>AnnotationMethodHandlerAdapter</classname> con el EntityManager es para que cuando exista un parametro anotado con @ModelAtribute este lo cargue de la base de datos
+                via <classname>EntityManager</classname>. Esto nos va a permitir mayor comodidad al tratar con colecciones dentro de nuestro modelo.</para>
+            </section>
+            <section>
+                <title>Validators</title>
+                <para></para>
+            </section>
+        </section>
         <para>Web Binders, BaseControllers, Views (text, csv, xml, jasperreports), ResponseTypes</para>
         <para>Edicion de catalogos, persistencia automatica</para>
     </chapter>
@@ -114,7 +154,7 @@
                 <title><![CDATA[
                 <n:panel/> Panel Tag
                 ]]></title>
-
+                                                    
                 <para>El PanelTag emula la funcionalidad del Ext.Panel</para>
             </section>
 
