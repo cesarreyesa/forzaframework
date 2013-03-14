@@ -16,106 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Merge entre trunk y beta1">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/orm/hibernate3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm/hibernate3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/orm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/orm/hibernate3/support" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm/hibernate3/support" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/resources/javascript/widgets" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/AlphanumBeanComparator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/BoxSelectTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/EntityArgumentResolver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/GroupTabPanelTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/GroupTabTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/LabelTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/LdapToForzaUserDetailsMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/MessageResponseResolver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/NumberFieldTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm/hibernate3/support/OpenSessionInThreadTask.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/ServletAnnotationMappingUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/SqlUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core.web/resources/javascript/widgets/SuperBoxSelect.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/ToolbarInputTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/ToolbarNumberFieldTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/ToolbarSearchTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$" afterPath="$PROJECT_DIR$" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/AbstractDataBoundFormElementTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/AbstractDataBoundFormElementTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/AnnotationMethodHandlerAdapter.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/AnnotationMethodHandlerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseController.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/BaseImporter.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/BaseImporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/BeanComparator.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/BeanComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/ButtonTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/ButtonTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/CheckboxTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/CheckboxTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/CollectionUtils.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/CollectionUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/ColumnTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/ColumnTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/ComboboxTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/ComboboxTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/CsvView.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/CsvView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/beans/propertyeditors/CustomClassEditor.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/beans/propertyeditors/CustomClassEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/DateTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/DateTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/DateUtils.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/DateUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/EditableGridTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/EditableGridTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/EntityBindingHelper.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/EntityBindingHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/EntityListController.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/EntityListController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/core/persistance/EntityManager.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/core/persistance/EntityManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/Field.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FieldTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FieldTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FieldsetTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FieldsetTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/FileDefinition.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/FileDefinition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/FileDefinitionManager.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/FileDefinitionManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/impl/FileDefinitionManagerImpl.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/impl/FileDefinitionManagerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FormTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FormTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/GridTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/GridTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/validation/Information.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/validation/Information.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/InputTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/InputTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/ListXmlView.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/ListXmlView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/LocaleFilter.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/LocaleFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/LovFieldTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/LovFieldTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.hibernate/java/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/core.hibernate/java/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/core.web/java/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/core/java/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/security/java/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/MenuTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/MenuTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/NumberUtils.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/NumberUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/PanelTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/PanelTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/RadioGroupTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/RadioGroupTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/ReflectionMethodDefinitionSource.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/ReflectionMethodDefinitionSource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/ResponseType.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/ResponseType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/Role.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/Role.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/SecurityManager.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/SecurityManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/impl/SecurityManagerImpl.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/impl/SecurityManagerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/SmartGroupManager.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/SmartGroupManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/impl/SmartGroupManagerImpl.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/impl/SmartGroupManagerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/Store.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/Store.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/TabPanelTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/TabPanelTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/TabTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/TabTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/TextAreaTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/TextAreaTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/TextView.java" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/TextView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/User.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/UserManager.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/UserManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/impl/UserManagerImpl.java" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/impl/UserManagerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/WindowTag.java" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/WindowTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XmlUtils.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XmlUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.hibernate/core.hibernate.iml" afterPath="$PROJECT_DIR$/core.hibernate/core.hibernate.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/core.web.iml" afterPath="$PROJECT_DIR$/core.web/core.web.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appgen/templates/project/src/main/webapp/WEB-INF/classes/database.properties" afterPath="$PROJECT_DIR$/appgen/templates/project/src/main/webapp/WEB-INF/classes/database.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/META-INF/form.tld" afterPath="$PROJECT_DIR$/taglib/java/src/META-INF/form.tld" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forzaframework.ipr" afterPath="$PROJECT_DIR$/forzaframework.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forzaframework.iws" afterPath="$PROJECT_DIR$/forzaframework.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/java/src/META-INF/misc.tld" afterPath="$PROJECT_DIR$/taglib/java/src/META-INF/misc.tld" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/resources/javascript/next.js" afterPath="$PROJECT_DIR$/core.web/resources/javascript/next.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security/security.iml" afterPath="$PROJECT_DIR$/security/security.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taglib/taglib.iml" afterPath="$PROJECT_DIR$/taglib/taglib.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.web/resources/javascript/ux.js" afterPath="$PROJECT_DIR$/core.web/resources/javascript/ux.js" />
     </list>
     <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
     <ignored path="forzaframework.iws" />
@@ -591,7 +492,11 @@
       <created>1255830573297</created>
       <updated>1255830573297</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Merge entre trunk y beta1">
+      <created>1363287768116</created>
+      <updated>1363287768116</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
