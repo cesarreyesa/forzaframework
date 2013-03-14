@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Import-Bundle: org.forzaframework.core;version="[1.0.0,1.0.0]"
+Export-Package: org.forzaframework.security,org.forzaframework.securit
+ y.service,org.forzaframework.security.service.impl
+Bundle-Vendor: Nopalsoft
+Bundle-Version: 1.0.0
+Import-Library: org.springframework.spring;version="[2.5.5.A,2.5.5.A]"
+ ,org.hibernate.ejb;version="[3.3.2.GA, 3.3.2.GA]"
+Bundle-Name: Genesis Security
+Bundle-ManifestVersion: 2
+Created-By: 1.4.2_09 (Apple Computer, Inc.)
+Import-Package: org.springframework.security.userdetails,org.springfra
+ mework.security,org.forzaframework.core.persistance,org.springframewo
+ rk.orm,org.springframework.dao,org.springframework.mail,org.forzafram
+ ework.mail
+Bundle-SymbolicName: org.forzaframework.security
+Main-Class: 
+
