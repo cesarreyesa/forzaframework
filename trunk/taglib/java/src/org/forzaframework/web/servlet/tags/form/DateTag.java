@@ -17,6 +17,9 @@
 package org.forzaframework.web.servlet.tags.form;
 
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
+import org.forzaframework.web.servlet.tags.JSONFunction;
+import org.forzaframework.web.servlet.tags.Listener;
 import org.forzaframework.web.servlet.tags.form.FieldTag;
 
 /**
@@ -27,13 +30,42 @@ import org.forzaframework.web.servlet.tags.form.FieldTag;
  */
 public class DateTag extends FieldTag {
 
+    private String plugins;
+    private String format;
+    private Boolean enableKeyEvents;
+
+    public String getPlugins() {
+        return plugins;
+    }
+
+    public void setPlugins(String plugins) {
+        this.plugins = plugins;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public Boolean getEnableKeyEvents() {
+        return enableKeyEvents;
+    }
+
+    public void setEnableKeyEvents(Boolean enableKeyEvents) {
+        this.enableKeyEvents = enableKeyEvents;
+    }
+
     public String getType() {
         return "datefield";
     }
 
     public Object toJSON() {
         JSONObject json = new JSONObject();
-        
+
+        json.elementOpt("id", id);
         json.put("fieldLabel", title != null ? title : getText(titleKey));
         json.put("name", getField());
         json.elementOpt("description", getDescription());
@@ -42,11 +74,25 @@ public class DateTag extends FieldTag {
         json.put("validateOnBlur", false);
         json.elementOpt("allowBlank", allowBlank);
         json.elementOpt("disabled", disabled);
+        json.elementOpt("plugins", plugins);
+        json.elementOpt("renderHidden", hidden == null ? false : hidden);
         String s = getText("date.format.js");
-        if(!s.equals("??date.format.js??")){
+        if(StringUtils.isNotBlank(format)){
+            json.put("format", format);
+        }else if(!s.equals("??date.format.js??")){
             json.put("format", s);
         }
         json.put("xtype", getType());
+
+        json.put("enableKeyEvents", enableKeyEvents == null ? false : enableKeyEvents);
+
+        if(this.listeners.size() > 0){
+            JSONObject listeners = new JSONObject();
+            for (Listener listener : this.listeners) {
+                listeners.put(listener.getEventName(), new JSONFunction(listener.getHandler()));
+            }
+            json.put("listeners", listeners);
+        }
 
         return json;
     }

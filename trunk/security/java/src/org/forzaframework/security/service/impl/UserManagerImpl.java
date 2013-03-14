@@ -19,10 +19,10 @@ package org.forzaframework.security.service.impl;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.ModelMap;
-import org.springframework.security.userdetails.UserDetailsService;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.forzaframework.security.User;
 import org.forzaframework.security.Role;
@@ -61,7 +61,16 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
     }
 
     public User getUser(String username) {
-        return entityManager.get(User.class, new Criteria().add(Restrictions.eq("username", username)));
+        User user = entityManager.get(User.class, new Criteria().add(Restrictions.eq("username", username)));
+        // esto es para evitar lazyInitEx
+        for (Role role : user.getRoles()) {
+            role.toString();
+        }
+        return user;
+    }
+
+    public User getUser(Long id) {
+        return entityManager.get(User.class, id);
     }
 
     public List getUsers(User user) {
@@ -76,12 +85,6 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
             if(!originalUser.getPassword().equals(user.getPassword())){
                 user.setPassword(org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
             }
-//            user.getRoles().clear();
-//            for (Role role : originalUser.getRoles()) {
-//                Role role1 = new Role();
-//                role1.setId(role.getId());
-//                user.getRoles().add(role1);
-//            }
             entityManager.save(user);
         }
     }
@@ -114,6 +117,10 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         entityManager.delete(getUser(username));
     }
 
+    public void removeUser(Long id) {
+        entityManager.delete(getUser(id));
+    }
+
     public List getRoles() {
         return entityManager.getAll(Role.class);
     }
@@ -137,4 +144,11 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
             throw new UsernameNotFoundException("user '" + username + "' not found...");
         }
     }
+
+    public List<User> getUsersByRole(String roleName) {
+      String hql = "select user from User as user join user.roles as role where role.name = ?";
+
+      return entityManager.find(hql, roleName);
+    }
+
 }

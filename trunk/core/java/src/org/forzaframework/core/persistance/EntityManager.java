@@ -16,6 +16,7 @@
 
 package org.forzaframework.core.persistance;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.hibernate.Session;
 
@@ -29,6 +30,7 @@ import java.util.List;
 public interface EntityManager {
 
     public Session getHibernateSession();
+    public SessionFactory getSessionFactory();
 
     /**
      * Generic method used to get a all objects of a particular type.
@@ -81,6 +83,8 @@ public interface EntityManager {
 
     <T> T getByCode(Class clazz, String externalSystem, String code);
 
+    <T> T getByProperty(Class entityClass, String propertyName, Object propertyValue);
+
     /**
      * Generic method to save an object.
      * @param entity
@@ -114,4 +118,8 @@ public interface EntityManager {
     Integer executeInteger(String hql, Object[] values);
 
     Double executeDouble(String hql, Object[] values);
+
+    <T> List<T> find(String queryString, List values);
+
+    <T> T load(Class entityClass, Object primaryKey);
 }

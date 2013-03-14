@@ -31,12 +31,15 @@ public class Field{
     protected String title;
     protected String mapping;
     protected Boolean hidden;
+    protected Boolean alwaysHidden;
     protected Integer width;
     protected Object editorJson;
     protected String xtype;
     protected String displayField;
     protected String rendererFunction;
     protected Boolean locked;
+    protected Boolean sortable;
+    protected String align;
 
     public Field(){
     }
@@ -149,5 +152,29 @@ public class Field{
 
     public void setRendererFunction(String rendererFunction) {
         this.rendererFunction = rendererFunction;
+    }
+
+    public Boolean getSortable() {
+        return sortable;
+    }
+
+    public void setSortable(Boolean sortable) {
+        this.sortable = sortable;
+    }
+
+    public String getAlign() {
+        return align;
+    }
+
+    public void setAlign(String align) {
+        this.align = align;
+    }
+
+    public Boolean getAlwaysHidden() {
+        return alwaysHidden;
+    }
+
+    public void setAlwaysHidden(Boolean alwaysHidden) {
+        this.alwaysHidden = alwaysHidden;
     }
 }

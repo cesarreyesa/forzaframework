@@ -16,6 +16,7 @@
 
 package org.forzaframework.web.servlet.view;
 
+import org.forzaframework.util.AlphanumBeanComparator;
 import org.springframework.util.Assert;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -32,6 +33,7 @@ import org.forzaframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.Map;
 import java.util.List;
 
@@ -93,7 +95,10 @@ public class ListXmlView extends BaseView {
                 }
                 list = entityManager.find(entity.getType(), criteria);
             }
-            List<? extends BaseEntity> objects = CollectionUtils.paginate(list, request.getParameterMap());
+            if (StringUtils.isNotBlank(request.getParameter("sort"))){
+                Collections.sort(list, new AlphanumBeanComparator(request.getParameter("sort"), request.getParameter("dir")));
+            }
+            List<? extends BaseEntity> objects = CollectionUtils.paginate(list, request.getParameterMap(), false);
 
             XmlUtils.buildDocument(doc, objects, list.size());
         }

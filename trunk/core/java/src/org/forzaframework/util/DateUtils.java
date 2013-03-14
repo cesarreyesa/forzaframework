@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import java.util.*;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.DateFormatSymbols;
 
 /**
  * @author cesarreyes
@@ -229,6 +230,23 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return days;
     }
 
+    public static int getMinutesDifference(Date startDate, Date endDate) {
+        Calendar arrival = Calendar.getInstance();
+        Calendar departure = Calendar.getInstance();
+
+        arrival.setTime(startDate);
+        Long millisecondsArrivalDate = startDate.getTime() + arrival.get(Calendar.ZONE_OFFSET) + arrival.get(Calendar.DST_OFFSET);
+        int minutesArrival = (int) (millisecondsArrivalDate / 60000);
+
+        departure.setTime(endDate);
+        Long millisecondsDepartureDate = endDate.getTime() + departure.get(Calendar.ZONE_OFFSET) + departure.get(Calendar.DST_OFFSET);
+        int minutesDeparture = (int) (millisecondsDepartureDate / 60000);
+
+        int minutes = minutesDeparture - minutesArrival;
+
+        return minutes;
+    }
+
     public static Map<String, Integer> calculateDays(int days) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         int months = 0;
@@ -318,7 +336,9 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return isSame;
     }
 
+    @Deprecated
     public static Integer compareDate(Date dateOne, Date dateTwo) {
+        //TODO: Corregir los usos de este metodo
         Integer result;
         if (DateUtils.isSameDay(dateOne, dateTwo))
             result = 0;
@@ -358,39 +378,52 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     }
 
     public static String getMonth(Integer month){
-        String m = null;
+        Locale locale = LocaleContextHolder.getLocale();
 
-        switch (month){
-            case Calendar.JANUARY : m = "JANUARY"; break;
-            case Calendar.FEBRUARY : m = "FEBRUARY"; break;
-            case Calendar.MARCH : m = "MARCH"; break;
-            case Calendar.APRIL : m = "APRIL"; break;
-            case Calendar.MAY : m = "MAY"; break;
-            case Calendar.JUNE : m = "JUNE"; break;
-            case Calendar.JULY : m = "JULY"; break;
-            case Calendar.AUGUST : m = "AUGUST"; break;
-            case Calendar.SEPTEMBER : m = "SEPTEMBER"; break;
-            case Calendar.OCTOBER : m = "OCTOBER"; break;
-            case Calendar.NOVEMBER : m = "NOVEMBER"; break;
-            case Calendar.DECEMBER : m = "DECEMBER"; break;
-        }
-        return m;
+        return getMonth(month, locale);
+    }
+
+    public static String getMonth(Integer month, Locale locale){
+        DateFormatSymbols dfs = new DateFormatSymbols(locale);
+
+        return dfs.getMonths()[month];
+    }
+
+    public static Integer getMonth(Date date){
+        return createCalendar(date).get(Calendar.MONTH);
+    }
+
+    public static String getMonthName(Date date, Locale locale){
+        return getMonth(getMonth(date), locale);
+    }
+
+    public static Integer getYear(Date date){
+        return createCalendar(date).get(Calendar.YEAR);
     }
 
     /**
-     * Regresa verdadero si la primer fecha esta entre las otras 2, ignorando los anios, es decir, 25 de febrero, esta entre 1 enero y 29 de febrero
+     * Regresa verdadero si la primer fecha (con anio anterior al rango) esta entre las otras 2, ignorando los anios, es decir, 25 de febrero, esta entre 1 enero y 29 de febrero
      * @param dateToCompare
      * @param firstDate
      * @param lastDate
      * @return
      */
     public static Boolean isBetweenDatesIgnoreYear(Date dateToCompare, Date firstDate, Date lastDate){
-        Calendar date = DateUtils.createCalendar(dateToCompare);
-        if(date.get(Calendar.YEAR) < DateUtils.createCalendar(firstDate).get(Calendar.YEAR)){
-            Integer day = date.get(Calendar.DAY_OF_YEAR);
-            Integer firstDay = DateUtils.createCalendar(firstDate).get(Calendar.DAY_OF_YEAR);
-            Integer lastDay = DateUtils.createCalendar(lastDate).get(Calendar.DAY_OF_YEAR);
-            if(day >= firstDay && day <= lastDay){
+        Integer firstYear = createCalendar(firstDate).get(Calendar.YEAR);
+        if (getYear(dateToCompare) < firstYear) {
+            //Al validar que sea el anio menor que el de la fecha inicial, se toma el anio de la fecha inicial para crear la nueva fecha
+            Date dateToCompareNew = createCalendar(firstYear, getMonth(dateToCompare), getDayOfMonth(dateToCompare)).getTime();
+            //Se verifica que la nueva fecha se ecuentre entre el rango
+            return isBetweenDates(dateToCompareNew, firstDate, lastDate);
+        }
+        return false;
+    }
+
+    public static Boolean isBetweenDates(Date dateToCompare, Date firstDate, Date lastDate){
+        //Mayor Igual que la fecha inicial
+        if (dateToCompare.compareTo(firstDate) >= 0) {
+            //Menor Igual que la fecha final
+            if (dateToCompare.compareTo(lastDate) <= 0) {
                 return true;
             }
         }
@@ -433,23 +466,23 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         if (difference > 0) {
             double days = difference / 86400000; // numero de milisegundos en un dia = 86400000
             if (days > 365) {
-                return String.format("Hace %1$s años", Math.round(days / 365));
+                return String.format("hace %1$s aï¿½os", Math.round(days / 365));
             }
             if (days > 30) {
-                return String.format("Hace %1$s meses", Math.round(days / 30.42));
+                return String.format("hace %1$s meses", Math.round(days / 30.42));
             }
             if (days > 1) {
-                return String.format("Hace %1$s dias", Math.round(days));
+                return String.format("hace %1$s dias", Math.round(days));
             }
             double horas = Math.round(difference / 60/ 60 / 1000);
             if (horas > 1) {
-                return String.format("Hace %1$s horas", Math.round(horas));
+                return String.format("hace %1$s horas", Math.round(horas));
             }
             double minutes = Math.round(difference / 60 / 1000);
             if (minutes > 10) {
-                return String.format("Hace %1$s minutos", Math.round(minutes));
+                return String.format("hace %1$s minutos", Math.round(minutes));
             }
-            return String.format("Hace unos pocos minutos");
+            return String.format("hace unos pocos minutos");
         } else {
             // futuro
             return date.toString();
@@ -496,4 +529,14 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return elapsed;
     }
 
+    public static Date getLastTimeInDate(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        date.setTime(cal.getTime().getTime());
+        return date;
+    }
 }

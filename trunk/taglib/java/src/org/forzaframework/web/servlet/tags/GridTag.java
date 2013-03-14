@@ -66,6 +66,26 @@ public class GridTag extends PanelTag implements PanelItem {
     private Boolean singleSelect = true;
     private List<Field> fields = new ArrayList<Field>();
     private Boolean enableFilter = false;
+    private String groupField;
+    private String selectionModel = "row";
+    private String onLoad;
+    private Boolean remoteSort = true;
+
+    public String getOnLoad() {
+        return onLoad;
+    }
+
+    public void setOnLoad(String onLoad) {
+        this.onLoad = onLoad;
+    }
+
+    public String getSelectionModel() {
+        return selectionModel;
+    }
+
+    public void setSelectionModel(String selectionModel) {
+        this.selectionModel = selectionModel;
+    }
 
     public Boolean getDisplayPagingInfo() {
 		return displayPagingInfo;
@@ -294,8 +314,24 @@ public class GridTag extends PanelTag implements PanelItem {
 		this.enableColumnsLock = enableColumnsLock;
 	}
 
-	public void addField(Field field){
+    public String getGroupField() {
+        return groupField;
+    }
+
+    public void setGroupField(String groupField) {
+        this.groupField = groupField;
+    }
+
+    public void addField(Field field){
         fields.add(field);
+    }
+
+    public Boolean getRemoteSort() {
+        return remoteSort;
+    }
+
+    public void setRemoteSort(Boolean remoteSort) {
+        this.remoteSort = remoteSort;
     }
 
     public void doInitBody() throws JspException {
@@ -308,11 +344,17 @@ public class GridTag extends PanelTag implements PanelItem {
 		StringBuilder sb = new StringBuilder();
 		
         sb.append("var cm, sm;\n");
-        sb.append("sm = new Ext.grid.RowSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
-        
+        if(selectionModel.equals("row")){
+            sb.append("sm = new Ext.grid.RowSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
+        }else if(selectionModel.equals("checkbox")){
+            sb.append("sm = new Ext.grid.CheckboxSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
+        }
+
         Store store = new Store("ds", loadOnStart == null ? false : loadOnStart, fields);
         store.setItemTag(itemTag);
         store.setIdField(idProperty);
+        store.setGroupField(groupField);
+        store.setRemoteSort(remoteSort);
 
         if(StringUtils.isNotBlank(url))
             store.setUrl(url);
@@ -338,25 +380,34 @@ public class GridTag extends PanelTag implements PanelItem {
         }
 
         if(enableColumnsLock){
-            sb.append("cm = new Ext.grid.LockingColumnModel(");
+            sb.append("cm = new Ext.ux.grid.LockingColumnModel(");
         }else{
             sb.append("cm = new Ext.grid.ColumnModel(");
         }
 
         JSONArray columnsModel = new JSONArray();
+        if(selectionModel.equals("checkbox")){
+            columnsModel.add(new JSONFunction("sm"));
+        }
         for(Field field : fields){
-            JSONObject json = new JSONObject();
-            json.elementOpt("header", field.getTitle());
-            json.put("dataIndex", field.getField());
-            json.elementOpt("hidden", field.getHidden());
-            json.elementOpt("width", field.getWidth());
-            if(enableColumnsLock){
-                json.elementOpt("locked", field.getLocked());
+            if (field.getAlwaysHidden() == null || (field.getAlwaysHidden() != null && !field.getAlwaysHidden())) {
+                JSONObject json = new JSONObject();
+                json.elementOpt("header", field.getTitle());
+                json.put("dataIndex", field.getField());
+                json.elementOpt("hidden", field.getHidden());
+                json.elementOpt("width", field.getWidth());
+                json.elementOpt("sortable", field.getSortable() != null ? field.getSortable() : false);
+                if (field.getAlign() != null) {
+                    json.elementOpt("align", field.getAlign());
+                }
+                if(enableColumnsLock){
+                    json.elementOpt("locked", field.getLocked());
+                }
+                if(field.getRendererFunction() != null){
+                    json.put("renderer", new JSONFunction(field.getRendererFunction()));
+                }
+                columnsModel.add(json);
             }
-            if(field.getRendererFunction() != null){
-                json.put("renderer", new JSONFunction(field.getRendererFunction()));
-            }
-            columnsModel.add(json);
         }
         sb.append(columnsModel.toString());
         sb.append(");\n");
@@ -371,7 +422,7 @@ public class GridTag extends PanelTag implements PanelItem {
         }
 
         if(enableColumnsLock){
-            sb.append("var grid = new Ext.grid.LockingGridPanel(").append(getConfig().toString(2)).append(");");        	
+            sb.append("var grid = new Ext.ux.grid.LockingGridPanel(").append(getConfig().toString(2)).append(");");
         }else{
             sb.append("var grid = new Ext.grid.GridPanel(").append(getConfig().toString(2)).append(");");
         }
@@ -396,6 +447,10 @@ public class GridTag extends PanelTag implements PanelItem {
         	if(parent == null){
         		sb.append("grid.render('").append(id).append("-grid');");
         	}
+        }
+
+        if(StringUtils.isNotBlank(onLoad)){
+            sb.append("ds.on('load', ").append(onLoad).append(");");
         }
 
         if(loadOnStart){
@@ -457,30 +512,45 @@ public class GridTag extends PanelTag implements PanelItem {
         
         if(StringUtils.isNotBlank(bodyField)){
             viewConfig.put("enableRowBody", true);
-            viewConfig.put("getRowClass", new JSONFunction("function(record, rowIndex, p, store){ p.body = '<p>' + record.data." + bodyField + " + '</p>'; return 'x-grid3-row-expanded';}"));
+            viewConfig.put("getRowClass", new JSONFunction("function(record, rowIndex, p, store){ p.body = '<p style=\"color:#777777;\">' + record.data." + bodyField + " + '&nbsp</p>'; return 'x-grid3-row-expanded';}"));
         }
         addConfigElement("viewConfig", viewConfig);
+
+        if (StringUtils.isNotBlank(groupField)) {
+            addConfigElement("view", new JSONFunction("new Ext.grid.GroupingView({forceFit:" + (forceFit != null ? forceFit : "true") + ", groupTextTpl: '{text} ({[values.rs.length]})'})"));
+        }
 
         addConfigElementOpt("enableDragDrop", enableDragDrop);
         addConfigElementOpt("ddGroup", ddGroup);
 
-        if(enablePagination){
+        if(enablePagination || enableFilter){
+
             JSONObject toolbar = new JSONObject();
-            toolbar.put("store", new JSONFunction("ds"));
-            toolbar.put("pageSize", pageSize);
-            toolbar.put("displayInfo", displayPagingInfo);
+            if (enablePagination) {
+                toolbar.put("store", new JSONFunction("ds"));
+                toolbar.put("pageSize", pageSize);
+                toolbar.put("displayInfo", displayPagingInfo);
+            }
 
             if(enableFilter){
                 JSONArray toolbarItems = new JSONArray();
-                toolbarItems.add("-");
+                if (enablePagination) {
+                    toolbarItems.add("-");
+                }
                 toolbarItems.add("Search");
                 JSONObject filter = new JSONObject();
+                if (StringUtils.isNotBlank(id)){
+                    filter.put("id", id + "-search");
+                }
                 filter.put("store", new JSONFunction("ds"));
                 filter.put("width", 250);
+                if (enablePagination) {
+                    filter.put("pageSize", pageSize);
+                }
                 toolbarItems.add(new JSONFunction("new Ext.ux.SearchField(" + filter + ")"));
                 toolbar.put("items", toolbarItems);
             }
-            addConfigElement("bbar", new JSONFunction("new Ext.PagingToolbar(" + toolbar.toString() + ")"));
+            addConfigElement("bbar", new JSONFunction("new Ext." + (enablePagination ? "Paging" : "") + "Toolbar(" + toolbar.toString() + ")"));
         }
     }
 

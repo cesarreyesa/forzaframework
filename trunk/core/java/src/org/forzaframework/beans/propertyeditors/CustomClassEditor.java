@@ -16,23 +16,32 @@
 
 package org.forzaframework.beans.propertyeditors;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.forzaframework.core.persistance.BaseEntity;
 import org.forzaframework.core.persistance.EntityManager;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.forzaframework.core.persistance.Restrictions;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.beans.PropertyEditorSupport;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author cesarreyes
  *         Date: 14-ago-2008
  *         Time: 16:20:02
  */
-public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSupport {
+public class CustomClassEditor extends PropertyEditorSupport {
 
     private Class requiredType;
-    private Class pkType;
+    private Class pkType = Long.class;
     private EntityManager entityManager;
+    private String property = "id";
 
     /**
 	 * Create a default ClassEditor, using the thread context ClassLoader.
@@ -51,6 +60,13 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
         this.entityManager = entityManager;
     }
 
+    public CustomClassEditor(String property, Class pkType, Class requiredType, EntityManager entityManager) {
+        this.requiredType = requiredType;
+        this.pkType = pkType;
+        this.entityManager = entityManager;
+        this.property = property;
+    }
+
     public CustomClassEditor(Class requiredType, Class pkType, EntityManager entityManager) {
         this.requiredType = requiredType;
         this.pkType = pkType;
@@ -62,9 +78,9 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
     }
 
     public void setAsText(String text) throws IllegalArgumentException {
-        T command;
+        Object command;
         try {
-            command = (T) requiredType.newInstance();
+            command = requiredType.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
             return;
@@ -73,21 +89,24 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
             return ;
         }
 
-        if (StringUtils.hasText(text)) {
-            Serializable id;
+        if (StringUtils.isNotBlank(text)) {
+            Object propertyValue = null;
 
-            if(pkType == null || !pkType.equals(String.class)){
-                id = Long.valueOf(text);
-            }
-            else {
-                id = text;
+            if(pkType.equals(Long.class)) {
+                propertyValue = Long.valueOf(text);
+            } else {
+                propertyValue = text;
             }
 
             if(entityManager == null){
-                command.setKey(id);
+                try {
+                    PropertyUtils.setSimpleProperty(command, property, propertyValue);
+                } catch (Exception e) {
+
+                }
             }
-            else{
-                command = (T) entityManager.get(requiredType, id);
+            else {
+                command = entityManager.getByProperty(requiredType, property, propertyValue);
             }
 			setValue(command);
 		}
@@ -97,9 +116,9 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
 	}
 
 	public String getAsText() {
-        T command;
+        Object command;
         try {
-            command = (T) requiredType.newInstance();
+            command = requiredType.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
             return "";
@@ -109,11 +128,18 @@ public class CustomClassEditor<T extends BaseEntity> extends PropertyEditorSuppo
         }
 
         Object value = getValue();
-        command = (T) value;
-		if (command == null || command.getKey() == null) {
+        command = value;
+        Object key;
+        try {
+            key = PropertyUtils.getSimpleProperty(command, property);
+        } catch (Exception e) {
+            key = null;
+
+        }
+        if (command == null || key == null) {
 			return "";
 		}
-		return command.getKey().toString();
+		return key.toString();
 	}
 
 }

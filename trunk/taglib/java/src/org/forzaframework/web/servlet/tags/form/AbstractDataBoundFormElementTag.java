@@ -17,6 +17,7 @@
 package org.forzaframework.web.servlet.tags.form;
 
 import org.forzaframework.web.servlet.tags.BaseBodyTag;
+import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.core.Conventions;
 import org.springframework.web.servlet.support.BindStatus;
 import org.springframework.web.servlet.tags.EditorAwareTag;
@@ -111,8 +112,24 @@ public abstract class AbstractDataBoundFormElementTag extends BaseBodyTag implem
 	 * @see #getBindStatus()
 	 */
 	protected final Object getBoundValue() throws JspException {
-		return getBindStatus().getValue();
+        try{
+            return getBindStatus().getValue();
+        }catch(NotReadablePropertyException ignored){
+            return null;
+        }
 	}
+
+    /**
+     * Get the actual value.
+     * @see #getActualValue()
+     */
+    protected final Object getActualValue() throws JspException {
+        try {
+            return getBindStatus().getActualValue();
+        } catch (NotReadablePropertyException ignored) {
+            return null;
+        }
+    }
 
 	/**
 	 * Get the {@link PropertyEditor}, if any, in use for value bound to this tag.

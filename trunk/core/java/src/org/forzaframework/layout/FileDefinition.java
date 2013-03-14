@@ -43,9 +43,9 @@ public class FileDefinition extends BaseEntity {
     private String name;
     private String entity;
     private String externalSystem;
-    private Boolean updateExistingRecords;
-    private Boolean allowCreateNewRecords;
-    private Boolean ignoreNotExistingRecords;
+    private Boolean updateExistingRecords = false;
+    private Boolean allowCreateNewRecords = false;
+    private Boolean ignoreNotExistingRecords = false;
     private List<ColumnDefinition> columns = new ArrayList<ColumnDefinition>();
 //    private List<InnerDefinition> innerDefnitions = new ArrayList<InnerDefinition>();
     private String format;

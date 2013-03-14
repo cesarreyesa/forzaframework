@@ -1,34 +1,25 @@
 Manifest-Version: 1.0
-Bundle-Name: Genesis Core
-Created-By: 1.4.2_09 (Apple Computer, Inc.)
-Bundle-ManifestVersion: 2
+Import-Bundle: com.springsource.org.apache.commons.logging;version="[1
+ .1.1,1.1.1]",com.springsource.org.dom4j;version="[1.6.1,1.6.1]",com.s
+ pringsource.net.sf.cglib;version="[2.1.3,2.1.3]",com.springsource.org
+ .apache.velocity;version="[1.5.0,1.5.0]",com.springsource.javax.mail;
+ version="[1.4.1,1.4.1]"
+Export-Package: org.forzaframework.core,org.forzaframework.core.persis
+ tance,org.forzaframework.metadata,org.forzaframework.util,org.forzafr
+ amework.bind,org.forzaframework.query,org.forzaframework.mail,org.for
+ zaframework.bean.propertyeditors,org.forzaframework.validation
 Bundle-Vendor: Nopalsoft
-Bundle-SymbolicName: org.forzaframework.core
 Bundle-Version: 1.0.0
-Export-Package: org.forzaframework.core,
- org.forzaframework.core.persistance,
- org.forzaframework.metadata,
- org.forzaframework.util,
- org.forzaframework.bind,
- org.forzaframework.query,
- org.forzaframework.mail,
- org.forzaframework.bean.propertyeditors,
- org.forzaframework.validation
-Import-Package: org.springframework.context.support,
- org.apache.velocity.exception,
- org.springframework.core.io,
- org.springframework.mail,
- javax.mail,
- org.springframework.mail.javamail,
- org.apache.commons.logging,
- org.apache.commons.lang.builder,
- org.apache.velocity.app,
- org.dom4j,
- net.sf.cglib.proxy
-Import-Bundle: com.springsource.org.apache.commons.logging;version="[1.1.1,1.1.1]",
- com.springsource.org.dom4j;version="[1.6.1,1.6.1]",
- com.springsource.net.sf.cglib;version="[2.1.3,2.1.3]",
- com.springsource.org.apache.velocity;version="[1.5.0,1.5.0]",
- com.springsource.javax.mail;version="[1.4.1,1.4.1]"
 Import-Library: org.springframework.spring;version="[2.5.5.A,2.5.5.A]"
  org.hibernate.ejb;version="[3.3.2.GA, 3.3.2.GA]"
+Bundle-Name: Genesis Core
+Bundle-ManifestVersion: 2
+Created-By: 1.4.2_09 (Apple Computer, Inc.)
+Import-Package: org.springframework.context.support,org.apache.velocit
+ y.exception,org.springframework.core.io,org.springframework.mail,java
+ x.mail,org.springframework.mail.javamail,org.apache.commons.logging,o
+ rg.apache.commons.lang.builder,org.apache.velocity.app,org.dom4j,net.
+ sf.cglib.proxy
+Bundle-SymbolicName: org.forzaframework.core
+Main-Class: 
+

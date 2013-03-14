@@ -17,8 +17,9 @@
 package org.forzaframework.security;
 
 import org.forzaframework.core.persistance.BaseEntity;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.GrantedAuthority;
+import org.forzaframework.util.CollectionUtils;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.NotNull;
@@ -29,10 +30,7 @@ import org.dom4j.DocumentHelper;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * @author cesarreyes
@@ -57,7 +55,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     protected String email;                        // required; unique
     protected String website;
     protected String passwordHint;
-    protected Set<Role> roles = new HashSet<Role>();
+    protected List<Role> roles = new ArrayList<Role>();
     protected boolean enabled;
     protected boolean accountExpired;
     protected boolean accountLocked;
@@ -171,7 +169,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
@@ -180,8 +178,12 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     }
 
     @Transient
-    public GrantedAuthority[] getAuthorities() {
-        return roles.toArray(new GrantedAuthority[0]);
+    public Collection<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        for (Role role : roles) {
+            list.add(role);
+        }
+        return list;
     }
 
     @Column(name = "account_enabled")
@@ -194,9 +196,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         return accountExpired;
     }
 
-    /**
-     * @see org.springframework.security.userdetails.UserDetails#isAccountNonExpired()
-     */
     @Transient
     public boolean isAccountNonExpired() {
         return !isAccountExpired();
@@ -207,9 +206,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         return accountLocked;
     }
 
-    /**
-     * @see org.springframework.security.userdetails.UserDetails#isAccountNonLocked()
-     */
     @Transient
     public boolean isAccountNonLocked() {
         return !isAccountLocked();
@@ -220,9 +216,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         return credentialsExpired;
     }
 
-    /**
-     * @see org.springframework.security.userdetails.UserDetails#isCredentialsNonExpired()
-     */
     @Transient
     public boolean isCredentialsNonExpired() {
         return !credentialsExpired;
@@ -268,7 +261,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         this.preferredLocale = preferredLocale;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -297,18 +290,24 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         this.lastPasswordAssistanceToken = lastPasswordAssistanceToken;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        final User user = (User) o;
+        User user = (User) o;
 
-        return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
 
+        return true;
     }
 
+    @Override
     public int hashCode() {
-        return (username != null ? username.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        return result;
     }
 
     public String toString() {
@@ -320,19 +319,19 @@ public class User extends BaseEntity implements Serializable, UserDetails {
                 .append("credentialsExpired",this.credentialsExpired)
                 .append("accountLocked",this.accountLocked);
 
-        GrantedAuthority[] auths = this.getAuthorities();
-        if (auths != null) {
-            sb.append("Granted Authorities: ");
-
-            for (int i = 0; i < auths.length; i++) {
-                if (i > 0) {
-                    sb.append(", ");
-                }
-                sb.append(auths[i].toString());
-            }
-        } else {
-            sb.append("No Granted Authorities");
-        }
+//        Collection<GrantedAuthority> auths = this.getAuthorities();
+//        if (auths != null) {
+//            sb.append("Granted Authorities: ");
+//
+//            for (int i = 0; i < auths.size(); i++) {
+//                if (i > 0) {
+//                    sb.append(", ");
+//                }
+//                sb.append(auths.get(i).toString());
+//            }
+//        } else {
+//            sb.append("No Granted Authorities");
+//        }
         return sb.toString();
     }
 
