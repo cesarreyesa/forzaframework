@@ -577,6 +577,10 @@
         <attribute>
             <name>remoteSort</name>
         </attribute>
+        <attribute>
+            <name>connectionTimeOut</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>column</name>

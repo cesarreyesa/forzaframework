@@ -47,6 +47,7 @@ public class Store {
     private String groupField;
     private String noSelection;
     private Boolean remoteSort = true;
+    private Integer connectionTimeOut;
 
     public String getType() {
         return type;
@@ -161,6 +162,14 @@ public class Store {
         this.noSelection = noSelection;
     }
 
+    public Integer getConnectionTimeOut() {
+        return connectionTimeOut;
+    }
+
+    public void setConnectionTimeOut(Integer connectionTimeOut) {
+        this.connectionTimeOut = connectionTimeOut;
+    }
+
     public Store(String name, Boolean loadOnStart, List<Field> fields){
 		this.name = name;
 		this.loadOnStart = loadOnStart;
@@ -195,7 +204,7 @@ public class Store {
             }else{
                 sb.append("var ").append(name).append(" = new Ext.data.Store({");
             }
-            sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(StringUtils.isBlank(url) ? "" : url).append("\"})),");
+            sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(StringUtils.isBlank(url) ? "" : url).append("\"").append(connectionTimeOut != null ? ", timeout: " + connectionTimeOut : "").append("})),");
             sb.append("remoteSort: " + remoteSort + ",");
             
             if(reader == null || reader.equals("xml")){
