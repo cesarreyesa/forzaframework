@@ -404,6 +404,9 @@ public class GridTag extends PanelTag implements PanelItem {
             if (field.getAlwaysHidden() == null || (field.getAlwaysHidden() != null && !field.getAlwaysHidden())) {
                 JSONObject json = new JSONObject();
                 json.elementOpt("header", field.getTitle());
+                if (field.getId() != null) {
+                    json.put("id", field.getId());
+                }
                 json.put("dataIndex", field.getField());
                 json.elementOpt("hidden", field.getHidden());
                 json.elementOpt("width", field.getWidth());

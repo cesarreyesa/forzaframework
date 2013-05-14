@@ -585,7 +585,10 @@
     <tag>
         <name>column</name>
         <tag-class>org.forzaframework.web.servlet.tags.ColumnTag</tag-class>
-
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
         <attribute>
             <name>title</name>
             <rtexprvalue>true</rtexprvalue>
