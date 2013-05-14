@@ -31,6 +31,7 @@ import javax.servlet.jsp.tagext.Tag;
 public class ColumnTag extends BaseTag {
 
 //    protected String defaultValue;
+    protected String id;
     protected String title;
     protected String titleKey;
     protected String field;
@@ -43,6 +44,14 @@ public class ColumnTag extends BaseTag {
     protected Boolean sortable;
     protected String align;
     protected Boolean alwaysHidden;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -143,6 +152,7 @@ public class ColumnTag extends BaseTag {
     public int doEndTag() throws JspException {
 
     	Field field = new Field();
+        field.setId(this.id);
         field.setField(this.field);
         field.setTitle(title != null ? title : getText(titleKey));
         field.setMapping(mapping);
