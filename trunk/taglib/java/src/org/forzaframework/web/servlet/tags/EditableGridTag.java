@@ -58,6 +58,8 @@ public class EditableGridTag extends PanelTag implements PanelItem {
     private Boolean autoSizeColumns = false;
     private Boolean loadOnStart = true;
     private Boolean pruneModifiedRecords = false;
+    private Boolean singleSelect = true;
+    private String selectionModel = "row";
 
     public Boolean getLoadOnStart() {
         return loadOnStart;
@@ -194,6 +196,22 @@ public class EditableGridTag extends PanelTag implements PanelItem {
         storeDeclarations.add(map);
     }
 
+    public Boolean getSingleSelect() {
+        return singleSelect;
+    }
+
+    public void setSingleSelect(Boolean singleSelect) {
+        this.singleSelect = singleSelect;
+    }
+
+    public String getSelectionModel() {
+        return selectionModel;
+    }
+
+    public void setSelectionModel(String selectionModel) {
+        this.selectionModel = selectionModel;
+    }
+
     public void doInitBody() throws JspException {
         try{
             if(this.bodyContent != null){
@@ -236,9 +254,18 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                     }
                 }
 
-                sb.append("sm = new Ext.grid.RowSelectionModel();");
+                sb.append("var sm;\n");
+                if(selectionModel.equals("row")){
+                    sb.append("sm = new Ext.grid.RowSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
+                }else if(selectionModel.equals("checkbox")){
+                    sb.append("sm = new Ext.grid.CheckboxSelectionModel({singleSelect:").append(singleSelect ? "true" : "false").append("});\n");
+                }
+
                 sb.append("cm = new Ext.grid.ColumnModel(");
                 JSONArray columnsModel = new JSONArray();
+                if(selectionModel.equals("checkbox")){
+                    columnsModel.add(new JSONFunction("sm"));
+                }
                 for(Field field : fields){
                     JSONObject json = new JSONObject();
                     json.put("header", field.getTitle());
