@@ -686,6 +686,7 @@
         </attribute>
         <attribute>
             <name>valueField</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>handler</name>
