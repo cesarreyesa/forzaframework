@@ -1,6 +1,0 @@
-<!--${class.name}-URL-START-->
-                <prop key="/${class.module.webFolder}${class.name.toPluralFirstToLower()}.html">${class.name.toPluralFirstToLower()}Controller</prop>
-                <prop key="/${class.module.webFolder}${class.name.toPluralFirstToLower()}List.html">${class.name.toPluralFirstToLower()}ListController</prop>
-                <prop key="/${class.module.webFolder}${class.name.toLowerCase()}Form.html">${class.name.toLowerCase()}FormController</prop>
-<!--${class.name}-URL-END-->
-<!-- Add additional URL mappings here -->
