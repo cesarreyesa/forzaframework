@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright 2006-2009 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.forzaframework.test.core.persistance.model">
+
+	<class name="Course">
+		<id name="courseCode">
+			<generator class="assigned"/>
+		</id>
+		<property name="description"/>
+		<property name="startDate"/>
+		<property name="endDate"/>        
+	</class>
+
+	<class name="Student">
+		<id name="studentNumber">
+		    <column name="studentId"/>
+			<generator class="assigned"/>
+		</id>
+		<property name="name" not-null="true"/>
+		<property name="birthDate"/>
+		<set name="enrolments" inverse="true" cascade="delete">
+			<key column="studentId"/>
+			<one-to-many class="Enrolment"/>
+		</set>
+        <many-to-one name="preferredCourse" column="preferredCourseCode"/>
+	</class>
+
+	<class name="Enrolment">
+        <id name="id">
+            <column name="id"/>
+            <generator class="increment"/>
+        </id>
+		<many-to-one name="student">
+			<column name="studentId"/>
+		</many-to-one>
+		<many-to-one name="course">
+			<column name="courseCode"/>
+		</many-to-one>
+		<property name="semester" not-null="true"/>
+		<property name="year" not-null="true"/>
+	</class>
+
+</hibernate-mapping>
