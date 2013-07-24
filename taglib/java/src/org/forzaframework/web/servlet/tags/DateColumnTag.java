@@ -39,6 +39,7 @@ public class DateColumnTag extends ColumnTag{
         field.setHidden(hidden);
         field.setType("date");
         field.setXtype("date");
+        field.setSortable(sortable);
 
         if(tag != null){
             field.setEditorJson(this.toJSON());
