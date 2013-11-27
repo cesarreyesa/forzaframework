@@ -377,7 +377,7 @@ public class XlsUtils {
         cell.setCellValue(text);
     }
 
-    static public Integer addModelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Integer freezePane, Integer startInRow, Boolean printHeader, Boolean autoSizeColumns) {
+    static public Integer addModelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Integer freezePane, Integer startInRow, Boolean printHeader, Boolean autoSizeColumns, Boolean printFooter) {
         Integer totalRows = 0;
         List<Map<String, Object>> headers = getRowGroups(model, "header");
         List<Map<String, Object>> data = getRowGroups(model, "data");
@@ -390,8 +390,10 @@ public class XlsUtils {
             totalRows += data.size();
         }
 
-        if (footers != null){
+        if (printFooter != null && printFooter && footers != null){
             totalRows += footers.size();
+        } else {
+            footers = null;
         }
 
         modelToExcelSheet(wb, sheetName, headers, data, footers, freezePane, true, null,null, startInRow, printHeader, autoSizeColumns);
