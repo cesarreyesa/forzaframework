@@ -35,7 +35,7 @@ public class LdapToForzaUserDetailsMapper implements UserDetailsContextMapper {
     @Autowired
     UserManager userManager;
 
-    public UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<GrantedAuthority> authority) {
+    public UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> grantedAuthorities) {
         return userManager.getUser(username);
     }
 
