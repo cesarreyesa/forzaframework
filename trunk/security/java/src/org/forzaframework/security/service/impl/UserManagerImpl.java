@@ -17,12 +17,12 @@
 package org.forzaframework.security.service.impl;
 
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.ui.ModelMap;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.forzaframework.security.User;
 import org.forzaframework.security.Role;
@@ -31,11 +31,8 @@ import org.forzaframework.mail.MailEngine;
 import org.forzaframework.core.persistance.EntityManager;
 import org.forzaframework.core.persistance.Criteria;
 import org.forzaframework.core.persistance.Restrictions;
-import org.apache.commons.lang.StringUtils;
 
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * @author cesarreyes
@@ -149,6 +146,27 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
       String hql = "select user from User as user join user.roles as role where role.name = ?";
 
       return entityManager.find(hql, roleName);
+    }
+
+    public List<String> getRolesAsList(Set<Role> roles) {
+        List <String> rolesAsList = new ArrayList<String>();
+        for(Role role : roles){
+            rolesAsList.add(role.getName());
+        }
+        return rolesAsList;
+    }
+
+    public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for (String role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return authorities;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
+        List<GrantedAuthority> authList = getGrantedAuthorities(getRolesAsList(roles));
+        return authList;
     }
 
 }
