@@ -15,15 +15,14 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Actualización Spring Security a">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" />
+    <list default="true" readonly="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forzaframework.iws" afterPath="$PROJECT_DIR$/forzaframework.iws" />
     </list>
     <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
     <ignored path="forzaframework.iws" />
     <ignored path="out/" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="6c7ee8ca-e28f-4808-b242-42564bac6002" time="1385594472570" ignored="false" />
+    <file path="/Dummy.txt" changelist="6c7ee8ca-e28f-4808-b242-42564bac6002" time="1385594541638" ignored="false" />
     <file path="$PROJECT_DIR$/dist/org.forzaframework.taglib.jar!/META-INF/misc.tld" changelist="6c7ee8ca-e28f-4808-b242-42564bac6002" time="1367970255795" ignored="false" />
     <file path="/a.dummy" changelist="6c7ee8ca-e28f-4808-b242-42564bac6002" time="1382654276113" ignored="false" />
     <file path="/fragment.java" changelist="6c7ee8ca-e28f-4808-b242-42564bac6002" time="1385509356351" ignored="false" />
@@ -199,7 +198,7 @@
       <file leaf-file-name="LdapToForzaUserDetailsMapper.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/LdapToForzaUserDetailsMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="19" selection-start="1561" selection-end="1561" vertical-scroll-proportion="0.69982845">
+            <state line="42" column="70" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.6123499">
               <folding />
             </state>
           </provider>
@@ -769,7 +768,11 @@
       <created>1385594481107</created>
       <updated>1385594481107</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Se agregó un el parametro printFooter en XlsUtils">
+      <created>1385594547107</created>
+      <updated>1385594547107</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -794,9 +797,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32182628" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32182628" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297414" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -875,7 +878,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualización Spring Security 3.1.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agregó un el parametro printFooter en XlsUtils" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -901,6 +904,7 @@
     <MESSAGE value="Ahora el atributo valueField del tag Lov puede manejar jstl" />
     <MESSAGE value="Se agregó el atributo sorteable al tag DateColumn" />
     <MESSAGE value="Actualización Spring Security 3.1.4" />
+    <MESSAGE value="Se agregó un el parametro printFooter en XlsUtils" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1043,7 +1047,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/security/java/src/org/forzaframework/security/service/LdapToForzaUserDetailsMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="19" selection-start="1561" selection-end="1561" vertical-scroll-proportion="0.69982845">
+        <state line="42" column="70" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.6123499">
           <folding />
         </state>
       </provider>
