@@ -1122,6 +1122,14 @@
             <name>allowBlank</name>
         </attribute>
         <attribute>
+            <name>minValue</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>maxValue</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>value</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -20,7 +20,6 @@ import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.forzaframework.web.servlet.tags.JSONFunction;
 import org.forzaframework.web.servlet.tags.Listener;
-import org.forzaframework.web.servlet.tags.form.FieldTag;
 
 /**
  * User: Cesar Reyes
@@ -32,6 +31,8 @@ public class DateTag extends FieldTag {
 
     private String plugins;
     private String format;
+    private String minValue;
+    private String maxValue;
     private Boolean enableKeyEvents;
 
     public String getPlugins() {
@@ -48,6 +49,22 @@ public class DateTag extends FieldTag {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public String getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(String minValue) {
+        this.minValue = minValue;
+    }
+
+    public String getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(String maxValue) {
+        this.maxValue = maxValue;
     }
 
     public Boolean getEnableKeyEvents() {
@@ -76,6 +93,12 @@ public class DateTag extends FieldTag {
         json.elementOpt("disabled", disabled);
         json.elementOpt("plugins", plugins);
         json.elementOpt("renderHidden", hidden == null ? false : hidden);
+        if (maxValue != null) {
+            json.elementOpt("maxValue", maxValue);
+        }
+        if (minValue != null) {
+            json.elementOpt("minValue", minValue);
+        }
         String s = getText("date.format.js");
         if(StringUtils.isNotBlank(format)){
             json.put("format", format);
