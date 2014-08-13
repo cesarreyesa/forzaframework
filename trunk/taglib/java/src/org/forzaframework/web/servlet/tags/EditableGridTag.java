@@ -51,6 +51,8 @@ public class EditableGridTag extends PanelTag implements PanelItem {
     private String errorCode;
     private String onLoad;
     private String cellUpdated;
+    private String beforeEdit;
+    private String validateEdit;
     private Boolean insertRecordIfEmpty = false;
     private List<String> rows;
     private Boolean initialize = true;
@@ -139,6 +141,22 @@ public class EditableGridTag extends PanelTag implements PanelItem {
 
     public void setCellUpdated(String cellUpdated) {
         this.cellUpdated = cellUpdated;
+    }
+
+    public String getBeforeEdit() {
+        return beforeEdit;
+    }
+
+    public void setBeforeEdit(String beforeEdit) {
+        this.beforeEdit = beforeEdit;
+    }
+
+    public String getValidateEdit() {
+        return validateEdit;
+    }
+
+    public void setValidateEdit(String validateEdit) {
+        this.validateEdit = validateEdit;
     }
 
     public Boolean getInsertRecordIfEmpty() {
@@ -405,6 +423,14 @@ public class EditableGridTag extends PanelTag implements PanelItem {
 
                 if(StringUtils.isNotBlank(cellUpdated)){
                     sb.append("grid.on('afteredit', ").append(cellUpdated).append(");");
+                }
+
+                if(StringUtils.isNotBlank(beforeEdit)){
+                    sb.append("grid.on('beforeedit', ").append(beforeEdit).append(");");
+                }
+
+                if(StringUtils.isNotBlank(validateEdit)){
+                    sb.append("grid.on('validateedit', ").append(validateEdit).append(");");
                 }
 
                 if(StringUtils.isNotBlank(getReplacePanel())){
