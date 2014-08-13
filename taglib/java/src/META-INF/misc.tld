@@ -686,6 +686,14 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>beforeEdit</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>validateEdit</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>height</name>
         </attribute>
         <attribute>
