@@ -174,7 +174,6 @@ public class LovFieldTag extends ComboboxTag {
         } else {
             json.put("displayField", "text");
             json.put("valueField", "value");
-
             json.put("mode", "local");
         }
 
