@@ -349,7 +349,10 @@ public class XlsUtils {
             cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
             cell.setCellValue(((BigDecimal)object).doubleValue());
         } else if(object instanceof String) {
-            cell.setCellValue((String) object);
+            String cellValue = (String) object;
+            if (!"".equals(cellValue)) {
+                cell.setCellValue(cellValue);
+            }
         } else if(object instanceof Date) {
             cell.setCellValue(DateUtils.getString ((Date)object));
         } else if(object instanceof Boolean) {
@@ -402,6 +405,10 @@ public class XlsUtils {
     }
 
     static public void jsonToExcelSheet(HSSFWorkbook wb, List<JSONObject> jsonRecordList, String sheetName, Integer freezePane) {
+        jsonToExcelSheet(wb, null, jsonRecordList, sheetName, freezePane);
+    }
+
+    static public void jsonToExcelSheet(HSSFWorkbook wb, List<JSONObject> jsonHeaderList, List<JSONObject> jsonRecordList, String sheetName, Integer freezePane) {
         HSSFSheet sheet = getSheet(wb, sheetName, true, 0);
         HSSFCellStyle headerCellStyle = getDefaultHeaderCellStyle(wb, true);
 
@@ -409,8 +416,32 @@ public class XlsUtils {
         Integer row = 0;
         Map<Integer, Integer > columnWidthMap = new HashMap<Integer, Integer>();
 
-        JSONObject header = jsonRecordList.get(0);
-        Collection headerValues = header.values();
+        JSONObject principalHeader = null;
+        if (jsonHeaderList != null && !jsonHeaderList.isEmpty()) {
+            LinkedList<JSONObject> headerList = new LinkedList<JSONObject>(jsonHeaderList);
+            principalHeader = headerList.getLast();
+            headerList.removeLast();
+            for (JSONObject header : headerList) {
+                Collection headerValues = header.values();
+                for (Object o : headerValues) {
+                    HSSFCell cell = getCell( sheet, row, col);
+                    setValue(cell, o);
+                    col++;
+                }
+                col = 0;
+                row++;
+            }
+
+        }
+
+        List<JSONObject> datas;
+        if (principalHeader == null) {
+            principalHeader = jsonRecordList.get(0);
+            datas = jsonRecordList.subList(1, jsonRecordList.size());
+        } else {
+            datas = jsonRecordList;
+        }
+        Collection headerValues = principalHeader.values();
         for (Object o : headerValues) {
             HSSFCell cell = getCell( sheet, row, col);
             cell.setCellStyle(headerCellStyle);
@@ -420,10 +451,10 @@ public class XlsUtils {
         }
         col = 0;
         row++;
+
         setRowHeight(sheet, row-1, (short)420);
 
         HSSFCellStyle detailCellStyle = getDefaultDetailCellStyle(wb, true);
-        List<JSONObject> datas = jsonRecordList.subList(1, jsonRecordList.size());
         for (JSONObject jsonObject : datas) {
             for (Object value : jsonObject.values()) {
                 buildCellAndCalculateColumnWidth(sheet, value, col, row, detailCellStyle, columnWidthMap, true);
@@ -436,7 +467,11 @@ public class XlsUtils {
         setColumnsWidth(sheet, columnWidthMap, headerValues.size());
         if (freezePane != null && freezePane > 0) {
             //Colocamos la columna estatica y las filas del encabezado estaticas
-            sheet.createFreezePane(freezePane, 1);
+            if (jsonHeaderList != null) {
+                sheet.createFreezePane(freezePane, jsonHeaderList.size());
+            } else {
+                sheet.createFreezePane(freezePane, 1);
+            }
         }
     }
 }

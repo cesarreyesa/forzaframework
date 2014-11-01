@@ -17,6 +17,7 @@
 package org.forzaframework.web.servlet.view;
 
 import org.forzaframework.util.AlphanumBeanComparator;
+import org.hibernate.criterion.Order;
 import org.springframework.util.Assert;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -26,8 +27,6 @@ import org.forzaframework.metadata.SystemEntity;
 import org.forzaframework.metadata.SystemConfiguration;
 import org.forzaframework.core.persistance.BaseEntity;
 import org.forzaframework.core.persistance.EntityManager;
-import org.forzaframework.core.persistance.Criteria;
-import org.forzaframework.core.persistance.Restrictions;
 import org.forzaframework.util.XmlUtils;
 import org.forzaframework.util.CollectionUtils;
 
@@ -89,11 +88,14 @@ public class ListXmlView extends BaseView {
                 }
             }else{
                 SystemEntity entity = getSystemEntity(request, model);
-                Criteria criteria = new Criteria();
+                org.hibernate.Criteria crit = entityManager.getHibernateSession().createCriteria(entity.getType());
                 if(entity.findAttribute("name") != null && query != null){
-                    criteria.add(Restrictions.like("name", "%" + query + "%").ignoreCase());
+                    crit.add(org.hibernate.criterion.Restrictions.like("name", "%" + query + "%").ignoreCase());
                 }
-                list = entityManager.find(entity.getType(), criteria);
+                if (StringUtils.isNotBlank(request.getParameter("orderBy"))) {
+                    crit.addOrder(Order.asc(request.getParameter("orderBy")));
+                }
+                list = crit.list();
             }
             if (StringUtils.isNotBlank(request.getParameter("sort"))){
                 Collections.sort(list, new AlphanumBeanComparator(request.getParameter("sort"), request.getParameter("dir")));
