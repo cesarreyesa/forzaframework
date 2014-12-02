@@ -349,10 +349,7 @@ public class XlsUtils {
             cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
             cell.setCellValue(((BigDecimal)object).doubleValue());
         } else if(object instanceof String) {
-            String cellValue = (String) object;
-            if (!"".equals(cellValue)) {
-                cell.setCellValue(cellValue);
-            }
+            cell.setCellValue((String) object);
         } else if(object instanceof Date) {
             cell.setCellValue(DateUtils.getString ((Date)object));
         } else if(object instanceof Boolean) {
