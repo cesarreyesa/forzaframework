@@ -270,24 +270,25 @@ public class ComboboxTag extends FieldTag {
             json.put("tpl", new JSONFunction(template));
         }
 
-        if(options.size() == 0 && StringUtils.isNotBlank(url)){
+        if(options.size() == 0 && StringUtils.isNotBlank(url)) {
             json.put("displayField", displayField);
             json.put("valueField", valueField);
-        }else{
+        } else {
             json.put("displayField", displayField == null ? "text" : displayField);
             json.put("valueField", valueField == null ? "value" : valueField);
-
-            json.put("mode", "local");
         }
 
         json.put("store", store == null ? new JSONFunction(getVarName()) : new JSONFunction(store));
 
         json.put("hiddenName", field);
-        json.put("typeAhead", true);
+        json.put("typeAhead", false);
         json.put("triggerAction", "all");
         json.put("emptyText", emptyText);
         json.put("selectOnFocus", true);
         json.put("lazyInit", false);
+        json.put("minChars", 1);
+        json.put("queryParam", "disableQuery");
+        json.put("allQuery", "");
         json.elementOpt("pageSize", pageSize);
         json.elementOpt("hideLabel", getHideLabel());
 //        json.put("lazyInit", loadOnStart == null ? false : loadOnStart);
@@ -298,6 +299,15 @@ public class ComboboxTag extends FieldTag {
         json.elementOpt("renderHidden", hidden == null ? false : hidden);
         json.elementOpt("allowBlank", allowBlank);
 
+        JSONObject listeners = new JSONObject();
+        if ((loadOnStart == null && StringUtils.isNotBlank(url)) || (loadOnStart != null && !loadOnStart)) {
+            json.put("mode", "remote");
+            String expand = "function(combo){Ext.apply(combo, {mode: 'local'}, {});}";
+            listeners.put("expand", new JSONFunction(expand));
+        } else {
+            json.put("mode", "local");
+        }
+
         if(updateFields.size() > 0){
             String formId = ((FormTag) findParent(FormTag.class)).getId();
             StringBuilder onSelectFunction = new StringBuilder();
@@ -307,17 +317,16 @@ public class ComboboxTag extends FieldTag {
             }
             onSelectFunction.append("}");
 
-            JSONObject listeners = new JSONObject();
             listeners.put("select", new JSONFunction(onSelectFunction.toString()));
-            json.put("listeners", listeners);
         }else{
             if(StringUtils.isNotBlank(handler)){
-                JSONObject listeners = new JSONObject();
                 listeners.put("select", new JSONFunction(handler));
-                json.put("listeners", listeners);
             }
         }
 
+        if (!listeners.isEmpty()) {
+            json.put("listeners", listeners);
+        }
 
         return json;
     }
@@ -347,13 +356,14 @@ public class ComboboxTag extends FieldTag {
         fields.add(new Field(displayField, displayField, null));
 
         if (store == null) {
-            Store store = new Store(getVarName(), loadOnStart == null ? false : loadOnStart, valueField, displayField, fields);
+            Store store = new Store(getVarName(), loadOnStart != null && loadOnStart, valueField, displayField, fields);
             store.setUrl(url);
             store.setItems((items instanceof String ? evaluate("items", items) : items));
             store.setOptions(options);
             store.setType(dataSourceType);
             store.setNoSelection(noSelection);
             store.setReader(reader);
+            store.setRemoteSort(false);
             if ("json".equals(reader)) {
                 store.setItemTag("items");
             }
