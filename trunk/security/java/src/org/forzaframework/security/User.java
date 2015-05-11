@@ -63,6 +63,8 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     protected boolean isNew;
     protected String lastPasswordAssistanceToken;
     protected String preferredLocale;
+    protected Date passwordChangeDate;
+    protected Boolean enableExpiredPasswordProcess;
 
     public User() {
     }
@@ -290,6 +292,25 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         this.lastPasswordAssistanceToken = lastPasswordAssistanceToken;
     }
 
+    @Column(name = "password_change_date")
+    public Date getPasswordChangeDate() {
+        return passwordChangeDate;
+    }
+
+    public void setPasswordChangeDate(Date passwordChangeDate) {
+        this.passwordChangeDate = passwordChangeDate;
+    }
+
+
+    @Column(name = "enable_expired_password_process")
+    public Boolean getEnableExpiredPasswordProcess() {
+        return enableExpiredPasswordProcess == null ? false : enableExpiredPasswordProcess;
+    }
+
+    public void setEnableExpiredPasswordProcess(Boolean enableExpiredPasswordProcess) {
+        this.enableExpiredPasswordProcess = enableExpiredPasswordProcess;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -353,6 +374,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         el.addElement("accountExpired").addText(String.valueOf(this.isAccountExpired()));
         el.addElement("accountLocked").addText(String.valueOf(this.isAccountLocked()));
         el.addElement("credentialsExpired").addText(String.valueOf(this.isCredentialsExpired()));
+        el.addElement("enableExpiredPasswordProcess").addText(String.valueOf(this.getEnableExpiredPasswordProcess()));
         if(this.getRoles().size() > 0){
             Element roles = el.addElement("roles");
             for(Role role : this.getRoles()){
