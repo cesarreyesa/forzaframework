@@ -38,7 +38,8 @@ public class ToolbarComboboxTag extends BaseTag {
     private String valueField = "id";
     private String displayField = "name";
     private String handler;
-    private Integer width;
+    private String width;
+    private String listWidth;
 
     public String getValue() {
         return value;
@@ -64,11 +65,11 @@ public class ToolbarComboboxTag extends BaseTag {
         this.emptyText = emptyText;
     }
 
-    public Integer getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
@@ -104,6 +105,14 @@ public class ToolbarComboboxTag extends BaseTag {
         this.handler = handler;
     }
 
+    public String getListWidth() {
+        return listWidth;
+    }
+
+    public void setListWidth(String listWidth) {
+        this.listWidth = listWidth;
+    }
+
     public int doEndTag() throws JspException {
         ToolbarTag parent = (ToolbarTag) findParent(ToolbarTag.class);
         parent.addItem(new Item(this.toJSON()));
@@ -135,7 +144,8 @@ public class ToolbarComboboxTag extends BaseTag {
         json.put("triggerAction", "all");
         json.put("emptyText", emptyText);
         json.put("selectOnFocus", true);
-        json.put("width", 200);
+        json.put("width", getWidth() != null ? Integer.valueOf(getWidth()) : Integer.valueOf(200));
+        json.put("listWidth", getListWidth() != null ? Integer.valueOf(getListWidth()) : getWidth() != null ? Integer.valueOf(getWidth()) : Integer.valueOf(200));
 
         if(StringUtils.isNotBlank(handler)){
             JSONObject listeners = new JSONObject();

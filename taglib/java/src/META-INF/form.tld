@@ -447,6 +447,10 @@
             <name>width</name>
         </attribute>
         <attribute>
+            <name>listWidth</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>selectFirstRecord</name>
         </attribute>
         <attribute>

@@ -49,6 +49,7 @@ public class ComboboxTag extends FieldTag {
     private String store;
     private String noSelection;
     private String reader;
+    private String listWidth;
     private List<Field> fields = new ArrayList<Field>();
     private List<UpdateField> updateFields = new ArrayList<UpdateField>();
     private List<Option> options = new ArrayList<Option>();
@@ -191,6 +192,14 @@ public class ComboboxTag extends FieldTag {
         this.reader = reader;
     }
 
+    public String getListWidth() {
+        return listWidth;
+    }
+
+    public void setListWidth(String listWidth) {
+        this.listWidth = listWidth;
+    }
+
     public String getDataSourceType() {
         return dataSourceType;
     }
@@ -293,6 +302,7 @@ public class ComboboxTag extends FieldTag {
         json.elementOpt("hideLabel", getHideLabel());
 //        json.put("lazyInit", loadOnStart == null ? false : loadOnStart);
         if(StringUtils.isNotBlank(width)) json.elementOpt("width", Integer.valueOf(width));
+        if(StringUtils.isNotBlank(listWidth)) json.elementOpt("listWidth", Integer.valueOf(listWidth));
         // TODO: averiguar para que sirve esto, si se pone entonces no funciona correctamente el trigger
 //        json.put("lastQuery", "");
 //        json.put("valueNotFoundText", "Not found");
