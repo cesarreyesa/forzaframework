@@ -82,7 +82,13 @@ public class GroupTabTag extends PanelTag implements PanelItem {
     public void doInitBody() throws JspException {
         try{
             if(this.bodyContent != null){
-                GroupTabPanelTag parent = ((GroupTabPanelTag) this.parent);
+                GroupTabPanelTag parent;
+                if (this.parent instanceof org.apache.taglibs.standard.tag.rt.core.IfTag) {
+                    parent = ((GroupTabPanelTag) this.parent.getParent());
+                } else {
+                    parent = ((GroupTabPanelTag) this.parent);
+                }
+
                 items = new ArrayList<Item>();
                 topToolbar = null;
 
@@ -100,8 +106,8 @@ public class GroupTabTag extends PanelTag implements PanelItem {
     public int doEndTag() throws JspException {
         try {
             if(this.bodyContent != null){
-                if (!(parent instanceof GroupTabPanelTag)){
-                    throw new JspTagException("GroupTabTag must be inside a GroupTabPanelTag");
+                if (!(parent instanceof GroupTabPanelTag) && !(parent instanceof org.apache.taglibs.standard.tag.rt.core.IfTag)){
+                    throw new JspTagException("GroupTabTag must be inside a GroupTabPanelTag or IfTag");
                 }
 
                 JspWriter writer = bodyContent.getEnclosingWriter();
@@ -109,7 +115,12 @@ public class GroupTabTag extends PanelTag implements PanelItem {
 
                 pageContext.getOut().write("</div>");
 
-                GroupTabPanelTag parent = ((GroupTabPanelTag) this.parent);
+                GroupTabPanelTag parent;
+                if (this.parent instanceof org.apache.taglibs.standard.tag.rt.core.IfTag) {
+                    parent = ((GroupTabPanelTag) this.parent.getParent());
+                } else {
+                    parent = ((GroupTabPanelTag) this.parent);
+                }
 
                 parent.addItem(new Item(this.toJSON()));
 
