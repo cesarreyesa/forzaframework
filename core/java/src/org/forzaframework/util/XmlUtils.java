@@ -100,7 +100,7 @@ public class XmlUtils {
     public static Document buildDocument(List list, Map<String, String> elements) throws Exception{
         Document doc = DocumentHelper.createDocument();
         doc.setXMLEncoding("ISO-8859-1");
-        buildDocument(doc, list, list.size(), elements);
+        buildDocument(doc, list, list.size(), elements, null);
 
         return doc;
     }
@@ -126,10 +126,17 @@ public class XmlUtils {
         return doc;
     }
 
-    public static Document buildDocument(Document doc, List list, Integer size, Map<String, String> elements) throws Exception {
+    public static Document buildDocument(Document doc, List list, Integer size, Map<String, String> elements, Map<String, String> emptyElement) throws Exception {
         Element root = doc.addElement("items");
         root.addAttribute("success", "true");
         doc.setRootElement(root);
+
+        if (emptyElement != null) {
+            Element item = root.addElement("item");
+            for (Map.Entry<String, String> e : emptyElement.entrySet()) {
+                item.addElement(e.getKey()).addText(e.getValue());
+            }
+        }
 
         for (Object bean : list) {
             Element item = root.addElement("item");
