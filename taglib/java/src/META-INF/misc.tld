@@ -264,7 +264,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>text</name>
+            <name>text</name>*
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
@@ -278,6 +278,9 @@
         <attribute>
             <name>listWidth</name>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>reader</name>
         </attribute>
     </tag>
     <tag>
@@ -754,6 +757,9 @@
         <attribute>
             <name>singleSelect</name>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>reader</name>
         </attribute>
     </tag>
     <tag>

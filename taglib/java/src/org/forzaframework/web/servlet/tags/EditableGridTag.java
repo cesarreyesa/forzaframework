@@ -62,6 +62,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
     private Boolean pruneModifiedRecords = false;
     private Boolean singleSelect = true;
     private String selectionModel = "row";
+    private String reader;
 
     public Boolean getLoadOnStart() {
         return loadOnStart;
@@ -230,6 +231,14 @@ public class EditableGridTag extends PanelTag implements PanelItem {
         this.selectionModel = selectionModel;
     }
 
+    public String getReader() {
+        return reader;
+    }
+
+    public void setReader(String reader) {
+        this.reader = reader;
+    }
+
     public void doInitBody() throws JspException {
         try{
             if(this.bodyContent != null){
@@ -291,6 +300,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                     json.put("dataIndex", field.getField());
                     json.put("editor", field.getEditorJson());
                     json.elementOpt("hidden", field.getHidden());
+                    json.elementOpt("sortable", field.getSortable() != null ? field.getSortable() : false);
                     if(field.getXtype() != null && field.getXtype().equals("combo")){
                         String id = field.getId();
                         if(StringUtils.isBlank(field.getId())){
@@ -361,9 +371,13 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                 if(StringUtils.isEmpty(url)){
                     sb.append("proxy: new Ext.data.MemoryProxy(data),");
                     sb.append("reader: new Ext.data.ArrayReader({ id: ").append(this.fields.size()).append("}, RecordType),");
-                }else{
-                    sb.append("proxy: new Ext.data.HttpProxy({ url: '").append(url).append("'}),");
-                    sb.append("reader: new Ext.data.XmlReader({ record:'").append(itemTag).append("',totalRecords:'totalCount',id:'id'}, RecordType),");
+                }else {
+                    sb.append("proxy: new Ext.data.HttpProxy({ url: '").append(url).append("'}), remoteSort: false, ");
+                    if(reader == null || reader.equals("xml")){
+                        sb.append("reader: new Ext.data.XmlReader({ record:'").append(itemTag).append("',totalRecords:'totalCount',id:'id'}, RecordType),");
+                    }else if(reader.equals("json")){
+                        sb.append("reader: new Ext.data.JsonReader({root: '").append(itemTag).append("', totalProperty: 'totalCount', id: 'id'}, RecordType),");
+                    }
                 }
                 sb.append("pruneModifiedRecords:").append(pruneModifiedRecords.toString()).append("});");
 
