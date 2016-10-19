@@ -40,6 +40,7 @@ public class ToolbarComboboxTag extends BaseTag {
     private String handler;
     private String width;
     private String listWidth;
+    private String reader;
 
     public String getValue() {
         return value;
@@ -113,6 +114,14 @@ public class ToolbarComboboxTag extends BaseTag {
         this.listWidth = listWidth;
     }
 
+    public String getReader() {
+        return reader;
+    }
+
+    public void setReader(String reader) {
+        this.reader = reader;
+    }
+
     public int doEndTag() throws JspException {
         ToolbarTag parent = (ToolbarTag) findParent(ToolbarTag.class);
         parent.addItem(new Item(this.toJSON()));
@@ -131,10 +140,23 @@ public class ToolbarComboboxTag extends BaseTag {
 
         sb.append("new Ext.data.Store({");
         sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(url).append("\"})),");
-        sb.append("reader: new Ext.data.XmlReader({");
-        sb.append("record: \"item\", totalRecords: \"totalCount\", id: \"" + valueField + "\"},");
-        sb.append("[{name: \"").append(displayField).append("\"}, {name: \"" + valueField + "\"}] )");
-        sb.append("})");
+//        sb.append("reader: new Ext.data.XmlReader({");
+//        sb.append("record: \"item\", totalRecords: \"totalCount\", id: \"" + valueField + "\"},");
+//        sb.append("[{name: \"").append(displayField).append("\"}, {name: \"" + valueField + "\"}] )");
+//        sb.append("})");
+
+        if(reader == null || reader.equals("xml")) {
+            sb.append("reader: new Ext.data.XmlReader({");
+            sb.append("record: \"item\", totalRecords: \"totalCount\", id: \"" + valueField + "\"},");
+            sb.append("[{name: \"").append(displayField).append("\"}, {name: \"" + valueField + "\"}] )");
+            sb.append("})");
+        }else if(reader.equals("json")){
+            sb.append("reader: new Ext.data.JsonReader({");
+            sb.append("root: \"items\", totalProperty: \"totalCount\", id: \"" + valueField + "\"},");
+            sb.append("[{name: \"").append(displayField).append("\"}, {name: \"" + valueField + "\"}] )");
+            sb.append("})");
+        }
+
 
         json.put("store", new JSONFunction(sb.toString()));
 
