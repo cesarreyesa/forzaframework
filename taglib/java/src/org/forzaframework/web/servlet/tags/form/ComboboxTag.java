@@ -316,6 +316,7 @@ public class ComboboxTag extends FieldTag {
             listeners.put("expand", new JSONFunction(expand));
         } else {
             json.put("mode", "local");
+            json.put("lastQuery", "");
         }
 
         if(updateFields.size() > 0){

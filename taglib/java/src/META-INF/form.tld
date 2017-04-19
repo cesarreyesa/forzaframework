@@ -602,6 +602,9 @@
         <attribute>
         	<name>reader</name>
         </attribute>
+        <attribute>
+        	<name>store</name>
+        </attribute>
     </tag>
 
     <tag>

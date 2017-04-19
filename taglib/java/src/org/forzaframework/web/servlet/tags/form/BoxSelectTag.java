@@ -103,11 +103,13 @@ public class BoxSelectTag extends ComboboxTag {
         json.elementOpt("disabled", getDisabled());
         json.elementOpt("forceFormValue", false);
         json.put("mode", "local");
+        json.put("lastQuery", "");
+        json.put("triggerAction", "all");
         json.put("displayField", getDisplayField());
         json.elementOpt("displayFieldTpl", getDisplayFieldTpl());
         json.put("valueField", getValueField());
 
-        json.put("store", new JSONFunction(getVarName()));
+        json.put("store", getStore() == null ? new JSONFunction(getVarName()) : new JSONFunction(getStore()));
 
         json.put("hiddenName", field);
         json.put("emptyText", getEmptyText());
