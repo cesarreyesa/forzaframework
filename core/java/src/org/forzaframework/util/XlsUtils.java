@@ -67,20 +67,23 @@ public class XlsUtils {
     }
 
     static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Integer freezePane) {
-        List<Map<String, Object>> headers = getRowGroups(model, "header");
-        List<Map<String, Object>> data = getRowGroups(model, "data");
-        List<Map<String, Object>> footers = getRowGroups(model, "totals");
-
-        modelToExcelSheet(wb, sheetName, headers, data, footers, freezePane);
+        modelToExcelSheet(wb, sheetName, model, freezePane, true, true, null, null, true, true);
     }
 
     static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Boolean defaultFormat) {
+        modelToExcelSheet(wb, sheetName, model, null, defaultFormat, true, null, null, true, true);
+    }
+
+    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Boolean defaultFormat, Boolean createNewSheet) {
+        modelToExcelSheet(wb, sheetName, model, null, defaultFormat, createNewSheet, null, null, true, true);
+    }
+
+    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Integer freezePane, Boolean defaultFormat, Boolean createNewSheet, Integer indexSheet, Integer startInRow, Boolean printHeader,Boolean autoSizeColumns) {
         List<Map<String, Object>> headers = getRowGroups(model, "header");
         List<Map<String, Object>> data = getRowGroups(model, "data");
         List<Map<String, Object>> footers = getRowGroups(model, "totals");
 
-        modelToExcelSheet(wb, sheetName, headers, data, footers, null, defaultFormat, true, null, null, true, true);
-
+        modelToExcelSheet(wb, sheetName, headers, data, footers, freezePane, defaultFormat, createNewSheet, indexSheet, startInRow, printHeader, autoSizeColumns);
     }
 
     static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, Boolean defaultFormat, Boolean createNewSheet) {
