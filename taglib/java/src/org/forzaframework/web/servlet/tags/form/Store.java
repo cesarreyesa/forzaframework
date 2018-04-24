@@ -32,6 +32,7 @@ import org.springframework.util.Assert;
 @SuppressWarnings({"unchecked"})
 public class Store {
 	
+	private String id;
 	private String reader;
     private String type = "remote";
 	private String itemTag = "item";
@@ -48,6 +49,14 @@ public class Store {
     private String noSelection;
     private Boolean remoteSort = true;
     private Integer connectionTimeOut;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;
@@ -203,12 +212,16 @@ public class Store {
                 }
             }else{
                 sb.append("var ").append(name).append(" = new Ext.data.Store({");
+                if(id != null) {
+                    sb.append("storeId: '").append(id).append("',");
+                }
             }
             sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(StringUtils.isBlank(url) ? "" : url).append("\"").append(connectionTimeOut != null ? ", timeout: " + connectionTimeOut : "").append("})),");
             sb.append("remoteSort: " + remoteSort + ",");
             
             if(reader == null || reader.equals("xml")){
                 sb.append("reader: new Ext.data.XmlReader({");
+                sb.append("allowFunctions: true,");
                 if(idField == null) idField = valueField;
                 sb.append("record: '").append(itemTag).append("', totalRecords: 'totalCount', id: '").append(idField).append("'},");
             }else if(reader.equals("json")){

@@ -47,6 +47,7 @@ public class LovFieldTag extends ComboboxTag {
     private Integer minItem;
     private Boolean multiSelect;
     private Boolean textarea;
+    private String storeId;
 
     public String getLovTitle() {
         return lovTitle;
@@ -110,6 +111,14 @@ public class LovFieldTag extends ComboboxTag {
 
     public void setViewType(String viewType) {
         this.viewType = viewType;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
     public String getType() {
@@ -185,6 +194,10 @@ public class LovFieldTag extends ComboboxTag {
         json.elementOpt("multiSelect", multiSelect);
         json.elementOpt("textarea", textarea);
         json.elementOpt("allowBlank", allowBlank);
+        if (getLoadOnStart() != null && getLoadOnStart()) {
+            json.elementOpt("isStoreLoaded", true);
+        }
+
 
         json.put("hiddenName", field);
         json.put("typeAhead", true);
@@ -204,6 +217,7 @@ public class LovFieldTag extends ComboboxTag {
             JSONObject gridConfig = new JSONObject();
             gridConfig.put("store", getStore() == null ? new JSONFunction(getVarName()) : new JSONFunction(getStore()));
             JSONArray columnsModel = new JSONArray();
+//            columnsModel.add(new JSONFunction("new Ext.grid.CheckboxSelectionModel()"));
             for (Field field : getFields()) {
                 JSONObject fieldJson = new JSONObject();
                 fieldJson.elementOpt("header", field.getTitle());
@@ -217,6 +231,10 @@ public class LovFieldTag extends ComboboxTag {
                 columnsModel.add(fieldJson);
             }
             gridConfig.put("columns", columnsModel);
+//            gridConfig.put("sm", new JSONFunction("new Ext.grid.CheckboxSelectionModel()"));
+            if (id != null) {
+                gridConfig.put("id", id + "_grid");
+            }
             json.put("view", new JSONFunction("new Ext.grid.GridPanel(" + gridConfig.toString() + ")"));
         }
 
@@ -283,6 +301,9 @@ public class LovFieldTag extends ComboboxTag {
             store.setUrl(getUrl());
             store.setItems((getItems() instanceof String ? evaluate("items", getItems()) : getItems()));
             store.setOptions(getOptions());
+            if (storeId != null) {
+                store.setId(storeId);
+            }
             form.addStoreDeclaration(store);
         }
 

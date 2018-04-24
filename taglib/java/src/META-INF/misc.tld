@@ -761,6 +761,9 @@
         <attribute>
             <name>reader</name>
         </attribute>
+        <attribute>
+            <name>connectionTimeOut</name>
+        </attribute>
     </tag>
     <tag>
         <name>rows</name>

@@ -256,7 +256,7 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public void save(Object entity) {
-        getHibernateTemplate().saveOrUpdate(entity);
+        getHibernateSession().saveOrUpdate(entity);
     }
 
     public void save(String entityName, Object entity) {

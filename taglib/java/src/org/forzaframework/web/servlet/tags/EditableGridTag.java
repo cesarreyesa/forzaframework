@@ -63,6 +63,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
     private Boolean singleSelect = true;
     private String selectionModel = "row";
     private String reader;
+    private Integer connectionTimeOut;
 
     public Boolean getLoadOnStart() {
         return loadOnStart;
@@ -239,6 +240,14 @@ public class EditableGridTag extends PanelTag implements PanelItem {
         this.reader = reader;
     }
 
+    public Integer getConnectionTimeOut() {
+        return connectionTimeOut;
+    }
+
+    public void setConnectionTimeOut(Integer connectionTimeOut) {
+        this.connectionTimeOut = connectionTimeOut;
+    }
+
     public void doInitBody() throws JspException {
         try{
             if(this.bodyContent != null){
@@ -372,7 +381,7 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                     sb.append("proxy: new Ext.data.MemoryProxy(data),");
                     sb.append("reader: new Ext.data.ArrayReader({ id: ").append(this.fields.size()).append("}, RecordType),");
                 }else {
-                    sb.append("proxy: new Ext.data.HttpProxy({ url: '").append(url).append("'}), remoteSort: false, ");
+                    sb.append("proxy: new Ext.data.HttpProxy({ url: '").append(url).append("'").append(connectionTimeOut != null ? ", timeout: " + connectionTimeOut : "").append("})").append(", remoteSort: false, ");
                     if(reader == null || reader.equals("xml")){
                         sb.append("reader: new Ext.data.XmlReader({ record:'").append(itemTag).append("',totalRecords:'totalCount',id:'id'}, RecordType),");
                     }else if(reader.equals("json")){

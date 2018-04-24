@@ -713,6 +713,10 @@
         <attribute>
             <name>store</name>
         </attribute>
+        <attribute>
+            <name>storeId</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
