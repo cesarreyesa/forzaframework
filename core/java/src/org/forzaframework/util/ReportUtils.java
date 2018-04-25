@@ -16,12 +16,14 @@
 
 package org.forzaframework.util;
 
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.design.JRDesignField;
-import net.sf.jasperreports.engine.util.JRProperties;
+//TODO: Con la version de la libreria de jasperreports 6.5.1 JRProperties ha sido removido
+//import net.sf.jasperreports.engine.util.JRProperties;
 
 import java.util.*;
 import java.io.File;
@@ -57,8 +59,9 @@ public class ReportUtils {
     private static final String DJ_RESOURCE_BUNDLE = "dj-messages";
 
     private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
-        new ColumnRegistrationManager(jd, dr).registerEntities(dr.getColumns());
-        new DJGroupRegistrationManager(jd, dr).registerEntities(dr.getColumnsGroups());
+        ClassicLayoutManager layoutManager = new ClassicLayoutManager();
+        new ColumnRegistrationManager(jd, dr, layoutManager).registerEntities(dr.getColumns());
+        new DJGroupRegistrationManager(jd, dr, layoutManager).registerEntities(dr.getColumnsGroups());
         registerOtherFields(jd, dr.getFields());
         Locale locale = dr.getReportLocale() == null ? Locale.getDefault() : dr.getReportLocale();
         if (log.isDebugEnabled()) {
@@ -120,7 +123,8 @@ public class ReportUtils {
 
         registerEntities(jd, dr);
         layoutManager.applyLayout(jd, dr);
-        JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
+        //TODO: Con la version de la libreria de jasperreports 6.5.1 JRProperties ha sido removido
+//        JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
 
         JasperReport jr = JasperCompileManager.compileReport(jd);
 //        params.putAll(jd.getParametersWithValues());
@@ -272,7 +276,8 @@ public class ReportUtils {
             registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
 
             layoutManager.applyLayout(jd, dr);
-            JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
+            //TODO: Con la version de la libreria de jasperreports 6.5.1 JRProperties ha sido removido
+//            JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
             jr = JasperCompileManager.compileReport(jd);
             generatedParams.putAll(jd.getParametersWithValues());
         return jr;

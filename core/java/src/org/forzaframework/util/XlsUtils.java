@@ -21,6 +21,8 @@ import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -124,7 +126,7 @@ public class XlsUtils {
             //Creamos el tipo de fuente
             HSSFFont titleFont = wb.createFont();
 //            headerFont.setFontName(HSSFFont.FONT_ARIAL);
-            titleFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            titleFont.setBold(Boolean.TRUE);
             titleFont.setColor(HSSFFont.COLOR_NORMAL);
             titleFont.setFontHeightInPoints((short)8);
             titlesCellStyle.setFont(titleFont);
@@ -185,7 +187,7 @@ public class XlsUtils {
             //Armamos el formato los totales
             totalCellStyle = wb.createCellStyle();
             HSSFFont totalFont = wb.createFont();
-            totalFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            totalFont.setBold(Boolean.TRUE);
             totalFont.setColor(HSSFFont.COLOR_NORMAL);
             totalFont.setFontHeightInPoints((short)8);
             totalCellStyle.setFont(totalFont);
@@ -280,14 +282,14 @@ public class XlsUtils {
         if (defaultFormat != null && defaultFormat) {
             //Le damos formato a los encabezados
             headerCellStyle = wb.createCellStyle();
-            headerCellStyle.setBorderBottom(HSSFCellStyle.BORDER_DOTTED);
-            headerCellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+            headerCellStyle.setBorderBottom(BorderStyle.DOTTED);
+            headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 //        headerCellStyle.setFillBackgroundColor(HSSFColor.GREY_25_PERCENT.index);
-            headerCellStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
+            headerCellStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex());
             //Creamos el tipo de fuente
             HSSFFont headerFont = wb.createFont();
 //            headerFont.setFontName(HSSFFont.FONT_ARIAL);
-            headerFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            headerFont.setBold(Boolean.TRUE);
             headerFont.setColor(HSSFFont.COLOR_NORMAL);
             headerFont.setFontHeightInPoints((short)8);
             headerCellStyle.setFont(headerFont);

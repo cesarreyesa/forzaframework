@@ -16,6 +16,7 @@
 
 package org.forzaframework.util;
 
+import net.sf.jasperreports.engine.type.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.beanutils.BeanUtils;
@@ -46,31 +47,31 @@ public class JasperDesignHelper {
 		DynamicReportOptions options = dr.getOptions();
 		Page page = options.getPage();
 
-		des.setColumnCount(options.getColumnsPerPage().intValue());
-		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
+		des.setColumnCount(options.getColumnsPerPage());
+		des.setPrintOrder(PrintOrderEnum.VERTICAL);
 
-		byte orientation = page.isOrientationPortrait() ? JasperReport.ORIENTATION_PORTRAIT : JasperReport.ORIENTATION_LANDSCAPE;
+		OrientationEnum orientation = page.isOrientationPortrait() ? OrientationEnum.PORTRAIT : OrientationEnum.LANDSCAPE;
 		des.setOrientation(orientation);
 
 		des.setPageWidth(page.getWidth());
 		des.setPageHeight(page.getHeight());
 
 		des.setColumnWidth(options.getColumnWidth());
-		des.setColumnSpacing(options.getColumnSpace().intValue());
-		des.setLeftMargin(options.getLeftMargin().intValue());
-		des.setRightMargin(options.getRightMargin().intValue());
-		des.setTopMargin(options.getTopMargin().intValue());
-		des.setBottomMargin(options.getBottomMargin().intValue());
+		des.setColumnSpacing(options.getColumnSpace());
+		des.setLeftMargin(options.getLeftMargin());
+		des.setRightMargin(options.getRightMargin());
+		des.setTopMargin(options.getTopMargin());
+		des.setBottomMargin(options.getBottomMargin());
 
-		des.setWhenNoDataType(dr.getWhenNoDataType());
-		des.setWhenResourceMissingType(dr.getWhenResourceMissing());
+		des.setWhenNoDataType(WhenNoDataTypeEnum.BLANK_PAGE);
+		des.setWhenResourceMissingType(WhenResourceMissingTypeEnum.EMPTY);
 
 		des.setTitleNewPage(false);
 		des.setSummaryNewPage(false);
 
-		des.setDetail(new JRDesignBand());
+		des.setSectionType(SectionTypeEnum.BAND);
 
-		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
+//		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
 
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
