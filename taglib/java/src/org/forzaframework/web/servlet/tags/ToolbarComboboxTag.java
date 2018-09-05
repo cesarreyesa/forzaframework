@@ -168,6 +168,9 @@ public class ToolbarComboboxTag extends BaseTag {
         json.put("selectOnFocus", true);
         json.put("width", getWidth() != null ? Integer.valueOf(getWidth()) : Integer.valueOf(200));
         json.put("listWidth", getListWidth() != null ? Integer.valueOf(getListWidth()) : getWidth() != null ? Integer.valueOf(getWidth()) : Integer.valueOf(200));
+        json.put("mode", "local");
+        json.put("lastQuery", "");
+
 
         if(StringUtils.isNotBlank(handler)){
             JSONObject listeners = new JSONObject();
