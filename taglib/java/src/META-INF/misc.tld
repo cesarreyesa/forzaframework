@@ -282,6 +282,9 @@
         <attribute>
             <name>reader</name>
         </attribute>
+        <attribute>
+            <name>mode</name>
+        </attribute>
     </tag>
     <tag>
         <name>toolbarSeachField</name>

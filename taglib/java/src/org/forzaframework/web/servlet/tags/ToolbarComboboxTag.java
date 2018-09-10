@@ -41,6 +41,7 @@ public class ToolbarComboboxTag extends BaseTag {
     private String width;
     private String listWidth;
     private String reader;
+    private String mode;
 
     public String getValue() {
         return value;
@@ -122,6 +123,14 @@ public class ToolbarComboboxTag extends BaseTag {
         this.reader = reader;
     }
 
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
     public int doEndTag() throws JspException {
         ToolbarTag parent = (ToolbarTag) findParent(ToolbarTag.class);
         parent.addItem(new Item(this.toJSON()));
@@ -168,13 +177,21 @@ public class ToolbarComboboxTag extends BaseTag {
         json.put("selectOnFocus", true);
         json.put("width", getWidth() != null ? Integer.valueOf(getWidth()) : Integer.valueOf(200));
         json.put("listWidth", getListWidth() != null ? Integer.valueOf(getListWidth()) : getWidth() != null ? Integer.valueOf(getWidth()) : Integer.valueOf(200));
-        json.put("mode", "local");
-        json.put("lastQuery", "");
+        JSONObject listeners = new JSONObject();
+        if ("local".equals(mode)) {
+            json.put("mode", "local");
+            json.put("lastQuery", "");
+        } else {
+            String expand = "function(combo){Ext.apply(combo, {mode: 'local'}, {});}";
+            listeners.put("expand", new JSONFunction(expand));
+        }
 
 
         if(StringUtils.isNotBlank(handler)){
-            JSONObject listeners = new JSONObject();
+
             listeners.put("select", new JSONFunction(handler));
+        }
+        if (!listeners.isEmpty()) {
             json.put("listeners", listeners);
         }
 
