@@ -51,6 +51,7 @@ public class ButtonTag extends BaseTag implements PanelItem {
     private Boolean hidden;
     private String handler;
     private String href;
+    private Boolean allowDepress;
     private List<Item> items = new ArrayList<Item>();
 
     public String getScale() {
@@ -173,6 +174,14 @@ public class ButtonTag extends BaseTag implements PanelItem {
         this.href = href;
     }
 
+    public Boolean getAllowDepress() {
+        return allowDepress;
+    }
+
+    public void setAllowDepress(Boolean allowDepress) {
+        this.allowDepress = allowDepress;
+    }
+
     public int doEndTag() throws JspException {
 //        Assert.isTrue(parent instanceof WindowTag, "ButtonTag must be inside a WindowTag");
         Tag menu = findParent(MenuTag.class);
@@ -202,6 +211,11 @@ public class ButtonTag extends BaseTag implements PanelItem {
         json.elementOpt("id", id);
         json.put("text", text != null ? text : getText(textKey));
         json.elementOpt("enableToggle", enableToggle);
+        if(toggleGroup != null && enableToggle != null && enableToggle) {
+            json.elementOpt("allowDepress", allowDepress != null ? allowDepress : false);
+        } else if (allowDepress != null) {
+            json.elementOpt("allowDepress", allowDepress);
+        }
         json.elementOpt("toggleGroup", toggleGroup);
         json.elementOpt("group", group);
         json.elementOpt("pressed", pressed);
