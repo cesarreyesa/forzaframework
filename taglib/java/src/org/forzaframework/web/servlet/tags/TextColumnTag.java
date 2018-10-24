@@ -32,6 +32,7 @@ public class TextColumnTag extends ColumnTag{
         EditableGridTag tag = (EditableGridTag) findParent(EditableGridTag.class);
         Field field = new Field();
 
+        field.setId(this.getId());
         field.setField(this.getField());
         field.setTitle(title != null ? title : getText(titleKey));
         field.setWidth(width);
