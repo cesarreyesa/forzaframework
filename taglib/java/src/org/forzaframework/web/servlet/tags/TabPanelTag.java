@@ -42,6 +42,8 @@ public class TabPanelTag extends PanelTag implements PanelItem {
     private Boolean defaultAutoScroll;
     private String defaultStyle;
     private Boolean enableTabScroll;
+    private Boolean tabPosition;
+    private Boolean forceLayout;
 
     public Boolean getDefaultAutoHeight() {
         return defaultAutoHeight;
@@ -76,6 +78,22 @@ public class TabPanelTag extends PanelTag implements PanelItem {
     }
 
     public void setTopToolbar(Item item) {
+    }
+
+    public Boolean getTabPosition() {
+        return tabPosition;
+    }
+
+    public void setTabPosition(Boolean tabPosition) {
+        this.tabPosition = tabPosition;
+    }
+
+    public Boolean getForceLayout() {
+        return forceLayout;
+    }
+
+    public void setForceLayout(Boolean forceLayout) {
+        this.forceLayout = forceLayout;
     }
 
     public void doInitBody() throws JspException {
@@ -139,6 +157,14 @@ public class TabPanelTag extends PanelTag implements PanelItem {
         json.put("activeTab", 0);
         json.put("border", false);
         json.put("deferredRender", false);
+        if(tabPosition != null) {
+            json.put("tabPosition", tabPosition);
+
+        }
+        if(forceLayout != null) {
+            json.put("forceLayout", forceLayout);
+
+        }
         json.elementOpt("height", getHeight());
         json.elementOpt("region", getRegion());
         json.elementOpt("enableTabScroll", getEnableTabScroll());

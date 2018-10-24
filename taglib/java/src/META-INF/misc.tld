@@ -199,6 +199,9 @@
         	<name>type</name>
         	<rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+        	<name>allowDepress</name>
+        </attribute>
     </tag>
     <tag>
         <name>menu</name>
@@ -786,6 +789,10 @@
         <tag-class>org.forzaframework.web.servlet.tags.TextColumnTag</tag-class>
 
         <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>title</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -1011,6 +1018,12 @@
         </attribute>
         <attribute>
             <name>enableTabScroll</name>
+        </attribute>
+        <attribute>
+            <name>tabPosition</name>
+        </attribute>
+        <attribute>
+            <name>forceLayout</name>
         </attribute>
     </tag>
     <tag>
@@ -1243,6 +1256,14 @@
         </attribute>
         <attribute>
             <name>cls</name>
+        </attribute>
+        <attribute>
+            <name>onActivate</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onDeactivate</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 

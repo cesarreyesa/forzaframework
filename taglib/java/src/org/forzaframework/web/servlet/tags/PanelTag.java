@@ -64,6 +64,8 @@ public abstract class PanelTag extends BaseBodyTag {
     private Boolean split;
     private String replacePanel;
     private String cls;
+    private String onActivate;
+    private String onDeactivate;
     private List<PanelItem> items = new ArrayList<PanelItem>();
     private List<PanelItem> tools = new ArrayList<PanelItem>();
 
@@ -291,6 +293,22 @@ public abstract class PanelTag extends BaseBodyTag {
         this.cls = cls;
     }
 
+    public String getOnActivate() {
+        return onActivate;
+    }
+
+    public void setOnActivate(String onActivate) {
+        this.onActivate = onActivate;
+    }
+
+    public String getOnDeactivate() {
+        return onDeactivate;
+    }
+
+    public void setOnDeactivate(String onDeactivate) {
+        this.onDeactivate = onDeactivate;
+    }
+
     private Object topToolbar;
     public void setTopToolbar(Item item) {
     	if(item != null){
@@ -366,6 +384,19 @@ public abstract class PanelTag extends BaseBodyTag {
         if(StringUtils.isNotBlank(cls)){
         	config.put("cls", cls);
         }
+
+        if(StringUtils.isNotBlank(onActivate) || StringUtils.isNotBlank(onDeactivate)){
+            JSONObject listeners = new JSONObject();
+
+            if(StringUtils.isNotBlank(onActivate)) {
+                listeners.put("activate", new JSONFunction(onActivate));
+            }
+            if(StringUtils.isNotBlank(onDeactivate)) {
+                listeners.put("deactivate", new JSONFunction(onDeactivate));
+            }
+            config.put("listeners", listeners);
+        }
+
 
         if(getHeight() != null){
             if(getHeight().contains("%")){
