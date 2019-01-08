@@ -409,10 +409,11 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
      * @return
      */
     public static Boolean isBetweenDatesIgnoreYear(Date dateToCompare, Date firstDate, Date lastDate){
-        Integer firstYear = createCalendar(firstDate).get(Calendar.YEAR);
-        if (getYear(dateToCompare) < firstYear) {
-            //Al validar que sea el anio menor que el de la fecha inicial, se toma el anio de la fecha inicial para crear la nueva fecha
-            Date dateToCompareNew = createCalendar(firstYear, getMonth(dateToCompare), getDayOfMonth(dateToCompare)).getTime();
+        Integer firstYear = getYear(firstDate);
+        Integer lastYear = getYear(lastDate);
+        if (firstYear.compareTo(lastYear) != 0 || getYear(dateToCompare) < firstYear) {
+            //Al validar que sea el anio menor que el de la fecha inicial, se toma el anio de la fecha inicial para crear la nueva fecha, o si son años diferentes en las fechas se toma el año de la fecha final
+            Date dateToCompareNew = createCalendar(firstYear.compareTo(lastYear) == 0 ? firstYear : lastYear, getMonth(dateToCompare), getDayOfMonth(dateToCompare)).getTime();
             //Se verifica que la nueva fecha se ecuentre entre el rango
             return isBetweenDates(dateToCompareNew, firstDate, lastDate);
         }
