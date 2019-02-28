@@ -666,6 +666,7 @@
         <attribute>
             <name>id</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>border</name>
