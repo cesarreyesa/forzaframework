@@ -21,6 +21,8 @@ import org.forzaframework.web.servlet.tags.form.LovFieldTag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: cesarreyes
@@ -28,7 +30,7 @@ import javax.servlet.jsp.tagext.Tag;
  * Time: 12:00:58
  * Description:
  */
-public class ColumnTag extends BaseTag {
+public class ColumnTag extends BaseTag implements Observable {
 
 //    protected String defaultValue;
     protected String id;
@@ -44,6 +46,8 @@ public class ColumnTag extends BaseTag {
     protected Boolean sortable;
     protected String align;
     protected Boolean alwaysHidden;
+    protected Boolean enableKeyEvents;
+    protected List<Listener> listeners = new ArrayList<Listener>();
 
     public String getId() {
         return id;
@@ -147,6 +151,18 @@ public class ColumnTag extends BaseTag {
 
     public void setAlwaysHidden(Boolean alwaysHidden) {
         this.alwaysHidden = alwaysHidden;
+    }
+
+    public Boolean getEnableKeyEvents() {
+        return enableKeyEvents;
+    }
+
+    public void setEnableKeyEvents(Boolean enableKeyEvents) {
+        this.enableKeyEvents = enableKeyEvents;
+    }
+
+    public void addListener(Listener listener) {
+        this.listeners.add(listener);
     }
 
     public int doEndTag() throws JspException {

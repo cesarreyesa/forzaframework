@@ -16,6 +16,7 @@
 
 package org.forzaframework.web.servlet.tags;
 
+import net.sf.json.JSONObject;
 import org.forzaframework.web.servlet.tags.form.Field;
 
 import javax.servlet.jsp.JspException;
@@ -54,6 +55,19 @@ public class DateColumnTag extends ColumnTag{
     }
 
     private Object toJSON() {
-        return new JSONFunction("new Ext.form.DateField({format: 'd/m/Y'})");        
+        JSONObject json = new JSONObject();
+
+        json.put("format", "d/m/Y");
+        json.put("enableKeyEvents", this.enableKeyEvents == null ? false : this.enableKeyEvents);
+
+        if(this.listeners.size() > 0){
+            JSONObject listeners = new JSONObject();
+            for (Listener listener : this.listeners) {
+                listeners.put(listener.getEventName(), new JSONFunction(listener.getHandler()));
+            }
+            json.put("listeners", listeners);
+        }
+
+        return new JSONFunction("new Ext.form.DateField(" + json.toString() + ")");
     }
 }

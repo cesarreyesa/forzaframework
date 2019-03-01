@@ -70,6 +70,16 @@ public class NumberColumnTag extends ColumnTag {
         JSONObject config = new JSONObject();
         config.elementOpt("decimalPrecision", decimalPrecision);
         config.elementOpt("allowDecimals", allowDecimals);
+        config.put("enableKeyEvents", this.enableKeyEvents == null ? false : this.enableKeyEvents);
+
+        if(this.listeners.size() > 0){
+            JSONObject listeners = new JSONObject();
+            for (Listener listener : this.listeners) {
+                listeners.put(listener.getEventName(), new JSONFunction(listener.getHandler()));
+            }
+            config.put("listeners", listeners);
+        }
+
         return new JSONFunction("new Ext.form.NumberField(" + config.toString() + ")");
     }
 

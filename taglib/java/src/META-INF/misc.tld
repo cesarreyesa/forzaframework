@@ -890,6 +890,10 @@
             <name>sortable</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>numberColumn</name>
@@ -923,6 +927,10 @@
         </attribute>
         <attribute>
             <name>sortable</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>enableKeyEvents</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
