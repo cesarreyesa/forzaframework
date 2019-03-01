@@ -64,6 +64,8 @@ public class EditableGridTag extends PanelTag implements PanelItem {
     private String selectionModel = "row";
     private String reader;
     private Integer connectionTimeOut;
+    private String defaultSort;
+    private String defaultSortDir = "asc";
 
     public Boolean getLoadOnStart() {
         return loadOnStart;
@@ -199,6 +201,22 @@ public class EditableGridTag extends PanelTag implements PanelItem {
 
     public void setPruneModifiedRecords(Boolean pruneModifiedRecords) {
         this.pruneModifiedRecords = pruneModifiedRecords;
+    }
+
+    public String getDefaultSort() {
+        return defaultSort;
+    }
+
+    public void setDefaultSort(String defaultSort) {
+        this.defaultSort = defaultSort;
+    }
+
+    public String getDefaultSortDir() {
+        return defaultSortDir;
+    }
+
+    public void setDefaultSortDir(String defaultSortDir) {
+        this.defaultSortDir = defaultSortDir;
     }
 
     private List<Field> fields;
@@ -392,6 +410,10 @@ public class EditableGridTag extends PanelTag implements PanelItem {
                     }
                 }
                 sb.append("pruneModifiedRecords:").append(pruneModifiedRecords.toString()).append("});");
+
+                if(defaultSort != null && defaultSort.length() > 0){
+                    sb.append("ds.setDefaultSort('").append(defaultSort).append("', '").append(defaultSortDir).append("');");
+                }
 
                 if(StringUtils.isNotBlank(onSelectionChange)){
                     sb.append("sm.on('selectionchange', ").append(onSelectionChange).append(");");

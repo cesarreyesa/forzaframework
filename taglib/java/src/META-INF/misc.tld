@@ -772,6 +772,14 @@
         <attribute>
             <name>connectionTimeOut</name>
         </attribute>
+        <attribute>
+            <name>defaultSort</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>defaultSortDir</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>rows</name>
