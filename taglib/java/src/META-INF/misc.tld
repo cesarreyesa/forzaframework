@@ -826,6 +826,10 @@
             <name>sortable</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>hidden</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>comboboxColumn</name>
