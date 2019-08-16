@@ -110,6 +110,8 @@ public class CollectionSubmitController extends BaseController {
                 }
 
                 entityManager.save(bean);
+                entityManager.getHibernateSession().clear();
+                entityManager.getHibernateSession().flush();
                 info.addMessage(getText("entityList.saved"));
             }
 
