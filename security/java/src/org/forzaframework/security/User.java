@@ -22,11 +22,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.NotNull;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.dom4j.Element;
 import org.dom4j.DocumentHelper;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;

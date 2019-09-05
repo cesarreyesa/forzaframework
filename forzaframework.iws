@@ -20,20 +20,15 @@
       <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/ResponseType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/ResponseType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/FileDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/FileDefinition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/metadata/NamedEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/metadata/NamedEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm/hibernate3/support/OpenSessionInThreadTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm/hibernate3/support/OpenSessionInThreadTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forzaframework.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/Permission.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/Permission.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/PermissionUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/PermissionUrl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/SmartGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/SmartGroup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/GridTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/GridTag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FormTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/FormTag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taglib/taglib.iml" beforeDir="false" afterPath="$PROJECT_DIR$/taglib/taglib.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/java/src/org/forzaframework/test/core/persistance/model/Name.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/src/org/forzaframework/test/core/persistance/model/Name.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.iml" afterDir="false" />
@@ -410,7 +405,7 @@
       <workItem from="1567431440845" duration="2443000" />
       <workItem from="1567517644633" duration="591000" />
       <workItem from="1567604236588" duration="594000" />
-      <workItem from="1567690049236" duration="3442000" />
+      <workItem from="1567690049236" duration="3743000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -546,7 +541,21 @@
       <option name="project" value="LOCAL" />
       <updated>1567716835969</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717092512</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717092512</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Se agrego e">
+      <created>1567717372772</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717372772</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,7 +618,8 @@
     <MESSAGE value="Se agrego al Grid Editable las propiedades de defaultSort y defaultSortDir." />
     <MESSAGE value="Migracion a Spring 5, Hibernate 5" />
     <MESSAGE value="Migracion Spring 5, Hibernate 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Migracion Spring 5, Hibernate 5" />
+    <MESSAGE value="Se agrego e" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrego e" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">
