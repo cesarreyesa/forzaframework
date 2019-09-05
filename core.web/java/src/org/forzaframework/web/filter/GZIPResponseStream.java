@@ -17,6 +17,7 @@
 package org.forzaframework.web.filter;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -170,5 +171,15 @@ public class GZIPResponseStream extends ServletOutputStream {
 
     public void reset() {
         //noop
+    }
+
+    @Override
+    public boolean isReady() {
+        return false;
+    }
+
+    @Override
+    public void setWriteListener(WriteListener writeListener) {
+
     }
 }

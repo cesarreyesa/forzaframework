@@ -18,8 +18,8 @@ package org.forzaframework.orm.hibernate3.support;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-import org.springframework.orm.hibernate3.SessionHolder;
-import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import org.springframework.orm.hibernate5.SessionHolder;
+import org.springframework.orm.hibernate5.SessionFactoryUtils;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
@@ -75,7 +75,8 @@ public abstract class OpenSessionInThreadTask implements Runnable{
     }
 
     protected Session getSession(SessionFactory sessionFactory) throws DataAccessResourceFailureException {
-        Session session = SessionFactoryUtils.getSession(sessionFactory, true);
+//        Session session = SessionFactoryUtils.getSession(sessionFactory, true);
+        Session session = sessionFactory.getCurrentSession();
         FlushMode flushMode = FlushMode.MANUAL;
         if (flushMode != null) {
             session.setFlushMode(flushMode);

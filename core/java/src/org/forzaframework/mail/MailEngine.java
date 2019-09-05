@@ -18,15 +18,16 @@ package org.forzaframework.mail;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.FileSystemResource;
@@ -40,6 +41,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
 import java.util.List;
@@ -110,10 +112,12 @@ public class MailEngine implements ApplicationContextAware {
         String result = null;
 
         try {
-            result =
-                VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
-                                                            templateName, model);
-        } catch (VelocityException e) {
+            VelocityContext velocityContext = new VelocityContext(model);
+            StringWriter stringWriter = new StringWriter();
+//            result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
+            velocityEngine.mergeTemplate(templateName, "UTF-8", velocityContext, stringWriter);
+            result = stringWriter.toString();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -202,10 +206,15 @@ public class MailEngine implements ApplicationContextAware {
                 String result = null;
 
                 try {
-                    result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
-                } catch (VelocityException e) {
+                    VelocityContext velocityContext = new VelocityContext(model);
+                    StringWriter stringWriter = new StringWriter();
+//            result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
+                    velocityEngine.mergeTemplate(templateName, "UTF-8", velocityContext, stringWriter);
+                    result = stringWriter.toString();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
                 if(sendAsHTML){
                     message.setText("<html><body>" + result + "</body></html>", true);
                 }else{
