@@ -24,12 +24,12 @@ import org.forzaframework.web.servlet.tags.PanelItem;
 import org.forzaframework.web.servlet.tags.Item;
 import org.forzaframework.web.servlet.tags.PanelTag;
 import org.springframework.core.Conventions;
-import org.springframework.web.util.ExpressionEvaluationUtils;
+//import org.springframework.web.util.ExpressionEvaluationUtils;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.Tag;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -316,7 +316,14 @@ public class FormTag extends PanelTag implements PanelItem {
 
     protected Object evaluate(String attributeName, Object value) throws JspException {
         if (value instanceof String) {
-            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);
+            ELContext elContext =  this.pageContext.getELContext();
+            JspFactory jf = JspFactory.getDefaultFactory();
+            JspApplicationContext jac = jf.getJspApplicationContext(pageContext.getServletContext());
+            ExpressionFactory ef = jac.getExpressionFactory();
+            ValueExpression val = ef.createValueExpression(elContext, attributeName, String.class);
+            return val.getValue(elContext);
+
+//            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);
         }
         else {
             return value;
