@@ -16,22 +16,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se agrego e">
+      <change afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/RequestMappingHandlerAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/FastInfoset-1.2.15.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/antlr-2.7.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/byte-buddy-1.9.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/classmate-1.3.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dom4j-2.1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-commons-annotations-5.1.0.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-core-5.4.4.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-5.4.3.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-annotation-processor-5.4.3.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-cdi-5.4.3.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/istack-commons-runtime-3.0.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jandex-2.0.5.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javassist-3.24.0-GA.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.activation-api-1.2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.el-3.0.1-b08.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.persistence-api-2.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jaxb-api-2.3.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jaxb-runtime-2.3.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jboss-logging-3.3.2.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jboss-transaction-api_1.2_spec-1.1.1.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/serializer-2.7.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-aop-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-aspects-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-beans-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-context-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-context-indexer-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-context-support-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-core-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-expression-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-instrument-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-jcl-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-jdbc-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-jms-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-messaging-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-orm-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-oxm-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-test-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-tx-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-web-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-webflux-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-webmvc-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-websocket-5.1.9.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/stax-ex-1.8.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/taglibs-standard-compat-1.2.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/taglibs-standard-impl-1.2.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/taglibs-standard-jstlel-1.2.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/taglibs-standard-spec-1.2.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/txw2-2.3.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/xalan-2.7.2.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/ResponseType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/ResponseType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/metadata/NamedEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/metadata/NamedEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm/hibernate3/support/OpenSessionInThreadTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/orm/hibernate3/support/OpenSessionInThreadTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/Permission.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/Permission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/PermissionUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/PermissionUrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/SmartGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/SmartGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taglib/taglib.iml" beforeDir="false" afterPath="$PROJECT_DIR$/taglib/taglib.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/java/src/org/forzaframework/test/core/persistance/model/Name.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/src/org/forzaframework/test/core/persistance/model/Name.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.iml" afterDir="false" />
     </list>
     <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -405,7 +442,7 @@
       <workItem from="1567431440845" duration="2443000" />
       <workItem from="1567517644633" duration="591000" />
       <workItem from="1567604236588" duration="594000" />
-      <workItem from="1567690049236" duration="3743000" />
+      <workItem from="1567690049236" duration="4265000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -555,7 +592,21 @@
       <option name="project" value="LOCAL" />
       <updated>1567717372772</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717393778</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717393778</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717458522</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717458522</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,9 +668,9 @@
     <MESSAGE value="Se agrego la propiedades de enableKeyEvents y Listeners al DateColumnTag y BumberColumnTag" />
     <MESSAGE value="Se agrego al Grid Editable las propiedades de defaultSort y defaultSortDir." />
     <MESSAGE value="Migracion a Spring 5, Hibernate 5" />
-    <MESSAGE value="Migracion Spring 5, Hibernate 5" />
     <MESSAGE value="Se agrego e" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrego e" />
+    <MESSAGE value="Migracion Spring 5, Hibernate 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Migracion Spring 5, Hibernate 5" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">
