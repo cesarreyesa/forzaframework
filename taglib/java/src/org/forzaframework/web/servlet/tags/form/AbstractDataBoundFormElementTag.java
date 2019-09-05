@@ -22,9 +22,14 @@ import org.springframework.core.Conventions;
 import org.springframework.web.servlet.support.BindStatus;
 import org.springframework.web.servlet.tags.EditorAwareTag;
 import org.springframework.web.servlet.tags.NestedPathTag;
-import org.springframework.web.util.ExpressionEvaluationUtils;
+//import org.springframework.web.util.ExpressionEvaluationUtils;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.servlet.jsp.JspApplicationContext;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
 import java.beans.PropertyEditor;
 
@@ -182,7 +187,14 @@ public abstract class AbstractDataBoundFormElementTag extends BaseBodyTag implem
 
     protected Object evaluate(String attributeName, Object value) throws JspException {
         if (value instanceof String) {
-            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);
+			ELContext elContext =  this.pageContext.getELContext();
+			JspFactory jf = JspFactory.getDefaultFactory();
+			JspApplicationContext jac = jf.getJspApplicationContext(pageContext.getServletContext());
+			ExpressionFactory ef = jac.getExpressionFactory();
+			ValueExpression val = ef.createValueExpression(elContext, attributeName, String.class);
+			return val.getValue(elContext);
+
+//            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);
         }
         else {
             return value;
