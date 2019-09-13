@@ -592,7 +592,7 @@ public class GridTag extends PanelTag implements PanelItem {
             JspFactory jf = JspFactory.getDefaultFactory();
             JspApplicationContext jac = jf.getJspApplicationContext(pageContext.getServletContext());
             ExpressionFactory ef = jac.getExpressionFactory();
-            ValueExpression val = ef.createValueExpression(elContext, attributeName, String.class);
+            ValueExpression val = ef.createValueExpression(elContext, value.toString(), Object.class);
             return val.getValue(elContext);
 
 //            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);

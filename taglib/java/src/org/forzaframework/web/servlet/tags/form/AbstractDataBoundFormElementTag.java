@@ -187,11 +187,11 @@ public abstract class AbstractDataBoundFormElementTag extends BaseBodyTag implem
 
     protected Object evaluate(String attributeName, Object value) throws JspException {
         if (value instanceof String) {
-			ELContext elContext =  this.pageContext.getELContext();
+			ELContext elContext =  pageContext.getELContext();
 			JspFactory jf = JspFactory.getDefaultFactory();
 			JspApplicationContext jac = jf.getJspApplicationContext(pageContext.getServletContext());
 			ExpressionFactory ef = jac.getExpressionFactory();
-			ValueExpression val = ef.createValueExpression(elContext, attributeName, String.class);
+			ValueExpression val = ef.createValueExpression(elContext, value.toString(), Object.class);
 			return val.getValue(elContext);
 
 //            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);
