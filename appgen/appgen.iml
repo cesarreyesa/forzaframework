@@ -10,5 +10,7 @@
     <orderEntry type="library" name="commons" level="project" />
     <orderEntry type="library" name="xstream" level="project" />
     <orderEntry type="library" name="velocity" level="project" />
+    <orderEntry type="library" name="spring" level="project" />
+    <orderEntry type="module" module-name="security" />
   </component>
 </module>
