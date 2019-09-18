@@ -21,10 +21,8 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:util="http://www.springframework.org/schema/util"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-				        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
-				        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+				        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd"
                         default-autowire="byName">
 
  	<http auto-config="true" access-decision-manager-ref="accessDecisionManager" >
@@ -38,21 +36,21 @@
 
     </http>
 
-    <authentication-provider user-service-ref="userManager">
-       <password-encoder hash="sha"/>
-   	</authentication-provider>
+    <authentication-manager>
+        <authentication-provider user-service-ref="userManager"/>
+    </authentication-manager>
 
-    <b:bean id="roleVoter" class="org.springframework.security.vote.RoleVoter">
+    <b:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
         <b:property name="rolePrefix" value=""/>
     </b:bean>
 
-    <b:bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+    <b:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
         <b:property name="allowIfAllAbstainDecisions" value="true"/>
-        <b:property name="decisionVoters">
+        <b:constructor-arg>
             <b:list>
-                <b:ref local="roleVoter"/>
+                <b:ref bean="roleVoter"/>
             </b:list>
-        </b:property>
+        </b:constructor-arg>
     </b:bean>
 
     <b:bean id="userManager" class="org.forzaframework.security.service.impl.UserManagerImpl" />
