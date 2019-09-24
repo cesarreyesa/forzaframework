@@ -20,8 +20,9 @@ import org.forzaframework.layout.FileDefinitionManager;
 import org.forzaframework.layout.FileDefinition;
 import org.forzaframework.core.persistance.EntityManager;
 import org.hibernate.Query;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ import java.util.List;
  *         Time: 15:57:00
  */
 @SuppressWarnings("uncheked")
+@Transactional
 public class FileDefinitionManagerImpl implements FileDefinitionManager {
 
     private EntityManager entityManager;
@@ -39,8 +41,24 @@ public class FileDefinitionManagerImpl implements FileDefinitionManager {
     }
 
     public List<FileDefinition> getFileDefinitionsByEntityCode(String code) {
-        String hql = "from FileDefinition where entity = ? or entity is null";
-        return entityManager.find(hql, code);
+        String hql = "from FileDefinition where entity = :entityCodeParam or entity is null";
+        Query query = entityManager.getHibernateSession().createQuery(hql);
+        query.setParameter("entityCodeParam", code);
+
+        return query.list();
+
+        //Implementacion de CriteriaBuilder de hibernate 5
+//        Session session = entityManager.getHibernateSession();
+//        CriteriaBuilder cb = session.getCriteriaBuilder();
+//        CriteriaQuery<FileDefinition> cr = cb.createQuery(FileDefinition.class);
+//        Root<FileDefinition> root = cr.from(FileDefinition.class);
+//        Predicate entityCode = cb.like(root.get("entity"), code);
+//        Predicate entityNull = cb.isNull(root.get("entity"));
+//        cr.select(root).where(cb.or(entityCode, entityNull));
+//
+//        Query<FileDefinition> query = session.createQuery(cr);
+//
+//        return query.getResultList();
     }
 
     public List<FileDefinition> getFileDefinitionsByEntityCodes(List<String> codes) {

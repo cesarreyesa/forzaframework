@@ -19,14 +19,13 @@ package org.forzaframework.core.persistance.hibernate;
 import org.forzaframework.core.persistance.EntityManager;
 import org.forzaframework.core.persistance.Criteria;
 import org.forzaframework.core.persistance.Criterion;
-import org.forzaframework.util.CollectionUtils;
 import org.forzaframework.util.ClassUtils;
 import org.forzaframework.metadata.Catalog;
 import org.forzaframework.metadata.TranslatableCatalog;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -36,6 +35,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.WordUtils;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -47,6 +47,8 @@ import java.io.Serializable;
  *         Time: 12:50:53
  */
 @SuppressWarnings({"unchecked"})
+//@Repository
+@Transactional
 public class EntityManagerImpl extends HibernateDaoSupport implements EntityManager {
 
     protected final Log logger = LogFactory.getLog(getClass());
@@ -58,7 +60,7 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public Session getHibernateSession(){
-        return this.getSession();
+        return getSessionFactory().getCurrentSession();
     }
 
     public <T> List<T> getAll(Class entityClass) {
@@ -87,22 +89,22 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public <T> List<T> find(String queryString){
-        return getHibernateTemplate().find(queryString);
+        return (List<T>) getHibernateTemplate().find(queryString);
     }
 
     public <T> List<T> find(String queryString, Object value){
         if(value instanceof List){
-            return getHibernateTemplate().find(queryString, value);
+            return (List<T>) getHibernateTemplate().find(queryString, value);
         }
-        return getHibernateTemplate().find(queryString, value);
+        return (List<T>) getHibernateTemplate().find(queryString, value);
     }
 
     public <T> List<T> find(String queryString, Object[] values){
-        return getHibernateTemplate().find(queryString, values);
+        return (List<T>) getHibernateTemplate().find(queryString, values);
     }
 
     public <T> List<T> find(String queryString, List values){
-        return getHibernateTemplate().find(queryString, values.toArray());
+        return (List<T>) getHibernateTemplate().find(queryString, values.toArray());
     }
 
     public <T> T get(Class entityClass, Object primaryKey) {
