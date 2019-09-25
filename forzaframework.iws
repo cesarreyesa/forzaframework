@@ -20,7 +20,6 @@
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/impl/FileDefinitionManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/impl/FileDefinitionManagerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/java/src/org/forzaframework/test/core/persistance/hibernate-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/src/org/forzaframework/test/core/persistance/hibernate-config.xml" afterDir="false" />
     </list>
     <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -410,6 +409,7 @@
       <workItem from="1568986512341" duration="5390000" />
       <workItem from="1569245714165" duration="16499000" />
       <workItem from="1569333599241" duration="7867000" />
+      <workItem from="1569419220073" duration="2961000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -720,7 +720,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java</url>
-          <line>264</line>
+          <line>263</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

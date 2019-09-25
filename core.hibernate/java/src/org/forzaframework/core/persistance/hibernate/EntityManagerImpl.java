@@ -48,7 +48,6 @@ import java.io.Serializable;
  */
 @SuppressWarnings({"unchecked"})
 //@Repository
-@Transactional
 public class EntityManagerImpl extends HibernateDaoSupport implements EntityManager {
 
     protected final Log logger = LogFactory.getLog(getClass());

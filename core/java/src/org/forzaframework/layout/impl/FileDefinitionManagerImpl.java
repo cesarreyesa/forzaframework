@@ -31,7 +31,6 @@ import java.util.List;
  *         Time: 15:57:00
  */
 @SuppressWarnings("uncheked")
-@Transactional
 public class FileDefinitionManagerImpl implements FileDefinitionManager {
 
     private EntityManager entityManager;
