@@ -15,10 +15,9 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se agrego e">
-      <change beforePath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/impl/FileDefinitionManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/impl/FileDefinitionManagerImpl.java" afterDir="false" />
+    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="AR-281_Forza">
       <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forzaframework.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
     </list>
     <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -178,7 +177,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/commons-dbcp2-2.7.0.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/forzaframework.ipr" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -194,6 +193,7 @@
     <property name="project.structure.side.proportion" value="0.2673147" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="vcs.patch.path" value="$PROJECT_DIR$/../patches" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -409,7 +409,19 @@
       <workItem from="1568986512341" duration="5390000" />
       <workItem from="1569245714165" duration="16499000" />
       <workItem from="1569333599241" duration="7867000" />
-      <workItem from="1569419220073" duration="2961000" />
+      <workItem from="1569419220073" duration="4757000" />
+      <workItem from="1569505011632" duration="2477000" />
+      <workItem from="1569591850191" duration="8403000" />
+      <workItem from="1569855783325" duration="1246000" />
+      <workItem from="1571059751582" duration="1195000" />
+      <workItem from="1571146398233" duration="1186000" />
+      <workItem from="1571232792697" duration="2096000" />
+      <workItem from="1571752777179" duration="9233000" />
+      <workItem from="1571929911350" duration="3100000" />
+      <workItem from="1572010776783" duration="1605000" />
+      <workItem from="1572282367029" duration="1028000" />
+      <workItem from="1572974897433" duration="4513000" />
+      <workItem from="1573047488779" duration="652000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -608,7 +620,21 @@
       <option name="project" value="LOCAL" />
       <updated>1568820815681</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Se configurarion los interceptor en Arnom, ya no es necesario el annotation de Transaction.">
+      <created>1569427304259</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1569427304259</updated>
+    </task>
+    <task id="LOCAL-00037" summary="AR-281_Forza">
+      <created>1569876963900</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1569876963900</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -649,8 +675,6 @@
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <MESSAGE value="Lincese" />
-    <MESSAGE value="Documentation" />
     <MESSAGE value="Ant file" />
     <MESSAGE value="Added functionality to enable any Store to bind its records to a List&lt;Map&gt;" />
     <MESSAGE value="Added method   to get Month" />
@@ -674,7 +698,9 @@
     <MESSAGE value="Se cambio el funcionamiento de ExpressionEvaluationsUtils por ValueExpresssion." />
     <MESSAGE value="Actualizacion de Sprign securty 5" />
     <MESSAGE value="Actualizacion a spring security 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualizacion a spring security 5" />
+    <MESSAGE value="Se configurarion los interceptor en Arnom, ya no es necesario el annotation de Transaction." />
+    <MESSAGE value="AR-281_Forza" />
+    <option name="LAST_COMMIT_MESSAGE" value="AR-281_Forza" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">
@@ -722,6 +748,11 @@
           <url>file://$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java</url>
           <line>263</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../spring-framework-master/spring-webmvc/src/main/java/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.java</url>
+          <line>862</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
