@@ -143,7 +143,7 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
     }
 
     public List<User> getUsersByRole(String roleName) {
-      String hql = "select user from User as user join user.roles as role where role.name = ?";
+      String hql = "select user from User as user join user.roles as role where role.name = ?0";
 
       return entityManager.find(hql, roleName);
     }

@@ -136,7 +136,7 @@ public class SecurityController extends BaseController {
 
     @RequestMapping(value = "/config/userActions.html", params = "m=getAvailableRolesForUser")
     public ModelAndView getAvailableRolesForUser(@RequestParam("id") Long id){
-        List roles = entityManager.find("from Role role where role.name not in (select r.name from User u join u.roles r where u.id = ?)", id);
+        List roles = entityManager.find("from Role role where role.name not in (select r.name from User u join u.roles r where u.id = ?0)", id);
         return new XmlView(XmlUtils.buildDocument(roles).asXML());
     }
 
