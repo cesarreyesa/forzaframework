@@ -31,12 +31,19 @@ import java.util.Map;
 
 public class TextView extends ModelAndView {
 
+    private String text = "";
+
     public TextView() {
         super(createView(""));
     }
 
     public TextView(String text) {
         super(createView(text));
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
     }
 
     private static AbstractView createView(final String text) {
