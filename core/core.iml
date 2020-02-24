@@ -16,5 +16,6 @@
     <orderEntry type="library" name="velocity" level="project" />
     <orderEntry type="library" name="mail" level="project" />
     <orderEntry type="library" name="jasperreports" level="project" />
+    <orderEntry type="library" name="freemarker" level="project" />
   </component>
 </module>

@@ -16,12 +16,9 @@
 
 package org.forzaframework.mail;
 
+import freemarker.template.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.velocity.VelocityContext;
-//import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.exception.VelocityException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
@@ -36,12 +33,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.beans.BeansException;
 import org.forzaframework.orm.hibernate3.support.OpenSessionInThreadTask;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
 import java.util.List;
@@ -56,7 +53,7 @@ public class MailEngine implements ApplicationContextAware {
     
     protected static final Log log = LogFactory.getLog(MailEngine.class);
     private MailSender mailSender;
-//    private VelocityEngine velocityEngine;
+    private Configuration freeMarkerConfiguration;
     private Boolean debug = false;
     private Boolean asynchronous = false;
     private TaskExecutor taskExecutor;
@@ -74,13 +71,13 @@ public class MailEngine implements ApplicationContextAware {
         this.mailSender = mailSender;
     }
 
-//    public void setVelocityEngine(VelocityEngine velocityEngine) {
-//        this.velocityEngine = velocityEngine;
-//    }
-//
-//    public VelocityEngine getVelocityEngine() {
-//        return velocityEngine;
-//    }
+    public Configuration getFreeMarkerConfiguration() {
+        return freeMarkerConfiguration;
+    }
+
+    public void setFreeMarkerConfiguration(Configuration freeMarkerConfiguration) {
+        this.freeMarkerConfiguration = freeMarkerConfiguration;
+    }
 
     public Boolean isAsynchronous() {
         return asynchronous;
@@ -112,11 +109,14 @@ public class MailEngine implements ApplicationContextAware {
         String result = null;
 
         try {
-            VelocityContext velocityContext = new VelocityContext(model);
-            StringWriter stringWriter = new StringWriter();
-//            result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
-//            velocityEngine.mergeTemplate(templateName, "UTF-8", velocityContext, stringWriter);
-            result = stringWriter.toString();
+            StringBuffer content = new StringBuffer();
+            try {
+                content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(templateName), model));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            result = content.toString();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,11 +206,14 @@ public class MailEngine implements ApplicationContextAware {
                 String result = null;
 
                 try {
-                    VelocityContext velocityContext = new VelocityContext(model);
-                    StringWriter stringWriter = new StringWriter();
-//            result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
-//                    velocityEngine.mergeTemplate(templateName, "UTF-8", velocityContext, stringWriter);
-                    result = stringWriter.toString();
+                    StringBuffer content = new StringBuffer();
+                    try {
+                        content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(templateName), model));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    result = content.toString();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

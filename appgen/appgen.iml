@@ -12,5 +12,6 @@
     <orderEntry type="library" name="velocity" level="project" />
     <orderEntry type="library" name="spring" level="project" />
     <orderEntry type="module" module-name="security" />
+    <orderEntry type="library" name="freemarker" level="project" />
   </component>
 </module>
