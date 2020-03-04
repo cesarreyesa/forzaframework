@@ -41,7 +41,7 @@ import org.forzaframework.util.ExceptionTranslator;
  *         Time: 17:46:47
  */
 @Controller
-@RequestMapping("/form.html")
+@RequestMapping("/formDelete.html")
 public class SimpleEntityFormController extends BaseController {
 
     private SystemConfiguration systemConfiguration;
@@ -92,23 +92,21 @@ public class SimpleEntityFormController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "e")
-    protected ModelAndView processSubmit(WebRequest request, @ModelAttribute("command")BaseEntity command, BindingResult result) throws Exception {
+    protected ModelAndView processSubmit(WebRequest request) throws Exception {
         Information info = new Information();
 
         SystemEntity entity = getSystemEntity(request);
-
-        if(result.hasErrors()) return this.processErrors(result);
 
         try{
             if (request.getParameter("mode") != null && request.getParameter("mode").equals("delete")) {
                 entityManager.delete(entity.getType(), Long.valueOf(request.getParameter("id")));
                 info.addMessage(entity.getCode() + ".deleted");
-            }else{
-                String key = command.getKey() == null ? entity.getName() + ".added" : entity.getName() + ".updated";
-                entityManager.save(command);
-                info.setEntityId(command.getKey().toString());
-                info.addMessage(key);
-                logger.debug("Form submitted succesfully. [" + key + "]");
+//            }else{
+//                String key = command.getKey() == null ? entity.getName() + ".added" : entity.getName() + ".updated";
+//                entityManager.save(command);
+//                info.setEntityId(command.getKey().toString());
+//                info.addMessage(key);
+//                logger.debug("Form submitted succesfully. [" + key + "]");
             }
         }catch(Exception e){
             info.addError(ExceptionTranslator.translate(e, request.getLocale()));
