@@ -73,4 +73,7 @@ public class BaseBindingInitializer extends ApplicationObjectSupport implements 
         EntityBindingHelper.configureBinder(entityManager, systemConfiguration, binder);
     }
 
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+        this.initBinder(binder);
+    }
 }

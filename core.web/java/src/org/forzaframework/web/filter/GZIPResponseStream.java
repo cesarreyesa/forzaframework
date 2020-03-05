@@ -173,12 +173,10 @@ public class GZIPResponseStream extends ServletOutputStream {
         //noop
     }
 
-    @Override
     public boolean isReady() {
         return false;
     }
 
-    @Override
     public void setWriteListener(WriteListener writeListener) {
 
     }

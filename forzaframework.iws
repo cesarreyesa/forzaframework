@@ -15,8 +15,46 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="AR-281_Forza">
-      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/XlsUtils.java" afterDir="false" />
+    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Modificaciones en Controllers globales para catalogos.">
+      <change afterPath="$PROJECT_DIR$/lib/byte-buddy-1.10.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/classmate-1.5.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-core-5.4.11.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-jpamodelgen-5.4.11.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-6.1.2.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-annotation-processor-6.1.2.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-cdi-6.1.2.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jandex-2.1.1.Final.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-aop-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-aspects-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-beans-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-context-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-context-indexer-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-context-support-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-core-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-expression-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-instrument-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-jcl-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-jdbc-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-jms-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-messaging-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-orm-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-oxm-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-security-acl-5.3.0.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-security-cas-5.3.0.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-security-config-5.3.0.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-security-core-5.3.0.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-security-ldap-5.3.0.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-security-taglibs-5.3.0.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-security-web-5.3.0.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-test-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-tx-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-web-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-webflux-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-webmvc-5.2.3.RELEASE.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/spring-websocket-5.2.3.RELEASE.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appgen/templates/project/src/main/webapp/WEB-INF/app-ctx-security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/appgen/templates/project/src/main/webapp/WEB-INF/app-ctx-security.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/BaseBindingInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/BaseBindingInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forzaframework.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
     </list>
@@ -177,7 +215,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/forzaframework.ipr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jandex-2.1.1.Final.jar!/" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -421,7 +459,56 @@
       <workItem from="1572010776783" duration="1605000" />
       <workItem from="1572282367029" duration="1028000" />
       <workItem from="1572974897433" duration="4513000" />
-      <workItem from="1573047488779" duration="652000" />
+      <workItem from="1573047488779" duration="1355000" />
+      <workItem from="1573135830437" duration="1416000" />
+      <workItem from="1573221461271" duration="1180000" />
+      <workItem from="1573480531281" duration="1807000" />
+      <workItem from="1573565959379" duration="586000" />
+      <workItem from="1573658120688" duration="712000" />
+      <workItem from="1573747590857" duration="1262000" />
+      <workItem from="1573825342511" duration="586000" />
+      <workItem from="1574172136504" duration="1905000" />
+      <workItem from="1574188802764" duration="589000" />
+      <workItem from="1574189449393" duration="602000" />
+      <workItem from="1574266440423" duration="4027000" />
+      <workItem from="1574355428715" duration="590000" />
+      <workItem from="1574441420934" duration="19000" />
+      <workItem from="1574808118423" duration="824000" />
+      <workItem from="1574861925596" duration="1781000" />
+      <workItem from="1574948574015" duration="2548000" />
+      <workItem from="1575294339151" duration="1187000" />
+      <workItem from="1575380694933" duration="1836000" />
+      <workItem from="1575466644289" duration="576000" />
+      <workItem from="1575985310139" duration="591000" />
+      <workItem from="1576175552519" duration="3597000" />
+      <workItem from="1576244262381" duration="20000" />
+      <workItem from="1576859555941" duration="2457000" />
+      <workItem from="1577108827440" duration="588000" />
+      <workItem from="1578939826809" duration="3436000" />
+      <workItem from="1579009235297" duration="585000" />
+      <workItem from="1579880837249" duration="1072000" />
+      <workItem from="1580132784954" duration="5209000" />
+      <workItem from="1580236136262" duration="2345000" />
+      <workItem from="1580305152003" duration="583000" />
+      <workItem from="1580395783346" duration="3957000" />
+      <workItem from="1580478179711" duration="1369000" />
+      <workItem from="1580825843133" duration="2613000" />
+      <workItem from="1580913733612" duration="654000" />
+      <workItem from="1581953247611" duration="695000" />
+      <workItem from="1582033391872" duration="596000" />
+      <workItem from="1582231231125" duration="2032000" />
+      <workItem from="1582292518580" duration="6784000" />
+      <workItem from="1582555501054" duration="5206000" />
+      <workItem from="1582637992961" duration="1201000" />
+      <workItem from="1582742501282" duration="588000" />
+      <workItem from="1582810872221" duration="2901000" />
+      <workItem from="1582897245165" duration="1180000" />
+      <workItem from="1583161297573" duration="1226000" />
+      <workItem from="1583188133817" duration="608000" />
+      <workItem from="1583243261358" duration="627000" />
+      <workItem from="1583358971972" duration="120000" />
+      <workItem from="1583359196875" duration="3509000" />
+      <workItem from="1583416762370" duration="4445000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -634,11 +721,77 @@
       <option name="project" value="LOCAL" />
       <updated>1569876963900</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Configuracion de librerias.">
+      <created>1573060364777</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1573060364777</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Correccion de las consultas a getHibernateTemplate().find para funcionar con Hibernate 5">
+      <created>1574272959883</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1574272959883</updated>
+    </task>
+    <task id="LOCAL-00040" summary="AR-271">
+      <created>1574273963496</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1574273963496</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Se deprec el ResponseTypes.XML y se agrego una propiedad al TextView para acceder al texto.">
+      <created>1580505193200</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1580505193200</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Cambios por motivos de compilacion, se depreca XlsUtils.">
+      <created>1582321631234</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1582321631235</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Git Ignore">
+      <created>1582322053633</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1582322053633</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Integracion de FreeMarker.">
+      <created>1582583303366</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1582583303366</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Modificaciones en Controllers globales para catalogos.">
+      <created>1583361991880</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1583361991880</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -675,14 +828,6 @@
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <MESSAGE value="Ant file" />
-    <MESSAGE value="Added functionality to enable any Store to bind its records to a List&lt;Map&gt;" />
-    <MESSAGE value="Added method   to get Month" />
-    <MESSAGE value="Version 9 Intellij IDEA" />
-    <MESSAGE value="Merge entre trunk y beta1" />
-    <MESSAGE value="Se agregó el atributo &quot;id&quot; al tag &quot;column&quot; del grid." />
-    <MESSAGE value="Ahora el atributo valueField del tag Lov puede manejar jstl" />
-    <MESSAGE value="Se agregó el atributo sorteable al tag DateColumn" />
     <MESSAGE value="Actualización Spring Security 3.1.4" />
     <MESSAGE value="Actualizacion para IDEA" />
     <MESSAGE value="Se agregó un el parametro printFooter en XlsUtils" />
@@ -700,7 +845,15 @@
     <MESSAGE value="Actualizacion a spring security 5" />
     <MESSAGE value="Se configurarion los interceptor en Arnom, ya no es necesario el annotation de Transaction." />
     <MESSAGE value="AR-281_Forza" />
-    <option name="LAST_COMMIT_MESSAGE" value="AR-281_Forza" />
+    <MESSAGE value="Configuracion de librerias." />
+    <MESSAGE value="Correccion de las consultas a getHibernateTemplate().find para funcionar con Hibernate 5" />
+    <MESSAGE value="AR-271" />
+    <MESSAGE value="Se deprec el ResponseTypes.XML y se agrego una propiedad al TextView para acceder al texto." />
+    <MESSAGE value="Cambios por motivos de compilacion, se depreca XlsUtils." />
+    <MESSAGE value="Git Ignore" />
+    <MESSAGE value="Integracion de FreeMarker." />
+    <MESSAGE value="Modificaciones en Controllers globales para catalogos." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modificaciones en Controllers globales para catalogos." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">
@@ -753,6 +906,11 @@
           <url>file://$PROJECT_DIR$/../spring-framework-master/spring-webmvc/src/main/java/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.java</url>
           <line>862</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/lib/spring-web-5.2.3.RELEASE.jar!/org/springframework/web/bind/support/WebBindingInitializer.class</url>
+          <line>16</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
