@@ -15,50 +15,10 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Modificaciones en Controllers globales para catalogos.">
-      <change afterPath="$PROJECT_DIR$/lib/byte-buddy-1.10.7.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/classmate-1.5.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/hibernate-core-5.4.11.Final.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/hibernate-jpamodelgen-5.4.11.Final.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-6.1.2.Final.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-annotation-processor-6.1.2.Final.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/hibernate-validator-cdi-6.1.2.Final.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jandex-2.1.1.Final.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-aop-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-aspects-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-beans-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-context-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-context-indexer-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-context-support-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-core-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-expression-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-instrument-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-jcl-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-jdbc-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-jms-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-messaging-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-orm-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-oxm-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-security-acl-5.3.0.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-security-cas-5.3.0.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-security-config-5.3.0.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-security-core-5.3.0.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-security-ldap-5.3.0.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-security-taglibs-5.3.0.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-security-web-5.3.0.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-test-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-tx-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-web-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-webflux-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-webmvc-5.2.3.RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/spring-websocket-5.2.3.RELEASE.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appgen/templates/project/src/main/webapp/WEB-INF/app-ctx-security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/appgen/templates/project/src/main/webapp/WEB-INF/app-ctx-security.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/BaseBindingInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/BaseBindingInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forzaframework.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.ipr" afterDir="false" />
+    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se actualizo a la ultima version disponible de spring y hibernate." />
+    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="">
       <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
     </list>
-    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="true" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +175,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jandex-2.1.1.Final.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/forzaframework.ipr" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -508,7 +468,10 @@
       <workItem from="1583243261358" duration="627000" />
       <workItem from="1583358971972" duration="120000" />
       <workItem from="1583359196875" duration="3509000" />
-      <workItem from="1583416762370" duration="4445000" />
+      <workItem from="1583416762370" duration="5752000" />
+      <workItem from="1583501809403" duration="631000" />
+      <workItem from="1583516235350" duration="67000" />
+      <workItem from="1583861694414" duration="661000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -777,7 +740,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583361991880</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Se actualizo a la ultima version disponible de spring y hibernate.">
+      <created>1583440036117</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1583440036117</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -828,7 +798,6 @@
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <MESSAGE value="Actualización Spring Security 3.1.4" />
     <MESSAGE value="Actualizacion para IDEA" />
     <MESSAGE value="Se agregó un el parametro printFooter en XlsUtils" />
     <MESSAGE value="Actualizacion de librerias" />
@@ -853,7 +822,8 @@
     <MESSAGE value="Git Ignore" />
     <MESSAGE value="Integracion de FreeMarker." />
     <MESSAGE value="Modificaciones en Controllers globales para catalogos." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modificaciones en Controllers globales para catalogos." />
+    <MESSAGE value="Se actualizo a la ultima version disponible de spring y hibernate." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se actualizo a la ultima version disponible de spring y hibernate." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">
