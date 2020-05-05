@@ -40,84 +40,85 @@ import org.forzaframework.util.ExceptionTranslator;
  *         Date: 12-sep-2008
  *         Time: 17:46:47
  */
+@Deprecated
 @Controller
-@RequestMapping("/formDelete.html")
+//@RequestMapping("/formDelete.html")
 public class SimpleEntityFormController extends BaseController {
-
-    private SystemConfiguration systemConfiguration;
-    protected EntityManager entityManager;
-    private String entity;
-    protected String formView;
-
-    public SimpleEntityFormController() {
-    }
-
-    public SimpleEntityFormController(String entity) {
-        this.entity = entity;
-    }
-
-    public SimpleEntityFormController(String entity, String formView) {
-        this.entity = entity;
-        this.formView = formView;
-    }
-
-    public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
-        this.systemConfiguration = systemConfiguration;
-    }
-
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
-    private SystemEntity getSystemEntity(WebRequest request) {
-        // TODO: Lanzar excepcion en caso de no encontrar la entidad.
-        return systemConfiguration.getSystemEntity(this.entity != null ? this.entity : request.getParameter("e"));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, params = "e")
-    public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model, WebRequest request) {
-
-        SystemEntity entity = getSystemEntity(request);
-
-        Object command;
-
-        if (id != null) {
-            command = entityManager.get(entity.getType(), id);
-        } else {
-            command = BeanUtils.instantiateClass(entity.getType());
-        }
-        model.addAttribute(entity.getCode(), command);
-
-        return formView;
-    }
-
-    @RequestMapping(method = RequestMethod.POST, params = "e")
-    protected ModelAndView processSubmit(WebRequest request) throws Exception {
-        Information info = new Information();
-
-        SystemEntity entity = getSystemEntity(request);
-
-        try{
-            if (request.getParameter("mode") != null && request.getParameter("mode").equals("delete")) {
-                entityManager.delete(entity.getType(), Long.valueOf(request.getParameter("id")));
-                info.addMessage(entity.getCode() + ".deleted");
-//            }else{
-//                String key = command.getKey() == null ? entity.getName() + ".added" : entity.getName() + ".updated";
-//                entityManager.save(command);
-//                info.setEntityId(command.getKey().toString());
-//                info.addMessage(key);
-//                logger.debug("Form submitted succesfully. [" + key + "]");
-            }
-        }catch(Exception e){
-            info.addError(ExceptionTranslator.translate(e, request.getLocale()));
-        }
-
-        if(request.getParameter("itype") != null && request.getParameter("itype").equals("json")){
-            return new TextView(info.toJSONString());
-
-        }else{
-            return new XmlView(info.toXml());
-        }
-    }
+//
+//    private SystemConfiguration systemConfiguration;
+//    protected EntityManager entityManager;
+//    private String entity;
+//    protected String formView;
+//
+//    public SimpleEntityFormController() {
+//    }
+//
+//    public SimpleEntityFormController(String entity) {
+//        this.entity = entity;
+//    }
+//
+//    public SimpleEntityFormController(String entity, String formView) {
+//        this.entity = entity;
+//        this.formView = formView;
+//    }
+//
+//    public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
+//        this.systemConfiguration = systemConfiguration;
+//    }
+//
+//    public void setEntityManager(EntityManager entityManager) {
+//        this.entityManager = entityManager;
+//    }
+//
+//    private SystemEntity getSystemEntity(WebRequest request) {
+//        // TODO: Lanzar excepcion en caso de no encontrar la entidad.
+//        return systemConfiguration.getSystemEntity(this.entity != null ? this.entity : request.getParameter("e"));
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET, params = "e")
+//    public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model, WebRequest request) {
+//
+//        SystemEntity entity = getSystemEntity(request);
+//
+//        Object command;
+//
+//        if (id != null) {
+//            command = entityManager.get(entity.getType(), id);
+//        } else {
+//            command = BeanUtils.instantiateClass(entity.getType());
+//        }
+//        model.addAttribute(entity.getCode(), command);
+//
+//        return formView;
+//    }
+//
+//    @RequestMapping(method = RequestMethod.POST, params = "e")
+//    protected ModelAndView processSubmit(WebRequest request) throws Exception {
+//        Information info = new Information();
+//
+//        SystemEntity entity = getSystemEntity(request);
+//
+//        try{
+//            if (request.getParameter("mode") != null && request.getParameter("mode").equals("delete")) {
+//                entityManager.delete(entity.getType(), Long.valueOf(request.getParameter("id")));
+//                info.addMessage(entity.getCode() + ".deleted");
+////            }else{
+////                String key = command.getKey() == null ? entity.getName() + ".added" : entity.getName() + ".updated";
+////                entityManager.save(command);
+////                info.setEntityId(command.getKey().toString());
+////                info.addMessage(key);
+////                logger.debug("Form submitted succesfully. [" + key + "]");
+//            }
+//        }catch(Exception e){
+//            info.addError(ExceptionTranslator.translate(e, request.getLocale()));
+//        }
+//
+//        if(request.getParameter("itype") != null && request.getParameter("itype").equals("json")){
+//            return new TextView(info.toJSONString());
+//
+//        }else{
+//            return new XmlView(info.toXml());
+//        }
+//    }
 
 }
