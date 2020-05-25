@@ -31,6 +31,7 @@ import org.forzaframework.metadata.ExternalSystem;
 import org.forzaframework.validation.Information;
 import org.forzaframework.web.servlet.view.TextView;
 import org.forzaframework.web.servlet.view.XmlView;
+import org.hibernate.NonUniqueObjectException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -109,7 +110,11 @@ public class CollectionSubmitController extends BaseController {
                     }
                 }
 
-                entityManager.save(bean);
+                try {
+                    entityManager.save(bean);
+                } catch (NonUniqueObjectException e) {
+                    entityManager.getHibernateSession().merge(bean);
+                }
 //                entityManager.getHibernateSession().clear();
 //                entityManager.getHibernateSession().flush();
                 info.addMessage(getText("entityList.saved"));
