@@ -113,7 +113,7 @@ public class CollectionSubmitController extends BaseController {
                 try {
                     entityManager.save(bean);
                 } catch (NonUniqueObjectException e) {
-                    entityManager.getHibernateSession().merge(bean);
+                    entityManager.merge(bean);
                 }
 //                entityManager.getHibernateSession().clear();
 //                entityManager.getHibernateSession().flush();

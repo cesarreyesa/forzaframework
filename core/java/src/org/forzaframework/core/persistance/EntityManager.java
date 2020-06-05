@@ -93,6 +93,8 @@ public interface EntityManager {
 
     void save(String entityName, Object entity);
 
+    void merge(Object entity);
+
     /**
      * Generic method to delete an object based on class and id
      * @param entity

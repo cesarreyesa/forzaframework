@@ -264,6 +264,10 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
         getHibernateTemplate().saveOrUpdate(entityName, entity);
     }
 
+    public void merge(Object entity) {
+        getHibernateSession().merge(entity);
+    }
+
     public void delete(Object entity) {
         getHibernateTemplate().delete(entity);
     }
