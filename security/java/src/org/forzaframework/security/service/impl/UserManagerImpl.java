@@ -106,7 +106,7 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
             if(model == null) model = new HashMap();
             model.put("user", user);
             model.put("password", password);
-            mailEngine.sendMessage(mailMessage, "newUser.vm", model, false);
+            mailEngine.sendMessage(mailMessage, "newUser.txt", model, false);
         }
     }
 
