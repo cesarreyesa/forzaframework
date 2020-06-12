@@ -80,7 +80,7 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         }else{
             User originalUser = (User) entityManager.get(User.class, user.getId(), true);
             if(!originalUser.getPassword().equals(user.getPassword())){
-                user.setPassword(org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
+                user.setPassword("{SHA-1}" + org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
             }
             entityManager.save(user);
         }
@@ -97,7 +97,7 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
 
     public void newUser(User user, Map model) {
         String password = user.getPassword();
-        user.setPassword(org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
+        user.setPassword("{SHA-1}" + org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
         entityManager.save(user);
 
         if(mailMessage != null && mailEngine != null){
