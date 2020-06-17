@@ -15,8 +15,8 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se actualizo a la ultima version disponible de spring y hibernate." />
-    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="">
+    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5." />
+    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="Configuracion.">
       <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -472,6 +472,21 @@
       <workItem from="1583501809403" duration="631000" />
       <workItem from="1583516235350" duration="67000" />
       <workItem from="1583861694414" duration="661000" />
+      <workItem from="1586457448944" duration="86000" />
+      <workItem from="1588693205350" duration="2531000" />
+      <workItem from="1588700896131" duration="1369000" />
+      <workItem from="1588961832136" duration="1371000" />
+      <workItem from="1589996179129" duration="97000" />
+      <workItem from="1589996487502" duration="41000" />
+      <workItem from="1590099095594" duration="638000" />
+      <workItem from="1590160049377" duration="3302000" />
+      <workItem from="1590417500517" duration="1055000" />
+      <workItem from="1590685094507" duration="29000" />
+      <workItem from="1590686369861" duration="165000" />
+      <workItem from="1590707875559" duration="28000" />
+      <workItem from="1591381674333" duration="361000" />
+      <workItem from="1591985668796" duration="839000" />
+      <workItem from="1591995353955" duration="810000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -747,7 +762,63 @@
       <option name="project" value="LOCAL" />
       <updated>1583440036117</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Configuracion.">
+      <created>1586457506499</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1586457506499</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Se depreco y comento la funcionalidad del controller para el url  formDelete.html.">
+      <created>1588699909160</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1588699909160</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Se cambio el tipo de id en los catalogos por hibernate 5.">
+      <created>1588702112828</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1588702112828</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Se requiere el responseTypes XML para enviar correctamente los mensajes de error en spring 5.">
+      <created>1589996256793</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1589996256793</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Se agrega el merge a la persistencia de catalogos, por errores de duplicidad de objetos en la sesion.">
+      <created>1590418889529</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1590418889529</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Se agrego al EntityManager la opcion de merge.">
+      <created>1591382016280</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1591382016280</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Se corrigio el template de newUser en el envio de mail.">
+      <created>1591986670260</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1591986670260</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5.">
+      <created>1591997647744</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1591997647744</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -798,14 +869,6 @@
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <MESSAGE value="Actualizacion para IDEA" />
-    <MESSAGE value="Se agregó un el parametro printFooter en XlsUtils" />
-    <MESSAGE value="Actualizacion de librerias" />
-    <MESSAGE value="Validacion correcta de la funcion isBetweenDatesIgnoreYear." />
-    <MESSAGE value="Cambios en id de tabla de catalogos" />
-    <MESSAGE value="Se agrego al id de los grid editables, aceptar expresiones rtexprvalue" />
-    <MESSAGE value="Se agrego la propiedades de enableKeyEvents y Listeners al DateColumnTag y BumberColumnTag" />
-    <MESSAGE value="Se agrego al Grid Editable las propiedades de defaultSort y defaultSortDir." />
     <MESSAGE value="Migracion a Spring 5, Hibernate 5" />
     <MESSAGE value="Se agrego e" />
     <MESSAGE value="Migracion Spring 5, Hibernate 5" />
@@ -823,7 +886,15 @@
     <MESSAGE value="Integracion de FreeMarker." />
     <MESSAGE value="Modificaciones en Controllers globales para catalogos." />
     <MESSAGE value="Se actualizo a la ultima version disponible de spring y hibernate." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se actualizo a la ultima version disponible de spring y hibernate." />
+    <MESSAGE value="Configuracion." />
+    <MESSAGE value="Se depreco y comento la funcionalidad del controller para el url  formDelete.html." />
+    <MESSAGE value="Se cambio el tipo de id en los catalogos por hibernate 5." />
+    <MESSAGE value="Se requiere el responseTypes XML para enviar correctamente los mensajes de error en spring 5." />
+    <MESSAGE value="Se agrega el merge a la persistencia de catalogos, por errores de duplicidad de objetos en la sesion." />
+    <MESSAGE value="Se agrego al EntityManager la opcion de merge." />
+    <MESSAGE value="Se corrigio el template de newUser en el envio de mail." />
+    <MESSAGE value="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">
