@@ -43,8 +43,8 @@ package org.forzaframework.web.servlet.mvc.annotation;
 //import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.HttpSession;
 //
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 //
 //import org.forzaframework.web.servlet.mvc.annotation.ResponseType;
 //import org.forzaframework.web.servlet.mvc.annotation.ResponseTypes;

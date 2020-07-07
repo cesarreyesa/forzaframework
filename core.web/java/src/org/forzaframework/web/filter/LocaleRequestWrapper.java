@@ -16,8 +16,8 @@
 
 package org.forzaframework.web.filter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ import java.util.Collections;
  * the user's preferred locale.
  */
 public class LocaleRequestWrapper extends HttpServletRequestWrapper {
-    private final transient Log log = LogFactory.getLog(LocaleRequestWrapper.class);
+    private final transient Logger log = LogManager.getLogger(LocaleRequestWrapper.class);
     private final Locale preferredLocale;
 
     public LocaleRequestWrapper(HttpServletRequest decorated, Locale userLocale) {

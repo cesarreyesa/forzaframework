@@ -25,9 +25,6 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import org.forzaframework.core.persistance.EntityManager;
 import org.forzaframework.metadata.SystemConfiguration;
 import org.springframework.beans.factory.BeanFactory;

@@ -32,8 +32,8 @@ package org.forzaframework.web.bind.annotation.support;
 //import java.util.Map;
 //import java.util.Set;
 //
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 //
 //import org.forzaframework.core.persistance.BaseEntity;
 //import org.forzaframework.core.persistance.EntityManager;
@@ -106,7 +106,7 @@ public class HandlerMethodInvoker {
 //	private static final String MODEL_KEY_PREFIX_STALE = SessionAttributeStore.class.getName() + ".STALE.";
 //
 //	/** We'll create a lot of these objects, so we don't want a new logger every time. */
-//	private static final Log logger = LogFactory.getLog(HandlerMethodInvoker.class);
+//	private static final Logger logger = LogManager.getLogger(HandlerMethodInvoker.class);
 //
 //	private final HandlerMethodResolver methodResolver;
 //

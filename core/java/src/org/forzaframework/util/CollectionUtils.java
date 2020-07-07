@@ -18,8 +18,8 @@ package org.forzaframework.util;
 
 import org.apache.commons.beanutils.BeanPropertyValueEqualsPredicate;
 import org.apache.commons.collections.PredicateUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.forzaframework.query.PageInfo;
@@ -34,7 +34,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class CollectionUtils {
 
-    private static Log logger = LogFactory.getLog(CollectionUtils.class);
+    private static Logger logger = LogManager.getLogger(CollectionUtils.class);
 
     public static <T> List<T> convertSetToList(Set<T> collection){
         List<T> list = new ArrayList<T>();

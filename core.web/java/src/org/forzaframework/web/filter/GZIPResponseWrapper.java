@@ -16,8 +16,8 @@
 
 package org.forzaframework.web.filter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +37,7 @@ import java.io.OutputStreamWriter;
  * @author  Matt Raible, cmurphy@intechtual.com
  */
 public class GZIPResponseWrapper extends HttpServletResponseWrapper {
-    private transient final Log log = LogFactory.getLog(GZIPResponseWrapper.class);
+    private transient final Logger log = LogManager.getLogger(GZIPResponseWrapper.class);
     protected HttpServletResponse origResponse = null;
     protected ServletOutputStream stream = null;
     protected PrintWriter writer = null;

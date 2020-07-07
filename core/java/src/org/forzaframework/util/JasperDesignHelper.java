@@ -17,8 +17,8 @@
 package org.forzaframework.util;
 
 import net.sf.jasperreports.engine.type.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.commons.beanutils.BeanUtils;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -39,7 +39,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class JasperDesignHelper {
 
-	private static final Log log = LogFactory.getLog(JasperDesignHelper.class);
+	private static final Logger log = LogManager.getLogger(JasperDesignHelper.class);
 
 	public static DynamicJasperDesign getNewDesign(DynamicReport dr) {
 		log.info("obtaining DynamicJasperDesign instance");

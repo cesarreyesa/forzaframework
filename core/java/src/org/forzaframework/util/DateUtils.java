@@ -18,8 +18,8 @@ package org.forzaframework.util;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.util.Assert;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -42,7 +42,7 @@ import java.text.DateFormatSymbols;
 public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     //~ Static fields/initializers =============================================
 
-    private static Log log = LogFactory.getLog(DateUtils.class);
+    private static Logger log = LogManager.getLogger(DateUtils.class);
     private static String defaultDatePattern = null;
     private static String timePattern = "HH:mm";
     private static final String APPLICATION_RESOURCES = "ApplicationResources";

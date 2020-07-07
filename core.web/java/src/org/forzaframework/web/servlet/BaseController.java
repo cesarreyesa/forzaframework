@@ -31,8 +31,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.BindException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.forzaframework.validation.Information;
 import org.forzaframework.validation.Field;
 import org.forzaframework.validation.Error;
@@ -53,7 +53,7 @@ import java.text.DecimalFormatSymbols;
 
 
 public class BaseController extends WebApplicationObjectSupport {
-    protected final transient Log logger = LogFactory.getLog(getClass());
+    protected final transient Logger logger = LogManager.getLogger(getClass());
     protected static final String AJAX_EXT = "AJAX_EXT";
     protected String ajaxMode = AJAX_EXT;
 

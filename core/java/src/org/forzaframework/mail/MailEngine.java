@@ -17,8 +17,8 @@
 package org.forzaframework.mail;
 
 import freemarker.template.Configuration;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
@@ -51,7 +51,7 @@ import java.security.Security;
  */
 public class MailEngine implements ApplicationContextAware {
     
-    protected static final Log log = LogFactory.getLog(MailEngine.class);
+    protected static final Logger log = LogManager.getLogger(MailEngine.class);
     private MailSender mailSender;
     private Configuration freeMarkerConfiguration;
     private Boolean debug = false;

@@ -15,10 +15,37 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5." />
-    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="Configuracion.">
+    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5.">
+      <change afterPath="$PROJECT_DIR$/lib/log4j-1.2-api-2.13.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/log4j-api-2.13.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/log4j-core-2.13.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/log4j-web-2.13.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/BaseDaoHibernate.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/BaseDaoHibernate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/LocaleRequestWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/LocaleRequestWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/listener/StartupListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/listener/StartupListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/AnnotationMethodHandlerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/AnnotationMethodHandlerAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/BaseView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/BaseView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/beans/propertyeditors/ExternalEntityEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/beans/propertyeditors/ExternalEntityEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/CsvImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/CsvImporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/CollectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/CollectionUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/JasperDesignHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/JasperDesignHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/ReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/ReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forzaframework.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/log4j-1.2.17.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/log4j-1.2.17.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/ReflectionMethodDefinitionSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/ReflectionMethodDefinitionSource.java" afterDir="false" />
     </list>
+    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="Configuracion." />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="true" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +202,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/forzaframework.ipr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/log4j-web-2.13.0.jar!/" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -487,6 +514,9 @@
       <workItem from="1591381674333" duration="361000" />
       <workItem from="1591985668796" duration="839000" />
       <workItem from="1591995353955" duration="810000" />
+      <workItem from="1592415732471" duration="120000" />
+      <workItem from="1592416055086" duration="46000" />
+      <workItem from="1594143419372" duration="2843000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -818,7 +848,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591997647744</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Configuracion.">
+      <created>1592415767584</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1592415767584</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -886,7 +923,6 @@
     <MESSAGE value="Integracion de FreeMarker." />
     <MESSAGE value="Modificaciones en Controllers globales para catalogos." />
     <MESSAGE value="Se actualizo a la ultima version disponible de spring y hibernate." />
-    <MESSAGE value="Configuracion." />
     <MESSAGE value="Se depreco y comento la funcionalidad del controller para el url  formDelete.html." />
     <MESSAGE value="Se cambio el tipo de id en los catalogos por hibernate 5." />
     <MESSAGE value="Se requiere el responseTypes XML para enviar correctamente los mensajes de error en spring 5." />
@@ -894,7 +930,8 @@
     <MESSAGE value="Se agrego al EntityManager la opcion de merge." />
     <MESSAGE value="Se corrigio el template de newUser en el envio de mail." />
     <MESSAGE value="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5." />
+    <MESSAGE value="Configuracion." />
+    <option name="LAST_COMMIT_MESSAGE" value="Configuracion." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">

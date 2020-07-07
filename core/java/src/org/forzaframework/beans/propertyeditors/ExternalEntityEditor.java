@@ -16,8 +16,8 @@
 
 package org.forzaframework.beans.propertyeditors;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.util.StringUtils;
 import org.forzaframework.core.persistance.BaseEntity;
 import org.forzaframework.core.persistance.EntityManager;
@@ -31,7 +31,7 @@ import java.beans.PropertyEditorSupport;
  */
 public class ExternalEntityEditor <T extends BaseEntity> extends PropertyEditorSupport {
 
-    private static final Log logger = LogFactory.getLog(ExternalEntityEditor.class);
+    private static final Logger logger = LogManager.getLogger(ExternalEntityEditor.class);
     private Class requiredType;
     private EntityManager entityManager;
     private String externalSystem;

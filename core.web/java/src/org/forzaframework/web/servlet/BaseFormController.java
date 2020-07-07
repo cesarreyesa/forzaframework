@@ -25,8 +25,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.FieldError;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.forzaframework.validation.Information;
 import org.forzaframework.validation.Field;
 import org.forzaframework.validation.Error;
@@ -50,7 +50,7 @@ import java.text.SimpleDateFormat;
 @Deprecated
 public class BaseFormController {
 //        extends SimpleFormController {
-//    protected final transient Log log = LogFactory.getLog(getClass());
+//    protected final transient Logger log = LogManager.getLogger(getClass());
 //    protected static final String AJAX_EXT = "AJAX_EXT";
 //    protected String ajaxMode = "";
 //    protected String cancelView;

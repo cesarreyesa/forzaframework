@@ -16,8 +16,8 @@
 
 package org.forzaframework.web.listener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.forzaframework.security.Role;
 import org.forzaframework.security.User;
 import org.forzaframework.security.service.UserManager;
@@ -49,7 +49,7 @@ import java.util.List;
 public class StartupListener extends ContextLoaderListener
     implements ServletContextListener {
 
-    private static final Log log = LogFactory.getLog(StartupListener.class);
+    private static final Logger log = LogManager.getLogger(StartupListener.class);
 
     public void contextInitialized(ServletContextEvent event) {
         if (log.isDebugEnabled()) {

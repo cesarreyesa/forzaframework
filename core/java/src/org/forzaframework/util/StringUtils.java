@@ -16,8 +16,8 @@
 
 package org.forzaframework.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.security.MessageDigest;
 import java.io.IOException;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class StringUtils {
     //~ Static fields/initializers =============================================
 
-    private final static Log log = LogFactory.getLog(StringUtils.class);
+    private final static Logger log = LogManager.getLogger(StringUtils.class);
 
     //~ Methods ================================================================
 

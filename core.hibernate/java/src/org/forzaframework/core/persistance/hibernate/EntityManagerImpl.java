@@ -30,8 +30,8 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang.WordUtils;
 
 import javax.sql.DataSource;
@@ -50,7 +50,7 @@ import java.io.Serializable;
 //@Repository
 public class EntityManagerImpl extends HibernateDaoSupport implements EntityManager {
 
-    protected final Log logger = LogFactory.getLog(getClass());
+    protected final Logger logger = LogManager.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
 

@@ -16,8 +16,8 @@
 
 package org.forzaframework.layout;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.springframework.validation.Validator;
@@ -51,7 +51,7 @@ import java.text.SimpleDateFormat;
  */
 public class CsvImporter<T> extends BaseImporter implements Importer {
 
-    private Log logger = LogFactory.getLog(CsvImporter.class);
+    private Logger logger = LogManager.getLogger(CsvImporter.class);
     private SystemConfiguration systemConfiguration;
     private Validator validator;
 
