@@ -183,7 +183,7 @@ public class BaseController extends WebApplicationObjectSupport {
         }
 
         //retrieve the file data
-        InputStream stream = file.getInputStream();
+//        InputStream stream = file.getInputStream();
         //write the file to the file specified
         if(keepOriginalExtension){
             fileName += file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
