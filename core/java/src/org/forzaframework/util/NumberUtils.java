@@ -242,11 +242,20 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
             decimalToString = "00";
         }
 
-        //Revisamos si tenemos mas de un decimal
-        if (decimalToString.length() > 1) {
-            return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"/100 M. N.";
+        if(StringUtils.isNotBlank(currencyName)) {
+            //Revisamos si tenemos mas de un decimal
+            if (decimalToString.length() > 1) {
+                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"/100 M. N.";
+            } else {
+                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"0/100 M. N.";
+            }
         } else {
-            return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"0/100 M. N.";
+            //Revisamos si tenemos mas de un decimal
+            if (decimalToString.length() > 1) {
+                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + decimalToString +"/100 M. N.";
+            } else {
+                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + decimalToString +"0/100 M. N.";
+            }
         }
     }
 }
