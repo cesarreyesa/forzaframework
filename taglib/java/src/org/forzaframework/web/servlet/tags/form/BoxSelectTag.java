@@ -119,6 +119,7 @@ public class BoxSelectTag extends ComboboxTag {
         json.put("anchor", getAnchor() != null ? getAnchor() : "90%");
         json.elementOpt("pageSize", getPageSize());
         json.elementOpt("width", getWidth());
+        json.elementOpt("listWidth", StringUtils.isNotBlank(getListWidth()) ? getListWidth() : getWidth());
         json.elementOpt("renderHidden", hidden);
         json.elementOpt("allowBlank", allowBlank);
 
