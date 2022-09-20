@@ -19,30 +19,30 @@ package org.forzaframework.mail;
 import freemarker.template.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.forzaframework.orm.hibernate3.support.OpenSessionInThreadTask;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamSource;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamSource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.task.TaskExecutor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.beans.BeansException;
-import org.forzaframework.orm.hibernate3.support.OpenSessionInThreadTask;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
+import java.security.Security;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.List;
-import java.security.Security;
 
 /**
  * @author cesarreyes
@@ -208,7 +208,7 @@ public class MailEngine implements ApplicationContextAware {
                 try {
                     StringBuffer content = new StringBuffer();
                     try {
-                        content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(templateName), model));
+                        content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(templateName, "UTF-8"), model));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
