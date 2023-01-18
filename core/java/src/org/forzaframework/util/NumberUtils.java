@@ -16,7 +16,6 @@
 
 package org.forzaframework.util;
 
-import org.apache.commons.lang.*;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.RoundingMode;
@@ -102,7 +101,6 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
         return truncate(value, 2);
     }
 
-
     /**
      * Convierte la cantidad pasada como parametro a palabras. Ej: 1559 se convierte a MIL QUINUENTOS CINCUENTA Y NUEVE
      *
@@ -110,10 +108,25 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
      * @return          Cantidad en palabras
      */
     static public String converterNumberToWords(Integer amount){
+        return converterNumberToWords(amount, false);
+    }
+
+
+    /**
+     * Convierte la cantidad pasada como parametro a palabras. Ej: 1559 se convierte a MIL QUINUENTOS CINCUENTA Y NUEVE
+     *
+     * @param amount    Cantidad a convertir a palabras
+     * @return          Cantidad en palabras
+     */
+    static public String converterNumberToWords(Integer amount, Boolean numberAsCurrency){
+        if (numberAsCurrency != null && numberAsCurrency && amount.equals(1)) {
+            return "UN";
+        }
+
         if (amount >= 0) {
             switch(amount){
                 case 0: return "CERO";
-                case 1: return "UN"; //UNO
+                case 1: return "UNO"; //UNO
                 case 2: return "DOS";
                 case 3: return "TRES";
                 case 4: return "CUATRO";
@@ -151,33 +164,33 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
             }
             if(amount<20){
                 //System.out.println(">15");
-                return "DIECI"+ converterNumberToWords(amount-10);
+                return "DIECI"+ converterNumberToWords(amount-10, numberAsCurrency);
             }
             if(amount<30){
                 //System.out.println(">20");
-                return "VEINTI" + converterNumberToWords(amount-20);
+                return "VEINTI" + converterNumberToWords(amount-20, numberAsCurrency);
             }
             if(amount<100){
                 //System.out.println("<100");
-                return converterNumberToWords( (int)(amount/10)*10 ) + " Y " + converterNumberToWords(amount%10);
+                return converterNumberToWords( (int)(amount/10)*10 , numberAsCurrency) + " Y " + converterNumberToWords(amount%10, numberAsCurrency);
             }
             if(amount<200){
                 //System.out.println("<200");
-                return "CIENTO " + converterNumberToWords( amount - 100 );
+                return "CIENTO " + converterNumberToWords( amount - 100 , numberAsCurrency);
             }
             if(amount<1000){
                 //System.out.println("<1000");
-                return converterNumberToWords( (int)(amount/100)*100 ) + " " + converterNumberToWords(amount%100);
+                return converterNumberToWords( (int)(amount/100)*100 , numberAsCurrency) + " " + converterNumberToWords(amount%100, numberAsCurrency);
             }
             if(amount<2000){
                 //System.out.println("<2000");
-                return "UN MIL " + converterNumberToWords( amount % 1000 );
+                return "UN MIL " + converterNumberToWords( amount % 1000 , numberAsCurrency);
             }
             if(amount<1000000){
                 String var="";
-                var = converterNumberToWords((int)(amount/1000)) + " MIL" ;
+                var = converterNumberToWords((int)(amount/1000), numberAsCurrency) + " MIL" ;
                 if(amount % 1000!=0){
-                    var += " " + converterNumberToWords(amount % 1000);
+                    var += " " + converterNumberToWords(amount % 1000, numberAsCurrency);
                 }
                 return var;
             }
@@ -198,9 +211,9 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
                 //Si la cantidad es un multiplo de 1000000 entonces no usamos converterNumberToWords(residue) y asi eliminamos la
                 //palabra "CERO" que se coloca al final
                 if (residue == 0) {
-                    return converterNumberToWords(millionValue) + millionWord;
-                }else{
-                    return converterNumberToWords(millionValue) + millionWord + converterNumberToWords( amount % 1000000 );
+                    return converterNumberToWords(millionValue, numberAsCurrency) + millionWord;
+                } else {
+                    return converterNumberToWords(millionValue, numberAsCurrency) + millionWord + converterNumberToWords( amount % 1000000, numberAsCurrency);
                 }
 
             }
@@ -214,7 +227,7 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
     /**
      * Convierte una cantidad dada a palabras.
      * Ej: La cantidad 1525.8569 se convierte a UN MIL QUINIENTOS VEINTICINCO PESOS 86/100 M. N., la palabra "PESOS" se
-     * puede cambiarse a trav�s de el parametro currencyName.  
+     * puede cambiarse a trav�s de el parametro currencyName.
      *
      * @param amount        Cantidad a convertir en palabras
      * @param currencyName  Nombre de la moneda
@@ -245,16 +258,16 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
         if(StringUtils.isNotBlank(currencyName)) {
             //Revisamos si tenemos mas de un decimal
             if (decimalToString.length() > 1) {
-                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"/100 M. N.";
+                return converterNumberToWords(amount.intValue(), true).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"/100 M. N.";
             } else {
-                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"0/100 M. N.";
+                return converterNumberToWords(amount.intValue(), true).toLowerCase() + " " + currencyName.toLowerCase() + " " + decimalToString +"0/100 M. N.";
             }
         } else {
             //Revisamos si tenemos mas de un decimal
             if (decimalToString.length() > 1) {
-                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + decimalToString +"/100 M. N.";
+                return converterNumberToWords(amount.intValue(), true).toLowerCase() + " " + decimalToString +"/100 M. N.";
             } else {
-                return converterNumberToWords(amount.intValue()).toLowerCase() + " " + decimalToString +"0/100 M. N.";
+                return converterNumberToWords(amount.intValue(), true).toLowerCase() + " " + decimalToString +"0/100 M. N.";
             }
         }
     }
