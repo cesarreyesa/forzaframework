@@ -22,6 +22,7 @@ import org.forzaframework.core.persistance.Criterion;
 import org.forzaframework.util.ClassUtils;
 import org.forzaframework.metadata.Catalog;
 import org.forzaframework.metadata.TranslatableCatalog;
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.Session;
@@ -257,7 +258,11 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
     }
 
     public void save(Object entity) {
-        getHibernateSession().saveOrUpdate(entity);
+        try {
+            getHibernateSession().saveOrUpdate(entity);
+        } catch (NonUniqueObjectException e) {
+            this.merge(entity);
+        }
     }
 
     public void save(String entityName, Object entity) {
