@@ -21,7 +21,6 @@ import org.forzaframework.layout.FileDefinition;
 import org.forzaframework.core.persistance.EntityManager;
 import org.hibernate.Query;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
