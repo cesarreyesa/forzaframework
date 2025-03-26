@@ -46,8 +46,9 @@ public class FileDefinition extends BaseEntity {
     private Boolean updateExistingRecords = false;
     private Boolean allowCreateNewRecords = false;
     private Boolean ignoreNotExistingRecords = false;
+    private Boolean requireFiscalCompanies = false;
     private List<ColumnDefinition> columns = new ArrayList<ColumnDefinition>();
-//    private List<InnerDefinition> innerDefnitions = new ArrayList<InnerDefinition>();
+    // private List<InnerDefinition> innerDefnitions = new ArrayList<InnerDefinition>();
     private String format;
     private String delimiter;
 
@@ -135,6 +136,16 @@ public class FileDefinition extends BaseEntity {
 
     public void setIgnoreNotExistingRecords(Boolean ignoreNotExistingRecords) {
         this.ignoreNotExistingRecords = ignoreNotExistingRecords;
+    }
+
+    @Column(name = "require_fiscal_companies")
+    public Boolean getRequireFiscalCompanies() {
+        if(requireFiscalCompanies == null) requireFiscalCompanies = false;
+        return requireFiscalCompanies;
+    }
+
+    public void setRequireFiscalCompanies(Boolean requireFiscalCompanies) {
+        this.requireFiscalCompanies = requireFiscalCompanies;
     }
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -231,10 +242,11 @@ public class FileDefinition extends BaseEntity {
         el.addElement("updateExistingRecords").addText(this.getUpdateExistingRecords() == null ? "" : this.getUpdateExistingRecords().toString());
         el.addElement("allowCreateNewRecords").addText(this.getAllowCreateNewRecords() == null ? "" : this.getAllowCreateNewRecords().toString());
         el.addElement("ignoreNotExistingRecords").addText(this.getIgnoreNotExistingRecords() == null ? "" : this.getIgnoreNotExistingRecords().toString());
+        el.addElement("requireFiscalCompanies").addText(this.getRequireFiscalCompanies() == null ? "" : this.getRequireFiscalCompanies().toString());
         el.addElement("entity").addText(this.getEntity() == null ? "" : this.getEntity());
         el.addElement("format").addText(this.getFormat() == null ? "" : this.getFormat());
         el.addElement("delimiter").addText(this.getDelimiter() == null ? "" : this.getDelimiter());
-        if(this.getColumns().size() > 0){
+        if(!this.getColumns().isEmpty()){
             Element columns = el.addElement("columns");
             for(ColumnDefinition columnDefinition : this.getColumns()){
                 Element column = columns.addElement("column");
