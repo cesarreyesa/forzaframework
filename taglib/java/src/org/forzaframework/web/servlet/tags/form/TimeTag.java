@@ -23,7 +23,7 @@ import net.sf.json.JSONObject;
  * Date: 12/11/2008
  * Time: 03:53:28 PM
  */
-public class TimeTag extends FieldTag {
+public class TimeTag extends ComboboxTag {
 
     private Integer increment;
 

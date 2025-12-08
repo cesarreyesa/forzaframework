@@ -1197,6 +1197,14 @@
             <name>allowBlank</name>
         </attribute>
         <attribute>
+            <name>valueField</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>increment</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -109,7 +109,7 @@ public class DateTag extends FieldTag {
 
         json.put("enableKeyEvents", enableKeyEvents == null ? false : enableKeyEvents);
 
-        if(this.listeners.size() > 0){
+        if(!this.listeners.isEmpty()){
             JSONObject listeners = new JSONObject();
             for (Listener listener : this.listeners) {
                 listeners.put(listener.getEventName(), new JSONFunction(listener.getHandler()));
