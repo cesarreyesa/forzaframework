@@ -16,9 +16,11 @@
 
 package org.forzaframework.core.persistance.hibernate;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.forzaframework.core.persistance.EntityManager;
 import org.forzaframework.core.persistance.Criteria;
 import org.forzaframework.core.persistance.Criterion;
+import org.forzaframework.util.AlphanumBeanComparator;
 import org.forzaframework.util.ClassUtils;
 import org.forzaframework.metadata.Catalog;
 import org.forzaframework.metadata.TranslatableCatalog;
@@ -37,10 +39,12 @@ import org.apache.commons.lang.WordUtils;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.Serializable;
+import java.util.stream.Collectors;
 
 /**
  * @author cesarreyes
@@ -319,4 +323,20 @@ public class EntityManagerImpl extends HibernateDaoSupport implements EntityMana
         return (Double) getHibernateTemplate().iterate(hql, values).next();
     }
 
+    public <T> List<T> filter(Class classType){
+        List<T> list = this.getAll(classType);
+        if (!list.isEmpty()){
+            list = list.stream().filter(it -> {
+                try {
+                    String value = BeanUtils.getProperty(it, "name");
+                    return value != null && !value.trim().isEmpty();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }).collect(Collectors.toList());
+            Collections.sort(list, new AlphanumBeanComparator("name",  "asc"));
+        }
+        return list;
+    }
 }

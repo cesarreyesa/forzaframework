@@ -16,6 +16,8 @@
 
 package org.forzaframework.metadata;
 
+import org.forzaframework.core.persistance.BaseEntity;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -27,9 +29,9 @@ import java.util.ArrayList;
 
 public class SystemConfiguration {
 
-    private List<SystemEntity> systemEntities = new ArrayList<SystemEntity>();
+    private List<SystemEntity> systemEntities = new ArrayList<>();
     private Boolean enableExternalSystems = false;
-    private List<ExternalSystem> externalSystems  = new ArrayList<ExternalSystem>();
+    private List<ExternalSystem> externalSystems  = new ArrayList<>();
 
     public List<SystemEntity> getSystemEntities() {
         return systemEntities;
@@ -83,12 +85,16 @@ public class SystemConfiguration {
     }
 
     public List<SystemEntity> getDynamicEntities(){
-        List<SystemEntity> dynamicEntityies = new ArrayList<SystemEntity>();
+        List<SystemEntity> dynamicEntities = new ArrayList<>();
         for(SystemEntity entity : systemEntities){
             if(entity.getEntityType() != null && entity.getEntityType().equals("dynamic")){
-                dynamicEntityies.add(entity);
+                dynamicEntities.add(entity);
             }
         }
-        return dynamicEntityies;
+        return dynamicEntities;
+    }
+
+    public List<? extends BaseEntity> getSystemList(String type){
+        return type.equals("entity") ? this.getSystemEntities() : this.getExternalSystems();
     }
 }

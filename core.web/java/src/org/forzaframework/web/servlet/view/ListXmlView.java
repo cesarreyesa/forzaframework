@@ -17,7 +17,9 @@
 package org.forzaframework.web.servlet.view;
 
 import org.forzaframework.util.AlphanumBeanComparator;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.util.Assert;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -62,52 +64,45 @@ public class ListXmlView extends BaseView {
     }
 
     protected void renderMergedOutputModel(Map model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Document doc = DocumentHelper.createDocument();
-
         String query = request.getParameter("query");
         String id = request.getParameter("id");
 
+        Document doc = DocumentHelper.createDocument();
         if(StringUtils.isNotBlank(id)){
             SystemEntity entity = getSystemEntity(request, model);
-            BaseEntity object = (BaseEntity) entityManager.get(entity.getType(), Long.valueOf(id));
+            BaseEntity object = entityManager.get(entity.getType(), Long.valueOf(id));
             Element element = object.toXml();
             Element root = doc.addElement("response");
             root.addAttribute("success", "true");
             root.add(element);
             doc.setRootElement(root);
-
-        }else if(request.getParameter("id") != null){
+        }else if(id != null){
             XmlUtils.buildEmptyListDocument(doc);
         }else{
             List<? extends BaseEntity> list;
-            if(request.getParameter("e").equals("entity") || request.getParameter("e").equals("externalSystem")){
-                if(request.getParameter("e").equals("entity")){
-                    list = systemConfiguration.getSystemEntities();
-                }else{
-                    list = systemConfiguration.getExternalSystems();
-                }
-            }else{
+            String eParameter = request.getParameter("e");
+            if(eParameter.equals("entity") || eParameter.equals("externalSystem")){
+                list = systemConfiguration.getSystemList(eParameter);
+            } else{
                 SystemEntity entity = getSystemEntity(request, model);
-                org.hibernate.Criteria crit = entityManager.getHibernateSession().createCriteria(entity.getType());
-                if(entity.findAttribute("name") != null && query != null){
-                    crit.add(org.hibernate.criterion.Restrictions.like("name", "%" + query + "%").ignoreCase());
+                Criteria crit = entityManager.getHibernateSession().createCriteria(entity.getType());
+                if(entity.findAttribute("name") != null){
+                    if(query != null) crit.add(Restrictions.like("name", "%" + query + "%").ignoreCase());
+                    crit.add(Restrictions.ne("name", ""));
                 }
                 if (StringUtils.isNotBlank(request.getParameter("orderBy"))) {
                     crit.addOrder(Order.asc(request.getParameter("orderBy")));
                 }
                 list = crit.list();
             }
+
             if (StringUtils.isNotBlank(request.getParameter("sort"))){
                 Collections.sort(list, new AlphanumBeanComparator(request.getParameter("sort"), request.getParameter("dir")));
             }
-            List<? extends BaseEntity> objects = CollectionUtils.paginate(list, request.getParameterMap(), false);
-
-            XmlUtils.buildDocument(doc, objects, list.size());
+            List<? extends BaseEntity> listPaginate = CollectionUtils.paginate(list, request.getParameterMap(), false);
+            XmlUtils.buildDocument(doc, listPaginate, list.size());
         }
-
         response.setContentType("text/xml");
-
         response.getWriter().write(doc.asXML());
-
     }
 }

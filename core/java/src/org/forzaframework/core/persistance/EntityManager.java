@@ -124,4 +124,6 @@ public interface EntityManager {
     <T> List<T> find(String queryString, List values);
 
     <T> T load(Class entityClass, Object primaryKey);
+
+    <T> List<T> filter(Class entityClass);
 }
