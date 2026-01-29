@@ -52,7 +52,7 @@ public class CsvUtils {
 
     public static List<String> getColumns(String header, String delimiter){
         String[] headerTokens = header.split(delimiter, -1);
-        List<String> columns = new ArrayList<String>();
+        List<String> columns = new ArrayList<>();
         for(String token : headerTokens){
             if(token.startsWith("\"") && token.endsWith("\"")) {
                 columns.add(token.substring(1, token.length() - 2));
@@ -65,7 +65,7 @@ public class CsvUtils {
     }
 
     public static List<String> getTokens(String line, String delimiter) {
-        List<String> columns = new ArrayList<String>();
+        List<String> columns = new ArrayList<>();
         Matcher m = Pattern.compile("(?:^|" + delimiter + ")(\"(?:[^\"]|\"\")*\"|[^" + delimiter + "]*)").matcher(line);
         while (m.find()) {
             columns.add(m.group()
@@ -83,5 +83,19 @@ public class CsvUtils {
         }else{
             return separator + "\"" + value + "\"";
         }
+    }
+
+    public static Integer getColumnIndex(List<String> columnsArray){
+        Integer j = 0;
+        Integer codeIndex = null;
+        for (String columnName : columnsArray) {
+            if ("CODIGO".equalsIgnoreCase(columnName.trim()) || "CODE".equalsIgnoreCase(columnName.trim()) || "KEY".equalsIgnoreCase(columnName.trim()) || "CLAVE".equalsIgnoreCase(columnName.trim())) {
+                codeIndex = j;
+                break;
+            }
+            j++;
+        }
+        if (codeIndex == null) codeIndex = 0;
+        return codeIndex;
     }
 }

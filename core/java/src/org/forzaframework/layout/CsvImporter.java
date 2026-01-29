@@ -20,6 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ClassUtils;
+import org.hibernate.criterion.Projections;
 import org.springframework.validation.Validator;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.BindException;
@@ -39,6 +40,7 @@ import org.forzaframework.metadata.SystemConfiguration;
 import org.forzaframework.util.CsvUtils;
 import org.forzaframework.bind.CustomBindingErrorProcessor;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,33 +70,35 @@ public class CsvImporter<T> extends BaseImporter implements Importer {
 
         List<String> lines = CsvUtils.getLines(path);
         List<String> columnsArray = CsvUtils.getTokens(lines.get(0), fileDefinition.getDelimiter());
-        // remove header
-        lines.remove(0);
+        Integer codeIndex = CsvUtils.getColumnIndex(columnsArray);
 
-        List<T> items = new ArrayList<T>();
+        lines.remove(0); // remove header
+
+        List<T> items = new ArrayList<>();
         for (String line : lines) {
-            T command = (T) clazz.newInstance();
+            if (fileDefinition.getAllowCreateNewRecords() && line.startsWith(fileDefinition.getDelimiter())){
+                line = fileDefinition.getDelimiter() + line;
+            }
             List<String> tokens = CsvUtils.getTokens(line, fileDefinition.getDelimiter());
 
+            T command = (T) clazz.newInstance();
             // if the file definition allows to update records, get the object by code
             if(fileDefinition.getUpdateExistingRecords()){
-                String code = tokens.get(0);
-                try{
-                    command = (T) entityManager.getByCode(clazz, code);
-                }catch(ObjectRetrievalFailureException ex){
-                    logger.debug("command with code: " + code + " does not exist.");
-//                    if(fileDefinition.getAllowCreateNewRecords()){
-//                        throw new Exception("Empleado con codigo [" + code + "] no existe.");
-//                    }
-                    if(fileDefinition.getIgnoreNotExistingRecords()){
-                        continue;
+                String code = tokens.get(codeIndex);
+                if(StringUtils.isNotBlank(code)) {
+                    try {
+                        command = entityManager.getByCode(clazz, code);
+                    } catch (ObjectRetrievalFailureException ex) {
+                        logger.debug("command with code: " + code + " does not exist.");
+                        if (fileDefinition.getIgnoreNotExistingRecords()) {
+                            continue;
+                        }
                     }
                 }
             }
 
             SystemEntity entity = systemConfiguration.getSystemEntity(clazz);
             DataBinder binder = createBinder(command, entity.getCode());
-
             binder.setBindingErrorProcessor(new CustomBindingErrorProcessor());
             MutablePropertyValues mpvs = new MutablePropertyValues();
 
@@ -103,9 +107,27 @@ public class CsvImporter<T> extends BaseImporter implements Importer {
                 for (String value : tokens) {
                     String columnName = columnsArray.get(i++);
                     if(columnDefinition.getName().trim().equalsIgnoreCase(columnName.trim())){
-                        PropertyValue pv = extractPropertyValue(binder, command, entity, columnDefinition, value);
-                        if(pv != null) mpvs.addPropertyValue(pv);
-                        break;
+                        PropertyValue pv;
+                        if (columnDefinition.getBeanProperty().contains(".")) {
+                            Object propertyValue;
+                            String principalProperty = StringUtils.substringBefore(columnDefinition.getBeanProperty(), ".");
+                            Field field = getDeclaredField(clazz, principalProperty);
+                            if (field == null) {
+                                throw new Exception("No existe la propiedad [" + principalProperty + "] en la clase [" + clazz.getSimpleName() + "]");
+                            }
+
+                            String nestedProperty = StringUtils.substringAfter(columnDefinition.getBeanProperty(), ".");
+                            propertyValue = getPropertyValue(field.getType(), nestedProperty, value, columnDefinition.getName());
+                            pv = new PropertyValue(principalProperty, propertyValue);
+                            binder.registerCustomEditor(field.getType(), field.getName(), new CustomClassEditor(field.getType()));
+                        }
+                        else {
+                            pv = extractPropertyValue(binder, command, entity, columnDefinition, value);
+                        }
+
+                        if(pv != null){
+                            mpvs.addPropertyValue(pv);
+                        }
                     }
                 }
             }
@@ -122,6 +144,33 @@ public class CsvImporter<T> extends BaseImporter implements Importer {
             }
         }
         return items;
+    }
+
+    public Object getPropertyValue(Class clazz, String property, String valueToSearch, String layoutColumn) throws Exception {
+        org.hibernate.Criteria crit = entityManager.getHibernateSession().createCriteria(clazz);
+        crit.add(org.hibernate.criterion.Restrictions.eq(property, valueToSearch));
+        crit.setProjection(Projections.projectionList().add(Projections.property("id")));
+        Long id = (Long) crit.uniqueResult();
+        Assert.notNull(id, "Error en la columna [" + layoutColumn + "] del archivo de importaci\u00F3n. No existe registro del valor [" + valueToSearch + "] en la BD.");
+        return entityManager.load(clazz, id);
+    }
+
+    public Field getDeclaredField(Class clazz, String property) {
+        Field field;
+        try {
+            field = clazz.getDeclaredField(property);
+        } catch (NoSuchFieldException e) {
+            field = null;
+        }
+
+        if (field == null) {
+            Class superClazz = clazz.getSuperclass();
+            if ( superClazz != null) {
+                field = this.getDeclaredField(superClazz, property);
+            }
+        }
+
+        return field;
     }
 
     public PropertyValue extractPropertyValue(DataBinder binder, Object command, SystemEntity entity, ColumnDefinition columnDefinition, String value) throws Exception{
