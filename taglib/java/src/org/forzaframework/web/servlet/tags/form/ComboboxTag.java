@@ -50,9 +50,9 @@ public class ComboboxTag extends FieldTag {
     private String noSelection;
     private String reader;
     private String listWidth;
-    private List<Field> fields = new ArrayList<Field>();
-    private List<UpdateField> updateFields = new ArrayList<UpdateField>();
-    private List<Option> options = new ArrayList<Option>();
+    private List<Field> fields = new ArrayList<>();
+    private List<UpdateField> updateFields = new ArrayList<>();
+    private List<Option> options = new ArrayList<>();
 
     /**
      * The {@link java.util.Collection}, {@link Map} or array of objects used to generate the inner
@@ -246,9 +246,9 @@ public class ComboboxTag extends FieldTag {
     }
 
     public int doStartTag() throws JspException {
-        options = new ArrayList<Option>();
-        fields = new ArrayList<Field>();
-        updateFields = new ArrayList<UpdateField>();
+        options = new ArrayList<>();
+        fields = new ArrayList<>();
+        updateFields = new ArrayList<>();
         
         return super.doStartTag();
     }
@@ -279,7 +279,7 @@ public class ComboboxTag extends FieldTag {
             json.put("tpl", new JSONFunction(template));
         }
 
-        if(options.size() == 0 && StringUtils.isNotBlank(url)) {
+        if(options.isEmpty() && StringUtils.isNotBlank(url)) {
             json.put("displayField", displayField);
             json.put("valueField", valueField);
         } else {
@@ -319,7 +319,7 @@ public class ComboboxTag extends FieldTag {
             json.put("lastQuery", "");
         }
 
-        if(updateFields.size() > 0){
+        if(!updateFields.isEmpty()){
             String formId = ((FormTag) findParent(FormTag.class)).getId();
             StringBuilder onSelectFunction = new StringBuilder();
             onSelectFunction.append("function(cmb, record, index){");
@@ -354,7 +354,7 @@ public class ComboboxTag extends FieldTag {
         form.addField(field);
 
         List<Field> fields;
-        if(updateFields.size() > 0){
+        if(!updateFields.isEmpty()){
         	fields = new ArrayList<Field>();
         	for(UpdateField updateField : updateFields){
         		fields.add(new Field(updateField.getId(), updateField.getField(), updateField.getMapping()));

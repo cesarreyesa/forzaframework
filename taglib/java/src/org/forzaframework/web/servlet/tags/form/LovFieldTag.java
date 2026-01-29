@@ -177,7 +177,7 @@ public class LovFieldTag extends ComboboxTag {
         json.elementOpt("value", getValue());
         json.elementOpt("text", getText());
 
-        if (getOptions().size() == 0 && getItems() == null) {
+        if (getOptions().isEmpty() && getItems() == null) {
             json.put("displayField", getDisplayField());
             json.put("valueField", getValueField());
         } else {
@@ -288,7 +288,7 @@ public class LovFieldTag extends ComboboxTag {
         form.addField(field);
 
         List<Field> fields;
-        if (getUpdateFields().size() > 0) {
+        if (!getUpdateFields().isEmpty()) {
             fields = this.getFields();
             for (UpdateField updateField : getUpdateFields()) {
                 fields.add(new Field(updateField.getId(), updateField.getField(), updateField.getMapping()));
