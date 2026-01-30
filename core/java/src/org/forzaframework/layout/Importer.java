@@ -29,5 +29,6 @@ import java.util.List;
 public interface Importer<T> {
 
     void setEntityManager(EntityManager manager);
+
     List<T> convert(Class clazz, FileDefinition fileDefinition, String path, List<BindException> errors) throws Exception;
 }

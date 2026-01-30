@@ -16,6 +16,12 @@
 
 package org.forzaframework.layout;
 
+import org.forzaframework.beans.propertyeditors.CustomClassEditor;
+import org.forzaframework.beans.propertyeditors.CustomEntityIdCollectionEditor;
+import org.forzaframework.metadata.Attribute;
+import org.forzaframework.metadata.SystemConfiguration;
+import org.forzaframework.metadata.SystemEntity;
+import org.hibernate.criterion.Projections;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.validation.DataBinder;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -30,6 +36,7 @@ import org.forzaframework.core.persistance.EntityManager;
 import org.forzaframework.metadata.TranslatableCatalog;
 import org.forzaframework.beans.propertyeditors.ExternalEntityEditor;
 
+import java.lang.reflect.Field;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -47,6 +54,7 @@ public abstract class BaseImporter implements Importer {
 
     protected EntityManager entityManager;
     protected MessageSourceAccessor messageSourceAccessor;
+    protected SystemConfiguration systemConfiguration;
 
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -54,6 +62,10 @@ public abstract class BaseImporter implements Importer {
 
     public void setMessageSourceAccessor(MessageSourceAccessor messageSourceAccessor) {
         this.messageSourceAccessor = messageSourceAccessor;
+    }
+
+    public void setSystemConfiguration(SystemConfiguration systemConfiguration) {
+        this.systemConfiguration = systemConfiguration;
     }
 
     protected DataBinder createBinder(Object command) {
@@ -88,6 +100,34 @@ public abstract class BaseImporter implements Importer {
         return messageSourceAccessor.getMessage(msgKey);
     }
 
+
+    public Object getPropertyValue(Class clazz, String property, String valueToSearch, String layoutColumn) throws Exception {
+        org.hibernate.Criteria crit = entityManager.getHibernateSession().createCriteria(clazz);
+        crit.add(org.hibernate.criterion.Restrictions.eq(property, valueToSearch));
+        crit.setProjection(Projections.projectionList().add(Projections.property("id")));
+        Long id = (Long) crit.uniqueResult();
+        Assert.notNull(id, "Error en la columna [" + layoutColumn + "] del archivo de importaci\u00F3n. No existe registro del valor [" + valueToSearch + "] en la BD.");
+        return entityManager.load(clazz, id);
+    }
+
+    public Field getDeclaredField(Class clazz, String property) {
+        Field field;
+        try {
+            field = clazz.getDeclaredField(property);
+        } catch (NoSuchFieldException e) {
+            field = null;
+        }
+
+        if (field == null) {
+            Class superClazz = clazz.getSuperclass();
+            if ( superClazz != null) {
+                field = this.getDeclaredField(superClazz, property);
+            }
+        }
+
+        return field;
+    }
+
     public PropertyValue extractPropertyValue(DataBinder binder, Object command, ColumnDefinition columnDefinition, String value) throws Exception{
         PropertyValue pv = null;
         String property = columnDefinition.getBeanProperty();
@@ -107,7 +147,6 @@ public abstract class BaseImporter implements Importer {
                         break;
                     }
                 }
-
             } else if(property.startsWith("entityCode(")){
                 String propertyName = property.substring(property.indexOf("(") + 1, property.indexOf(")"));
                 PropertyDescriptor pd = PropertyUtils.getPropertyDescriptor(command, propertyName);
@@ -129,4 +168,51 @@ public abstract class BaseImporter implements Importer {
         return pv;
     }
 
+    public PropertyValue extractPropertyValue(DataBinder binder, Object command, SystemEntity entity, ColumnDefinition columnDefinition, String value) throws Exception{
+        PropertyValue pv = null;
+        String property = columnDefinition.getBeanProperty();
+        if (property != null && !"xx".equals(property)) {
+            // Busca el attributo para ver si se encuentra en la configuracion
+            Attribute attribute = entity.findAttribute(property);
+            if(attribute != null){
+                // si es de tipo lista
+                if(attribute.getType().equals("list")){
+                    SystemEntity listType = systemConfiguration.getSystemEntity(attribute.getEntity());
+                    binder.registerCustomEditor(List.class, property, new CustomEntityIdCollectionEditor(List.class, listType.getType(), entityManager));
+
+                }else if(attribute.getType().equals("entity")){
+                    SystemEntity attType = systemConfiguration.getSystemEntity(attribute.getEntity());
+                    // Obtenemos el tipo de la propiedad y si el layout tiene configurado un sistema externo entonces
+                    // usa el ExternalEntityEditor que asume que el codigo que se pasa es el del sistema externo
+                    if(StringUtils.isNotBlank(columnDefinition.getFileDefinition().getExternalSystem())){
+                        binder.registerCustomEditor(attType.getType(), property, new ExternalEntityEditor(attType.getType(), columnDefinition.getFileDefinition().getExternalSystem() , entityManager));
+                    }else{
+                        binder.registerCustomEditor(attType.getType(), property, new CustomClassEditor(attType.getType(), entityManager));
+                    }
+                }
+            }
+            else{
+                if (property.equals("externalCode")) {
+                    List superclasses = ClassUtils.getAllSuperclasses(entity.getType());
+                    for (Object superclass : superclasses) {
+                        if (superclass.equals(TranslatableCatalog.class)) {
+                            ((TranslatableCatalog) command).setTranslation(columnDefinition.getFileDefinition().getExternalSystem(), value);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // si es que tiene un formato entonces trata de aplicarlo.
+            if(StringUtils.isNotBlank(columnDefinition.getFormat())){
+                if(property.toLowerCase().contains("date")){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(columnDefinition.getFormat());
+                    dateFormat.setLenient(false);
+                    binder.registerCustomEditor(Date.class, property, new CustomDateEditor(dateFormat, true));
+                }
+            }
+            pv = new PropertyValue(property, value);
+        }
+        return pv;
+    }
 }
