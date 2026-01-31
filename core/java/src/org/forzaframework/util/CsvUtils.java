@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.apache.commons.io.FileUtils;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -86,16 +87,24 @@ public class CsvUtils {
     }
 
     public static Integer getColumnIndex(List<String> columnsArray){
-        Integer j = 0;
-        Integer codeIndex = null;
+        Integer codeIndex = getColumnIndex(columnsArray, Arrays.asList("CODIGO", "CODE", "KEY", "CLAVE"));
+        if (codeIndex == null) codeIndex = 0;
+        return codeIndex;
+    }
+
+    public static Integer getColumnIndex(List<String> columnsArray, String key){
+        return getColumnIndex(columnsArray, Arrays.asList(key));
+    }
+
+    public static Integer getColumnIndex(List<String> columnsArray, List<String> keys){
+        Integer j = 0, codeIndex = null;
         for (String columnName : columnsArray) {
-            if ("CODIGO".equalsIgnoreCase(columnName.trim()) || "CODE".equalsIgnoreCase(columnName.trim()) || "KEY".equalsIgnoreCase(columnName.trim()) || "CLAVE".equalsIgnoreCase(columnName.trim())) {
+            if (keys.stream().anyMatch(k -> k.equalsIgnoreCase(columnName))) {
                 codeIndex = j;
                 break;
             }
             j++;
         }
-        if (codeIndex == null) codeIndex = 0;
         return codeIndex;
     }
 }

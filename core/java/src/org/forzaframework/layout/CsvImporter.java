@@ -51,6 +51,10 @@ public class CsvImporter<T> extends BaseImporter implements Importer {
     }
 
     public List convert(Class clazz, FileDefinition fileDefinition, String path, List errors) throws Exception {
+        return convert(clazz, fileDefinition, path, errors, null);
+    }
+
+    public List convert(Class clazz, FileDefinition fileDefinition, String path, List errors, Integer maxErrors) throws Exception {
         Assert.notNull(entityManager, "Manager must not be null");
 
         List<String> lines = CsvUtils.getLines(path);
@@ -122,6 +126,9 @@ public class CsvImporter<T> extends BaseImporter implements Importer {
 
             // Si no tiene errores entonces agregamos el objeto a la lista a regresar
             if (!objectErrors.hasErrors()) {
+                if(maxErrors != null && errors.size() > maxErrors){
+                    break;
+                }
                 items.add(command);
             }
             else{

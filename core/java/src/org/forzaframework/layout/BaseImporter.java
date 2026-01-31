@@ -68,11 +68,11 @@ public abstract class BaseImporter implements Importer {
         this.systemConfiguration = systemConfiguration;
     }
 
-    protected DataBinder createBinder(Object command) {
+    public DataBinder createBinder(Object command) {
         return createBinder(command, null);
     }
 
-    protected DataBinder createBinder(Object command, String objectName) {
+    public DataBinder createBinder(Object command, String objectName) {
         DataBinder binder = new DataBinder(command, objectName);
         binder.registerCustomEditor(Integer.class, null, new CustomNumberEditor(Integer.class, null, true));
 
@@ -86,9 +86,9 @@ public abstract class BaseImporter implements Importer {
         df.setDecimalFormatSymbols(dfs);
 
         binder.registerCustomEditor(Double.class, null, new CustomNumberEditor(Double.class, df, true));
-
         binder.registerCustomEditor(Long.class, null, new CustomNumberEditor(Long.class, null, true));
         binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
+
         SimpleDateFormat dateFormat = new SimpleDateFormat(getText("date.format"));
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));
@@ -99,7 +99,6 @@ public abstract class BaseImporter implements Importer {
     protected String getText(String msgKey) {
         return messageSourceAccessor.getMessage(msgKey);
     }
-
 
     public Object getPropertyValue(Class clazz, String property, String valueToSearch, String layoutColumn) throws Exception {
         org.hibernate.Criteria crit = entityManager.getHibernateSession().createCriteria(clazz);
@@ -128,9 +127,20 @@ public abstract class BaseImporter implements Importer {
         return field;
     }
 
-    public PropertyValue extractPropertyValue(DataBinder binder, Object command, ColumnDefinition columnDefinition, String value) throws Exception{
-        PropertyValue pv = null;
+    public String resolveProperty(String property) {
+        if(property.indexOf(".") > 0){
+            return property.substring(property.indexOf(".") + 1);
+        }
+        return property;
+    }
+
+    public PropertyValue extractPropertyValue(DataBinder binder, Object command, SystemEntity entity, ColumnDefinition columnDefinition, String value) throws Exception{
         String property = columnDefinition.getBeanProperty();
+        return extractPropertyValue(binder, command, entity, columnDefinition, property, value);
+    }
+
+    public PropertyValue extractPropertyValue(DataBinder binder, Object command, ColumnDefinition columnDefinition, String property, String value) throws Exception{
+        PropertyValue pv = null;
         if (property != null && !"xx".equals(property)) {
             if (property.startsWith("externalCode(")) {
                 String propertyName = property.substring(property.indexOf("(") + 1, property.indexOf(")"));
@@ -168,9 +178,8 @@ public abstract class BaseImporter implements Importer {
         return pv;
     }
 
-    public PropertyValue extractPropertyValue(DataBinder binder, Object command, SystemEntity entity, ColumnDefinition columnDefinition, String value) throws Exception{
+    public PropertyValue extractPropertyValue(DataBinder binder, Object command, SystemEntity entity, ColumnDefinition columnDefinition, String property, String value) throws Exception{
         PropertyValue pv = null;
-        String property = columnDefinition.getBeanProperty();
         if (property != null && !"xx".equals(property)) {
             // Busca el attributo para ver si se encuentra en la configuracion
             Attribute attribute = entity.findAttribute(property);
@@ -192,7 +201,15 @@ public abstract class BaseImporter implements Importer {
                 }
             }
             else{
-                if (property.equals("externalCode")) {
+                SystemEntity attType = systemConfiguration.getSystemEntity(resolveProperty(property));
+                if(attType != null){
+                    if(StringUtils.isNotBlank(columnDefinition.getFileDefinition().getExternalSystem())){
+                        binder.registerCustomEditor(attType.getType(), property, new ExternalEntityEditor(attType.getType(), columnDefinition.getFileDefinition().getExternalSystem() , entityManager));
+                    }else{
+                        binder.registerCustomEditor(attType.getType(), property, new CustomClassEditor("code", String.class, attType.getType(), entityManager));
+                    }
+                }
+                else if (property.equals("externalCode")) {
                     List superclasses = ClassUtils.getAllSuperclasses(entity.getType());
                     for (Object superclass : superclasses) {
                         if (superclass.equals(TranslatableCatalog.class)) {
