@@ -17,6 +17,7 @@
 package org.forzaframework.mail;
 
 import freemarker.template.Configuration;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.forzaframework.orm.hibernate3.support.OpenSessionInThreadTask;
@@ -149,82 +150,66 @@ public class MailEngine implements ApplicationContextAware {
      * @throws MessagingException
      * @author Ben Gill
      */
-    public void sendMessage(String[] emailAddresses,
-                            ClassPathResource resource, String bodyText,
-                            String subject, String attachmentName)
-    throws MessagingException {
-        MimeMessage message =
-            ((JavaMailSenderImpl) mailSender).createMimeMessage();
-
-        // use the true flag to indicate you need a multipart message
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setTo(emailAddresses);
-        helper.setText(bodyText);
-        helper.setSubject(subject);
-
+    public void sendMessage(String[] emailAddresses, ClassPathResource resource, String bodyText, String subject, String attachmentName) throws MessagingException {
+        MimeMessage message = ((JavaMailSenderImpl) mailSender).createMimeMessage();
+        MimeMessageHelper helper = getMimeMessageHelper(message, emailAddresses, bodyText, subject);
         helper.addAttachment(attachmentName, resource);
-
         ((JavaMailSenderImpl) mailSender).send(message);
     }
 
     public void sendMessage(String[] emailAddresses, InputStreamSource inputStreamSource, String bodyText, String subject, String attachmentName) throws MessagingException {
-        MimeMessage message =
-            ((JavaMailSenderImpl) mailSender).createMimeMessage();
+        MimeMessage message = ((JavaMailSenderImpl) mailSender).createMimeMessage();
+        MimeMessageHelper helper = getMimeMessageHelper(message, emailAddresses, bodyText, subject);
+        helper.addAttachment(attachmentName, inputStreamSource);
+        ((JavaMailSenderImpl) mailSender).send(message);
+    }
 
+    public MimeMessageHelper getMimeMessageHelper(MimeMessage message, String[] emailAddresses,  String bodyText, String subject) throws MessagingException {
         // use the true flag to indicate you need a multipart message
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         helper.setTo(emailAddresses);
         helper.setText(bodyText);
         helper.setSubject(subject);
-
-        helper.addAttachment(attachmentName, inputStreamSource);
-
-        ((JavaMailSenderImpl) mailSender).send(message);
+        return helper;
     }
 
     public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML) {
-        sendMessage(msg, templateName, model, sendAsHTML, null);
+        sendMessage(msg, templateName, model, sendAsHTML, null, null);
     }
 
-    public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, final List<FileSystemResource> resources) {
+    public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, String encoding) {
+        sendMessage(msg, templateName, model, sendAsHTML, null, encoding);
+    }
 
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
-            public void prepare(MimeMessage mimeMessage) throws MessagingException {
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "ISO-8859-1");
-                message.setFrom(msg.getFrom());
-                message.setTo(msg.getTo());
-                message.setSubject(msg.getSubject());
+    public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, final List<FileSystemResource> resources){
+        this.sendMessage(msg, templateName, model, sendAsHTML, resources, null);
+    }
 
-                if (resources != null) {
-                    for (FileSystemResource resource : resources) {
-                        message.addAttachment(resource.getFilename(), resource);
-                    }
+    public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, final List<FileSystemResource> resources, String encoding) {
+        MimeMessagePreparator preparator = mimeMessage -> {
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, encoding != null ? encoding : "ISO-8859-1");
+            message.setFrom(msg.getFrom());
+            message.setTo(msg.getTo());
+            message.setSubject(msg.getSubject());
+
+            if (resources != null && !resources.isEmpty()) {
+                for (FileSystemResource resource : resources) {
+                    message.addAttachment(resource.getFilename(), resource);
                 }
+            }
 
-                String result = null;
-
+            String content = "";
+            if (StringUtils.isNotEmpty(templateName)) {
                 try {
-                    StringBuffer content = new StringBuffer();
-                    try {
-                        content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(templateName, "UTF-8"), model));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    result = content.toString();
-
+                    content = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(templateName, "UTF-8"), model);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                if(sendAsHTML){
-                    message.setText("<html><body>" + result + "</body></html>", true);
-                }else{
-                    message.setText(result, false);
-                }
             }
+            message.setText(sendAsHTML ? "<html><body>" + content + "</body></html>" : content, sendAsHTML);
         };
+
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         if(((JavaMailSenderImpl) mailSender).getHost().contains("gmail")){
             Properties props = new Properties();
@@ -236,15 +221,13 @@ public class MailEngine implements ApplicationContextAware {
             props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             props.put("mail.smtp.socketFactory.fallback", "false");
 
-            Session session = Session.getDefaultInstance(props,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(((JavaMailSenderImpl) mailSender).getUsername(), ((JavaMailSenderImpl) mailSender).getPassword());
-                        }
-                    });
+            Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(((JavaMailSenderImpl) mailSender).getUsername(), ((JavaMailSenderImpl) mailSender).getPassword());
+                }
+            });
 
             session.setDebug(getDebug());
-
             ((JavaMailSenderImpl) mailSender).setSession(session);
         }
         if(asynchronous){
@@ -255,7 +238,6 @@ public class MailEngine implements ApplicationContextAware {
     }
 
     public class MailSenderTask extends OpenSessionInThreadTask {
-
         private MimeMessagePreparator preparator;
         private MailSender mailSender;
 
