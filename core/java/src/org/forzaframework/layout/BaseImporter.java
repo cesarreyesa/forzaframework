@@ -21,6 +21,7 @@ import org.forzaframework.beans.propertyeditors.CustomEntityIdCollectionEditor;
 import org.forzaframework.metadata.Attribute;
 import org.forzaframework.metadata.SystemConfiguration;
 import org.forzaframework.metadata.SystemEntity;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.criterion.Projections;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.validation.DataBinder;
@@ -104,9 +105,17 @@ public abstract class BaseImporter implements Importer {
         org.hibernate.Criteria crit = entityManager.getHibernateSession().createCriteria(clazz);
         crit.add(org.hibernate.criterion.Restrictions.eq(property, valueToSearch));
         crit.setProjection(Projections.projectionList().add(Projections.property("id")));
-        Long id = (Long) crit.uniqueResult();
-        Assert.notNull(id, "Error en la columna [" + layoutColumn + "] del archivo de importaci\u00F3n. No existe registro del valor [" + valueToSearch + "] en la BD.");
-        return entityManager.load(clazz, id);
+        try {
+            Long id = (Long) crit.uniqueResult();
+            Assert.notNull(id, "Error en la columna [" + layoutColumn + "] del archivo de importaci\u00F3n. No existe registro del valor [" + valueToSearch + "] en la BD.");
+            return entityManager.load(clazz, id);
+        }
+        catch (NonUniqueResultException ex){
+            throw new Exception("Error en la columna [" + layoutColumn + "] del archivo de importaci\u00F3n. El valor [" + valueToSearch + "] no es \u00FAnico en la BD.");
+        }
+        catch (Exception ex) {
+            throw new Exception("Error en la columna [" + layoutColumn + "] del archivo de importaci\u00F3n. No existe registro del valor [" + valueToSearch + "] en la BD.");
+        }
     }
 
     public Field getDeclaredField(Class clazz, String property) {
