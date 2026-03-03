@@ -122,7 +122,9 @@ public class CsvImporter<T> extends BaseImporter implements Importer {
             }
             binder.bind(mpvs);
             BindException objectErrors = new BindException(binder.getBindingResult());
-            ValidationUtils.invokeValidator(validator, command, objectErrors);
+            if (this.validator != null) {
+                ValidationUtils.invokeValidator(validator, command, objectErrors);
+            }
 
             // Si no tiene errores entonces agregamos el objeto a la lista a regresar
             if (!objectErrors.hasErrors()) {
