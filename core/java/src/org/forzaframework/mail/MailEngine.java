@@ -40,7 +40,9 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+import java.io.*;
 import java.security.Security;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -183,19 +185,26 @@ public class MailEngine implements ApplicationContextAware {
     }
 
     public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, final List<FileSystemResource> resources){
-        this.sendMessage(msg, templateName, model, sendAsHTML, resources, null);
+        List<File> attachments = null;
+        if(resources != null && !resources.isEmpty()){
+            attachments = new ArrayList<>();
+            for(FileSystemResource resource : resources) {
+                attachments.add(resource.getFile());
+            }
+        }
+        this.sendMessage(msg, templateName, model, sendAsHTML, attachments, null);
     }
 
-    public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, final List<FileSystemResource> resources, String encoding) {
+    public void sendMessage(final SimpleMailMessage msg, final String templateName, final Map model, final boolean sendAsHTML, final List<File> attachments, String encoding) {
         MimeMessagePreparator preparator = mimeMessage -> {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, encoding != null ? encoding : "ISO-8859-1");
             message.setFrom(msg.getFrom());
             message.setTo(msg.getTo());
             message.setSubject(msg.getSubject());
 
-            if (resources != null && !resources.isEmpty()) {
-                for (FileSystemResource resource : resources) {
-                    message.addAttachment(resource.getFilename(), resource);
+            if (attachments != null && !attachments.isEmpty()) {
+                for (File attachment : attachments) {
+                    message.addAttachment(attachment.getName(), attachment);
                 }
             }
 
