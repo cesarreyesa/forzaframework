@@ -17,7 +17,10 @@
 package org.forzaframework.util;
 
 import net.sf.json.JSONObject;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.forzaframework.ExcelType;
 
 
 import java.math.BigDecimal;
@@ -36,24 +39,12 @@ public class ExcelUtils {
         }else {
             //Representa varias filas
             rows = (List<Map<String, Object>>) object;
-
         }
-
         return rows;
     }
 
     static public void modelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model) {
-        List<Map<String, Object>> headers = getRowGroups(model, "header");
-        List<Map<String, Object>> data = getRowGroups(model, "data");
-        List<Map<String, Object>> footers = getRowGroups(model, "totals");
-        //Obtenemos los datos que mostraremos en la hoja
-//        Map<String, Object> header = (Map<String, Object>) model.get("header");
-//        headers.add(header);
-//        List<Map<String, Object>> data = (List<Map<String, Object>>) model.get("data");
-//        Map<String, Object> totals = (Map<String, Object>) model.get("totals");
-//        footers.add(totals);
-
-        modelToExcelSheet(wb, sheetName, headers, data, footers);
+        modelToExcelSheet(wb, sheetName, model, 0);
     }
 
     static public void modelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model, Integer freezePane) {
@@ -113,7 +104,6 @@ public class ExcelUtils {
             titlesCellStyle = wb.createCellStyle();
             //Creamos el tipo de fuente
             Font titleFont = wb.createFont();
-//            headerFont.setFontName(HSSFFont.FONT_ARIAL);
             titleFont.setBold(Boolean.TRUE);
             titleFont.setColor(Font.COLOR_NORMAL);
             titleFont.setFontHeightInPoints((short)8);
@@ -121,12 +111,12 @@ public class ExcelUtils {
         }
 
 
-        Integer col = 0;
-        Integer row = 0;
+        Integer col = 0, row = 0;
         if (startInRow != null) {
             row = startInRow;
         }
-        Map<Integer, Integer > columnWidthMap = new HashMap<Integer, Integer>();
+
+        Map<Integer, Integer > columnWidthMap = new HashMap<>();
         //Indice de la fila donde empieza los encabezados de titulo de cada columna
         Integer principalHeaderIndex = headers.size() - 1;
         if (printHeader != null && printHeader) {
@@ -204,7 +194,6 @@ public class ExcelUtils {
             setColumnsWidth(sheet, columnWidthMap, principalHeader.size());
         }
 
-
         if (freezePane != null && freezePane > 0) {
             //Colocamos la columna estatica y las filas del encabezado estaticas
             sheet.createFreezePane(freezePane, headers.size());
@@ -213,7 +202,6 @@ public class ExcelUtils {
 
     public static void buildCellAndCalculateColumnWidth(Sheet sheet, Object value, Integer col, Integer row, CellStyle detailCellStyle, Map<Integer, Integer> columnWidthMap, Boolean autoSizeColumns) {
         Cell cell = getCell(sheet, row, col);
-
         if (detailCellStyle != null) {
             //Le damos formato a la celda
             cell.setCellStyle(detailCellStyle);
@@ -240,9 +228,6 @@ public class ExcelUtils {
             columnWidth = columnWidth > 100 ? 100 : columnWidth;
             //multiplicamos por 256 porque es lo que representa un caracter en excel
             sheet.setColumnWidth(i, columnWidth * 256);
-            //TODO: Esta es otra forma dar el ancho de la columna correctamente, probar si es mas optimo
-//            sheet.autoSizeColumn(i);
-//            sheet.setColumnWidth(i, sheet.getColumnWidth(i) + 256);
         }
     }
 
@@ -272,11 +257,9 @@ public class ExcelUtils {
             headerCellStyle = wb.createCellStyle();
             headerCellStyle.setBorderBottom(BorderStyle.DOTTED);
             headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//        headerCellStyle.setFillBackgroundColor(HSSFColor.GREY_25_PERCENT.index);
             headerCellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
             //Creamos el tipo de fuente
             Font headerFont = wb.createFont();
-//            headerFont.setFontName(HSSFFont.FONT_ARIAL);
             headerFont.setBold(Boolean.TRUE);
             headerFont.setColor(Font.COLOR_NORMAL);
             headerFont.setFontHeightInPoints((short)8);
@@ -464,8 +447,23 @@ public class ExcelUtils {
             }
 
         }
-
     }
 
+    static public Workbook getWorkbook(ExcelType excelType) {
+        try {
+            if (excelType == ExcelType.XLS)
+                return new HSSFWorkbook();
+            return new XSSFWorkbook();
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
 
+    static public String getContentType(ExcelType excelType) {
+        if(excelType == ExcelType.XLS) return "application/vnd.ms-excel";
+        else if(excelType == ExcelType.XLSM) return "application/vnd.ms-excel.sheet.macroEnabled.main+xml";
+        else if (excelType == ExcelType.XLSX) return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        return "application/octet-stream";
+    }
 }
