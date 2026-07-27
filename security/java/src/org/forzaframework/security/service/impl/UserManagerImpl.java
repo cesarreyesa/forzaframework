@@ -16,6 +16,7 @@
 
 package org.forzaframework.security.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -100,7 +101,7 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         user.setPassword("{SHA-1}" + org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
         entityManager.save(user);
 
-        if(mailMessage != null && mailEngine != null){
+        if(mailMessage != null && mailEngine != null && StringUtils.isNotEmpty(user.getEmail())){
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Nuevo Usuario");
             if(model == null) model = new HashMap();
