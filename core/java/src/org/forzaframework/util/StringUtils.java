@@ -122,4 +122,18 @@ public class StringUtils {
         }
         return longArray.toArray(new Long[longArray.size()]);
     }
+
+    public static boolean isNullOrEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    public static boolean isNullOrEmpty(Object value) {
+        if(value == null) return true;
+        return isNullOrEmpty(value.toString());
+    }
+
+    public static String getValue(Object value) {
+        if(isNullOrEmpty(value)) return "";
+        return value.toString().trim();
+    }
 }

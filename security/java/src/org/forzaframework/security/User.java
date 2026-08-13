@@ -18,6 +18,8 @@ package org.forzaframework.security;
 
 import org.forzaframework.core.persistance.BaseEntity;
 import org.forzaframework.util.CollectionUtils;
+import org.forzaframework.util.DateUtils;
+import org.forzaframework.util.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -55,7 +57,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     protected String email;                        // required; unique
     protected String website;
     protected String passwordHint;
-    protected List<Role> roles = new ArrayList<Role>();
+    protected List<Role> roles = new ArrayList<>();
     protected boolean enabled;
     protected boolean accountExpired;
     protected boolean accountLocked;
@@ -65,6 +67,9 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     protected String preferredLocale;
     protected Date passwordChangeDate;
     protected Boolean enableExpiredPasswordProcess;
+    protected Boolean enableExpiredAccess;
+    protected UserLogin login;
+    protected Date creationDate;
 
     public User() {
     }
@@ -301,7 +306,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         this.passwordChangeDate = passwordChangeDate;
     }
 
-
     @Column(name = "enable_expired_password_process")
     public Boolean getEnableExpiredPasswordProcess() {
         return enableExpiredPasswordProcess == null ? false : enableExpiredPasswordProcess;
@@ -311,6 +315,48 @@ public class User extends BaseEntity implements Serializable, UserDetails {
         this.enableExpiredPasswordProcess = enableExpiredPasswordProcess;
     }
 
+    @Column(name = "enable_expired_access")
+    public Boolean getEnableExpiredAccess() {
+        return enableExpiredAccess == null ? false : enableExpiredAccess;
+    }
+
+    public void setEnableExpiredAccess(Boolean enableExpiredAccess) {
+        this.enableExpiredAccess = enableExpiredAccess;
+    }
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    public UserLogin getLogin() {
+        return login;
+    }
+
+    //solo para uso en memoria/tests
+    public void setLogin(UserLogin login) {
+        this.login = login;
+    }
+
+    @Column(name = "creation_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    @Transient
+    public Integer getDaysFromLastLogin(){
+        UserLogin login = getLogin();
+        if (login != null){
+            return login.getDaysFromLastLogin();
+        }
+
+        if (creationDate != null){
+            return DateUtils.getDaysDifference(this.creationDate, new Date());
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -318,8 +364,8 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 
         User user = (User) o;
 
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (!Objects.equals(id, user.id)) return false;
+        if (!Objects.equals(username, user.username)) return false;
 
         return true;
     }
@@ -340,19 +386,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
                 .append("credentialsExpired",this.credentialsExpired)
                 .append("accountLocked",this.accountLocked);
 
-//        Collection<GrantedAuthority> auths = this.getAuthorities();
-//        if (auths != null) {
-//            sb.append("Granted Authorities: ");
-//
-//            for (int i = 0; i < auths.size(); i++) {
-//                if (i > 0) {
-//                    sb.append(", ");
-//                }
-//                sb.append(auths.get(i).toString());
-//            }
-//        } else {
-//            sb.append("No Granted Authorities");
-//        }
         return sb.toString();
     }
 
@@ -363,19 +396,26 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     public Element toXml(String elementName) {
         Element el = DocumentHelper.createElement(elementName);
         el.addElement("id").addText(this.getId().toString());
-        el.addElement("username").addText(this.getUsername() == null ? "" : this.getUsername());
-        el.addElement("password").addText(this.getPassword() == null ? "" : this.getPassword());
-        el.addElement("firstName").addText(this.getFirstName() == null ? "" : this.getFirstName());
-        el.addElement("lastName").addText(this.getLastName() == null ? "" : this.getLastName());
-        el.addElement("name").addText(this.getFullName());
-        el.addElement("email").addText(this.getEmail() == null ? "" : this.getEmail());
-        el.addElement("preferredLocale").addText(this.getPreferredLocale() == null ? "" : this.getPreferredLocale());
-        el.addElement("enabled").addText(String.valueOf(this.isEnabled()));
-        el.addElement("accountExpired").addText(String.valueOf(this.isAccountExpired()));
-        el.addElement("accountLocked").addText(String.valueOf(this.isAccountLocked()));
-        el.addElement("credentialsExpired").addText(String.valueOf(this.isCredentialsExpired()));
-        el.addElement("enableExpiredPasswordProcess").addText(String.valueOf(this.getEnableExpiredPasswordProcess()));
-        if(this.getRoles().size() > 0){
+        el.addElement("username").addText(StringUtils.getValue(this.getUsername()));
+        el.addElement("password").addText(StringUtils.getValue(this.getPassword()));
+        el.addElement("firstName").addText(StringUtils.getValue(this.getFirstName()));
+        el.addElement("lastName").addText(StringUtils.getValue(this.getLastName()));
+        el.addElement("name").addText(StringUtils.getValue(this.getFullName()));
+        el.addElement("email").addText(StringUtils.getValue(this.getEmail()));
+        el.addElement("preferredLocale").addText(StringUtils.getValue(this.getPreferredLocale()));
+        el.addElement("enabled").addText(StringUtils.getValue(this.isEnabled()));
+        el.addElement("accountExpired").addText(StringUtils.getValue(this.isAccountExpired()));
+        el.addElement("accountLocked").addText(StringUtils.getValue(this.isAccountLocked()));
+        el.addElement("credentialsExpired").addText(StringUtils.getValue(this.isCredentialsExpired()));
+        el.addElement("enableExpiredPasswordProcess").addText(StringUtils.getValue(this.getEnableExpiredPasswordProcess()));
+        el.addElement("enableExpiredAccess").addText(StringUtils.getValue(this.getEnableExpiredAccess()));
+        el.addElement("daysFromLastLogin").addText(StringUtils.getValue(this.getDaysFromLastLogin()));
+        el.addElement("creationDate").addText(StringUtils.getValue(this.getCreationDate()));
+        el.addElement("creationDateFormat").addText(DateUtils.getDateTime(this.getCreationDate()));
+        if (this.getLogin() != null) {
+            el.add(this.getLogin().toXml("login",false));
+        }
+        if(!this.getRoles().isEmpty()){
             Element roles = el.addElement("roles");
             for(Role role : this.getRoles()){
                 Element roleEl = roles.addElement("role");

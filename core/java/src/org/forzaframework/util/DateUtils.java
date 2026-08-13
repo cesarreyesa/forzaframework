@@ -47,6 +47,8 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     private static String timePattern = "HH:mm";
     private static final String APPLICATION_RESOURCES = "ApplicationResources";
 
+    public static final String dateTimeFormat = "dd/MM/yyyy hh:mm aa";
+
     //~ Methods ================================================================
 
     /**
@@ -190,6 +192,10 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return cal;
     }
 
+    public static String getDateTime(Date date) {
+        return getDateTime(dateTimeFormat, date);
+    }
+
     /**
      * This method generates a string representation of a date's date/time
      * in the format you specify on input
@@ -201,15 +207,11 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
      */
     public static String getDateTime(String mask, Date date) {
         String returnValue = "";
-
-        if (date == null) {
-            log.error("date is null!");
-        } else {
+        if (date != null) {
             SimpleDateFormat df = new SimpleDateFormat(mask);
             returnValue = df.format(date);
         }
-
-        return (returnValue);
+        return returnValue;
     }
 
     public static int getDaysDifference(Date startDate, Date endDate) {

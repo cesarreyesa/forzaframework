@@ -51,6 +51,7 @@ public class CollectionUtils {
     public static <T> List<T> paginate(List<T> list, Map model, Boolean sort){
         PageInfo pageInfo = new PageInfo();
         try {
+            pageInfo.sanitizeStart(list.size());
             org.apache.commons.beanutils.BeanUtils.populate(pageInfo, model);
         } catch (Exception e) {
             logger.warn("Error populating object page info: " + e.getMessage());
@@ -63,6 +64,9 @@ public class CollectionUtils {
     }
 
     public static <T> List<T> paginate(List<T> list, PageInfo pageInfo, Boolean sort) {
+
+        pageInfo.sanitizeStart(list.size());
+
         if (sort && StringUtils.isNotBlank(pageInfo.getSort())) {
             Collections.sort(list, new BeanComparator(pageInfo.getSort(), pageInfo.getDir()));
         }

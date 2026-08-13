@@ -37,16 +37,14 @@ import java.util.Map;
  * Created by gabriel.chulim on 27/04/2015.
  */
 public class CustomExceptionMappingAuthenticationFailureHandler extends ExceptionMappingAuthenticationFailureHandler {
-    private final Map<String, String> failureUrlMap = new HashMap<String, String>();
+    private final Map<String, String> failureUrlMap = new HashMap<>();
     public static final String LAST_USERNAME_KEY = "LAST_USERNAME";
 
     @Autowired
     private UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter;
 
-
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String url = failureUrlMap.get(exception.getClass().getName());
 
         if (url != null) {
@@ -65,7 +63,7 @@ public class CustomExceptionMappingAuthenticationFailureHandler extends Exceptio
             }
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
-//            getRedirectStrategy().sendRedirect(request, response, url);
+            // getRedirectStrategy().sendRedirect(request, response, url);
         } else {
             super.onAuthenticationFailure(request, response, exception);
         }
@@ -91,7 +89,4 @@ public class CustomExceptionMappingAuthenticationFailureHandler extends Exceptio
             this.failureUrlMap.put((String)exception, (String)url);
         }
     }
-
-
-
 }
