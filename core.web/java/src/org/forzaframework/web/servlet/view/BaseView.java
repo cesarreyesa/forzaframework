@@ -17,8 +17,8 @@
 package org.forzaframework.web.servlet.view;
 
 import org.springframework.web.servlet.view.AbstractView;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Locale;
 
@@ -29,7 +29,7 @@ import java.util.Locale;
  */
 public abstract class BaseView extends AbstractView {
 
-    protected Log log = LogFactory.getLog(getClass());
+    protected Logger log = LogManager.getLogger(getClass());
 
     /**
      * Convenience method for getting a i18n key's value.  Calling

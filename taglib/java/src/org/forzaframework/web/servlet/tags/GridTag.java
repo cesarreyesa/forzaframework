@@ -20,9 +20,14 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.forzaframework.web.servlet.tags.form.*;
-import org.springframework.web.util.ExpressionEvaluationUtils;
+//import org.springframework.web.util.ExpressionEvaluationUtils;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.servlet.jsp.JspApplicationContext;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.Tag;
 import java.io.IOException;
@@ -71,6 +76,7 @@ public class GridTag extends PanelTag implements PanelItem {
     private String onLoad;
     private Boolean remoteSort = true;
     private Integer connectionTimeOut;
+    private String method;
 
     public String getOnLoad() {
         return onLoad;
@@ -343,6 +349,14 @@ public class GridTag extends PanelTag implements PanelItem {
         this.connectionTimeOut = connectionTimeOut;
     }
 
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     public void doInitBody() throws JspException {
     	super.doInitBody();
         fields = new ArrayList<Field>();
@@ -366,6 +380,9 @@ public class GridTag extends PanelTag implements PanelItem {
         store.setRemoteSort(remoteSort);
         if (connectionTimeOut != null)
             store.setConnectionTimeOut(connectionTimeOut);
+
+        if (method != null)
+            store.setMethod(method);
 
         if(StringUtils.isNotBlank(url))
             store.setUrl(url);
@@ -583,7 +600,14 @@ public class GridTag extends PanelTag implements PanelItem {
     
     protected Object evaluate(String attributeName, Object value) throws JspException {
         if (value instanceof String) {
-            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);
+            ELContext elContext =  this.pageContext.getELContext();
+            JspFactory jf = JspFactory.getDefaultFactory();
+            JspApplicationContext jac = jf.getJspApplicationContext(pageContext.getServletContext());
+            ExpressionFactory ef = jac.getExpressionFactory();
+            ValueExpression val = ef.createValueExpression(elContext, value.toString(), Object.class);
+            return val.getValue(elContext);
+
+//            return ExpressionEvaluationUtils.evaluate(attributeName, (String) value, this.pageContext);
         }
         else {
             return value;

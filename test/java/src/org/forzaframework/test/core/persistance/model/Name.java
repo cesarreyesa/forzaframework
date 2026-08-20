@@ -16,9 +16,9 @@
 
 package org.forzaframework.test.core.persistance.model;
 
-import org.hibernate.validator.NotNull;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 import org.apache.commons.lang.StringUtils;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Column;

@@ -17,13 +17,13 @@
 package org.forzaframework.metadata;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.NotNull;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.dom4j.Element;
 import org.dom4j.DocumentHelper;
 import org.forzaframework.core.persistance.BaseEntity;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull;
 
 import javax.persistence.*;
 

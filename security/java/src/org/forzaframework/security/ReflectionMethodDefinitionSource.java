@@ -20,8 +20,8 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.util.Assert;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aopalliance.intercept.MethodInvocation;
 
 import java.util.List;
@@ -37,7 +37,7 @@ import java.lang.reflect.Method;
 public class ReflectionMethodDefinitionSource {}
 //extends AbstractMethodDefinitionSource {
 //
-//    protected static Log logger = LogFactory.getLog(ReflectionMethodDefinitionSource.class);
+//    protected static Logger logger = LogManager.getLogger(ReflectionMethodDefinitionSource.class);
 //    private org.forzaframework.security.service.SecurityManager securityManager;
 //
 //    public void setSecurityManager(org.forzaframework.security.service.SecurityManager securityManager) {

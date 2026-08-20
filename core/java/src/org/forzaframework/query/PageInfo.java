@@ -60,4 +60,10 @@ public class PageInfo {
     public void setDir(String dir) {
         this.dir = dir;
     }
+
+    public void sanitizeStart(int totalSize) {
+        if (this.getStart() != null && this.getStart() >= totalSize) {
+            this.setStart(0);
+        }
+    }
 }

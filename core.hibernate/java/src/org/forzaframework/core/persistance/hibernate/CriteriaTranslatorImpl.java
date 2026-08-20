@@ -24,11 +24,7 @@ import org.forzaframework.core.persistance.NullExpression;
 import org.forzaframework.core.persistance.BetweenExpression;
 import org.forzaframework.util.ClassUtils;
 import org.hibernate.criterion.*;
-import org.hibernate.impl.CriteriaImpl;
-import org.hibernate.type.Type;
-import org.hibernate.Hibernate;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
+import org.hibernate.type.*;
 
 import javax.persistence.Embeddable;
 import java.beans.PropertyDescriptor;
@@ -208,10 +204,10 @@ public class CriteriaTranslatorImpl {
         SqlExpression sqlExpression = (SqlExpression) criterion;
         List<Type> types = new ArrayList<Type>();
         for (String type : sqlExpression.getTypes()) {
-            if(type.equals("string")) types.add(Hibernate.STRING);
-            if(type.equals("integer")) types.add(Hibernate.INTEGER);
-            if(type.equals("double")) types.add(Hibernate.DOUBLE);
-            if(type.equals("date")) types.add(Hibernate.DATE);
+            if(type.equals("string")) types.add(StringType.INSTANCE);
+            if(type.equals("integer")) types.add(IntegerType.INSTANCE);
+            if(type.equals("double")) types.add(DoubleType.INSTANCE);
+            if(type.equals("date")) types.add(DateType.INSTANCE);
         }
         org.hibernate.criterion.Criterion criterion1 = org.hibernate.criterion.Restrictions.sqlRestriction(sqlExpression.getSql(), sqlExpression.getValues(), types.toArray(new Type[types.size()]));
         criteria.add(criterion1);

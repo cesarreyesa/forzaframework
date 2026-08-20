@@ -56,7 +56,6 @@ public class XmlUtils {
         Element root = doc.addElement("items");
         root.addAttribute("success", "true");
         doc.setRootElement(root);
-
         for (BaseEntity object : list) {
             root.add(object.toXml());
         }

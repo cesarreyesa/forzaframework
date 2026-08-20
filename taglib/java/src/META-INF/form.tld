@@ -556,6 +556,10 @@
             <name>width</name>
         </attribute>
         <attribute>
+            <name>listWidth</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>selectFirstRecord</name>
         </attribute>
         <attribute>
@@ -1191,6 +1195,14 @@
         </attribute>
         <attribute>
             <name>allowBlank</name>
+        </attribute>
+        <attribute>
+            <name>valueField</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>increment</name>

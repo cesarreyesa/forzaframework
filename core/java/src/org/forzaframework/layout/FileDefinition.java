@@ -17,17 +17,18 @@
 package org.forzaframework.layout;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.NotNull;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.dom4j.Element;
 import org.dom4j.DocumentHelper;
 import org.forzaframework.core.persistance.BaseEntity;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * @author cesarreyes
@@ -46,11 +47,12 @@ public class FileDefinition extends BaseEntity {
     private Boolean updateExistingRecords = false;
     private Boolean allowCreateNewRecords = false;
     private Boolean ignoreNotExistingRecords = false;
-    private List<ColumnDefinition> columns = new ArrayList<ColumnDefinition>();
-//    private List<InnerDefinition> innerDefnitions = new ArrayList<InnerDefinition>();
+    private Boolean requireFiscalCompanies = false;
+    private Boolean allowImportWizard = false;
+    private List<ColumnDefinition> columns = new ArrayList<>();
+    // private List<InnerDefinition> innerDefnitions = new ArrayList<InnerDefinition>();
     private String format;
     private String delimiter;
-
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
@@ -137,6 +139,16 @@ public class FileDefinition extends BaseEntity {
         this.ignoreNotExistingRecords = ignoreNotExistingRecords;
     }
 
+    @Column(name = "require_fiscal_companies")
+    public Boolean getRequireFiscalCompanies() {
+        if(requireFiscalCompanies == null) requireFiscalCompanies = false;
+        return requireFiscalCompanies;
+    }
+
+    public void setRequireFiscalCompanies(Boolean requireFiscalCompanies) {
+        this.requireFiscalCompanies = requireFiscalCompanies;
+    }
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "file_definition_id")
     @OrderBy(value = "beanProperty")
@@ -181,19 +193,28 @@ public class FileDefinition extends BaseEntity {
         this.delimiter = delimiter;
     }
 
+    @Column(name = "allow_import_wizard")
+    public Boolean getAllowImportWizard() {
+        return allowImportWizard;
+    }
+
+    public void setAllowImportWizard(Boolean allowImportWizard) {
+        this.allowImportWizard = allowImportWizard;
+    }
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         FileDefinition that = (FileDefinition) o;
 
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (delimiter != null ? !delimiter.equals(that.delimiter) : that.delimiter != null) return false;
-        if (entity != null ? !entity.equals(that.entity) : that.entity != null) return false;
-        if (externalSystem != null ? !externalSystem.equals(that.externalSystem) : that.externalSystem != null) return false;
-        if (format != null ? !format.equals(that.format) : that.format != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (!Objects.equals(code, that.code)) return false;
+        if (!Objects.equals(delimiter, that.delimiter)) return false;
+        if (!Objects.equals(entity, that.entity)) return false;
+        if (!Objects.equals(externalSystem, that.externalSystem)) return false;
+        if (!Objects.equals(format, that.format)) return false;
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(name, that.name)) return false;
 
         return true;
     }
@@ -231,10 +252,12 @@ public class FileDefinition extends BaseEntity {
         el.addElement("updateExistingRecords").addText(this.getUpdateExistingRecords() == null ? "" : this.getUpdateExistingRecords().toString());
         el.addElement("allowCreateNewRecords").addText(this.getAllowCreateNewRecords() == null ? "" : this.getAllowCreateNewRecords().toString());
         el.addElement("ignoreNotExistingRecords").addText(this.getIgnoreNotExistingRecords() == null ? "" : this.getIgnoreNotExistingRecords().toString());
+        el.addElement("requireFiscalCompanies").addText(this.getRequireFiscalCompanies() == null ? "" : this.getRequireFiscalCompanies().toString());
+        el.addElement("allowImportWizard").addText(this.getAllowImportWizard() == null ? "" : this.getAllowImportWizard().toString());
         el.addElement("entity").addText(this.getEntity() == null ? "" : this.getEntity());
         el.addElement("format").addText(this.getFormat() == null ? "" : this.getFormat());
         el.addElement("delimiter").addText(this.getDelimiter() == null ? "" : this.getDelimiter());
-        if(this.getColumns().size() > 0){
+        if(!this.getColumns().isEmpty()){
             Element columns = el.addElement("columns");
             for(ColumnDefinition columnDefinition : this.getColumns()){
                 Element column = columns.addElement("column");

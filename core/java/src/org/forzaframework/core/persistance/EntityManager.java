@@ -93,6 +93,8 @@ public interface EntityManager {
 
     void save(String entityName, Object entity);
 
+    void merge(Object entity);
+
     /**
      * Generic method to delete an object based on class and id
      * @param entity
@@ -122,4 +124,6 @@ public interface EntityManager {
     <T> List<T> find(String queryString, List values);
 
     <T> T load(Class entityClass, Object primaryKey);
+
+    <T> List<T> filter(Class entityClass);
 }

@@ -17,8 +17,8 @@
 package org.forzaframework.web.filter;
 
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +42,7 @@ import java.io.IOException;
  * @web.filter name="compressionFilter"
  */
 public class GZIPFilter extends OncePerRequestFilter {
-    private final transient Log log = LogFactory.getLog(GZIPFilter.class);
+    private final transient Logger log = LogManager.getLogger(GZIPFilter.class);
 
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                  FilterChain chain)

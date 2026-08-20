@@ -50,7 +50,7 @@ public class BaseBindingInitializer extends ApplicationObjectSupport implements 
         this.entityManager = entityManager;
     }
 
-    public void initBinder(WebDataBinder binder, WebRequest request) {
+    public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Integer.class, null, new CustomNumberEditor(Integer.class, null, true));
 
         NumberFormat nf = NumberFormat.getNumberInstance();
@@ -73,4 +73,7 @@ public class BaseBindingInitializer extends ApplicationObjectSupport implements 
         EntityBindingHelper.configureBinder(entityManager, systemConfiguration, binder);
     }
 
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+        this.initBinder(binder);
+    }
 }

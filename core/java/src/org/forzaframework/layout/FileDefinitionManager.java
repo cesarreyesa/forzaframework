@@ -23,10 +23,15 @@ import java.util.List;
  *         Date: 09-sep-2008
  *         Time: 15:56:18
  */
-public interface FileDefinitionManager {
+public interface FileDefinitionManager
+{
+    FileDefinition getFileDefinition(Long id);
+
+    FileDefinition getFileDefinitionByEntityCode(String code);
+
+    List<FileDefinition> getAllFilesDefinitions();
 
     List<FileDefinition> getFileDefinitionsByEntityCode(String code);
 
     List<FileDefinition> getFileDefinitionsByEntityCodes(List<String> codes);
-
 }

@@ -17,8 +17,8 @@
 package org.forzaframework.core.persistance.hibernate;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.forzaframework.core.persistance.*;
 import org.hibernate.Session;
 import org.hibernate.criterion.*;
@@ -27,7 +27,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import javax.sql.DataSource;
 import java.io.Serializable;
@@ -43,7 +43,7 @@ import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
-    protected final Log log = LogFactory.getLog(getClass());
+    protected final Logger log = LogManager.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {

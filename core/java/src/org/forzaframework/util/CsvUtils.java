@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.apache.commons.io.FileUtils;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class CsvUtils {
 
     public static List<String> getColumns(String header, String delimiter){
         String[] headerTokens = header.split(delimiter, -1);
-        List<String> columns = new ArrayList<String>();
+        List<String> columns = new ArrayList<>();
         for(String token : headerTokens){
             if(token.startsWith("\"") && token.endsWith("\"")) {
                 columns.add(token.substring(1, token.length() - 2));
@@ -65,7 +66,7 @@ public class CsvUtils {
     }
 
     public static List<String> getTokens(String line, String delimiter) {
-        List<String> columns = new ArrayList<String>();
+        List<String> columns = new ArrayList<>();
         Matcher m = Pattern.compile("(?:^|" + delimiter + ")(\"(?:[^\"]|\"\")*\"|[^" + delimiter + "]*)").matcher(line);
         while (m.find()) {
             columns.add(m.group()
@@ -83,5 +84,27 @@ public class CsvUtils {
         }else{
             return separator + "\"" + value + "\"";
         }
+    }
+
+    public static Integer getColumnIndex(List<String> columnsArray){
+        Integer codeIndex = getColumnIndex(columnsArray, Arrays.asList("CODIGO", "CODE", "KEY", "CLAVE"));
+        if (codeIndex == null) codeIndex = 0;
+        return codeIndex;
+    }
+
+    public static Integer getColumnIndex(List<String> columnsArray, String key){
+        return getColumnIndex(columnsArray, Arrays.asList(key));
+    }
+
+    public static Integer getColumnIndex(List<String> columnsArray, List<String> keys){
+        Integer j = 0, codeIndex = null;
+        for (String columnName : columnsArray) {
+            if (keys.stream().anyMatch(k -> k.equalsIgnoreCase(columnName))) {
+                codeIndex = j;
+                break;
+            }
+            j++;
+        }
+        return codeIndex;
     }
 }

@@ -44,8 +44,8 @@ import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.util.DJCompilerFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author cesarreyes
@@ -54,7 +54,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ReportUtils {
 
-    private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
+    private static final Logger log = LogManager.getLogger(DynamicJasperHelper.class);
     public static final String DEFAULT_XML_ENCODING = "UTF-8";
     private static final String DJ_RESOURCE_BUNDLE = "dj-messages";
 

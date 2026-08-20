@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/core/java/src/org/forzaframework/util/ExcelUtils.java" line="318" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/core/java/src/org/forzaframework/util/ExcelUtils.java" line="167" mnemonic="1" />
-  </component>
   <component name="CCaseConfig">
     <option name="checkoutReserved" value="false" />
     <option name="markExternalChangeAsUpToDate" value="true" />
@@ -19,10 +15,37 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se agrego e">
+    <list default="true" id="6c7ee8ca-e28f-4808-b242-42564bac6002" name="Default" comment="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5.">
+      <change afterPath="$PROJECT_DIR$/lib/log4j-1.2-api-2.13.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/log4j-api-2.13.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/log4j-core-2.13.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/log4j-web-2.13.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/BaseDaoHibernate.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/BaseDaoHibernate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/bind/annotation/support/HandlerMethodInvoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/GZIPResponseWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/LocaleRequestWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/filter/LocaleRequestWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/listener/StartupListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/listener/StartupListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/BaseFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/AnnotationMethodHandlerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/mvc/annotation/AnnotationMethodHandlerAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/BaseView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core.web/java/src/org/forzaframework/web/servlet/view/BaseView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/beans/propertyeditors/ExternalEntityEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/beans/propertyeditors/ExternalEntityEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/CsvImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/layout/CsvImporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/mail/MailEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/CollectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/CollectionUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/JasperDesignHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/JasperDesignHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/ReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/ReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/java/src/org/forzaframework/util/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forzaframework.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forzaframework.iws" beforeDir="false" afterPath="$PROJECT_DIR$/forzaframework.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/log4j-1.2.17.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/log4j-1.2.17.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/ReflectionMethodDefinitionSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/java/src/org/forzaframework/security/ReflectionMethodDefinitionSource.java" afterDir="false" />
     </list>
-    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
+    <list id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="Configuracion." />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="true" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +107,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -94,12 +118,22 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HierarchyBrowserManager">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="SORT_ALPHABETICALLY" value="false" />
     <option name="HIDE_CLASSES_WHERE_METHOD_NOT_IMPLEMENTED" value="false" />
+  </component>
+  <component name="JQLSearcherManager">
+    <searchers>
+      <JQLSearcher alias="Assigned to me" jql="assignee = currentUser()" />
+    </searchers>
   </component>
   <component name="JQLSearcherProjectManager">
     <selected>-1</selected>
@@ -113,7 +147,7 @@
     <option name="LAST_EDITED_MODULE_NAME" />
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
-  <component name="ProjectId" id="1XM1NndR8ISBBrxypccGSUVYnet" />
+  <component name="ProjectId" id="1Q18NTk1Fj7gR9EBWU9UHxL4C9R" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state />
@@ -165,19 +199,26 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="OverrideImplement.combined" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/forzaframework.ipr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/log4j-web-2.13.0.jar!/" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="options.lastSelected" value="project.validation" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2673147" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="vcs.patch.path" value="$PROJECT_DIR$/../patches" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -358,11 +399,124 @@
       <workItem from="1531834434410" duration="9627000" />
       <workItem from="1531947395491" duration="793000" />
       <workItem from="1532019238827" duration="2571000" />
-      <workItem from="1580841114283" duration="661000" />
-      <workItem from="1581953298854" duration="68000" />
-      <workItem from="1592407898021" duration="47000" />
-      <workItem from="1592408605751" duration="3000" />
-      <workItem from="1592415309801" duration="249000" />
+      <workItem from="1540474970464" duration="37000" />
+      <workItem from="1542813651226" duration="441000" />
+      <workItem from="1546971431600" duration="1940000" />
+      <workItem from="1549374732542" duration="261000" />
+      <workItem from="1551391488534" duration="107000" />
+      <workItem from="1551448557013" duration="3287000" />
+      <workItem from="1551455027590" duration="703000" />
+      <workItem from="1551455858848" duration="9000" />
+      <workItem from="1551895367985" duration="451000" />
+      <workItem from="1560548839628" duration="747000" />
+      <workItem from="1560879098260" duration="42000" />
+      <workItem from="1561988097780" duration="1112000" />
+      <workItem from="1565992801529" duration="16000" />
+      <workItem from="1566926703355" duration="13559000" />
+      <workItem from="1566999398558" duration="6953000" />
+      <workItem from="1567115968611" duration="4494000" />
+      <workItem from="1567172054453" duration="6520000" />
+      <workItem from="1567431440845" duration="2443000" />
+      <workItem from="1567517644633" duration="591000" />
+      <workItem from="1567604236588" duration="594000" />
+      <workItem from="1567690049236" duration="4971000" />
+      <workItem from="1567781388521" duration="2212000" />
+      <workItem from="1568036134712" duration="2194000" />
+      <workItem from="1568122818515" duration="674000" />
+      <workItem from="1568209351941" duration="1270000" />
+      <workItem from="1568235925757" duration="592000" />
+      <workItem from="1568302046989" duration="592000" />
+      <workItem from="1568321781983" duration="1500000" />
+      <workItem from="1568381438086" duration="10916000" />
+      <workItem from="1568727168685" duration="14312000" />
+      <workItem from="1568813810335" duration="6464000" />
+      <workItem from="1568900494162" duration="10201000" />
+      <workItem from="1568986512341" duration="5390000" />
+      <workItem from="1569245714165" duration="16499000" />
+      <workItem from="1569333599241" duration="7867000" />
+      <workItem from="1569419220073" duration="4757000" />
+      <workItem from="1569505011632" duration="2477000" />
+      <workItem from="1569591850191" duration="8403000" />
+      <workItem from="1569855783325" duration="1246000" />
+      <workItem from="1571059751582" duration="1195000" />
+      <workItem from="1571146398233" duration="1186000" />
+      <workItem from="1571232792697" duration="2096000" />
+      <workItem from="1571752777179" duration="9233000" />
+      <workItem from="1571929911350" duration="3100000" />
+      <workItem from="1572010776783" duration="1605000" />
+      <workItem from="1572282367029" duration="1028000" />
+      <workItem from="1572974897433" duration="4513000" />
+      <workItem from="1573047488779" duration="1355000" />
+      <workItem from="1573135830437" duration="1416000" />
+      <workItem from="1573221461271" duration="1180000" />
+      <workItem from="1573480531281" duration="1807000" />
+      <workItem from="1573565959379" duration="586000" />
+      <workItem from="1573658120688" duration="712000" />
+      <workItem from="1573747590857" duration="1262000" />
+      <workItem from="1573825342511" duration="586000" />
+      <workItem from="1574172136504" duration="1905000" />
+      <workItem from="1574188802764" duration="589000" />
+      <workItem from="1574189449393" duration="602000" />
+      <workItem from="1574266440423" duration="4027000" />
+      <workItem from="1574355428715" duration="590000" />
+      <workItem from="1574441420934" duration="19000" />
+      <workItem from="1574808118423" duration="824000" />
+      <workItem from="1574861925596" duration="1781000" />
+      <workItem from="1574948574015" duration="2548000" />
+      <workItem from="1575294339151" duration="1187000" />
+      <workItem from="1575380694933" duration="1836000" />
+      <workItem from="1575466644289" duration="576000" />
+      <workItem from="1575985310139" duration="591000" />
+      <workItem from="1576175552519" duration="3597000" />
+      <workItem from="1576244262381" duration="20000" />
+      <workItem from="1576859555941" duration="2457000" />
+      <workItem from="1577108827440" duration="588000" />
+      <workItem from="1578939826809" duration="3436000" />
+      <workItem from="1579009235297" duration="585000" />
+      <workItem from="1579880837249" duration="1072000" />
+      <workItem from="1580132784954" duration="5209000" />
+      <workItem from="1580236136262" duration="2345000" />
+      <workItem from="1580305152003" duration="583000" />
+      <workItem from="1580395783346" duration="3957000" />
+      <workItem from="1580478179711" duration="1369000" />
+      <workItem from="1580825843133" duration="2613000" />
+      <workItem from="1580913733612" duration="654000" />
+      <workItem from="1581953247611" duration="695000" />
+      <workItem from="1582033391872" duration="596000" />
+      <workItem from="1582231231125" duration="2032000" />
+      <workItem from="1582292518580" duration="6784000" />
+      <workItem from="1582555501054" duration="5206000" />
+      <workItem from="1582637992961" duration="1201000" />
+      <workItem from="1582742501282" duration="588000" />
+      <workItem from="1582810872221" duration="2901000" />
+      <workItem from="1582897245165" duration="1180000" />
+      <workItem from="1583161297573" duration="1226000" />
+      <workItem from="1583188133817" duration="608000" />
+      <workItem from="1583243261358" duration="627000" />
+      <workItem from="1583358971972" duration="120000" />
+      <workItem from="1583359196875" duration="3509000" />
+      <workItem from="1583416762370" duration="5752000" />
+      <workItem from="1583501809403" duration="631000" />
+      <workItem from="1583516235350" duration="67000" />
+      <workItem from="1583861694414" duration="661000" />
+      <workItem from="1586457448944" duration="86000" />
+      <workItem from="1588693205350" duration="2531000" />
+      <workItem from="1588700896131" duration="1369000" />
+      <workItem from="1588961832136" duration="1371000" />
+      <workItem from="1589996179129" duration="97000" />
+      <workItem from="1589996487502" duration="41000" />
+      <workItem from="1590099095594" duration="638000" />
+      <workItem from="1590160049377" duration="3302000" />
+      <workItem from="1590417500517" duration="1055000" />
+      <workItem from="1590685094507" duration="29000" />
+      <workItem from="1590686369861" duration="165000" />
+      <workItem from="1590707875559" duration="28000" />
+      <workItem from="1591381674333" duration="361000" />
+      <workItem from="1591985668796" duration="839000" />
+      <workItem from="1591995353955" duration="810000" />
+      <workItem from="1592415732471" duration="120000" />
+      <workItem from="1592416055086" duration="46000" />
+      <workItem from="1594143419372" duration="2843000" />
     </task>
     <task id="LOCAL-00008" summary="No Commit">
       <changelist id="b1ed70b6-19dc-4ad2-ad55-98f695085520" name="No Commit" comment="" />
@@ -442,20 +596,280 @@
       <option name="project" value="LOCAL" />
       <updated>1524678300630</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Validacion correcta de la funcion isBetweenDatesIgnoreYear.">
+      <created>1546981469117</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1546981469117</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Cambios en id de tabla de catalogos">
+      <created>1549374963559</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1549374963559</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Se agrego al id de los grid editables, aceptar expresiones rtexprvalue">
+      <created>1551391587019</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1551391587019</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Se agrego la propiedades de enableKeyEvents y Listeners al DateColumnTag y BumberColumnTag">
+      <created>1551451823396</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1551451823396</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Se agrego al Grid Editable las propiedades de defaultSort y defaultSortDir.">
+      <created>1551455714650</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1551455714650</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Migracion a Spring 5, Hibernate 5">
+      <created>1567716556504</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1567716556504</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567716703356</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1567716703356</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567716835969</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1567716835969</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717092512</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717092512</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Se agrego e">
+      <created>1567717372772</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717372772</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717393778</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717393778</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717458522</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717458522</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717910796</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717910796</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Migracion Spring 5, Hibernate 5">
+      <created>1567717990875</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1567717990875</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Se cambio el funcionamiento de ExpressionEvaluationsUtils por ValueExpresssion.">
+      <created>1568414308962</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1568414308963</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Actualizacion de Sprign securty 5">
+      <created>1568820619587</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1568820619587</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Actualizacion a spring security 5">
+      <created>1568820815681</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1568820815681</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Se configurarion los interceptor en Arnom, ya no es necesario el annotation de Transaction.">
+      <created>1569427304259</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1569427304259</updated>
+    </task>
+    <task id="LOCAL-00037" summary="AR-281_Forza">
+      <created>1569876963900</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1569876963900</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Configuracion de librerias.">
+      <created>1573060364777</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1573060364777</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Correccion de las consultas a getHibernateTemplate().find para funcionar con Hibernate 5">
+      <created>1574272959883</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1574272959883</updated>
+    </task>
+    <task id="LOCAL-00040" summary="AR-271">
+      <created>1574273963496</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1574273963496</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Se deprec el ResponseTypes.XML y se agrego una propiedad al TextView para acceder al texto.">
+      <created>1580505193200</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1580505193200</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Cambios por motivos de compilacion, se depreca XlsUtils.">
+      <created>1582321631234</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1582321631235</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Git Ignore">
+      <created>1582322053633</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1582322053633</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Integracion de FreeMarker.">
+      <created>1582583303366</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1582583303366</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Modificaciones en Controllers globales para catalogos.">
+      <created>1583361991880</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1583361991880</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Se actualizo a la ultima version disponible de spring y hibernate.">
+      <created>1583440036117</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1583440036117</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Configuracion.">
+      <created>1586457506499</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1586457506499</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Se depreco y comento la funcionalidad del controller para el url  formDelete.html.">
+      <created>1588699909160</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1588699909160</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Se cambio el tipo de id en los catalogos por hibernate 5.">
+      <created>1588702112828</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1588702112828</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Se requiere el responseTypes XML para enviar correctamente los mensajes de error en spring 5.">
+      <created>1589996256793</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1589996256793</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Se agrega el merge a la persistencia de catalogos, por errores de duplicidad de objetos en la sesion.">
+      <created>1590418889529</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1590418889529</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Se agrego al EntityManager la opcion de merge.">
+      <created>1591382016280</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1591382016280</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Se corrigio el template de newUser en el envio de mail.">
+      <created>1591986670260</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1591986670260</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5.">
+      <created>1591997647744</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1591997647744</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Configuracion.">
+      <created>1592415767584</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1592415767584</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -469,6 +883,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
@@ -478,22 +906,32 @@
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <MESSAGE value="Project Settings SVN" />
-    <MESSAGE value="Lincese" />
-    <MESSAGE value="Documentation" />
-    <MESSAGE value="Ant file" />
-    <MESSAGE value="Added functionality to enable any Store to bind its records to a List&lt;Map&gt;" />
-    <MESSAGE value="Added method   to get Month" />
-    <MESSAGE value="Version 9 Intellij IDEA" />
-    <MESSAGE value="Merge entre trunk y beta1" />
-    <MESSAGE value="Se agregó el atributo &quot;id&quot; al tag &quot;column&quot; del grid." />
-    <MESSAGE value="Ahora el atributo valueField del tag Lov puede manejar jstl" />
-    <MESSAGE value="Se agregó el atributo sorteable al tag DateColumn" />
-    <MESSAGE value="Actualización Spring Security 3.1.4" />
-    <MESSAGE value="Actualizacion para IDEA" />
-    <MESSAGE value="Se agregó un el parametro printFooter en XlsUtils" />
-    <MESSAGE value="Actualizacion de librerias" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualizacion de librerias" />
+    <MESSAGE value="Migracion a Spring 5, Hibernate 5" />
+    <MESSAGE value="Se agrego e" />
+    <MESSAGE value="Migracion Spring 5, Hibernate 5" />
+    <MESSAGE value="Se cambio el funcionamiento de ExpressionEvaluationsUtils por ValueExpresssion." />
+    <MESSAGE value="Actualizacion de Sprign securty 5" />
+    <MESSAGE value="Actualizacion a spring security 5" />
+    <MESSAGE value="Se configurarion los interceptor en Arnom, ya no es necesario el annotation de Transaction." />
+    <MESSAGE value="AR-281_Forza" />
+    <MESSAGE value="Configuracion de librerias." />
+    <MESSAGE value="Correccion de las consultas a getHibernateTemplate().find para funcionar con Hibernate 5" />
+    <MESSAGE value="AR-271" />
+    <MESSAGE value="Se deprec el ResponseTypes.XML y se agrego una propiedad al TextView para acceder al texto." />
+    <MESSAGE value="Cambios por motivos de compilacion, se depreca XlsUtils." />
+    <MESSAGE value="Git Ignore" />
+    <MESSAGE value="Integracion de FreeMarker." />
+    <MESSAGE value="Modificaciones en Controllers globales para catalogos." />
+    <MESSAGE value="Se actualizo a la ultima version disponible de spring y hibernate." />
+    <MESSAGE value="Se depreco y comento la funcionalidad del controller para el url  formDelete.html." />
+    <MESSAGE value="Se cambio el tipo de id en los catalogos por hibernate 5." />
+    <MESSAGE value="Se requiere el responseTypes XML para enviar correctamente los mensajes de error en spring 5." />
+    <MESSAGE value="Se agrega el merge a la persistencia de catalogos, por errores de duplicidad de objetos en la sesion." />
+    <MESSAGE value="Se agrego al EntityManager la opcion de merge." />
+    <MESSAGE value="Se corrigio el template de newUser en el envio de mail." />
+    <MESSAGE value="Se agrego el prefijo {SHA-1} a los passwords de los users necesario en spring security 5." />
+    <MESSAGE value="Configuracion." />
+    <option name="LAST_COMMIT_MESSAGE" value="Configuracion." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="VssConfiguration">
@@ -537,6 +975,21 @@
           <url>file://$PROJECT_DIR$/taglib/java/src/org/forzaframework/web/servlet/tags/form/LovFieldTag.java</url>
           <line>120</line>
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core.hibernate/java/src/org/forzaframework/core/persistance/hibernate/EntityManagerImpl.java</url>
+          <line>263</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../spring-framework-master/spring-webmvc/src/main/java/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.java</url>
+          <line>862</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/lib/spring-web-5.2.3.RELEASE.jar!/org/springframework/web/bind/support/WebBindingInitializer.class</url>
+          <line>16</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -547,84 +1000,5 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>core.hibernate:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2673147" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="Copyright.UI" />
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Spring</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2673147" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2673147" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2673147" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>core</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2673147" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>jasperreports</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2673147" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ScopeChooserConfigurable.UI" />
-    </states>
   </component>
 </project>

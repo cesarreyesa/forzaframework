@@ -20,7 +20,6 @@ import org.forzaframework.layout.FileDefinitionManager;
 import org.forzaframework.layout.FileDefinition;
 import org.forzaframework.core.persistance.EntityManager;
 import org.hibernate.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -38,9 +37,28 @@ public class FileDefinitionManagerImpl implements FileDefinitionManager {
         this.entityManager = entityManager;
     }
 
+    public FileDefinition getFileDefinition(Long id) {
+        return id != null ? entityManager.get(FileDefinition.class, id) : null;
+    }
+
+    public FileDefinition getFileDefinitionByEntityCode(String code) {
+        String hql = "from FileDefinition where entity = :entityCodeParam";
+        Query query = entityManager.getHibernateSession().createQuery(hql);
+        query.setParameter("entityCodeParam", code);
+
+        return (FileDefinition) query.uniqueResult();
+    }
+
+    public List<FileDefinition> getAllFilesDefinitions() {
+        return entityManager.getAll(FileDefinition.class);
+    }
+
     public List<FileDefinition> getFileDefinitionsByEntityCode(String code) {
-        String hql = "from FileDefinition where entity = ? or entity is null";
-        return entityManager.find(hql, code);
+        String hql = "from FileDefinition where entity = :entityCodeParam or entity is null";
+        Query query = entityManager.getHibernateSession().createQuery(hql);
+        query.setParameter("entityCodeParam", code);
+
+        return query.list();
     }
 
     public List<FileDefinition> getFileDefinitionsByEntityCodes(List<String> codes) {

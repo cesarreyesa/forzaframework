@@ -16,9 +16,10 @@
 
 package org.forzaframework.web.servlet.view;
 
+import net.sf.jasperreports.engine.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
-import org.springframework.ui.jasperreports.JasperReportsUtils;
+//import org.springframework.ui.jasperreports.JasperReportsUtils;
 import org.forzaframework.util.ReportUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +28,6 @@ import javax.servlet.ServletOutputStream;
 import java.util.Map;
 import java.io.ByteArrayOutputStream;
 
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -108,7 +105,10 @@ public class DynamicJasperReportsView extends ModelAndView {
         // Render report into local OutputStream.
         // IE workaround: write into byte array first.
         ByteArrayOutputStream baos = new ByteArrayOutputStream(OUTPUT_BYTE_ARRAY_INITIAL_SIZE);
-        JasperReportsUtils.render(exporter, populatedReport, baos);
+//        JasperReportsUtils.render(exporter, populatedReport, baos);
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, populatedReport);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+        exporter.exportReport();
 
         // Write content length (determined via byte array).
         response.setContentLength(baos.size());

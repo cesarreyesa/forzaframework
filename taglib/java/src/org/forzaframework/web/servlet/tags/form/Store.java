@@ -49,6 +49,7 @@ public class Store {
     private String noSelection;
     private Boolean remoteSort = true;
     private Integer connectionTimeOut;
+    private String method;
 
     public String getId() {
         return id;
@@ -179,6 +180,14 @@ public class Store {
         this.connectionTimeOut = connectionTimeOut;
     }
 
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     public Store(String name, Boolean loadOnStart, List<Field> fields){
 		this.name = name;
 		this.loadOnStart = loadOnStart;
@@ -216,7 +225,11 @@ public class Store {
                     sb.append("storeId: '").append(id).append("',");
                 }
             }
-            sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"").append(StringUtils.isBlank(url) ? "" : url).append("\"").append(connectionTimeOut != null ? ", timeout: " + connectionTimeOut : "").append("})),");
+            sb.append("proxy: new Ext.data.HttpProxy(new Ext.data.Connection({url: \"")
+                    .append(StringUtils.isBlank(url) ? "" : url).append("\"")
+                    .append(method != null ? ", method: \"" + method + "\"": "")
+                    .append(connectionTimeOut != null ? ", timeout: " + connectionTimeOut : "")
+                    .append("})),");
             sb.append("remoteSort: " + remoteSort + ",");
             
             if(reader == null || reader.equals("xml")){

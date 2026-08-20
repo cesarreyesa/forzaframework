@@ -76,4 +76,6 @@ public interface UserManager {
     void addRoleToUser(User user, Role role);
 
     public List<User> getUsersByRole(String roleName);
+
+    public void saveLogin(User user);
 }

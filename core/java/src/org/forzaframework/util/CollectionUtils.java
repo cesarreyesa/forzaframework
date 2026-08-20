@@ -18,8 +18,8 @@ package org.forzaframework.util;
 
 import org.apache.commons.beanutils.BeanPropertyValueEqualsPredicate;
 import org.apache.commons.collections.PredicateUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.forzaframework.query.PageInfo;
@@ -34,7 +34,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class CollectionUtils {
 
-    private static Log logger = LogFactory.getLog(CollectionUtils.class);
+    private static Logger logger = LogManager.getLogger(CollectionUtils.class);
 
     public static <T> List<T> convertSetToList(Set<T> collection){
         List<T> list = new ArrayList<T>();
@@ -51,6 +51,7 @@ public class CollectionUtils {
     public static <T> List<T> paginate(List<T> list, Map model, Boolean sort){
         PageInfo pageInfo = new PageInfo();
         try {
+            pageInfo.sanitizeStart(list.size());
             org.apache.commons.beanutils.BeanUtils.populate(pageInfo, model);
         } catch (Exception e) {
             logger.warn("Error populating object page info: " + e.getMessage());
@@ -63,6 +64,9 @@ public class CollectionUtils {
     }
 
     public static <T> List<T> paginate(List<T> list, PageInfo pageInfo, Boolean sort) {
+
+        pageInfo.sanitizeStart(list.size());
+
         if (sort && StringUtils.isNotBlank(pageInfo.getSort())) {
             Collections.sort(list, new BeanComparator(pageInfo.getSort(), pageInfo.getDir()));
         }
@@ -103,6 +107,8 @@ public class CollectionUtils {
     }
 
     public static String join(List items, String separator){
+        if(items == null || items.isEmpty()) return "";
+
         StringBuilder joinList = new StringBuilder();
         for(Object item : items){
             joinList.append(item.toString()).append(separator);
@@ -115,6 +121,8 @@ public class CollectionUtils {
     }
 
     public static String join(Object[] items, String separator){
+        if(items == null || items.length == 0) return "";
+
         StringBuilder joinList = new StringBuilder();
         for(Object item : items){
             joinList.append(item.toString()).append(separator);

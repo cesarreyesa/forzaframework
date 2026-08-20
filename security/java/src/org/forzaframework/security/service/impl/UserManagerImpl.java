@@ -16,6 +16,8 @@
 
 package org.forzaframework.security.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.forzaframework.security.UserLogin;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -78,9 +80,9 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         if(user.getId() == null){
             newUser(user);
         }else{
-            User originalUser = (User) entityManager.get(User.class, user.getId(), true);
+            User originalUser = entityManager.get(User.class, user.getId(), true);
             if(!originalUser.getPassword().equals(user.getPassword())){
-                user.setPassword(org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
+                user.setPassword("{SHA-1}" + org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
             }
             entityManager.save(user);
         }
@@ -97,16 +99,17 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
 
     public void newUser(User user, Map model) {
         String password = user.getPassword();
-        user.setPassword(org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
+        user.setPassword("{SHA-1}" + org.forzaframework.util.StringUtils.encodePassword(user.getPassword(), "SHA"));
+        user.setCreationDate(new Date());
         entityManager.save(user);
 
-        if(mailMessage != null && mailEngine != null){
+        if(mailMessage != null && mailEngine != null && StringUtils.isNotEmpty(user.getEmail())){
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Nuevo Usuario");
             if(model == null) model = new HashMap();
             model.put("user", user);
             model.put("password", password);
-            mailEngine.sendMessage(mailMessage, "newUser.vm", model, false);
+            mailEngine.sendMessage(mailMessage, "newUser.txt", model, false);
         }
     }
 
@@ -122,16 +125,16 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         return entityManager.getAll(Role.class);
     }
 
-    public Role getRole(String rolename) {
-        return entityManager.get(Role.class, rolename);
+    public Role getRole(String roleName) {
+        return entityManager.get(Role.class, roleName);
     }
 
     public void saveRole(Role role) {
         entityManager.save(role);
     }
 
-    public void removeRole(String rolename) {
-        entityManager.delete(getRole(rolename));
+    public void removeRole(String roleName) {
+        entityManager.delete(getRole(roleName));
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
@@ -143,8 +146,7 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
     }
 
     public List<User> getUsersByRole(String roleName) {
-      String hql = "select user from User as user join user.roles as role where role.name = ?";
-
+      String hql = "select user from User as user join user.roles as role where role.name = ?0";
       return entityManager.find(hql, roleName);
     }
 
@@ -156,8 +158,20 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         return rolesAsList;
     }
 
+    public void saveLogin(User user){
+        UserLogin userLogin = new UserLogin();
+        try {
+            userLogin = entityManager.get(UserLogin.class, new Criteria().add(Restrictions.eq("user", user)));
+        }
+        catch (ObjectRetrievalFailureException e) {
+        }
+        userLogin.setLoginDate(new Date());
+        if (userLogin.getUser() == null) userLogin.setUser(user);
+        entityManager.save(userLogin);
+    }
+
     public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority(role));
         }
@@ -168,5 +182,4 @@ public class UserManagerImpl implements UserManager, UserDetailsService {
         List<GrantedAuthority> authList = getGrantedAuthorities(getRolesAsList(roles));
         return authList;
     }
-
 }

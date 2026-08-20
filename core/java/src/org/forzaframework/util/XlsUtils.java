@@ -19,8 +19,7 @@ package org.forzaframework.util;
 import net.sf.json.JSONObject;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.*;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -33,6 +32,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @SuppressWarnings({"unchecked"})
+@Deprecated
 public class XlsUtils {
     static private List<Map<String, Object>> getRowGroups(Map<String, Object> model, String key) {
         List<Map<String, Object>> rows;
@@ -52,7 +52,7 @@ public class XlsUtils {
         return rows;
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model) {
         List<Map<String, Object>> headers = getRowGroups(model, "header");
         List<Map<String, Object>> data = getRowGroups(model, "data");
         List<Map<String, Object>> footers = getRowGroups(model, "totals");
@@ -66,19 +66,19 @@ public class XlsUtils {
         modelToExcelSheet(wb, sheetName, headers, data, footers);
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Integer freezePane) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model, Integer freezePane) {
         modelToExcelSheet(wb, sheetName, model, freezePane, true, true, null, null, true, true);
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Boolean defaultFormat) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model, Boolean defaultFormat) {
         modelToExcelSheet(wb, sheetName, model, null, defaultFormat, true, null, null, true, true);
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Boolean defaultFormat, Boolean createNewSheet) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model, Boolean defaultFormat, Boolean createNewSheet) {
         modelToExcelSheet(wb, sheetName, model, null, defaultFormat, createNewSheet, null, null, true, true);
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Integer freezePane, Boolean defaultFormat, Boolean createNewSheet, Integer indexSheet, Integer startInRow, Boolean printHeader,Boolean autoSizeColumns) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model, Integer freezePane, Boolean defaultFormat, Boolean createNewSheet, Integer indexSheet, Integer startInRow, Boolean printHeader,Boolean autoSizeColumns) {
         List<Map<String, Object>> headers = getRowGroups(model, "header");
         List<Map<String, Object>> data = getRowGroups(model, "data");
         List<Map<String, Object>> footers = getRowGroups(model, "totals");
@@ -86,46 +86,46 @@ public class XlsUtils {
         modelToExcelSheet(wb, sheetName, headers, data, footers, freezePane, defaultFormat, createNewSheet, indexSheet, startInRow, printHeader, autoSizeColumns);
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, Boolean defaultFormat, Boolean createNewSheet) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, Boolean defaultFormat, Boolean createNewSheet) {
         modelToExcelSheet(wb, sheetName, headers, data, null, null, defaultFormat, createNewSheet, 0, null, true, true);
 
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, Boolean defaultFormat, Integer freezePane) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, Boolean defaultFormat, Integer freezePane) {
         modelToExcelSheet(wb, sheetName, headers, data, null, freezePane, defaultFormat, true, null, null, true, true);
 
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers) {
         modelToExcelSheet(wb, sheetName, headers, data, footers, null, true, true, null, null, true, true);
 
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Boolean defaultFormat, Boolean createNewSheet) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Boolean defaultFormat, Boolean createNewSheet) {
         modelToExcelSheet(wb, sheetName, headers, data, footers, null, defaultFormat, createNewSheet, null, null, true, true);
 
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Integer freezePane, Boolean defaultFormat, Boolean createNewSheet) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Integer freezePane, Boolean defaultFormat, Boolean createNewSheet) {
         modelToExcelSheet(wb, sheetName, headers, data, footers, freezePane, defaultFormat, createNewSheet, null, null, true, true);
 
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Integer freezePane) {
+    static public void modelToExcelSheet(Workbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Integer freezePane) {
         modelToExcelSheet(wb, sheetName, headers, data, footers, freezePane, true, true, null, null, true, true);
     }
 
-    static public void modelToExcelSheet(HSSFWorkbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Integer freezePane, Boolean defaultFormat, Boolean createNewSheet, Integer indexSheet, Integer startInRow, Boolean printHeader, Boolean autoSizeColumns) {
-        HSSFSheet sheet = getSheet(wb, sheetName, createNewSheet, indexSheet);
-        HSSFCellStyle headerCellStyle = getDefaultHeaderCellStyle(wb, defaultFormat);
-        HSSFCellStyle titlesCellStyle = null;
+    static public void modelToExcelSheet(Workbook wb, String sheetName, List<Map<String, Object>> headers, List<Map<String, Object>> data, List<Map<String, Object>> footers, Integer freezePane, Boolean defaultFormat, Boolean createNewSheet, Integer indexSheet, Integer startInRow, Boolean printHeader, Boolean autoSizeColumns) {
+        Sheet sheet = getSheet(wb, sheetName, createNewSheet, indexSheet);
+        CellStyle headerCellStyle = getDefaultHeaderCellStyle(wb, defaultFormat);
+        CellStyle titlesCellStyle = null;
         if (defaultFormat != null && defaultFormat) {
             titlesCellStyle = wb.createCellStyle();
             //Creamos el tipo de fuente
-            HSSFFont titleFont = wb.createFont();
+            Font titleFont = wb.createFont();
 //            headerFont.setFontName(HSSFFont.FONT_ARIAL);
             titleFont.setBold(Boolean.TRUE);
-            titleFont.setColor(HSSFFont.COLOR_NORMAL);
+            titleFont.setColor(Font.COLOR_NORMAL);
             titleFont.setFontHeightInPoints((short)8);
             titlesCellStyle.setFont(titleFont);
         }
@@ -143,7 +143,7 @@ public class XlsUtils {
             //Armamos el encabezado
             for (Map<String, Object> header : headers) {
                 for (Map.Entry<String, Object> entry : header.entrySet()) {
-                    HSSFCell cell = getCell( sheet, row, col);
+                    Cell cell = getCell( sheet, row, col);
                     if (defaultFormat != null && defaultFormat) {
                         if (principalHeaderIndex.equals(row)) {
                             //Colocamos el formato de la celda
@@ -167,7 +167,7 @@ public class XlsUtils {
         }
 
 
-        HSSFCellStyle detailCellStyle = getDefaultDetailCellStyle(wb, defaultFormat);
+        CellStyle detailCellStyle = getDefaultDetailCellStyle(wb, defaultFormat);
 
         Map<String, Object> principalHeader = headers.get(principalHeaderIndex);
         // datos
@@ -180,13 +180,13 @@ public class XlsUtils {
             col = 0;
             row++;
         }
-        HSSFCellStyle totalCellStyle = null;
+        CellStyle totalCellStyle = null;
         if (defaultFormat != null && defaultFormat) {
             //Armamos el formato los totales
             totalCellStyle = wb.createCellStyle();
-            HSSFFont totalFont = wb.createFont();
+            Font totalFont = wb.createFont();
             totalFont.setBold(Boolean.TRUE);
-            totalFont.setColor(HSSFFont.COLOR_NORMAL);
+            totalFont.setColor(Font.COLOR_NORMAL);
             totalFont.setFontHeightInPoints((short)8);
             totalCellStyle.setFont(totalFont);
         }
@@ -194,7 +194,7 @@ public class XlsUtils {
         if(footers != null) {
             for (Map<String, Object> footer : footers) {
                 for (Map.Entry<String, Object> entry : principalHeader.entrySet()) {
-                    HSSFCell cell = getCell( sheet, row, col++);
+                    Cell cell = getCell( sheet, row, col++);
                     if (totalCellStyle != null) {
                         //Colocamos el formato de la celda
                         cell.setCellStyle(totalCellStyle);
@@ -221,8 +221,8 @@ public class XlsUtils {
         }
     }
 
-    public static void buildCellAndCalculateColumnWidth(HSSFSheet sheet, Object value, Integer col, Integer row, HSSFCellStyle detailCellStyle, Map<Integer, Integer> columnWidthMap, Boolean autoSizeColumns) {
-        HSSFCell cell = getCell(sheet, row, col);
+    public static void buildCellAndCalculateColumnWidth(Sheet sheet, Object value, Integer col, Integer row, CellStyle detailCellStyle, Map<Integer, Integer> columnWidthMap, Boolean autoSizeColumns) {
+        Cell cell = getCell(sheet, row, col);
 
         if (detailCellStyle != null) {
             //Le damos formato a la celda
@@ -242,7 +242,7 @@ public class XlsUtils {
         }
     }
 
-    public static void setColumnsWidth(HSSFSheet sheet, Map<Integer, Integer> columnWidthMap, Integer numberOfColumns) {
+    public static void setColumnsWidth(Sheet sheet, Map<Integer, Integer> columnWidthMap, Integer numberOfColumns) {
         //Colocamos las columnas con el ancho correcto
         for(Integer i=0 ; i < numberOfColumns ; i++) {
             //Obtenemos el maximo numero de caracteres de la columna
@@ -256,27 +256,27 @@ public class XlsUtils {
         }
     }
 
-    public static HSSFCellStyle getDefaultDetailCellStyle(HSSFWorkbook wb, Boolean defaultFormat) {
-        HSSFCellStyle detailCellStyle = null;
+    public static CellStyle getDefaultDetailCellStyle(Workbook wb, Boolean defaultFormat) {
+        CellStyle detailCellStyle = null;
         if (defaultFormat != null && defaultFormat) {
             //Armamos el formato para los datos del detalle
             detailCellStyle = wb.createCellStyle();
-            HSSFFont detailFont = wb.createFont();
+            Font detailFont = wb.createFont();
             detailFont.setFontHeightInPoints((short)8);
             detailCellStyle.setFont(detailFont);
         }
         return detailCellStyle;
     }
 
-    public static void setRowHeight(HSSFSheet sheet, Integer row, Short height) {
-        HSSFRow headerRow = sheet.getRow(row);
+    public static void setRowHeight(Sheet sheet, Integer row, Short height) {
+        Row headerRow = sheet.getRow(row);
         if (headerRow != null) {
             headerRow.setHeight(height);
         }
     }
 
-    public static HSSFCellStyle getDefaultHeaderCellStyle(HSSFWorkbook wb, Boolean defaultFormat) {
-        HSSFCellStyle headerCellStyle = null;
+    public static CellStyle getDefaultHeaderCellStyle(Workbook wb, Boolean defaultFormat) {
+        CellStyle headerCellStyle = null;
         if (defaultFormat != null && defaultFormat) {
             //Le damos formato a los encabezados
             headerCellStyle = wb.createCellStyle();
@@ -285,18 +285,18 @@ public class XlsUtils {
 //        headerCellStyle.setFillBackgroundColor(HSSFColor.GREY_25_PERCENT.index);
             headerCellStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex());
             //Creamos el tipo de fuente
-            HSSFFont headerFont = wb.createFont();
+            Font headerFont = wb.createFont();
 //            headerFont.setFontName(HSSFFont.FONT_ARIAL);
             headerFont.setBold(Boolean.TRUE);
-            headerFont.setColor(HSSFFont.COLOR_NORMAL);
+            headerFont.setColor(Font.COLOR_NORMAL);
             headerFont.setFontHeightInPoints((short)8);
             headerCellStyle.setFont(headerFont);
         }
         return headerCellStyle;
     }
 
-    public static HSSFSheet getSheet(HSSFWorkbook wb, String sheetName, Boolean createNewSheet, Integer indexSheet) {
-        HSSFSheet sheet = null;//Revisamos si vamos a crear una hoja nueva o con una ya existente.
+    public static Sheet getSheet(Workbook wb, String sheetName, Boolean createNewSheet, Integer indexSheet) {
+        Sheet sheet = null;//Revisamos si vamos a crear una hoja nueva o con una ya existente.
         if ((createNewSheet != null && createNewSheet) || wb.getNumberOfSheets() == 0) {
             //Creamos una hoja nueva
             if (sheetName != null) {
@@ -324,32 +324,32 @@ public class XlsUtils {
         return sheet;
     }
 
-    static public HSSFCell getCell(HSSFSheet sheet, int row, int col) {
-        HSSFRow sheetRow = sheet.getRow(row);
+    static public Cell getCell(Sheet sheet, int row, int col) {
+        Row sheetRow = sheet.getRow(row);
         if (sheetRow == null) {
             sheetRow = sheet.createRow(row);
         }
-        HSSFCell cell = sheetRow.getCell(col);
+        Cell cell = sheetRow.getCell(col);
         if (cell == null) {
             cell = sheetRow.createCell(col);
         }
         return cell;
     }
 
-    static public void setText(HSSFCell cell, String text) {
-        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+    static public void setText(Cell cell, String text) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
         cell.setCellValue(text);
     }
 
-    static public void setValue(HSSFCell cell, Object object) {
+    static public void setValue(Cell cell, Object object) {
         if (object instanceof Double) {
-            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
             cell.setCellValue((Double) object);
         } else if(object instanceof Integer) {
-            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
             cell.setCellValue(((Integer)object).doubleValue());
         } else if(object instanceof BigDecimal) {
-            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
             cell.setCellValue(((BigDecimal)object).doubleValue());
         } else if(object instanceof String) {
             cell.setCellValue((String) object);
@@ -358,29 +358,29 @@ public class XlsUtils {
         } else if(object instanceof Boolean) {
             cell.setCellValue((Boolean)object ? "Si" : "No");
         } else {
-            cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            cell.setCellType(Cell.CELL_TYPE_STRING);
             cell.setCellValue(object.toString());
         }
     }
 
-    static public void setNumeric(HSSFCell cell, Double value) {
-        cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+    static public void setNumeric(Cell cell, Double value) {
+        cell.setCellType(Cell.CELL_TYPE_NUMERIC);
         cell.setCellValue(value);
     }
 
-    static public void setNumeric(HSSFSheet sheet, int row, int col, Double value) {
-        HSSFCell cell = getCell(sheet, row, col);
-        cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+    static public void setNumeric(Sheet sheet, int row, int col, Double value) {
+        Cell cell = getCell(sheet, row, col);
+        cell.setCellType(Cell.CELL_TYPE_NUMERIC);
         cell.setCellValue(value);
     }
 
-    static public void setText(HSSFSheet sheet, int row, int col, String text) {
-        HSSFCell cell = getCell(sheet, row, col);
-        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+    static public void setText(Sheet sheet, int row, int col, String text) {
+        Cell cell = getCell(sheet, row, col);
+        cell.setCellType(Cell.CELL_TYPE_STRING);
         cell.setCellValue(text);
     }
 
-    static public Integer addModelToExcelSheet(HSSFWorkbook wb, String sheetName, Map<String, Object> model, Integer freezePane, Integer startInRow, Boolean printHeader, Boolean autoSizeColumns, Boolean printFooter) {
+    static public Integer addModelToExcelSheet(Workbook wb, String sheetName, Map<String, Object> model, Integer freezePane, Integer startInRow, Boolean printHeader, Boolean autoSizeColumns, Boolean printFooter) {
         Integer totalRows = 0;
         List<Map<String, Object>> headers = getRowGroups(model, "header");
         List<Map<String, Object>> data = getRowGroups(model, "data");
@@ -404,13 +404,13 @@ public class XlsUtils {
         return totalRows;
     }
 
-    static public void jsonToExcelSheet(HSSFWorkbook wb, List<JSONObject> jsonRecordList, String sheetName, Integer freezePane) {
+    static public void jsonToExcelSheet(Workbook wb, List<JSONObject> jsonRecordList, String sheetName, Integer freezePane) {
         jsonToExcelSheet(wb, null, jsonRecordList, sheetName, freezePane);
     }
 
-    static public void jsonToExcelSheet(HSSFWorkbook wb, List<JSONObject> jsonHeaderList, List<JSONObject> jsonRecordList, String sheetName, Integer freezePane) {
-        HSSFSheet sheet = getSheet(wb, sheetName, true, 0);
-        HSSFCellStyle headerCellStyle = getDefaultHeaderCellStyle(wb, true);
+    static public void jsonToExcelSheet(Workbook wb, List<JSONObject> jsonHeaderList, List<JSONObject> jsonRecordList, String sheetName, Integer freezePane) {
+        Sheet sheet = getSheet(wb, sheetName, true, 0);
+        CellStyle headerCellStyle = getDefaultHeaderCellStyle(wb, true);
 
         Integer col = 0;
         Integer row = 0;
@@ -424,7 +424,7 @@ public class XlsUtils {
             for (JSONObject header : headerList) {
                 Collection headerValues = header.values();
                 for (Object o : headerValues) {
-                    HSSFCell cell = getCell( sheet, row, col);
+                    Cell cell = getCell( sheet, row, col);
                     setValue(cell, o);
                     col++;
                 }
@@ -443,7 +443,7 @@ public class XlsUtils {
         }
         Collection headerValues = principalHeader.values();
         for (Object o : headerValues) {
-            HSSFCell cell = getCell( sheet, row, col);
+            Cell cell = getCell( sheet, row, col);
             cell.setCellStyle(headerCellStyle);
             setValue(cell, o);
             columnWidthMap.put(col, o.toString().length());
@@ -454,7 +454,7 @@ public class XlsUtils {
 
         setRowHeight(sheet, row-1, (short)420);
 
-        HSSFCellStyle detailCellStyle = getDefaultDetailCellStyle(wb, true);
+        CellStyle detailCellStyle = getDefaultDetailCellStyle(wb, true);
         for (JSONObject jsonObject : datas) {
             for (Object value : jsonObject.values()) {
                 buildCellAndCalculateColumnWidth(sheet, value, col, row, detailCellStyle, columnWidthMap, true);

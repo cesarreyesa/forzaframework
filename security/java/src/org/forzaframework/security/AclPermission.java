@@ -17,7 +17,6 @@
 package org.forzaframework.security;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.CollectionOfElements;
 
 import javax.persistence.*;
 import java.util.List;
@@ -57,7 +56,7 @@ public class AclPermission  {
         this.user = user;
     }
 
-    @CollectionOfElements
+    @ElementCollection
     public List<Long> getEntities() {
         return entities;
     }

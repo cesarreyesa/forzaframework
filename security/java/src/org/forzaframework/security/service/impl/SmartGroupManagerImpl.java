@@ -104,17 +104,17 @@ public class SmartGroupManagerImpl implements SmartGroupManager {
 //        crit.add(Restrictions.eq("clazz", clazz));
 
 //        return getHibernateTemplate().findByCriteria(crit);
-        return entityManager.find("select user.smartGroups from User as user where user.username = ?", user.getUsername());
+        return entityManager.find("select user.smartGroups from User as user where user.username = ?0", user.getUsername());
     }
 
     public List<User> getSmartGroupUsers(SmartGroup smartGroup){
-        String hql = "from User as user where user.smartGroups.id = ?";
+        String hql = "from User as user where user.smartGroups.id = ?0";
         return entityManager.find(hql, smartGroup.getId());
     }
 
     public List<User> getUsersNotInSmartGroup(SmartGroup smartGroup){
 //        String hql = "from EUser as user where size(user.smartGroups) = 0 or user.smartGroups.id <> ?";
-        String hql = "from User as user where user.id not in (select user.id from EUser as user where user.smartGroups.id = ?) ";
+        String hql = "from User as user where user.id not in (select user.id from EUser as user where user.smartGroups.id = ?0) ";
         return entityManager.find(hql, smartGroup.getId());
     }
 
