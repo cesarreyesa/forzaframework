@@ -107,6 +107,8 @@ public class CollectionUtils {
     }
 
     public static String join(List items, String separator){
+        if(items == null || items.isEmpty()) return "";
+
         StringBuilder joinList = new StringBuilder();
         for(Object item : items){
             joinList.append(item.toString()).append(separator);
@@ -119,6 +121,8 @@ public class CollectionUtils {
     }
 
     public static String join(Object[] items, String separator){
+        if(items == null || items.length == 0) return "";
+
         StringBuilder joinList = new StringBuilder();
         for(Object item : items){
             joinList.append(item.toString()).append(separator);
