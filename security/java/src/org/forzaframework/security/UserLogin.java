@@ -38,8 +38,7 @@ public class UserLogin extends BaseEntity {
     private Date loginDate = new Date();
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
